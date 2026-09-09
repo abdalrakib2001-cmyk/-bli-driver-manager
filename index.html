@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#070707">
+<meta name="theme-color" content="#050505">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>BLI Driver Manager</title>
 
 <style>
@@ -15,6 +16,7 @@
 :root{
   --bg:#050505;
   --card:#111214;
+  --card2:#0c0d0e;
   --red:#ff2929;
   --red2:#a90000;
   --orange:#ff7800;
@@ -35,7 +37,7 @@ body{
   font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;
   color:var(--text);
   background:
-    radial-gradient(circle at 85% 0%,rgba(255,35,35,.12),transparent 28%),
+    radial-gradient(circle at 85% 0%,rgba(255,35,35,.13),transparent 28%),
     radial-gradient(circle at 0% 80%,rgba(255,100,0,.07),transparent 25%),
     linear-gradient(145deg,#030303,#0a0a0b 45%,#030303);
   overflow-x:hidden;
@@ -70,9 +72,9 @@ button{
     calc(12px + env(safe-area-inset-top))
     16px
     12px;
-  background:rgba(5,5,5,.82);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
+  background:rgba(5,5,5,.84);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
   border-bottom:1px solid rgba(255,255,255,.07);
 }
 
@@ -89,38 +91,39 @@ button{
 }
 
 .brand-mark{
-  width:38px;
-  height:38px;
-  border-radius:12px;
+  width:40px;
+  height:40px;
+  border-radius:13px;
   display:grid;
   place-items:center;
-  background:linear-gradient(145deg,#ff3030,#870000);
+  background:
+    linear-gradient(145deg,#ff3b3b,#760000);
   box-shadow:
-    0 8px 25px rgba(255,0,0,.28),
+    0 8px 28px rgba(255,0,0,.3),
     inset 0 1px 0 rgba(255,255,255,.25);
-  font-size:19px;
+  font-size:20px;
 }
 
 .brand-title{
   font-size:13px;
-  font-weight:900;
+  font-weight:1000;
   letter-spacing:1.8px;
 }
 
 .brand-sub{
   color:#777;
-  font-size:10px;
+  font-size:9px;
   margin-top:2px;
-  letter-spacing:1px;
+  letter-spacing:1.2px;
 }
 
 .status{
   display:flex;
   align-items:center;
   gap:7px;
-  font-size:10px;
-  color:#9b9b9b;
-  letter-spacing:1px;
+  font-size:9px;
+  color:#999;
+  letter-spacing:1.2px;
 }
 
 .status-dot{
@@ -128,7 +131,13 @@ button{
   height:7px;
   border-radius:50%;
   background:var(--green);
-  box-shadow:0 0 12px var(--green);
+  box-shadow:0 0 13px var(--green);
+  animation:pulseDot 1.8s ease-in-out infinite;
+}
+
+@keyframes pulseDot{
+  0%,100%{opacity:.65;transform:scale(.9)}
+  50%{opacity:1;transform:scale(1.15)}
 }
 
 /* =========================
@@ -137,36 +146,54 @@ button{
 
 .hero{
   position:relative;
-  padding:34px 18px 20px;
+  padding:36px 18px 22px;
   overflow:hidden;
 }
 
 .hero:before{
   content:"";
   position:absolute;
-  width:300px;
-  height:300px;
-  top:-140px;
+  width:330px;
+  height:330px;
+  top:-150px;
   right:-100px;
-  background:radial-gradient(circle,rgba(255,35,35,.16),transparent 65%);
+  background:
+    radial-gradient(circle,rgba(255,35,35,.17),transparent 65%);
+  pointer-events:none;
+}
+
+.hero:after{
+  content:"";
+  position:absolute;
+  left:-80px;
+  bottom:-100px;
+  width:240px;
+  height:240px;
+  background:
+    radial-gradient(circle,rgba(255,90,0,.08),transparent 65%);
   pointer-events:none;
 }
 
 .hero-label{
+  position:relative;
+  z-index:2;
   color:var(--red);
-  font-size:11px;
-  font-weight:900;
+  font-size:10px;
+  font-weight:1000;
   letter-spacing:3px;
-  margin-bottom:8px;
+  margin-bottom:9px;
 }
 
 .hero h1{
+  position:relative;
+  z-index:2;
   margin:0;
-  font-size:clamp(32px,9vw,60px);
-  line-height:.95;
+  font-size:clamp(36px,10vw,64px);
+  line-height:.92;
   font-weight:1000;
-  letter-spacing:-2px;
+  letter-spacing:-2.5px;
   text-transform:uppercase;
+  text-shadow:0 15px 45px rgba(0,0,0,.7);
 }
 
 .hero h1 span{
@@ -175,9 +202,11 @@ button{
 }
 
 .hero p{
+  position:relative;
+  z-index:2;
   color:#8b8b8f;
   font-size:13px;
-  margin:14px 0 0;
+  margin:15px 0 0;
 }
 
 /* =========================
@@ -185,26 +214,49 @@ button{
 ========================= */
 
 .target-card{
-  margin:10px 16px 22px;
+  margin:10px 16px 23px;
   padding:18px;
   border:1px solid rgba(255,255,255,.1);
-  border-radius:24px;
+  border-radius:25px;
   background:
-    linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.025)),
+    linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025)),
     #101112;
   box-shadow:var(--shadow);
   position:relative;
   overflow:hidden;
 }
 
+.target-card:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:25px;
+  padding:1px;
+  background:
+    linear-gradient(
+      130deg,
+      rgba(255,50,50,.45),
+      transparent 35%,
+      transparent 65%,
+      rgba(255,110,0,.18)
+    );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none;
+}
+
 .target-card:after{
   content:"";
   position:absolute;
-  width:180px;
-  height:180px;
-  left:-70px;
-  bottom:-100px;
-  background:radial-gradient(circle,rgba(255,40,40,.2),transparent 65%);
+  width:190px;
+  height:190px;
+  left:-75px;
+  bottom:-105px;
+  background:
+    radial-gradient(circle,rgba(255,40,40,.2),transparent 65%);
 }
 
 .target-top{
@@ -212,31 +264,45 @@ button{
   justify-content:space-between;
   align-items:center;
   gap:10px;
+  position:relative;
+  z-index:2;
 }
 
 .target-title{
-  font-weight:900;
+  font-weight:1000;
   font-size:14px;
 }
 
 .target-week{
-  font-size:11px;
+  font-size:10px;
   color:#777;
+  margin-top:3px;
+}
+
+#targetStatus{
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:1px;
 }
 
 .target-number{
-  margin-top:12px;
-  font-size:30px;
+  position:relative;
+  z-index:2;
+  margin-top:13px;
+  font-size:31px;
   font-weight:1000;
+  letter-spacing:-1px;
 }
 
 .target-number span{
-  font-size:12px;
+  font-size:11px;
   color:#777;
   font-weight:600;
 }
 
 .progress{
+  position:relative;
+  z-index:2;
   height:8px;
   border-radius:99px;
   background:#292a2c;
@@ -248,17 +314,20 @@ button{
   height:100%;
   width:0%;
   border-radius:99px;
-  background:linear-gradient(90deg,var(--red2),var(--red),var(--orange));
-  box-shadow:0 0 18px rgba(255,30,30,.5);
+  background:
+    linear-gradient(90deg,var(--red2),var(--red),var(--orange));
+  box-shadow:0 0 20px rgba(255,30,30,.55);
   transition:width .7s cubic-bezier(.2,.8,.2,1);
 }
 
 .target-bottom{
+  position:relative;
+  z-index:2;
   display:flex;
   justify-content:space-between;
   gap:10px;
   margin-top:10px;
-  font-size:11px;
+  font-size:10px;
   color:#8d8d8d;
 }
 
@@ -284,12 +353,13 @@ button{
 .section-heading h2{
   margin:0;
   font-size:17px;
+  font-weight:1000;
 }
 
 .section-heading span{
   color:#777;
-  font-size:10px;
-  letter-spacing:1px;
+  font-size:9px;
+  letter-spacing:1.2px;
 }
 
 .launcher{
@@ -300,13 +370,15 @@ button{
 
 .module{
   position:relative;
-  min-height:150px;
+  min-height:158px;
   padding:17px;
-  border-radius:23px;
+  border-radius:24px;
   border:1px solid rgba(255,255,255,.09);
   background:
     linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.018));
-  box-shadow:0 16px 35px rgba(0,0,0,.38);
+  box-shadow:
+    0 16px 35px rgba(0,0,0,.38),
+    inset 0 1px 0 rgba(255,255,255,.025);
   overflow:hidden;
   text-align:right;
   color:white;
@@ -319,72 +391,77 @@ button{
 .module:before{
   content:"";
   position:absolute;
-  width:150px;
-  height:150px;
-  left:-75px;
-  bottom:-80px;
+  width:170px;
+  height:170px;
+  left:-80px;
+  bottom:-90px;
   border-radius:50%;
   background:var(--accent,rgba(255,40,40,.2));
-  filter:blur(15px);
-  opacity:.5;
+  filter:blur(18px);
+  opacity:.55;
 }
 
 .module:after{
   content:"";
   position:absolute;
   top:0;
-  right:-100%;
-  width:70%;
+  right:-110%;
+  width:80%;
   height:100%;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,.07),
-    transparent
-  );
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.08),
+      transparent
+    );
   transform:skewX(-18deg);
-  transition:right .6s ease;
+  transition:right .65s ease;
 }
 
 .module:active{
-  transform:scale(.96);
-  border-color:rgba(255,50,50,.6);
+  transform:scale(.95);
+  border-color:rgba(255,50,50,.65);
   box-shadow:
-    0 0 30px rgba(255,30,30,.2),
+    0 0 32px rgba(255,30,30,.2),
     inset 0 0 25px rgba(255,255,255,.03);
 }
 
 .module:active:after{
-  right:140%;
+  right:145%;
 }
 
 .module-icon{
   position:relative;
   z-index:2;
-  width:48px;
-  height:48px;
-  border-radius:16px;
+  width:51px;
+  height:51px;
+  border-radius:17px;
   display:grid;
   place-items:center;
-  font-size:25px;
-  background:rgba(255,255,255,.07);
+  font-size:26px;
+  background:rgba(255,255,255,.075);
   border:1px solid rgba(255,255,255,.08);
-  margin-bottom:18px;
+  margin-bottom:19px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 8px 20px rgba(0,0,0,.22);
 }
 
 .module-title{
   position:relative;
   z-index:2;
   font-size:16px;
-  font-weight:950;
+  font-weight:1000;
 }
 
 .module-desc{
   position:relative;
   z-index:2;
   color:#777;
-  font-size:10px;
+  font-size:9px;
   margin-top:5px;
+  line-height:1.5;
 }
 
 .module-arrow{
@@ -393,6 +470,7 @@ button{
   bottom:14px;
   color:#666;
   z-index:2;
+  font-size:14px;
 }
 
 .module.red{
@@ -450,24 +528,34 @@ button{
 }
 
 .back-btn{
-  width:44px;
-  height:44px;
+  width:45px;
+  height:45px;
   border-radius:15px;
   border:1px solid var(--line);
-  background:#111;
+  background:
+    linear-gradient(145deg,#171819,#0b0c0d);
   color:white;
   font-size:20px;
+  box-shadow:
+    0 8px 22px rgba(0,0,0,.3),
+    inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+.back-btn:active{
+  transform:scale(.94);
 }
 
 .page-header-text h2{
   margin:0;
   font-size:24px;
+  font-weight:1000;
 }
 
 .page-header-text p{
   margin:4px 0 0;
   color:#777;
-  font-size:11px;
+  font-size:10px;
+  letter-spacing:1px;
 }
 
 /* =========================
@@ -478,7 +566,7 @@ button{
   background:
     linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
   border:1px solid var(--line);
-  border-radius:22px;
+  border-radius:23px;
   padding:16px;
   box-shadow:0 18px 45px rgba(0,0,0,.35);
   margin-bottom:14px;
@@ -506,6 +594,7 @@ select{
   background:#0b0c0d;
   outline:none;
   font-size:14px;
+  min-height:48px;
 }
 
 input:focus,
@@ -529,15 +618,22 @@ input[readonly]{
 .btn{
   border:0;
   border-radius:14px;
-  min-height:46px;
+  min-height:47px;
   padding:0 15px;
   font-weight:900;
   color:white;
 }
 
 .btn-primary{
-  background:linear-gradient(135deg,#ff3333,#9d0000);
-  box-shadow:0 9px 25px rgba(255,0,0,.22);
+  background:
+    linear-gradient(135deg,#ff3333,#9d0000);
+  box-shadow:
+    0 9px 25px rgba(255,0,0,.22),
+    inset 0 1px 0 rgba(255,255,255,.18);
+}
+
+.btn-primary:active{
+  transform:scale(.97);
 }
 
 .btn-secondary{
@@ -548,6 +644,247 @@ input[readonly]{
 .btn-danger{
   background:#401010;
   color:#ff7777;
+}
+
+/* =========================
+   ROLL DATE INPUT
+========================= */
+
+.date-roll-input{
+  width:100%;
+  min-height:48px;
+  padding:0 14px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.1);
+  background:#0b0c0d;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  text-align:right;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+.date-roll-input:active{
+  transform:scale(.985);
+  border-color:rgba(255,45,45,.6);
+}
+
+.date-roll-value{
+  font-size:14px;
+}
+
+.date-roll-icon{
+  font-size:18px;
+  opacity:.85;
+}
+
+.date-roll-input.report-date{
+  min-height:48px;
+}
+
+/* =========================
+   DATE PICKER MODAL
+========================= */
+
+.date-picker-overlay{
+  position:fixed;
+  inset:0;
+  z-index:300;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  background:rgba(0,0,0,.68);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  opacity:0;
+  transition:opacity .22s ease;
+}
+
+.date-picker-overlay.show{
+  display:flex;
+  opacity:1;
+}
+
+.date-picker-sheet{
+  width:100%;
+  max-width:620px;
+  background:
+    linear-gradient(145deg,#18191a,#0b0c0d);
+  border:1px solid rgba(255,255,255,.1);
+  border-bottom:0;
+  border-radius:28px 28px 0 0;
+  padding:
+    10px
+    16px
+    calc(18px + env(safe-area-inset-bottom));
+  box-shadow:
+    0 -25px 80px rgba(0,0,0,.65);
+  transform:translateY(100%);
+  transition:transform .3s cubic-bezier(.2,.8,.2,1);
+}
+
+.date-picker-overlay.show .date-picker-sheet{
+  transform:translateY(0);
+}
+
+.picker-handle{
+  width:42px;
+  height:4px;
+  border-radius:99px;
+  background:#555;
+  margin:4px auto 14px;
+}
+
+.picker-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:14px;
+}
+
+.picker-title{
+  font-size:17px;
+  font-weight:1000;
+}
+
+.picker-subtitle{
+  color:#777;
+  font-size:9px;
+  margin-top:3px;
+}
+
+.picker-btn{
+  border:0;
+  border-radius:12px;
+  min-width:70px;
+  min-height:40px;
+  padding:0 12px;
+  font-size:12px;
+  font-weight:900;
+  color:white;
+  background:#222;
+}
+
+.picker-btn.done{
+  background:
+    linear-gradient(135deg,#ff3333,#980000);
+}
+
+.wheel-area{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 1.35fr 1fr;
+  gap:7px;
+  height:214px;
+  overflow:hidden;
+  border-radius:20px;
+  background:#090a0b;
+  border:1px solid rgba(255,255,255,.07);
+}
+
+.wheel-area:before,
+.wheel-area:after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  height:72px;
+  z-index:4;
+  pointer-events:none;
+}
+
+.wheel-area:before{
+  top:0;
+  background:
+    linear-gradient(
+      #090a0b,
+      rgba(9,10,11,.78),
+      transparent
+    );
+}
+
+.wheel-area:after{
+  bottom:0;
+  background:
+    linear-gradient(
+      transparent,
+      rgba(9,10,11,.78),
+      #090a0b
+    );
+}
+
+.wheel-column{
+  position:relative;
+  height:214px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  scroll-snap-type:y mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  direction:ltr;
+  overscroll-behavior:contain;
+}
+
+.wheel-column::-webkit-scrollbar{
+  display:none;
+}
+
+.wheel-spacer{
+  height:86px;
+  flex:none;
+}
+
+.wheel-item{
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  scroll-snap-align:center;
+  color:#666;
+  font-size:15px;
+  font-weight:700;
+  direction:rtl;
+  flex:none;
+  transition:
+    color .15s ease,
+    transform .15s ease;
+}
+
+.wheel-item.selected{
+  color:white;
+  font-size:18px;
+  font-weight:1000;
+  transform:scale(1.04);
+}
+
+.wheel-selection{
+  position:absolute;
+  left:8px;
+  right:8px;
+  top:86px;
+  height:42px;
+  border-radius:12px;
+  border:1px solid rgba(255,45,45,.34);
+  background:rgba(255,40,40,.055);
+  box-shadow:
+    0 0 22px rgba(255,30,30,.08),
+    inset 0 0 15px rgba(255,30,30,.035);
+  pointer-events:none;
+  z-index:3;
+}
+
+.picker-preview{
+  text-align:center;
+  margin-top:13px;
+  color:#aaa;
+  font-size:12px;
+}
+
+.picker-preview strong{
+  color:white;
+  font-size:14px;
 }
 
 /* =========================
@@ -580,9 +917,11 @@ input[readonly]{
 .item{
   position:relative;
   padding:14px;
-  border-radius:17px;
-  background:#0d0e0f;
+  border-radius:18px;
+  background:
+    linear-gradient(145deg,#101112,#0a0b0c);
   border:1px solid rgba(255,255,255,.07);
+  box-shadow:0 10px 25px rgba(0,0,0,.2);
 }
 
 .item-main{
@@ -593,7 +932,7 @@ input[readonly]{
 
 .item-title{
   font-size:13px;
-  font-weight:800;
+  font-weight:900;
 }
 
 .item-date{
@@ -604,13 +943,14 @@ input[readonly]{
 
 .item-value{
   font-size:16px;
-  font-weight:950;
+  font-weight:1000;
 }
 
 .item-meta{
   margin-top:8px;
   color:#777;
   font-size:10px;
+  line-height:1.7;
 }
 
 .delete-btn{
@@ -641,10 +981,23 @@ input[readonly]{
 }
 
 .stat{
+  position:relative;
+  overflow:hidden;
   padding:15px;
-  border-radius:17px;
-  background:#0d0e0f;
+  border-radius:18px;
+  background:
+    linear-gradient(145deg,#111213,#0b0c0d);
   border:1px solid rgba(255,255,255,.07);
+}
+
+.stat:after{
+  content:"";
+  position:absolute;
+  width:80px;
+  height:80px;
+  left:-35px;
+  bottom:-45px;
+  background:radial-gradient(circle,rgba(255,255,255,.06),transparent 65%);
 }
 
 .stat-label{
@@ -654,8 +1007,8 @@ input[readonly]{
 
 .stat-value{
   margin-top:6px;
-  font-size:19px;
-  font-weight:950;
+  font-size:18px;
+  font-weight:1000;
 }
 
 .stat.green .stat-value{
@@ -726,46 +1079,195 @@ input[readonly]{
 }
 
 /* =========================
-   TRANSITION
+   DRIVING TRANSITION
 ========================= */
 
 .transition{
   position:fixed;
   inset:0;
-  z-index:100;
+  z-index:200;
   pointer-events:none;
   opacity:0;
   background:
-    radial-gradient(circle at center,rgba(255,30,30,.18),transparent 35%),
-    #050505;
+    radial-gradient(
+      ellipse at center,
+      rgba(255,30,30,.22),
+      transparent 35%
+    ),
+    linear-gradient(
+      180deg,
+      #020202,
+      #090909,
+      #020202
+    );
+  overflow:hidden;
 }
 
 .transition.active{
-  animation:driveTransition .52s ease both;
+  animation:driveTransition .72s ease both;
+}
+
+.transition-label{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  z-index:8;
+  text-align:center;
+  opacity:0;
+}
+
+.transition.active .transition-label{
+  animation:loadingText .6s ease both;
+}
+
+.loading-small{
+  color:#777;
+  font-size:8px;
+  letter-spacing:4px;
+  margin-bottom:5px;
+}
+
+.loading-main{
+  color:white;
+  font-size:22px;
+  font-weight:1000;
+  letter-spacing:5px;
+  text-shadow:
+    0 0 25px rgba(255,255,255,.22);
+}
+
+.loading-dots{
+  display:inline-block;
+  width:24px;
+  text-align:left;
+}
+
+.car-loader{
+  position:absolute;
+  left:-100px;
+  top:calc(50% + 42px);
+  z-index:9;
+  font-size:52px;
+  filter:
+    drop-shadow(0 0 12px rgba(255,30,30,.6));
+  transform:translateX(0) scaleX(-1);
+}
+
+.transition.active .car-loader{
+  animation:carDrive .58s cubic-bezier(.15,.75,.25,1) both;
+}
+
+.car-shadow{
+  position:absolute;
+  left:-130px;
+  top:calc(50% + 87px);
+  width:170px;
+  height:7px;
+  border-radius:50%;
+  background:rgba(0,0,0,.8);
+  filter:blur(5px);
+}
+
+.transition.active .car-shadow{
+  animation:shadowDrive .58s ease both;
 }
 
 .speed-line{
   position:absolute;
   height:2px;
   width:var(--w);
-  right:-30%;
+  right:-40%;
   top:var(--top);
-  background:linear-gradient(90deg,transparent,#fff,transparent);
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #fff,
+      rgba(255,40,40,.9),
+      transparent
+    );
   opacity:.7;
   transform:skewX(-20deg);
 }
 
 .transition.active .speed-line{
-  animation:speed .42s linear both;
+  animation:speed .46s linear both;
   animation-delay:var(--delay);
+}
+
+.road-glow{
+  position:absolute;
+  left:0;
+  right:0;
+  top:calc(50% + 105px);
+  height:1px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,50,50,.7),
+      transparent
+    );
+  opacity:.5;
+}
+
+@keyframes carDrive{
+  0%{
+    left:-110px;
+    opacity:0;
+  }
+  12%{
+    opacity:1;
+  }
+  45%{
+    left:45%;
+  }
+  100%{
+    left:115%;
+    opacity:0;
+  }
+}
+
+@keyframes shadowDrive{
+  0%{
+    left:-140px;
+    opacity:0;
+  }
+  15%{
+    opacity:.8;
+  }
+  100%{
+    left:120%;
+    opacity:0;
+  }
+}
+
+@keyframes loadingText{
+  0%{
+    opacity:0;
+    transform:translate(-50%,-50%) scale(.85);
+  }
+  30%{
+    opacity:1;
+  }
+  100%{
+    opacity:0;
+    transform:translate(-50%,-50%) scale(1.04);
+  }
 }
 
 @keyframes speed{
   from{
-    right:-30%;
+    right:-40%;
+    opacity:0;
+  }
+  20%{
+    opacity:.8;
   }
   to{
-    right:130%;
+    right:135%;
+    opacity:0;
   }
 }
 
@@ -773,7 +1275,7 @@ input[readonly]{
   0%{
     opacity:0;
   }
-  20%{
+  12%{
     opacity:1;
   }
   70%{
@@ -818,6 +1320,15 @@ footer{
     grid-template-columns:repeat(4,1fr);
   }
 
+  .date-picker-sheet{
+    border-radius:28px;
+    margin-bottom:20px;
+    border:1px solid rgba(255,255,255,.1);
+  }
+
+  .date-picker-overlay{
+    align-items:center;
+  }
 }
 </style>
 </head>
@@ -892,7 +1403,10 @@ footer{
           🎯 هدف الأسبوع
         </div>
 
-        <div class="target-week" id="homeWeekText"></div>
+        <div
+          class="target-week"
+          id="homeWeekText">
+        </div>
 
       </div>
 
@@ -1132,7 +1646,23 @@ footer{
 
         <input
           id="bliDate"
-          type="date">
+          type="hidden">
+
+        <button
+          type="button"
+          class="date-roll-input"
+          onclick="openDatePicker('bliDate')">
+
+          <span
+            id="bliDateDisplay"
+            class="date-roll-value">
+          </span>
+
+          <span class="date-roll-icon">
+            📅
+          </span>
+
+        </button>
 
       </div>
 
@@ -1270,7 +1800,23 @@ footer{
 
         <input
           id="fuelDate"
-          type="date">
+          type="hidden">
+
+        <button
+          type="button"
+          class="date-roll-input"
+          onclick="openDatePicker('fuelDate')">
+
+          <span
+            id="fuelDateDisplay"
+            class="date-roll-value">
+          </span>
+
+          <span class="date-roll-icon">
+            📅
+          </span>
+
+        </button>
 
       </div>
 
@@ -1415,7 +1961,23 @@ footer{
 
         <input
           id="extraDate"
-          type="date">
+          type="hidden">
+
+        <button
+          type="button"
+          class="date-roll-input"
+          onclick="openDatePicker('extraDate')">
+
+          <span
+            id="extraDateDisplay"
+            class="date-roll-value">
+          </span>
+
+          <span class="date-roll-icon">
+            📅
+          </span>
+
+        </button>
 
       </div>
 
@@ -1549,7 +2111,23 @@ footer{
 
         <input
           id="expenseDate"
-          type="date">
+          type="hidden">
+
+        <button
+          type="button"
+          class="date-roll-input"
+          onclick="openDatePicker('expenseDate')">
+
+          <span
+            id="expenseDateDisplay"
+            class="date-roll-value">
+          </span>
+
+          <span class="date-roll-icon">
+            📅
+          </span>
+
+        </button>
 
       </div>
 
@@ -1725,8 +2303,23 @@ footer{
 
         <input
           id="reportDate"
-          type="date"
-          onchange="renderReports()">
+          type="hidden">
+
+        <button
+          type="button"
+          class="date-roll-input report-date"
+          onclick="openDatePicker('reportDate')">
+
+          <span
+            id="reportDateDisplay"
+            class="date-roll-value">
+          </span>
+
+          <span class="date-roll-icon">
+            📅
+          </span>
+
+        </button>
 
       </div>
 
@@ -2081,13 +2674,45 @@ footer{
 
 </div>
 
-<!-- =========================
-     TRANSITION
-========================= -->
+<!-- =========================================================
+     OPTIONAL EXTERNAL CAR SOUND
+     ضع ملف supercar-rev.mp3 بجانب index.html
+========================================================= -->
+
+<audio
+  id="supercarSound"
+  preload="auto"
+  src="supercar-rev.mp3">
+</audio>
+
+<!-- =========================================================
+     DRIVING TRANSITION
+========================================================= -->
 
 <div
   id="transition"
   class="transition">
+
+  <div class="transition-label">
+
+    <div class="loading-small">
+      DRIVER MODE
+    </div>
+
+    <div class="loading-main">
+      LOADING
+      <span class="loading-dots">...</span>
+    </div>
+
+  </div>
+
+  <div class="car-loader">
+    🏎️
+  </div>
+
+  <div class="car-shadow"></div>
+
+  <div class="road-glow"></div>
 
   <div
     class="speed-line"
@@ -2122,6 +2747,90 @@ footer{
   <div
     class="speed-line"
     style="--w:55%;--top:82%;--delay:.09s">
+  </div>
+
+</div>
+
+<!-- =========================================================
+     DATE ROLL PICKER
+========================================================= -->
+
+<div
+  id="datePickerOverlay"
+  class="date-picker-overlay"
+  onclick="handleDateOverlayClick(event)">
+
+  <div class="date-picker-sheet">
+
+    <div class="picker-handle"></div>
+
+    <div class="picker-header">
+
+      <button
+        type="button"
+        class="picker-btn"
+        onclick="closeDatePicker()">
+
+        إلغاء
+
+      </button>
+
+      <div style="text-align:center;">
+
+        <div class="picker-title">
+          اختيار التاريخ
+        </div>
+
+        <div class="picker-subtitle">
+          اسحب العجلات مثل الآيفون
+        </div>
+
+      </div>
+
+      <button
+        type="button"
+        class="picker-btn done"
+        onclick="confirmDatePicker()">
+
+        تم
+
+      </button>
+
+    </div>
+
+    <div class="wheel-area">
+
+      <div
+        id="dayWheel"
+        class="wheel-column"
+        onscroll="wheelScrolled('day')">
+      </div>
+
+      <div
+        id="monthWheel"
+        class="wheel-column"
+        onscroll="wheelScrolled('month')">
+      </div>
+
+      <div
+        id="yearWheel"
+        class="wheel-column"
+        onscroll="wheelScrolled('year')">
+      </div>
+
+      <div class="wheel-selection"></div>
+
+    </div>
+
+    <div class="picker-preview">
+
+      التاريخ المختار:
+      <strong id="pickerPreview">
+        -
+      </strong>
+
+    </div>
+
   </div>
 
 </div>
@@ -2417,8 +3126,41 @@ function calculateRange(period,dateString){
 }
 
 /* =========================================================
-   TRANSITION
-   لا يوجد صوت
+   EXTERNAL CAR SOUND
+   الملف اختياري ومستقل عن index.html
+========================================================= */
+
+function playCarSound(){
+
+  const audio =
+    document.getElementById(
+      "supercarSound"
+    );
+
+  if(!audio) return;
+
+  try{
+
+    audio.currentTime = 0;
+
+    const promise =
+      audio.play();
+
+    if(
+      promise &&
+      typeof promise.catch === "function"
+    ){
+
+      promise.catch(()=>{});
+
+    }
+
+  }catch(error){}
+
+}
+
+/* =========================================================
+   DRIVING TRANSITION
 ========================================================= */
 
 function transitionEffect(){
@@ -2428,17 +3170,21 @@ function transitionEffect(){
       "transition"
     );
 
+  if(!el) return;
+
   el.classList.remove("active");
 
   void el.offsetWidth;
 
   el.classList.add("active");
 
+  playCarSound();
+
   setTimeout(()=>{
 
     el.classList.remove("active");
 
-  },600);
+  },720);
 
 }
 
@@ -2486,7 +3232,7 @@ function openModule(id){
 
     renderAll();
 
-  },150);
+  },210);
 
 }
 
@@ -2500,7 +3246,641 @@ function goHome(){
 
     renderAll();
 
-  },150);
+  },210);
+
+}
+
+/* =========================================================
+   ROLL DATE PICKER
+========================================================= */
+
+let datePickerTarget = null;
+
+let pickerDate = {
+  year: new Date().getFullYear(),
+  month: new Date().getMonth()+1,
+  day: new Date().getDate()
+};
+
+const monthNames = [
+
+  "يناير",
+  "فبراير",
+  "مارس",
+  "أبريل",
+  "مايو",
+  "يونيو",
+  "يوليو",
+  "أغسطس",
+  "سبتمبر",
+  "أكتوبر",
+  "نوفمبر",
+  "ديسمبر"
+
+];
+
+function parseISODate(value){
+
+  if(
+    !value ||
+    !/^\d{4}-\d{2}-\d{2}$/.test(value)
+  ){
+
+    const t =
+      today();
+
+    const parts =
+      t.split("-");
+
+    return {
+      year:Number(parts[0]),
+      month:Number(parts[1]),
+      day:Number(parts[2])
+    };
+
+  }
+
+  const parts =
+    value.split("-");
+
+  return {
+
+    year:Number(parts[0]),
+
+    month:Number(parts[1]),
+
+    day:Number(parts[2])
+
+  };
+
+}
+
+function daysInMonth(year,month){
+
+  return new Date(
+    year,
+    month,
+    0
+  ).getDate();
+
+}
+
+function pad2(value){
+
+  return String(value)
+    .padStart(2,"0");
+
+}
+
+function pickerISO(){
+
+  return `${pickerDate.year}-${pad2(pickerDate.month)}-${pad2(pickerDate.day)}`;
+
+}
+
+function pickerDisplay(){
+
+  return `${pickerDate.day} ${monthNames[pickerDate.month-1]} ${pickerDate.year}`;
+
+}
+
+function openDatePicker(targetId){
+
+  const target =
+    document.getElementById(targetId);
+
+  if(!target) return;
+
+  datePickerTarget =
+    targetId;
+
+  pickerDate =
+    parseISODate(
+      target.value || today()
+    );
+
+  normalizePickerDay();
+
+  buildDateWheels();
+
+  updatePickerPreview();
+
+  const overlay =
+    document.getElementById(
+      "datePickerOverlay"
+    );
+
+  overlay.classList.add("show");
+
+  document.body.style.overflow =
+    "hidden";
+
+}
+
+function closeDatePicker(){
+
+  const overlay =
+    document.getElementById(
+      "datePickerOverlay"
+    );
+
+  overlay.classList.remove("show");
+
+  document.body.style.overflow =
+    "";
+
+  datePickerTarget =
+    null;
+
+}
+
+function handleDateOverlayClick(event){
+
+  if(
+    event.target &&
+    event.target.id ===
+    "datePickerOverlay"
+  ){
+
+    closeDatePicker();
+
+  }
+
+}
+
+function confirmDatePicker(){
+
+  if(!datePickerTarget){
+
+    closeDatePicker();
+
+    return;
+
+  }
+
+  const input =
+    document.getElementById(
+      datePickerTarget
+    );
+
+  if(!input){
+
+    closeDatePicker();
+
+    return;
+
+  }
+
+  input.value =
+    pickerISO();
+
+  updateDateDisplay(
+    datePickerTarget
+  );
+
+  if(
+    datePickerTarget ===
+    "reportDate"
+  ){
+
+    renderReports();
+
+  }
+
+  closeDatePicker();
+
+}
+
+function updateDateDisplay(inputId){
+
+  const input =
+    document.getElementById(inputId);
+
+  if(!input) return;
+
+  const display =
+    document.getElementById(
+      inputId+"Display"
+    );
+
+  if(!display) return;
+
+  display.textContent =
+    formatDate(input.value);
+
+}
+
+function normalizePickerDay(){
+
+  const max =
+    daysInMonth(
+      pickerDate.year,
+      pickerDate.month
+    );
+
+  if(
+    pickerDate.day > max
+  ){
+
+    pickerDate.day =
+      max;
+
+  }
+
+  if(
+    pickerDate.day < 1
+  ){
+
+    pickerDate.day =
+      1;
+
+  }
+
+}
+
+function buildDateWheels(){
+
+  const dayWheel =
+    document.getElementById(
+      "dayWheel"
+    );
+
+  const monthWheel =
+    document.getElementById(
+      "monthWheel"
+    );
+
+  const yearWheel =
+    document.getElementById(
+      "yearWheel"
+    );
+
+  const dayCount =
+    daysInMonth(
+      pickerDate.year,
+      pickerDate.month
+    );
+
+  let dayHTML =
+    `<div class="wheel-spacer"></div>`;
+
+  for(
+    let i=1;
+    i<=dayCount;
+    i++
+  ){
+
+    dayHTML +=
+      `<div
+        class="wheel-item"
+        data-value="${i}">
+        ${i}
+      </div>`;
+
+  }
+
+  dayHTML +=
+    `<div class="wheel-spacer"></div>`;
+
+  dayWheel.innerHTML =
+    dayHTML;
+
+  let monthHTML =
+    `<div class="wheel-spacer"></div>`;
+
+  for(
+    let i=1;
+    i<=12;
+    i++
+  ){
+
+    monthHTML +=
+      `<div
+        class="wheel-item"
+        data-value="${i}">
+        ${monthNames[i-1]}
+      </div>`;
+
+  }
+
+  monthHTML +=
+    `<div class="wheel-spacer"></div>`;
+
+  monthWheel.innerHTML =
+    monthHTML;
+
+  const currentYear =
+    new Date().getFullYear();
+
+  let yearHTML =
+    `<div class="wheel-spacer"></div>`;
+
+  let startYear =
+    currentYear-5;
+
+  let endYear =
+    currentYear+5;
+
+  if(
+    pickerDate.year < startYear
+  ){
+
+    startYear =
+      pickerDate.year-5;
+
+  }
+
+  if(
+    pickerDate.year > endYear
+  ){
+
+    endYear =
+      pickerDate.year+5;
+
+  }
+
+  for(
+    let i=startYear;
+    i<=endYear;
+    i++
+  ){
+
+    yearHTML +=
+      `<div
+        class="wheel-item"
+        data-value="${i}">
+        ${i}
+      </div>`;
+
+  }
+
+  yearHTML +=
+    `<div class="wheel-spacer"></div>`;
+
+  yearWheel.innerHTML =
+    yearHTML;
+
+  requestAnimationFrame(()=>{
+
+    scrollWheelToValue(
+      dayWheel,
+      pickerDate.day,
+      false
+    );
+
+    scrollWheelToValue(
+      monthWheel,
+      pickerDate.month,
+      false
+    );
+
+    scrollWheelToValue(
+      yearWheel,
+      pickerDate.year,
+      false
+    );
+
+    refreshSelectedWheelItems();
+
+  });
+
+}
+
+function scrollWheelToValue(
+  wheel,
+  value,
+  smooth=true
+){
+
+  if(!wheel) return;
+
+  const items =
+    wheel.querySelectorAll(
+      ".wheel-item"
+    );
+
+  let index = 0;
+
+  items.forEach(
+    (item,i)=>{
+
+      if(
+        Number(
+          item.dataset.value
+        ) === Number(value)
+      ){
+
+        index=i;
+
+      }
+
+    }
+  );
+
+  const top =
+    86 + index*42;
+
+  wheel.scrollTo({
+
+    top,
+
+    behavior:
+      smooth
+      ? "smooth"
+      : "auto"
+
+  });
+
+}
+
+function getWheelValue(wheel){
+
+  if(!wheel) return null;
+
+  const items =
+    wheel.querySelectorAll(
+      ".wheel-item"
+    );
+
+  if(!items.length)
+    return null;
+
+  const index =
+    Math.round(
+      (wheel.scrollTop-86)/42
+    );
+
+  const safeIndex =
+    Math.max(
+      0,
+      Math.min(
+        items.length-1,
+        index
+      )
+    );
+
+  return Number(
+    items[safeIndex]
+      .dataset.value
+  );
+
+}
+
+function wheelScrolled(type){
+
+  if(
+    !datePickerTarget
+  ) return;
+
+  const wheel =
+    document.getElementById(
+      type+"Wheel"
+    );
+
+  if(!wheel) return;
+
+  const value =
+    getWheelValue(wheel);
+
+  if(value === null)
+    return;
+
+  if(type==="day"){
+
+    pickerDate.day =
+      value;
+
+  }
+
+  if(type==="month"){
+
+    pickerDate.month =
+      value;
+
+    normalizePickerDay();
+
+    rebuildDaysKeepingSelection();
+
+  }
+
+  if(type==="year"){
+
+    pickerDate.year =
+      value;
+
+    normalizePickerDay();
+
+    rebuildDaysKeepingSelection();
+
+  }
+
+  refreshSelectedWheelItems();
+
+  updatePickerPreview();
+
+}
+
+function rebuildDaysKeepingSelection(){
+
+  const dayWheel =
+    document.getElementById(
+      "dayWheel"
+    );
+
+  const oldDay =
+    pickerDate.day;
+
+  const max =
+    daysInMonth(
+      pickerDate.year,
+      pickerDate.month
+    );
+
+  pickerDate.day =
+    Math.min(
+      oldDay,
+      max
+    );
+
+  let html =
+    `<div class="wheel-spacer"></div>`;
+
+  for(
+    let i=1;
+    i<=max;
+    i++
+  ){
+
+    html +=
+      `<div
+        class="wheel-item"
+        data-value="${i}">
+        ${i}
+      </div>`;
+
+  }
+
+  html +=
+    `<div class="wheel-spacer"></div>`;
+
+  dayWheel.innerHTML =
+    html;
+
+  requestAnimationFrame(()=>{
+
+    scrollWheelToValue(
+      dayWheel,
+      pickerDate.day,
+      false
+    );
+
+    refreshSelectedWheelItems();
+
+  });
+
+}
+
+function refreshSelectedWheelItems(){
+
+  document
+    .querySelectorAll(
+      ".wheel-column"
+    )
+    .forEach(wheel=>{
+
+      const value =
+        getWheelValue(wheel);
+
+      wheel
+        .querySelectorAll(
+          ".wheel-item"
+        )
+        .forEach(item=>{
+
+          item.classList.toggle(
+            "selected",
+            Number(
+              item.dataset.value
+            ) === Number(value)
+          );
+
+        });
+
+    });
+
+}
+
+function updatePickerPreview(){
+
+  const preview =
+    document.getElementById(
+      "pickerPreview"
+    );
+
+  if(!preview) return;
+
+  preview.textContent =
+    pickerDisplay();
 
 }
 
@@ -2780,6 +4160,10 @@ function resetBli(){
   ).value =
     today();
 
+  updateDateDisplay(
+    "bliDate"
+  );
+
   document.getElementById(
     "bliIncome"
   ).value =
@@ -3021,6 +4405,10 @@ function resetFuel(){
   ).value =
     today();
 
+  updateDateDisplay(
+    "fuelDate"
+  );
+
   document.getElementById(
     "fuelType"
   ).value =
@@ -3215,6 +4603,10 @@ function resetExtra(){
   ).value =
     today();
 
+  updateDateDisplay(
+    "extraDate"
+  );
+
   document.getElementById(
     "extraType"
   ).value =
@@ -3404,6 +4796,10 @@ function resetExpense(){
     "expenseDate"
   ).value =
     today();
+
+  updateDateDisplay(
+    "expenseDate"
+  );
 
   document.getElementById(
     "expenseType"
@@ -3921,30 +5317,53 @@ function clearAllData(){
 
 function setDefaultDates(){
 
+  const current =
+    today();
+
   document.getElementById(
     "bliDate"
   ).value =
-    today();
+    current;
 
   document.getElementById(
     "fuelDate"
   ).value =
-    today();
+    current;
 
   document.getElementById(
     "extraDate"
   ).value =
-    today();
+    current;
 
   document.getElementById(
     "expenseDate"
   ).value =
-    today();
+    current;
 
   document.getElementById(
     "reportDate"
   ).value =
-    today();
+    current;
+
+  updateDateDisplay(
+    "bliDate"
+  );
+
+  updateDateDisplay(
+    "fuelDate"
+  );
+
+  updateDateDisplay(
+    "extraDate"
+  );
+
+  updateDateDisplay(
+    "expenseDate"
+  );
+
+  updateDateDisplay(
+    "reportDate"
+  );
 
   updateFuelPrice();
 
@@ -3969,6 +5388,16 @@ function renderAll(){
   renderReports();
 
   renderSettings();
+
+  updateDateDisplay("bliDate");
+
+  updateDateDisplay("fuelDate");
+
+  updateDateDisplay("extraDate");
+
+  updateDateDisplay("expenseDate");
+
+  updateDateDisplay("reportDate");
 
 }
 
