@@ -682,6 +682,22 @@ footer{
   will-change:transform;
 }
 
+.wheel-tread{
+  position:absolute;
+  inset:-8px;
+  border-radius:50%;
+  background:repeating-conic-gradient(
+    from 2deg,
+    rgba(61,66,62,.95) 0 3deg,
+    rgba(9,11,10,.98) 3deg 8deg
+  );
+  -webkit-mask:radial-gradient(circle,transparent 0 69%,#000 70% 100%);
+  mask:radial-gradient(circle,transparent 0 69%,#000 70% 100%);
+  opacity:.9;
+  z-index:3;
+  pointer-events:none;
+}
+
 .luxury-wheel:before{
   content:"";
   position:absolute;
@@ -1467,6 +1483,7 @@ footer{
     <div class="road">
       <div class="wheel-halo"></div>
       <div class="luxury-wheel" aria-label="عجلة سيارة فاخرة تدور">
+        <span class="wheel-tread"></span>
         <span class="wheel-spoke" style="--angle:0deg"></span>
         <span class="wheel-spoke" style="--angle:45deg"></span>
         <span class="wheel-spoke" style="--angle:90deg"></span>
@@ -1585,7 +1602,7 @@ function formatDate(value){
   const parts = value.split("-");
   if(parts.length!==3) return value;
 
-  return `${parts[2]}/${parts[1]}/${parts[0]}`;
+  return `${parts[0]}/${Number(parts[1])}/${Number(parts[2])}`;
 }
 
 function dateToISO(date){
@@ -2459,21 +2476,6 @@ function clearAllData(){
    DATE WHEEL PICKER
    ========================================================= */
 
-const monthsArabic = [
-  "يناير",
-  "فبراير",
-  "مارس",
-  "أبريل",
-  "مايو",
-  "يونيو",
-  "يوليو",
-  "أغسطس",
-  "سبتمبر",
-  "أكتوبر",
-  "نوفمبر",
-  "ديسمبر"
-];
-
 let datePickerTarget = null;
 let datePickerDraft = {
   year:0,
@@ -2582,7 +2584,7 @@ function updateSelectedWheel(type){
     clampPickerDay();
 
     document.getElementById("datePreview").textContent =
-      `${datePickerDraft.day} ${monthsArabic[datePickerDraft.month]} ${datePickerDraft.year}`;
+      `${datePickerDraft.year}/${datePickerDraft.month+1}/${datePickerDraft.day}`;
   }
 }
 
@@ -2630,9 +2632,9 @@ function renderDatePickerWheels(){
   }
 
   const months =
-    monthsArabic.map((label,index)=>({
+    Array.from({length:12},(_,index)=>({
       value:index,
-      label
+      label:String(index+1)
     }));
 
   const daysCount =
@@ -2674,7 +2676,7 @@ function renderDatePickerWheels(){
   });
 
   document.getElementById("datePreview").textContent =
-    `${datePickerDraft.day} ${monthsArabic[datePickerDraft.month]} ${datePickerDraft.year}`;
+    `${datePickerDraft.year}/${datePickerDraft.month+1}/${datePickerDraft.day}`;
 }
 
 function openDatePicker(targetId){
@@ -2763,7 +2765,7 @@ function updateDateDisplay(id){
   if(parts.length!==3) return;
 
   display.textContent =
-    `${parts[2]} ${monthsArabic[parts[1]-1]} ${parts[0]}`;
+    `${parts[0]}/${parts[1]}/${parts[2]}`;
 }
 
 function syncAllDateDisplays(){
