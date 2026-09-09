@@ -14,13 +14,10 @@
 
 :root{
   --bg:#050505;
-  --bg2:#0a0a0b;
   --card:#111214;
-  --card2:#161719;
   --red:#ff2929;
   --red2:#a90000;
   --orange:#ff7800;
-  --gold:#ffb000;
   --green:#20d47b;
   --text:#f5f5f5;
   --muted:#8d8d92;
@@ -97,8 +94,7 @@ button{
   border-radius:12px;
   display:grid;
   place-items:center;
-  background:
-    linear-gradient(145deg,#ff3030,#870000);
+  background:linear-gradient(145deg,#ff3030,#870000);
   box-shadow:
     0 8px 25px rgba(255,0,0,.28),
     inset 0 1px 0 rgba(255,255,255,.25);
@@ -417,10 +413,6 @@ button{
 
 .module.purple{
   --accent:rgba(150,70,255,.2);
-}
-
-.module.gold{
-  --accent:rgba(255,180,0,.2);
 }
 
 /* =========================
@@ -809,6 +801,7 @@ footer{
 ========================= */
 
 @media(min-width:700px){
+
   .launcher{
     grid-template-columns:repeat(3,1fr);
   }
@@ -824,6 +817,7 @@ footer{
   .stats{
     grid-template-columns:repeat(4,1fr);
   }
+
 }
 </style>
 </head>
@@ -833,14 +827,25 @@ footer{
 <div class="app">
 
 <header class="topbar">
+
   <div class="topbar-inner">
 
     <div class="brand">
-      <div class="brand-mark">🏎️</div>
-      <div>
-        <div class="brand-title">BLI DRIVER</div>
-        <div class="brand-sub">MANAGEMENT SYSTEM</div>
+
+      <div class="brand-mark">
+        🏎️
       </div>
+
+      <div>
+        <div class="brand-title">
+          BLI DRIVER
+        </div>
+
+        <div class="brand-sub">
+          MANAGEMENT SYSTEM
+        </div>
+      </div>
+
     </div>
 
     <div class="status">
@@ -849,6 +854,7 @@ footer{
     </div>
 
   </div>
+
 </header>
 
 <main>
@@ -860,7 +866,10 @@ footer{
 <section id="home" class="page-section active">
 
   <div class="hero">
-    <div class="hero-label">READY TO DRIVE</div>
+
+    <div class="hero-label">
+      READY TO DRIVE
+    </div>
 
     <h1>
       DRIVER<br>
@@ -870,35 +879,61 @@ footer{
     <p>
       إدارة دخلك ومصاريفك ووقودك من مكان واحد.
     </p>
+
   </div>
 
   <div class="target-card">
 
     <div class="target-top">
+
       <div>
-        <div class="target-title">🎯 هدف الأسبوع</div>
+
+        <div class="target-title">
+          🎯 هدف الأسبوع
+        </div>
+
         <div class="target-week" id="homeWeekText"></div>
+
       </div>
 
-      <div id="targetStatus">جاهز</div>
+      <div id="targetStatus">
+        جاهز
+      </div>
+
     </div>
 
     <div class="target-number">
+
       <span id="homeIncome">0</span>
-      <span>د.ع</span>
+
+      <span>
+        د.ع
+      </span>
+
     </div>
 
     <div class="progress">
-      <div id="homeProgress" class="progress-bar"></div>
+
+      <div
+        id="homeProgress"
+        class="progress-bar">
+      </div>
+
     </div>
 
     <div class="target-bottom">
+
       <span>
         الهدف:
-        <strong id="homeTarget">250,000</strong>
+        <strong id="homeTarget">
+          250,000
+        </strong>
       </span>
 
-      <span id="homeRemaining">المتبقي 250,000 د.ع</span>
+      <span id="homeRemaining">
+        المتبقي 250,000 د.ع
+      </span>
+
     </div>
 
   </div>
@@ -906,52 +941,149 @@ footer{
   <div class="dashboard">
 
     <div class="section-heading">
-      <h2>اختر المهمة</h2>
-      <span>SELECT MODULE</span>
+
+      <h2>
+        اختر المهمة
+      </h2>
+
+      <span>
+        SELECT MODULE
+      </span>
+
     </div>
 
     <div class="launcher">
 
-      <button class="module red" onclick="openModule('bli')">
-        <div class="module-icon">💰</div>
-        <div class="module-title">دخل Bli</div>
-        <div class="module-desc">الدخل والعمولة والبونص</div>
-        <div class="module-arrow">←</div>
+      <button
+        class="module red"
+        onclick="openModule('bli')">
+
+        <div class="module-icon">
+          💰
+        </div>
+
+        <div class="module-title">
+          دخل Bli
+        </div>
+
+        <div class="module-desc">
+          الدخل والعمولة والبونص
+        </div>
+
+        <div class="module-arrow">
+          ←
+        </div>
+
       </button>
 
-      <button class="module orange" onclick="openModule('fuel')">
-        <div class="module-icon">⛽</div>
-        <div class="module-title">الوقود</div>
-        <div class="module-desc">بنزين وغاز</div>
-        <div class="module-arrow">←</div>
+      <button
+        class="module orange"
+        onclick="openModule('fuel')">
+
+        <div class="module-icon">
+          ⛽
+        </div>
+
+        <div class="module-title">
+          الوقود
+        </div>
+
+        <div class="module-desc">
+          بنزين وغاز
+        </div>
+
+        <div class="module-arrow">
+          ←
+        </div>
+
       </button>
 
-      <button class="module green" onclick="openModule('extra')">
-        <div class="module-icon">➕</div>
-        <div class="module-title">دخل إضافي</div>
-        <div class="module-desc">بيع وقود، بقشيش، أخرى</div>
-        <div class="module-arrow">←</div>
+      <button
+        class="module green"
+        onclick="openModule('extra')">
+
+        <div class="module-icon">
+          ➕
+        </div>
+
+        <div class="module-title">
+          دخل إضافي
+        </div>
+
+        <div class="module-desc">
+          بيع وقود، بقشيش، أخرى
+        </div>
+
+        <div class="module-arrow">
+          ←
+        </div>
+
       </button>
 
-      <button class="module red" onclick="openModule('expenses')">
-        <div class="module-icon">💸</div>
-        <div class="module-title">المصاريف</div>
-        <div class="module-desc">صيانة ومصاريف السيارة</div>
-        <div class="module-arrow">←</div>
+      <button
+        class="module red"
+        onclick="openModule('expenses')">
+
+        <div class="module-icon">
+          💸
+        </div>
+
+        <div class="module-title">
+          المصاريف
+        </div>
+
+        <div class="module-desc">
+          صيانة ومصاريف السيارة
+        </div>
+
+        <div class="module-arrow">
+          ←
+        </div>
+
       </button>
 
-      <button class="module blue" onclick="openModule('reports')">
-        <div class="module-icon">📈</div>
-        <div class="module-title">التقارير</div>
-        <div class="module-desc">أسبوعي وشهري</div>
-        <div class="module-arrow">←</div>
+      <button
+        class="module blue"
+        onclick="openModule('reports')">
+
+        <div class="module-icon">
+          📈
+        </div>
+
+        <div class="module-title">
+          التقارير
+        </div>
+
+        <div class="module-desc">
+          أسبوعي وشهري
+        </div>
+
+        <div class="module-arrow">
+          ←
+        </div>
+
       </button>
 
-      <button class="module purple" onclick="openModule('settings')">
-        <div class="module-icon">⚙️</div>
-        <div class="module-title">الإعدادات</div>
-        <div class="module-desc">الأسعار والهدف والنسخ الاحتياطي</div>
-        <div class="module-arrow">←</div>
+      <button
+        class="module purple"
+        onclick="openModule('settings')">
+
+        <div class="module-icon">
+          ⚙️
+        </div>
+
+        <div class="module-title">
+          الإعدادات
+        </div>
+
+        <div class="module-desc">
+          الأسعار والهدف والنسخ الاحتياطي
+        </div>
+
+        <div class="module-arrow">
+          ←
+        </div>
+
       </button>
 
     </div>
@@ -967,12 +1099,25 @@ footer{
 <section id="bli" class="page-section">
 
   <div class="page-header">
-    <button class="back-btn" onclick="goHome()">→</button>
+
+    <button
+      class="back-btn"
+      onclick="goHome()">
+      →
+    </button>
 
     <div class="page-header-text">
-      <h2>دخل Bli</h2>
-      <p>BLI INCOME</p>
+
+      <h2>
+        دخل Bli
+      </h2>
+
+      <p>
+        BLI INCOME
+      </p>
+
     </div>
+
   </div>
 
   <div class="panel">
@@ -980,45 +1125,108 @@ footer{
     <div class="form-grid">
 
       <div class="field">
-        <label>التاريخ</label>
-        <input id="bliDate" type="date">
+
+        <label>
+          التاريخ
+        </label>
+
+        <input
+          id="bliDate"
+          type="date">
+
       </div>
 
       <div class="field">
-        <label>الدخل بعد العمولة</label>
-        <input id="bliIncome" type="number" inputmode="decimal" placeholder="مثلاً 16000">
+
+        <label>
+          الدخل بعد العمولة
+        </label>
+
+        <input
+          id="bliIncome"
+          type="number"
+          inputmode="decimal"
+          placeholder="مثلاً 16000">
+
       </div>
 
       <div class="field">
-        <label>البونص</label>
-        <input id="bliBonus" type="number" inputmode="decimal" placeholder="0">
+
+        <label>
+          البونص
+        </label>
+
+        <input
+          id="bliBonus"
+          type="number"
+          inputmode="decimal"
+          placeholder="0">
+
       </div>
 
       <div class="field">
-        <label>البقشيش</label>
-        <input id="bliTip" type="number" inputmode="decimal" placeholder="0">
+
+        <label>
+          البقشيش
+        </label>
+
+        <input
+          id="bliTip"
+          type="number"
+          inputmode="decimal"
+          placeholder="0">
+
       </div>
 
       <div class="field full">
-        <label>ملاحظة</label>
-        <input id="bliNote" type="text" placeholder="اختياري">
+
+        <label>
+          ملاحظة
+        </label>
+
+        <input
+          id="bliNote"
+          type="text"
+          placeholder="اختياري">
+
       </div>
 
     </div>
 
     <div class="form-actions">
-      <button class="btn btn-primary" onclick="saveBli()">حفظ الدخل</button>
-      <button class="btn btn-secondary" onclick="resetBli()">مسح</button>
+
+      <button
+        class="btn btn-primary"
+        onclick="saveBli()">
+        حفظ الدخل
+      </button>
+
+      <button
+        class="btn btn-secondary"
+        onclick="resetBli()">
+        مسح
+      </button>
+
     </div>
 
   </div>
 
   <div class="section-heading">
-    <h2>السجلات</h2>
-    <span>BLI LOG</span>
+
+    <h2>
+      السجلات
+    </h2>
+
+    <span>
+      BLI LOG
+    </span>
+
   </div>
 
-  <div id="bliList" class="list"></div>
+  <div
+    id="bliList"
+    class="list">
+  </div>
 
 </section>
 
@@ -1029,12 +1237,25 @@ footer{
 <section id="fuel" class="page-section">
 
   <div class="page-header">
-    <button class="back-btn" onclick="goHome()">→</button>
+
+    <button
+      class="back-btn"
+      onclick="goHome()">
+      →
+    </button>
 
     <div class="page-header-text">
-      <h2>الوقود</h2>
-      <p>FUEL MANAGEMENT</p>
+
+      <h2>
+        الوقود
+      </h2>
+
+      <p>
+        FUEL MANAGEMENT
+      </p>
+
     </div>
+
   </div>
 
   <div class="panel">
@@ -1042,55 +1263,115 @@ footer{
     <div class="form-grid">
 
       <div class="field">
-        <label>التاريخ</label>
-        <input id="fuelDate" type="date">
+
+        <label>
+          التاريخ
+        </label>
+
+        <input
+          id="fuelDate"
+          type="date">
+
       </div>
 
       <div class="field">
-        <label>نوع الوقود</label>
 
-        <select id="fuelType" onchange="updateFuelPrice()">
-          <option value="petrol">بنزين</option>
-          <option value="lpg">غاز LPG</option>
+        <label>
+          نوع الوقود
+        </label>
+
+        <select
+          id="fuelType"
+          onchange="updateFuelPrice()">
+
+          <option value="petrol">
+            بنزين
+          </option>
+
+          <option value="lpg">
+            غاز LPG
+          </option>
+
         </select>
+
       </div>
 
       <div class="field">
-        <label>اللترات</label>
+
+        <label>
+          اللترات
+        </label>
+
         <input
           id="fuelLiters"
           type="number"
           inputmode="decimal"
           step="0.1"
           placeholder="مثلاً 20"
-          oninput="updateFuelPreview()"
-        >
+          oninput="updateFuelPreview()">
+
       </div>
 
       <div class="field">
-        <label>السعر / لتر</label>
-        <input id="fuelPrice" type="number" readonly>
+
+        <label>
+          السعر / لتر
+        </label>
+
+        <input
+          id="fuelPrice"
+          type="number"
+          readonly>
+
       </div>
 
     </div>
 
-    <div id="fuelPreview" class="preview">
-      التكلفة: <strong>0 د.ع</strong>
+    <div
+      id="fuelPreview"
+      class="preview">
+
+      التكلفة:
+      <strong>
+        0 د.ع
+      </strong>
+
     </div>
 
     <div class="form-actions">
-      <button class="btn btn-primary" onclick="saveFuel()">حفظ الوقود</button>
-      <button class="btn btn-secondary" onclick="resetFuel()">مسح</button>
+
+      <button
+        class="btn btn-primary"
+        onclick="saveFuel()">
+        حفظ الوقود
+      </button>
+
+      <button
+        class="btn btn-secondary"
+        onclick="resetFuel()">
+        مسح
+      </button>
+
     </div>
 
   </div>
 
   <div class="section-heading">
-    <h2>السجلات</h2>
-    <span>FUEL LOG</span>
+
+    <h2>
+      السجلات
+    </h2>
+
+    <span>
+      FUEL LOG
+    </span>
+
   </div>
 
-  <div id="fuelList" class="list"></div>
+  <div
+    id="fuelList"
+    class="list">
+  </div>
 
 </section>
 
@@ -1101,12 +1382,25 @@ footer{
 <section id="extra" class="page-section">
 
   <div class="page-header">
-    <button class="back-btn" onclick="goHome()">→</button>
+
+    <button
+      class="back-btn"
+      onclick="goHome()">
+      →
+    </button>
 
     <div class="page-header-text">
-      <h2>دخل إضافي</h2>
-      <p>EXTRA INCOME</p>
+
+      <h2>
+        دخل إضافي
+      </h2>
+
+      <p>
+        EXTRA INCOME
+      </p>
+
     </div>
+
   </div>
 
   <div class="panel">
@@ -1114,45 +1408,104 @@ footer{
     <div class="form-grid">
 
       <div class="field">
-        <label>التاريخ</label>
-        <input id="extraDate" type="date">
+
+        <label>
+          التاريخ
+        </label>
+
+        <input
+          id="extraDate"
+          type="date">
+
       </div>
 
       <div class="field">
-        <label>نوع الدخل</label>
+
+        <label>
+          نوع الدخل
+        </label>
 
         <select id="extraType">
-          <option value="fuelSale">بيع وقود</option>
-          <option value="tip">بقشيش خارج Bli</option>
-          <option value="other">دخل آخر</option>
+
+          <option value="fuelSale">
+            بيع وقود
+          </option>
+
+          <option value="tip">
+            بقشيش خارج Bli
+          </option>
+
+          <option value="other">
+            دخل آخر
+          </option>
+
         </select>
+
       </div>
 
       <div class="field">
-        <label>المبلغ</label>
-        <input id="extraAmount" type="number" inputmode="decimal" placeholder="مثلاً 5000">
+
+        <label>
+          المبلغ
+        </label>
+
+        <input
+          id="extraAmount"
+          type="number"
+          inputmode="decimal"
+          placeholder="مثلاً 5000">
+
       </div>
 
       <div class="field">
-        <label>ملاحظة</label>
-        <input id="extraNote" type="text" placeholder="اختياري">
+
+        <label>
+          ملاحظة
+        </label>
+
+        <input
+          id="extraNote"
+          type="text"
+          placeholder="اختياري">
+
       </div>
 
     </div>
 
     <div class="form-actions">
-      <button class="btn btn-primary" onclick="saveExtra()">حفظ الدخل</button>
-      <button class="btn btn-secondary" onclick="resetExtra()">مسح</button>
+
+      <button
+        class="btn btn-primary"
+        onclick="saveExtra()">
+        حفظ الدخل
+      </button>
+
+      <button
+        class="btn btn-secondary"
+        onclick="resetExtra()">
+        مسح
+      </button>
+
     </div>
 
   </div>
 
   <div class="section-heading">
-    <h2>السجلات</h2>
-    <span>EXTRA LOG</span>
+
+    <h2>
+      السجلات
+    </h2>
+
+    <span>
+      EXTRA LOG
+    </span>
+
   </div>
 
-  <div id="extraList" class="list"></div>
+  <div
+    id="extraList"
+    class="list">
+  </div>
 
 </section>
 
@@ -1163,12 +1516,25 @@ footer{
 <section id="expenses" class="page-section">
 
   <div class="page-header">
-    <button class="back-btn" onclick="goHome()">→</button>
+
+    <button
+      class="back-btn"
+      onclick="goHome()">
+      →
+    </button>
 
     <div class="page-header-text">
-      <h2>المصاريف</h2>
-      <p>CAR EXPENSES</p>
+
+      <h2>
+        المصاريف
+      </h2>
+
+      <p>
+        CAR EXPENSES
+      </p>
+
     </div>
+
   </div>
 
   <div class="panel">
@@ -1176,50 +1542,124 @@ footer{
     <div class="form-grid">
 
       <div class="field">
-        <label>التاريخ</label>
-        <input id="expenseDate" type="date">
+
+        <label>
+          التاريخ
+        </label>
+
+        <input
+          id="expenseDate"
+          type="date">
+
       </div>
 
       <div class="field">
-        <label>نوع المصروف</label>
+
+        <label>
+          نوع المصروف
+        </label>
 
         <select id="expenseType">
-          <option value="oil">زيت</option>
-          <option value="maintenance">صيانة</option>
-          <option value="tires">إطارات</option>
-          <option value="repair">تصليح</option>
-          <option value="wash">غسل</option>
-          <option value="electrical">كهرباء</option>
-          <option value="fees">رسوم</option>
-          <option value="other">أخرى</option>
+
+          <option value="oil">
+            زيت
+          </option>
+
+          <option value="maintenance">
+            صيانة
+          </option>
+
+          <option value="tires">
+            إطارات
+          </option>
+
+          <option value="repair">
+            تصليح
+          </option>
+
+          <option value="wash">
+            غسل
+          </option>
+
+          <option value="electrical">
+            كهرباء
+          </option>
+
+          <option value="fees">
+            رسوم
+          </option>
+
+          <option value="other">
+            أخرى
+          </option>
+
         </select>
+
       </div>
 
       <div class="field">
-        <label>المبلغ</label>
-        <input id="expenseAmount" type="number" inputmode="decimal" placeholder="مثلاً 25000">
+
+        <label>
+          المبلغ
+        </label>
+
+        <input
+          id="expenseAmount"
+          type="number"
+          inputmode="decimal"
+          placeholder="مثلاً 25000">
+
       </div>
 
       <div class="field">
-        <label>ملاحظة</label>
-        <input id="expenseNote" type="text" placeholder="اختياري">
+
+        <label>
+          ملاحظة
+        </label>
+
+        <input
+          id="expenseNote"
+          type="text"
+          placeholder="اختياري">
+
       </div>
 
     </div>
 
     <div class="form-actions">
-      <button class="btn btn-primary" onclick="saveExpense()">حفظ المصروف</button>
-      <button class="btn btn-secondary" onclick="resetExpense()">مسح</button>
+
+      <button
+        class="btn btn-primary"
+        onclick="saveExpense()">
+        حفظ المصروف
+      </button>
+
+      <button
+        class="btn btn-secondary"
+        onclick="resetExpense()">
+        مسح
+      </button>
+
     </div>
 
   </div>
 
   <div class="section-heading">
-    <h2>السجلات</h2>
-    <span>EXPENSE LOG</span>
+
+    <h2>
+      السجلات
+    </h2>
+
+    <span>
+      EXPENSE LOG
+    </span>
+
   </div>
 
-  <div id="expenseList" class="list"></div>
+  <div
+    id="expenseList"
+    class="list">
+  </div>
 
 </section>
 
@@ -1230,12 +1670,25 @@ footer{
 <section id="reports" class="page-section">
 
   <div class="page-header">
-    <button class="back-btn" onclick="goHome()">→</button>
+
+    <button
+      class="back-btn"
+      onclick="goHome()">
+      →
+    </button>
 
     <div class="page-header-text">
-      <h2>التقارير</h2>
-      <p>PERFORMANCE REPORTS</p>
+
+      <h2>
+        التقارير
+      </h2>
+
+      <p>
+        PERFORMANCE REPORTS
+      </p>
+
     </div>
+
   </div>
 
   <div class="panel">
@@ -1243,17 +1696,38 @@ footer{
     <div class="report-controls">
 
       <div class="field">
-        <label>الفترة</label>
 
-        <select id="reportPeriod" onchange="renderReports()">
-          <option value="week">أسبوع</option>
-          <option value="month">شهر</option>
+        <label>
+          الفترة
+        </label>
+
+        <select
+          id="reportPeriod"
+          onchange="renderReports()">
+
+          <option value="week">
+            أسبوع
+          </option>
+
+          <option value="month">
+            شهر
+          </option>
+
         </select>
+
       </div>
 
       <div class="field">
-        <label>التاريخ المرجعي</label>
-        <input id="reportDate" type="date" onchange="renderReports()">
+
+        <label>
+          التاريخ المرجعي
+        </label>
+
+        <input
+          id="reportDate"
+          type="date"
+          onchange="renderReports()">
+
       </div>
 
     </div>
@@ -1263,80 +1737,182 @@ footer{
   <div class="stats">
 
     <div class="stat">
-      <div class="stat-label">دخل Bli</div>
-      <div id="reportBli" class="stat-value">0</div>
+
+      <div class="stat-label">
+        دخل Bli
+      </div>
+
+      <div
+        id="reportBli"
+        class="stat-value">
+        0
+      </div>
+
     </div>
 
     <div class="stat">
-      <div class="stat-label">دخل إضافي</div>
-      <div id="reportExtra" class="stat-value">0</div>
+
+      <div class="stat-label">
+        دخل إضافي
+      </div>
+
+      <div
+        id="reportExtra"
+        class="stat-value">
+        0
+      </div>
+
     </div>
 
     <div class="stat">
-      <div class="stat-label">إجمالي الدخل</div>
-      <div id="reportIncome" class="stat-value">0</div>
+
+      <div class="stat-label">
+        إجمالي الدخل
+      </div>
+
+      <div
+        id="reportIncome"
+        class="stat-value">
+        0
+      </div>
+
     </div>
 
     <div class="stat">
-      <div class="stat-label">المصاريف</div>
-      <div id="reportExpenses" class="stat-value">0</div>
+
+      <div class="stat-label">
+        المصاريف
+      </div>
+
+      <div
+        id="reportExpenses"
+        class="stat-value">
+        0
+      </div>
+
     </div>
 
     <div class="stat">
-      <div class="stat-label">بنزين</div>
-      <div id="reportPetrol" class="stat-value">0 L</div>
+
+      <div class="stat-label">
+        بنزين
+      </div>
+
+      <div
+        id="reportPetrol"
+        class="stat-value">
+        0 L
+      </div>
+
     </div>
 
     <div class="stat">
-      <div class="stat-label">غاز</div>
-      <div id="reportLpg" class="stat-value">0 L</div>
+
+      <div class="stat-label">
+        غاز
+      </div>
+
+      <div
+        id="reportLpg"
+        class="stat-value">
+        0 L
+      </div>
+
     </div>
 
     <div class="stat green">
-      <div class="stat-label">الربح الصافي</div>
-      <div id="reportProfit" class="stat-value">0</div>
+
+      <div class="stat-label">
+        الربح الصافي
+      </div>
+
+      <div
+        id="reportProfit"
+        class="stat-value">
+        0
+      </div>
+
     </div>
 
     <div class="stat">
-      <div class="stat-label">إجمالي اللترات</div>
-      <div id="reportLiters" class="stat-value">0 L</div>
+
+      <div class="stat-label">
+        إجمالي اللترات
+      </div>
+
+      <div
+        id="reportLiters"
+        class="stat-value">
+        0 L
+      </div>
+
     </div>
 
   </div>
 
-  <div class="panel" style="margin-top:14px;">
-    <div class="section-heading" style="margin-top:0;">
-      <h2>ملخص الفترة</h2>
-      <span>SUMMARY</span>
+  <div
+    class="panel"
+    style="margin-top:14px;">
+
+    <div
+      class="section-heading"
+      style="margin-top:0;">
+
+      <h2>
+        ملخص الفترة
+      </h2>
+
+      <span>
+        SUMMARY
+      </span>
+
     </div>
 
     <table class="report-table">
+
       <tbody>
+
         <tr>
           <td>دخل Bli</td>
           <td id="tableBli">0 د.ع</td>
         </tr>
+
         <tr>
           <td>دخل إضافي</td>
           <td id="tableExtra">0 د.ع</td>
         </tr>
+
         <tr>
           <td>إجمالي الدخل</td>
           <td id="tableIncome">0 د.ع</td>
         </tr>
+
         <tr>
           <td>تكلفة الوقود</td>
           <td id="tableFuel">0 د.ع</td>
         </tr>
+
         <tr>
           <td>المصاريف الأخرى</td>
           <td id="tableExpenses">0 د.ع</td>
         </tr>
+
         <tr>
-          <td><strong>الربح الصافي</strong></td>
-          <td id="tableProfit"><strong>0 د.ع</strong></td>
+          <td>
+            <strong>
+              الربح الصافي
+            </strong>
+          </td>
+
+          <td id="tableProfit">
+            <strong>
+              0 د.ع
+            </strong>
+          </td>
         </tr>
+
       </tbody>
+
     </table>
 
   </div>
@@ -1350,52 +1926,111 @@ footer{
 <section id="settings" class="page-section">
 
   <div class="page-header">
-    <button class="back-btn" onclick="goHome()">→</button>
+
+    <button
+      class="back-btn"
+      onclick="goHome()">
+      →
+    </button>
 
     <div class="page-header-text">
-      <h2>الإعدادات</h2>
-      <p>SYSTEM SETTINGS</p>
+
+      <h2>
+        الإعدادات
+      </h2>
+
+      <p>
+        SYSTEM SETTINGS
+      </p>
+
     </div>
+
   </div>
 
   <div class="panel">
 
     <div class="setting-row">
-      <label>الهدف الأسبوعي</label>
-      <input id="settingTarget" type="number" inputmode="decimal">
+
+      <label>
+        الهدف الأسبوعي
+      </label>
+
+      <input
+        id="settingTarget"
+        type="number"
+        inputmode="decimal">
+
     </div>
 
     <div class="setting-row">
-      <label>سعر البنزين / لتر</label>
-      <input id="settingPetrol" type="number" inputmode="decimal">
+
+      <label>
+        سعر البنزين / لتر
+      </label>
+
+      <input
+        id="settingPetrol"
+        type="number"
+        inputmode="decimal">
+
     </div>
 
     <div class="setting-row">
-      <label>سعر الغاز / لتر</label>
-      <input id="settingLpg" type="number" inputmode="decimal">
+
+      <label>
+        سعر الغاز / لتر
+      </label>
+
+      <input
+        id="settingLpg"
+        type="number"
+        inputmode="decimal">
+
     </div>
 
-    <button class="btn btn-primary" style="width:100%;" onclick="saveSettings()">
+    <button
+      class="btn btn-primary"
+      style="width:100%;"
+      onclick="saveSettings()">
+
       حفظ الإعدادات
+
     </button>
 
   </div>
 
   <div class="panel">
 
-    <div class="section-heading" style="margin-top:0;">
-      <h2>النسخ الاحتياطي</h2>
-      <span>BACKUP</span>
+    <div
+      class="section-heading"
+      style="margin-top:0;">
+
+      <h2>
+        النسخ الاحتياطي
+      </h2>
+
+      <span>
+        BACKUP
+      </span>
+
     </div>
 
     <div class="backup-grid">
 
-      <button class="btn btn-secondary" onclick="exportBackup()">
+      <button
+        class="btn btn-secondary"
+        onclick="exportBackup()">
+
         📤 تصدير نسخة احتياطية
+
       </button>
 
-      <button class="btn btn-secondary" onclick="document.getElementById('backupFile').click()">
+      <button
+        class="btn btn-secondary"
+        onclick="document.getElementById('backupFile').click()">
+
         📥 استيراد نسخة احتياطية
+
       </button>
 
       <input
@@ -1403,8 +2038,7 @@ footer{
         type="file"
         accept=".json,application/json"
         style="display:none"
-        onchange="importBackup(event)"
-      >
+        onchange="importBackup(event)">
 
     </div>
 
@@ -1412,13 +2046,27 @@ footer{
 
   <div class="panel">
 
-    <div class="section-heading" style="margin-top:0;">
-      <h2>منطقة خطرة</h2>
-      <span>DATA</span>
+    <div
+      class="section-heading"
+      style="margin-top:0;">
+
+      <h2>
+        منطقة خطرة
+      </h2>
+
+      <span>
+        DATA
+      </span>
+
     </div>
 
-    <button class="btn btn-danger" style="width:100%;" onclick="clearAllData()">
+    <button
+      class="btn btn-danger"
+      style="width:100%;"
+      onclick="clearAllData()">
+
       حذف جميع البيانات
+
     </button>
 
   </div>
@@ -1437,27 +2085,46 @@ footer{
      TRANSITION
 ========================= -->
 
-<div id="transition" class="transition">
+<div
+  id="transition"
+  class="transition">
 
-  <div class="speed-line" style="--w:35%;--top:15%;--delay:0s"></div>
-  <div class="speed-line" style="--w:50%;--top:25%;--delay:.03s"></div>
-  <div class="speed-line" style="--w:25%;--top:37%;--delay:.06s"></div>
-  <div class="speed-line" style="--w:60%;--top:48%;--delay:.01s"></div>
-  <div class="speed-line" style="--w:40%;--top:59%;--delay:.08s"></div>
-  <div class="speed-line" style="--w:30%;--top:70%;--delay:.04s"></div>
-  <div class="speed-line" style="--w:55%;--top:82%;--delay:.09s"></div>
+  <div
+    class="speed-line"
+    style="--w:35%;--top:15%;--delay:0s">
+  </div>
+
+  <div
+    class="speed-line"
+    style="--w:50%;--top:25%;--delay:.03s">
+  </div>
+
+  <div
+    class="speed-line"
+    style="--w:25%;--top:37%;--delay:.06s">
+  </div>
+
+  <div
+    class="speed-line"
+    style="--w:60%;--top:48%;--delay:.01s">
+  </div>
+
+  <div
+    class="speed-line"
+    style="--w:40%;--top:59%;--delay:.08s">
+  </div>
+
+  <div
+    class="speed-line"
+    style="--w:30%;--top:70%;--delay:.04s">
+  </div>
+
+  <div
+    class="speed-line"
+    style="--w:55%;--top:82%;--delay:.09s">
+  </div>
 
 </div>
-
-<!--
-  REAL SUPERCAR SOUND
-  يجب وضع supercar-rev.mp3 بجانب index.html
--->
-<audio
-  id="supercarSound"
-  preload="auto"
-  src="supercar-rev.mp3">
-</audio>
 
 <script>
 
@@ -1465,9 +2132,11 @@ footer{
    STORAGE
 ========================================================= */
 
-const STORAGE_KEY = "bli_driver_manager_v1";
+const STORAGE_KEY =
+  "bli_driver_manager_v1";
 
 let state = {
+
   settings:{
     weeklyTarget:250000,
     petrolPrice:450,
@@ -1478,35 +2147,59 @@ let state = {
   fuel:[],
   extra:[],
   expenses:[]
+
 };
 
 function load(){
 
   try{
 
-    const saved = localStorage.getItem(STORAGE_KEY);
+    const saved =
+      localStorage.getItem(STORAGE_KEY);
 
     if(saved){
 
-      const parsed = JSON.parse(saved);
+      const parsed =
+        JSON.parse(saved);
 
       state = {
+
         settings:{
           weeklyTarget:
-            Number(parsed?.settings?.weeklyTarget) || 250000,
+            Number(parsed?.settings?.weeklyTarget)
+            || 250000,
 
           petrolPrice:
-            Number(parsed?.settings?.petrolPrice) || 450,
+            Number(parsed?.settings?.petrolPrice)
+            || 450,
 
           lpgPrice:
-            Number(parsed?.settings?.lpgPrice) || 200
+            Number(parsed?.settings?.lpgPrice)
+            || 200
         },
 
-        bli:Array.isArray(parsed.bli) ? parsed.bli : [],
-        fuel:Array.isArray(parsed.fuel) ? parsed.fuel : [],
-        extra:Array.isArray(parsed.extra) ? parsed.extra : [],
-        expenses:Array.isArray(parsed.expenses) ? parsed.expenses : []
+        bli:
+          Array.isArray(parsed.bli)
+          ? parsed.bli
+          : [],
+
+        fuel:
+          Array.isArray(parsed.fuel)
+          ? parsed.fuel
+          : [],
+
+        extra:
+          Array.isArray(parsed.extra)
+          ? parsed.extra
+          : [],
+
+        expenses:
+          Array.isArray(parsed.expenses)
+          ? parsed.expenses
+          : []
+
       };
+
     }
 
   }catch(error){
@@ -1518,7 +2211,12 @@ function load(){
 }
 
 function save(){
-  localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(state)
+  );
+
 }
 
 /* =========================================================
@@ -1526,29 +2224,47 @@ function save(){
 ========================================================= */
 
 function uid(){
-  return Date.now().toString(36)+"-"+Math.random().toString(36).slice(2);
+
+  return Date.now().toString(36)
+    + "-"
+    + Math.random().toString(36).slice(2);
+
 }
 
 function today(){
 
   const d = new Date();
 
-  const y = d.getFullYear();
-  const m = String(d.getMonth()+1).padStart(2,"0");
-  const day = String(d.getDate()).padStart(2,"0");
+  const y =
+    d.getFullYear();
+
+  const m =
+    String(d.getMonth()+1)
+      .padStart(2,"0");
+
+  const day =
+    String(d.getDate())
+      .padStart(2,"0");
 
   return `${y}-${m}-${day}`;
+
 }
 
 function number(value){
+
   const n = Number(value);
-  return Number.isFinite(n) ? n : 0;
+
+  return Number.isFinite(n)
+    ? n
+    : 0;
+
 }
 
 function money(value){
 
   return Math.round(number(value))
-    .toLocaleString("ar-IQ") + " د.ع";
+    .toLocaleString("ar-IQ")
+    + " د.ع";
 
 }
 
@@ -1557,14 +2273,22 @@ function formatDate(date){
   if(!date) return "";
 
   try{
-    return new Date(date+"T00:00:00")
-      .toLocaleDateString("ar-IQ",{
+
+    return new Date(
+      date+"T00:00:00"
+    ).toLocaleDateString(
+      "ar-IQ",
+      {
         year:"numeric",
         month:"short",
         day:"numeric"
-      });
+      }
+    );
+
   }catch{
+
     return date;
+
   }
 
 }
@@ -1582,11 +2306,19 @@ function escapeHtml(value){
 
 function dateToISO(date){
 
-  const d = new Date(date);
+  const d =
+    new Date(date);
 
-  const y = d.getFullYear();
-  const m = String(d.getMonth()+1).padStart(2,"0");
-  const day = String(d.getDate()).padStart(2,"0");
+  const y =
+    d.getFullYear();
+
+  const m =
+    String(d.getMonth()+1)
+      .padStart(2,"0");
+
+  const day =
+    String(d.getDate())
+      .padStart(2,"0");
 
   return `${y}-${m}-${day}`;
 
@@ -1594,9 +2326,14 @@ function dateToISO(date){
 
 function addDays(dateString,days){
 
-  const d = new Date(dateString+"T00:00:00");
+  const d =
+    new Date(
+      dateString+"T00:00:00"
+    );
 
-  d.setDate(d.getDate()+days);
+  d.setDate(
+    d.getDate()+days
+  );
 
   return dateToISO(d);
 
@@ -1604,108 +2341,92 @@ function addDays(dateString,days){
 
 function getWeekStart(dateString){
 
-  const d = new Date(dateString+"T00:00:00");
+  const d =
+    new Date(
+      dateString+"T00:00:00"
+    );
 
-  const day = d.getDay();
+  const day =
+    d.getDay();
 
-  const diff = day === 0 ? -6 : 1-day;
+  const diff =
+    day === 0
+      ? -6
+      : 1-day;
 
-  d.setDate(d.getDate()+diff);
+  d.setDate(
+    d.getDate()+diff
+  );
 
   return dateToISO(d);
 
 }
 
 function getCurrentWeekStart(){
+
   return getWeekStart(today());
+
 }
 
 function calculateRange(period,dateString){
 
   if(period === "month"){
 
-    const d = new Date(dateString+"T00:00:00");
+    const d =
+      new Date(
+        dateString+"T00:00:00"
+      );
 
     const start =
       dateToISO(
-        new Date(d.getFullYear(),d.getMonth(),1)
+        new Date(
+          d.getFullYear(),
+          d.getMonth(),
+          1
+        )
       );
 
     const end =
       dateToISO(
-        new Date(d.getFullYear(),d.getMonth()+1,0)
+        new Date(
+          d.getFullYear(),
+          d.getMonth()+1,
+          0
+        )
       );
 
-    return {start,end};
+    return {
+      start,
+      end
+    };
+
   }
 
-  const start = getWeekStart(dateString);
+  const start =
+    getWeekStart(dateString);
 
   return {
+
     start,
-    end:addDays(start,6)
+
+    end:
+      addDays(start,6)
+
   };
 
 }
 
 /* =========================================================
-   REAL SUPERCAR SOUND
-========================================================= */
-
-/*
-  الصوت يأتي من:
-  supercar-rev.mp3
-
-  عند الضغط على بطاقة:
-  - يرجع الصوت للبداية
-  - يرفع الصوت
-  - يشغله مباشرة من user gesture
-  - لا يستخدم Web Audio synthesis
-*/
-
-const supercarSound =
-  document.getElementById("supercarSound");
-
-supercarSound.volume = 1.0;
-
-function playThrottleSound(){
-
-  try{
-
-    supercarSound.pause();
-
-    supercarSound.currentTime = 0;
-
-    const playPromise = supercarSound.play();
-
-    if(playPromise !== undefined){
-
-      playPromise.catch(error => {
-
-        console.warn(
-          "Supercar sound could not play:",
-          error
-        );
-
-      });
-
-    }
-
-  }catch(error){
-
-    console.warn(error);
-
-  }
-
-}
-
-/* =========================================================
    TRANSITION
+   لا يوجد صوت
 ========================================================= */
 
 function transitionEffect(){
 
-  const el = document.getElementById("transition");
+  const el =
+    document.getElementById(
+      "transition"
+    );
 
   el.classList.remove("active");
 
@@ -1714,7 +2435,9 @@ function transitionEffect(){
   el.classList.add("active");
 
   setTimeout(()=>{
+
     el.classList.remove("active");
+
   },600);
 
 }
@@ -1728,14 +2451,21 @@ function showSection(id){
   document
     .querySelectorAll(".page-section")
     .forEach(section=>{
-      section.classList.remove("active");
+
+      section.classList.remove(
+        "active"
+      );
+
     });
 
-  const section = document.getElementById(id);
+  const section =
+    document.getElementById(id);
 
   if(section){
 
-    section.classList.add("active");
+    section.classList.add(
+      "active"
+    );
 
     window.scrollTo({
       top:0,
@@ -1747,13 +2477,6 @@ function showSection(id){
 }
 
 function openModule(id){
-
-  /*
-    الصوت يبدأ داخل نفس tap/click.
-    هذا مهم للآيفون بسبب سياسات autoplay.
-  */
-
-  playThrottleSound();
 
   transitionEffect();
 
@@ -1768,8 +2491,6 @@ function openModule(id){
 }
 
 function goHome(){
-
-  playThrottleSound();
 
   transitionEffect();
 
@@ -1789,88 +2510,163 @@ function goHome(){
 
 function getWeekTotals(){
 
-  const start = getCurrentWeekStart();
+  const start =
+    getCurrentWeekStart();
 
-  const end = addDays(start,6);
+  const end =
+    addDays(start,6);
 
-  const inRange = date =>
-    date >= start && date <= end;
+  const inRange =
+    date =>
+      date >= start &&
+      date <= end;
 
-  const bli = state.bli
-    .filter(x=>inRange(x.date))
-    .reduce((sum,x)=>
-      sum +
-      number(x.income) +
-      number(x.bonus) +
-      number(x.tip),0);
+  const bli =
+    state.bli
+      .filter(x=>inRange(x.date))
+      .reduce(
+        (sum,x)=>
+          sum
+          + number(x.income)
+          + number(x.bonus)
+          + number(x.tip),
+        0
+      );
 
-  const extra = state.extra
-    .filter(x=>inRange(x.date))
-    .reduce((sum,x)=>
-      sum + number(x.amount),0);
+  const extra =
+    state.extra
+      .filter(x=>inRange(x.date))
+      .reduce(
+        (sum,x)=>
+          sum+number(x.amount),
+        0
+      );
 
-  const fuel = state.fuel
-    .filter(x=>inRange(x.date))
-    .reduce((sum,x)=>
-      sum + number(x.liters) * number(x.price),0);
+  const fuel =
+    state.fuel
+      .filter(x=>inRange(x.date))
+      .reduce(
+        (sum,x)=>
+          sum
+          + number(x.liters)
+          * number(x.price),
+        0
+      );
 
-  const expenses = state.expenses
-    .filter(x=>inRange(x.date))
-    .reduce((sum,x)=>
-      sum + number(x.amount),0);
+  const expenses =
+    state.expenses
+      .filter(x=>inRange(x.date))
+      .reduce(
+        (sum,x)=>
+          sum+number(x.amount),
+        0
+      );
 
-  const petrolLiters = state.fuel
-    .filter(x=>inRange(x.date) && x.type==="petrol")
-    .reduce((sum,x)=>sum+number(x.liters),0);
+  const petrolLiters =
+    state.fuel
+      .filter(
+        x=>
+          inRange(x.date)
+          &&
+          x.type==="petrol"
+      )
+      .reduce(
+        (sum,x)=>
+          sum+number(x.liters),
+        0
+      );
 
-  const lpgLiters = state.fuel
-    .filter(x=>inRange(x.date) && x.type==="lpg")
-    .reduce((sum,x)=>sum+number(x.liters),0);
+  const lpgLiters =
+    state.fuel
+      .filter(
+        x=>
+          inRange(x.date)
+          &&
+          x.type==="lpg"
+      )
+      .reduce(
+        (sum,x)=>
+          sum+number(x.liters),
+        0
+      );
 
   return {
+
     bli,
+
     extra,
-    income:bli+extra,
+
+    income:
+      bli+extra,
+
     fuel,
+
     expenses,
-    profit:bli+extra-fuel-expenses,
+
+    profit:
+      bli+extra-fuel-expenses,
+
     petrolLiters,
+
     lpgLiters
+
   };
 
 }
 
 function renderHome(){
 
-  const totals = getWeekTotals();
+  const totals =
+    getWeekTotals();
 
   const target =
-    number(state.settings.weeklyTarget) || 250000;
+    number(
+      state.settings.weeklyTarget
+    ) || 250000;
 
-  const income = totals.income;
+  const income =
+    totals.income;
 
   const percentage =
-    Math.min(100,(income/target)*100);
+    Math.min(
+      100,
+      (income/target)*100
+    );
 
-  document.getElementById("homeIncome").textContent =
-    Math.round(income).toLocaleString("ar-IQ");
+  document.getElementById(
+    "homeIncome"
+  ).textContent =
+    Math.round(income)
+      .toLocaleString("ar-IQ");
 
-  document.getElementById("homeTarget").textContent =
-    Math.round(target).toLocaleString("ar-IQ");
+  document.getElementById(
+    "homeTarget"
+  ).textContent =
+    Math.round(target)
+      .toLocaleString("ar-IQ");
 
-  document.getElementById("homeProgress").style.width =
+  document.getElementById(
+    "homeProgress"
+  ).style.width =
     percentage+"%";
 
-  document.getElementById("homeWeekText").textContent =
+  document.getElementById(
+    "homeWeekText"
+  ).textContent =
     `من ${formatDate(getCurrentWeekStart())} إلى ${formatDate(addDays(getCurrentWeekStart(),6))}`;
 
-  const remaining = target-income;
+  const remaining =
+    target-income;
 
   const remainingEl =
-    document.getElementById("homeRemaining");
+    document.getElementById(
+      "homeRemaining"
+    );
 
   const statusEl =
-    document.getElementById("targetStatus");
+    document.getElementById(
+      "targetStatus"
+    );
 
   if(remaining <= 0){
 
@@ -1889,7 +2685,8 @@ function renderHome(){
   }else{
 
     remainingEl.textContent =
-      "المتبقي "+money(remaining);
+      "المتبقي "
+      + money(remaining);
 
     remainingEl.style.color =
       "#ff6666";
@@ -1911,23 +2708,47 @@ function renderHome(){
 function saveBli(){
 
   const date =
-    document.getElementById("bliDate").value || today();
+    document.getElementById(
+      "bliDate"
+    ).value || today();
 
   const income =
-    number(document.getElementById("bliIncome").value);
+    number(
+      document.getElementById(
+        "bliIncome"
+      ).value
+    );
 
   const bonus =
-    number(document.getElementById("bliBonus").value);
+    number(
+      document.getElementById(
+        "bliBonus"
+      ).value
+    );
 
   const tip =
-    number(document.getElementById("bliTip").value);
+    number(
+      document.getElementById(
+        "bliTip"
+      ).value
+    );
 
   const note =
-    document.getElementById("bliNote").value.trim();
+    document.getElementById(
+      "bliNote"
+    ).value.trim();
 
-  if(income <= 0 && bonus <= 0 && tip <= 0){
+  if(
+    income <= 0
+    &&
+    bonus <= 0
+    &&
+    tip <= 0
+  ){
 
-    alert("أدخل قيمة الدخل أو البونص أو البقشيش.");
+    alert(
+      "أدخل قيمة الدخل أو البونص أو البقشيش."
+    );
 
     return;
 
@@ -1954,34 +2775,58 @@ function saveBli(){
 
 function resetBli(){
 
-  document.getElementById("bliDate").value = today();
-  document.getElementById("bliIncome").value = "";
-  document.getElementById("bliBonus").value = "";
-  document.getElementById("bliTip").value = "";
-  document.getElementById("bliNote").value = "";
+  document.getElementById(
+    "bliDate"
+  ).value =
+    today();
+
+  document.getElementById(
+    "bliIncome"
+  ).value =
+    "";
+
+  document.getElementById(
+    "bliBonus"
+  ).value =
+    "";
+
+  document.getElementById(
+    "bliTip"
+  ).value =
+    "";
+
+  document.getElementById(
+    "bliNote"
+  ).value =
+    "";
 
 }
 
 function renderBliList(){
 
   const container =
-    document.getElementById("bliList");
+    document.getElementById(
+      "bliList"
+    );
 
   if(!state.bli.length){
 
     container.innerHTML =
-      `<div class="empty">لا توجد سجلات دخل Bli بعد.</div>`;
+      `<div class="empty">
+        لا توجد سجلات دخل Bli بعد.
+      </div>`;
 
     return;
+
   }
 
   container.innerHTML =
     state.bli.map(item=>{
 
       const total =
-        number(item.income) +
-        number(item.bonus) +
-        number(item.tip);
+        number(item.income)
+        + number(item.bonus)
+        + number(item.tip);
 
       return `
 
@@ -1990,6 +2835,7 @@ function renderBliList(){
           <div class="item-main">
 
             <div>
+
               <div class="item-title">
                 دخل Bli
               </div>
@@ -1997,6 +2843,7 @@ function renderBliList(){
               <div class="item-date">
                 ${formatDate(item.date)}
               </div>
+
             </div>
 
             <div class="item-value">
@@ -2006,16 +2853,30 @@ function renderBliList(){
           </div>
 
           <div class="item-meta">
-            دخل: ${money(item.income)}
-            • بونص: ${money(item.bonus)}
-            • بقشيش: ${money(item.tip)}
-            ${item.note ? "• "+escapeHtml(item.note) : ""}
+
+            دخل:
+            ${money(item.income)}
+
+            • بونص:
+            ${money(item.bonus)}
+
+            • بقشيش:
+            ${money(item.tip)}
+
+            ${
+              item.note
+              ? "• "+escapeHtml(item.note)
+              : ""
+            }
+
           </div>
 
           <button
             class="delete-btn"
             onclick="deleteBli('${item.id}')">
+
             حذف
+
           </button>
 
         </div>
@@ -2028,10 +2889,16 @@ function renderBliList(){
 
 function deleteBli(id){
 
-  if(!confirm("حذف هذا السجل؟")) return;
+  if(
+    !confirm(
+      "حذف هذا السجل؟"
+    )
+  ) return;
 
   state.bli =
-    state.bli.filter(x=>x.id!==id);
+    state.bli.filter(
+      x=>x.id!==id
+    );
 
   save();
 
@@ -2046,14 +2913,18 @@ function deleteBli(id){
 function updateFuelPrice(){
 
   const type =
-    document.getElementById("fuelType").value;
+    document.getElementById(
+      "fuelType"
+    ).value;
 
   const price =
     type === "lpg"
       ? state.settings.lpgPrice
       : state.settings.petrolPrice;
 
-  document.getElementById("fuelPrice").value =
+  document.getElementById(
+    "fuelPrice"
+  ).value =
     price;
 
   updateFuelPreview();
@@ -2063,35 +2934,63 @@ function updateFuelPrice(){
 function updateFuelPreview(){
 
   const liters =
-    number(document.getElementById("fuelLiters").value);
+    number(
+      document.getElementById(
+        "fuelLiters"
+      ).value
+    );
 
   const price =
-    number(document.getElementById("fuelPrice").value);
+    number(
+      document.getElementById(
+        "fuelPrice"
+      ).value
+    );
 
-  const total = liters*price;
+  const total =
+    liters*price;
 
-  document.getElementById("fuelPreview").innerHTML =
-    `التكلفة: <strong>${money(total)}</strong>`;
+  document.getElementById(
+    "fuelPreview"
+  ).innerHTML =
+    `التكلفة:
+     <strong>
+       ${money(total)}
+     </strong>`;
 
 }
 
 function saveFuel(){
 
   const date =
-    document.getElementById("fuelDate").value || today();
+    document.getElementById(
+      "fuelDate"
+    ).value || today();
 
   const type =
-    document.getElementById("fuelType").value;
+    document.getElementById(
+      "fuelType"
+    ).value;
 
   const liters =
-    number(document.getElementById("fuelLiters").value);
+    number(
+      document.getElementById(
+        "fuelLiters"
+      ).value
+    );
 
   const price =
-    number(document.getElementById("fuelPrice").value);
+    number(
+      document.getElementById(
+        "fuelPrice"
+      ).value
+    );
 
   if(liters <= 0){
 
-    alert("أدخل كمية الوقود.");
+    alert(
+      "أدخل كمية الوقود."
+    );
 
     return;
 
@@ -2117,9 +3016,20 @@ function saveFuel(){
 
 function resetFuel(){
 
-  document.getElementById("fuelDate").value = today();
-  document.getElementById("fuelType").value = "petrol";
-  document.getElementById("fuelLiters").value = "";
+  document.getElementById(
+    "fuelDate"
+  ).value =
+    today();
+
+  document.getElementById(
+    "fuelType"
+  ).value =
+    "petrol";
+
+  document.getElementById(
+    "fuelLiters"
+  ).value =
+    "";
 
   updateFuelPrice();
 
@@ -2128,14 +3038,19 @@ function resetFuel(){
 function renderFuelList(){
 
   const container =
-    document.getElementById("fuelList");
+    document.getElementById(
+      "fuelList"
+    );
 
   if(!state.fuel.length){
 
     container.innerHTML =
-      `<div class="empty">لا توجد سجلات وقود بعد.</div>`;
+      `<div class="empty">
+        لا توجد سجلات وقود بعد.
+      </div>`;
 
     return;
+
   }
 
   container.innerHTML =
@@ -2147,7 +3062,8 @@ function renderFuelList(){
           : "بنزين";
 
       const total =
-        number(item.liters) *
+        number(item.liters)
+        *
         number(item.price);
 
       return `
@@ -2157,6 +3073,7 @@ function renderFuelList(){
           <div class="item-main">
 
             <div>
+
               <div class="item-title">
                 ${name}
               </div>
@@ -2164,24 +3081,36 @@ function renderFuelList(){
               <div class="item-date">
                 ${formatDate(item.date)}
               </div>
+
             </div>
 
             <div class="item-value">
-              ${number(item.liters).toLocaleString("en-US")}
+
+              ${number(item.liters)
+                .toLocaleString("en-US")}
               L
+
             </div>
 
           </div>
 
           <div class="item-meta">
-            السعر: ${money(item.price)} / L
-            • التكلفة: ${money(total)}
+
+            السعر:
+            ${money(item.price)}
+            / L
+
+            • التكلفة:
+            ${money(total)}
+
           </div>
 
           <button
             class="delete-btn"
             onclick="deleteFuel('${item.id}')">
+
             حذف
+
           </button>
 
         </div>
@@ -2194,10 +3123,16 @@ function renderFuelList(){
 
 function deleteFuel(id){
 
-  if(!confirm("حذف سجل الوقود؟")) return;
+  if(
+    !confirm(
+      "حذف سجل الوقود؟"
+    )
+  ) return;
 
   state.fuel =
-    state.fuel.filter(x=>x.id!==id);
+    state.fuel.filter(
+      x=>x.id!==id
+    );
 
   save();
 
@@ -2211,8 +3146,11 @@ function deleteFuel(id){
 
 function extraName(type){
 
-  if(type==="fuelSale") return "بيع وقود";
-  if(type==="tip") return "بقشيش خارج Bli";
+  if(type==="fuelSale")
+    return "بيع وقود";
+
+  if(type==="tip")
+    return "بقشيش خارج Bli";
 
   return "دخل آخر";
 
@@ -2221,20 +3159,32 @@ function extraName(type){
 function saveExtra(){
 
   const date =
-    document.getElementById("extraDate").value || today();
+    document.getElementById(
+      "extraDate"
+    ).value || today();
 
   const type =
-    document.getElementById("extraType").value;
+    document.getElementById(
+      "extraType"
+    ).value;
 
   const amount =
-    number(document.getElementById("extraAmount").value);
+    number(
+      document.getElementById(
+        "extraAmount"
+      ).value
+    );
 
   const note =
-    document.getElementById("extraNote").value.trim();
+    document.getElementById(
+      "extraNote"
+    ).value.trim();
 
   if(amount <= 0){
 
-    alert("أدخل المبلغ.");
+    alert(
+      "أدخل المبلغ."
+    );
 
     return;
 
@@ -2260,24 +3210,44 @@ function saveExtra(){
 
 function resetExtra(){
 
-  document.getElementById("extraDate").value = today();
-  document.getElementById("extraType").value = "fuelSale";
-  document.getElementById("extraAmount").value = "";
-  document.getElementById("extraNote").value = "";
+  document.getElementById(
+    "extraDate"
+  ).value =
+    today();
+
+  document.getElementById(
+    "extraType"
+  ).value =
+    "fuelSale";
+
+  document.getElementById(
+    "extraAmount"
+  ).value =
+    "";
+
+  document.getElementById(
+    "extraNote"
+  ).value =
+    "";
 
 }
 
 function renderExtraList(){
 
   const container =
-    document.getElementById("extraList");
+    document.getElementById(
+      "extraList"
+    );
 
   if(!state.extra.length){
 
     container.innerHTML =
-      `<div class="empty">لا توجد سجلات دخل إضافي.</div>`;
+      `<div class="empty">
+        لا توجد سجلات دخل إضافي.
+      </div>`;
 
     return;
+
   }
 
   container.innerHTML =
@@ -2290,6 +3260,7 @@ function renderExtraList(){
           <div class="item-main">
 
             <div>
+
               <div class="item-title">
                 ${extraName(item.type)}
               </div>
@@ -2297,6 +3268,7 @@ function renderExtraList(){
               <div class="item-date">
                 ${formatDate(item.date)}
               </div>
+
             </div>
 
             <div class="item-value">
@@ -2307,16 +3279,20 @@ function renderExtraList(){
 
           ${
             item.note
-              ? `<div class="item-meta">
-                   ${escapeHtml(item.note)}
-                 </div>`
-              : ""
+            ? `
+              <div class="item-meta">
+                ${escapeHtml(item.note)}
+              </div>
+            `
+            : ""
           }
 
           <button
             class="delete-btn"
             onclick="deleteExtra('${item.id}')">
+
             حذف
+
           </button>
 
         </div>
@@ -2329,10 +3305,16 @@ function renderExtraList(){
 
 function deleteExtra(id){
 
-  if(!confirm("حذف سجل الدخل؟")) return;
+  if(
+    !confirm(
+      "حذف سجل الدخل؟"
+    )
+  ) return;
 
   state.extra =
-    state.extra.filter(x=>x.id!==id);
+    state.extra.filter(
+      x=>x.id!==id
+    );
 
   save();
 
@@ -2359,27 +3341,40 @@ function expenseName(type){
 
   };
 
-  return names[type] || "أخرى";
+  return names[type]
+    || "أخرى";
 
 }
 
 function saveExpense(){
 
   const date =
-    document.getElementById("expenseDate").value || today();
+    document.getElementById(
+      "expenseDate"
+    ).value || today();
 
   const type =
-    document.getElementById("expenseType").value;
+    document.getElementById(
+      "expenseType"
+    ).value;
 
   const amount =
-    number(document.getElementById("expenseAmount").value);
+    number(
+      document.getElementById(
+        "expenseAmount"
+      ).value
+    );
 
   const note =
-    document.getElementById("expenseNote").value.trim();
+    document.getElementById(
+      "expenseNote"
+    ).value.trim();
 
   if(amount <= 0){
 
-    alert("أدخل قيمة المصروف.");
+    alert(
+      "أدخل قيمة المصروف."
+    );
 
     return;
 
@@ -2405,24 +3400,44 @@ function saveExpense(){
 
 function resetExpense(){
 
-  document.getElementById("expenseDate").value = today();
-  document.getElementById("expenseType").value = "oil";
-  document.getElementById("expenseAmount").value = "";
-  document.getElementById("expenseNote").value = "";
+  document.getElementById(
+    "expenseDate"
+  ).value =
+    today();
+
+  document.getElementById(
+    "expenseType"
+  ).value =
+    "oil";
+
+  document.getElementById(
+    "expenseAmount"
+  ).value =
+    "";
+
+  document.getElementById(
+    "expenseNote"
+  ).value =
+    "";
 
 }
 
 function renderExpenseList(){
 
   const container =
-    document.getElementById("expenseList");
+    document.getElementById(
+      "expenseList"
+    );
 
   if(!state.expenses.length){
 
     container.innerHTML =
-      `<div class="empty">لا توجد مصاريف مسجلة.</div>`;
+      `<div class="empty">
+        لا توجد مصاريف مسجلة.
+      </div>`;
 
     return;
+
   }
 
   container.innerHTML =
@@ -2435,6 +3450,7 @@ function renderExpenseList(){
           <div class="item-main">
 
             <div>
+
               <div class="item-title">
                 ${expenseName(item.type)}
               </div>
@@ -2442,6 +3458,7 @@ function renderExpenseList(){
               <div class="item-date">
                 ${formatDate(item.date)}
               </div>
+
             </div>
 
             <div class="item-value">
@@ -2452,16 +3469,20 @@ function renderExpenseList(){
 
           ${
             item.note
-              ? `<div class="item-meta">
-                   ${escapeHtml(item.note)}
-                 </div>`
-              : ""
+            ? `
+              <div class="item-meta">
+                ${escapeHtml(item.note)}
+              </div>
+            `
+            : ""
           }
 
           <button
             class="delete-btn"
             onclick="deleteExpense('${item.id}')">
+
             حذف
+
           </button>
 
         </div>
@@ -2474,10 +3495,16 @@ function renderExpenseList(){
 
 function deleteExpense(id){
 
-  if(!confirm("حذف المصروف؟")) return;
+  if(
+    !confirm(
+      "حذف المصروف؟"
+    )
+  ) return;
 
   state.expenses =
-    state.expenses.filter(x=>x.id!==id);
+    state.expenses.filter(
+      x=>x.id!==id
+    );
 
   save();
 
@@ -2492,107 +3519,176 @@ function deleteExpense(id){
 function renderReports(){
 
   const period =
-    document.getElementById("reportPeriod").value;
+    document.getElementById(
+      "reportPeriod"
+    ).value;
 
   const date =
-    document.getElementById("reportDate").value || today();
+    document.getElementById(
+      "reportDate"
+    ).value || today();
 
   const range =
-    calculateRange(period,date);
+    calculateRange(
+      period,
+      date
+    );
 
   const inRange =
     item =>
-      item.date >= range.start &&
+      item.date >= range.start
+      &&
       item.date <= range.end;
 
   const bli =
     state.bli
       .filter(inRange)
-      .reduce((sum,x)=>
-        sum+
-        number(x.income)+
-        number(x.bonus)+
-        number(x.tip),0);
+      .reduce(
+        (sum,x)=>
+          sum
+          + number(x.income)
+          + number(x.bonus)
+          + number(x.tip),
+        0
+      );
 
   const extra =
     state.extra
       .filter(inRange)
-      .reduce((sum,x)=>
-        sum+number(x.amount),0);
+      .reduce(
+        (sum,x)=>
+          sum+number(x.amount),
+        0
+      );
 
   const fuel =
     state.fuel
       .filter(inRange)
-      .reduce((sum,x)=>
-        sum+
-        number(x.liters)*
-        number(x.price),0);
+      .reduce(
+        (sum,x)=>
+          sum
+          + number(x.liters)
+          * number(x.price),
+        0
+      );
 
   const expenses =
     state.expenses
       .filter(inRange)
-      .reduce((sum,x)=>
-        sum+number(x.amount),0);
+      .reduce(
+        (sum,x)=>
+          sum+number(x.amount),
+        0
+      );
 
   const petrol =
     state.fuel
-      .filter(x=>inRange(x) && x.type==="petrol")
-      .reduce((sum,x)=>
-        sum+number(x.liters),0);
+      .filter(
+        x=>
+          inRange(x)
+          &&
+          x.type==="petrol"
+      )
+      .reduce(
+        (sum,x)=>
+          sum+number(x.liters),
+        0
+      );
 
   const lpg =
     state.fuel
-      .filter(x=>inRange(x) && x.type==="lpg")
-      .reduce((sum,x)=>
-        sum+number(x.liters),0);
+      .filter(
+        x=>
+          inRange(x)
+          &&
+          x.type==="lpg"
+      )
+      .reduce(
+        (sum,x)=>
+          sum+number(x.liters),
+        0
+      );
 
-  const liters = petrol+lpg;
+  const liters =
+    petrol+lpg;
 
-  const income = bli+extra;
+  const income =
+    bli+extra;
 
   const profit =
     income-fuel-expenses;
 
-  document.getElementById("reportBli").textContent =
+  document.getElementById(
+    "reportBli"
+  ).textContent =
     money(bli);
 
-  document.getElementById("reportExtra").textContent =
+  document.getElementById(
+    "reportExtra"
+  ).textContent =
     money(extra);
 
-  document.getElementById("reportIncome").textContent =
+  document.getElementById(
+    "reportIncome"
+  ).textContent =
     money(income);
 
-  document.getElementById("reportExpenses").textContent =
+  document.getElementById(
+    "reportExpenses"
+  ).textContent =
     money(expenses);
 
-  document.getElementById("reportPetrol").textContent =
-    petrol.toFixed(1)+" L";
+  document.getElementById(
+    "reportPetrol"
+  ).textContent =
+    petrol.toFixed(1)
+    +" L";
 
-  document.getElementById("reportLpg").textContent =
-    lpg.toFixed(1)+" L";
+  document.getElementById(
+    "reportLpg"
+  ).textContent =
+    lpg.toFixed(1)
+    +" L";
 
-  document.getElementById("reportProfit").textContent =
+  document.getElementById(
+    "reportProfit"
+  ).textContent =
     money(profit);
 
-  document.getElementById("reportLiters").textContent =
-    liters.toFixed(1)+" L";
+  document.getElementById(
+    "reportLiters"
+  ).textContent =
+    liters.toFixed(1)
+    +" L";
 
-  document.getElementById("tableBli").textContent =
+  document.getElementById(
+    "tableBli"
+  ).textContent =
     money(bli);
 
-  document.getElementById("tableExtra").textContent =
+  document.getElementById(
+    "tableExtra"
+  ).textContent =
     money(extra);
 
-  document.getElementById("tableIncome").textContent =
+  document.getElementById(
+    "tableIncome"
+  ).textContent =
     money(income);
 
-  document.getElementById("tableFuel").textContent =
+  document.getElementById(
+    "tableFuel"
+  ).textContent =
     money(fuel);
 
-  document.getElementById("tableExpenses").textContent =
+  document.getElementById(
+    "tableExpenses"
+  ).textContent =
     money(expenses);
 
-  document.getElementById("tableProfit").textContent =
+  document.getElementById(
+    "tableProfit"
+  ).textContent =
     money(profit);
 
 }
@@ -2603,13 +3699,19 @@ function renderReports(){
 
 function renderSettings(){
 
-  document.getElementById("settingTarget").value =
+  document.getElementById(
+    "settingTarget"
+  ).value =
     state.settings.weeklyTarget;
 
-  document.getElementById("settingPetrol").value =
+  document.getElementById(
+    "settingPetrol"
+  ).value =
     state.settings.petrolPrice;
 
-  document.getElementById("settingLpg").value =
+  document.getElementById(
+    "settingLpg"
+  ).value =
     state.settings.lpgPrice;
 
 }
@@ -2617,28 +3719,48 @@ function renderSettings(){
 function saveSettings(){
 
   const target =
-    number(document.getElementById("settingTarget").value);
+    number(
+      document.getElementById(
+        "settingTarget"
+      ).value
+    );
 
   const petrol =
-    number(document.getElementById("settingPetrol").value);
+    number(
+      document.getElementById(
+        "settingPetrol"
+      ).value
+    );
 
   const lpg =
-    number(document.getElementById("settingLpg").value);
+    number(
+      document.getElementById(
+        "settingLpg"
+      ).value
+    );
 
   state.settings.weeklyTarget =
-    target > 0 ? target : 250000;
+    target > 0
+      ? target
+      : 250000;
 
   state.settings.petrolPrice =
-    petrol > 0 ? petrol : 450;
+    petrol > 0
+      ? petrol
+      : 450;
 
   state.settings.lpgPrice =
-    lpg > 0 ? lpg : 200;
+    lpg > 0
+      ? lpg
+      : 200;
 
   save();
 
   renderAll();
 
-  alert("تم حفظ الإعدادات.");
+  alert(
+    "تم حفظ الإعدادات."
+  );
 
 }
 
@@ -2649,12 +3771,18 @@ function saveSettings(){
 function exportBackup(){
 
   const data =
-    JSON.stringify(state,null,2);
+    JSON.stringify(
+      state,
+      null,
+      2
+    );
 
   const blob =
     new Blob(
       [data],
-      {type:"application/json"}
+      {
+        type:"application/json"
+      }
     );
 
   const url =
@@ -2663,10 +3791,13 @@ function exportBackup(){
   const a =
     document.createElement("a");
 
-  a.href = url;
+  a.href =
+    url;
 
   a.download =
-    "bli-driver-backup-"+today()+".json";
+    "bli-driver-backup-"
+    +today()
+    +".json";
 
   document.body.appendChild(a);
 
@@ -2688,39 +3819,56 @@ function importBackup(event){
   const reader =
     new FileReader();
 
-  reader.onload = function(e){
+  reader.onload =
+    function(e){
 
-    try{
+      try{
 
-      const parsed =
-        JSON.parse(e.target.result);
+        const parsed =
+          JSON.parse(
+            e.target.result
+          );
 
-      if(!parsed ||
-         !parsed.settings ||
-         !Array.isArray(parsed.bli) ||
-         !Array.isArray(parsed.fuel) ||
-         !Array.isArray(parsed.extra) ||
-         !Array.isArray(parsed.expenses)){
+        if(
+          !parsed
+          ||
+          !parsed.settings
+          ||
+          !Array.isArray(parsed.bli)
+          ||
+          !Array.isArray(parsed.fuel)
+          ||
+          !Array.isArray(parsed.extra)
+          ||
+          !Array.isArray(parsed.expenses)
+        ){
 
-        throw new Error("Invalid backup");
+          throw new Error(
+            "Invalid backup"
+          );
+
+        }
+
+        state =
+          parsed;
+
+        save();
+
+        renderAll();
+
+        alert(
+          "تم استيراد النسخة الاحتياطية بنجاح."
+        );
+
+      }catch(error){
+
+        alert(
+          "النسخة الاحتياطية غير صالحة."
+        );
 
       }
 
-      state = parsed;
-
-      save();
-
-      renderAll();
-
-      alert("تم استيراد النسخة الاحتياطية بنجاح.");
-
-    }catch(error){
-
-      alert("النسخة الاحتياطية غير صالحة.");
-
-    }
-
-  };
+    };
 
   reader.readAsText(file);
 
@@ -2773,19 +3921,29 @@ function clearAllData(){
 
 function setDefaultDates(){
 
-  document.getElementById("bliDate").value =
+  document.getElementById(
+    "bliDate"
+  ).value =
     today();
 
-  document.getElementById("fuelDate").value =
+  document.getElementById(
+    "fuelDate"
+  ).value =
     today();
 
-  document.getElementById("extraDate").value =
+  document.getElementById(
+    "extraDate"
+  ).value =
     today();
 
-  document.getElementById("expenseDate").value =
+  document.getElementById(
+    "expenseDate"
+  ).value =
     today();
 
-  document.getElementById("reportDate").value =
+  document.getElementById(
+    "reportDate"
+  ).value =
     today();
 
   updateFuelPrice();
