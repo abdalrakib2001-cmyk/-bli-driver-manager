@@ -634,7 +634,7 @@ footer{
   filter:
     drop-shadow(0 7px 10px rgba(0,0,0,.7))
     drop-shadow(0 0 12px rgba(255,59,48,.45));
-  animation:carDrive 2s cubic-bezier(.18,.72,.25,1) forwards;
+  animation:carDrive 1s cubic-bezier(.18,.72,.25,1) forwards;
   transform:scaleX(1);
 }
 
@@ -666,7 +666,7 @@ footer{
   bottom:25px;
   background:linear-gradient(90deg,transparent,rgba(255,59,48,.4));
   filter:blur(8px);
-  animation:lightMove 2s ease forwards;
+  animation:lightMove 1s ease forwards;
 }
 
 @keyframes lightMove{
@@ -1403,11 +1403,6 @@ footer{
   </div>
 </div>
 
-<!-- SOUND FILE IS SEPARATE -->
-<audio id="supercarSound" preload="auto">
-  <source src="supercar-rev.mp3" type="audio/mpeg">
-</audio>
-
 <!-- DATE WHEEL -->
 <div id="dateModal" class="date-modal" onclick="dateModalBackground(event)">
 
@@ -1570,13 +1565,14 @@ function load(){
    NAVIGATION + CAR ANIMATION
    ========================================================= */
 
-const DRIVE_DURATION = 2000;
+const DRIVE_DURATION = 1000;
 let transitionBusy = false;
 let engineAudioContext = null;
 
 /*
-  Use the original MP3 when it is available. If it is not beside the HTML
-  file, create a short engine-like fallback so the transition still works.
+  Sporty one-second launch sound:
+  deep engine rev + bright acceleration + a short turbo whoosh.
+  It is generated here so no external MP3 is required.
 */
 function playGeneratedEngineSound(){
   try{
@@ -1591,39 +1587,79 @@ function playGeneratedEngineSound(){
     const start = ctx.currentTime;
     const duration = DRIVE_DURATION/1000;
     const master = ctx.createGain();
-    const filter = ctx.createBiquadFilter();
+    const engineFilter = ctx.createBiquadFilter();
+    const turboFilter = ctx.createBiquadFilter();
     const engine = ctx.createOscillator();
-    const rumble = ctx.createOscillator();
+    const lowEngine = ctx.createOscillator();
+    const turbo = ctx.createOscillator();
+    const engineGain = ctx.createGain();
+    const lowGain = ctx.createGain();
+    const turboGain = ctx.createGain();
+    const lfo = ctx.createOscillator();
+    const lfoGain = ctx.createGain();
 
     master.gain.setValueAtTime(.0001,start);
-    master.gain.exponentialRampToValueAtTime(.28,start+.08);
+    master.gain.exponentialRampToValueAtTime(.38,start+.035);
     master.gain.exponentialRampToValueAtTime(.0001,start+duration);
 
-    filter.type = "lowpass";
-    filter.frequency.setValueAtTime(650,start);
-    filter.frequency.exponentialRampToValueAtTime(1700,start+.55);
-    filter.frequency.exponentialRampToValueAtTime(600,start+duration);
-    filter.Q.value = 1.1;
+    engineFilter.type = "lowpass";
+    engineFilter.frequency.setValueAtTime(520,start);
+    engineFilter.frequency.exponentialRampToValueAtTime(2500,start+.42);
+    engineFilter.frequency.exponentialRampToValueAtTime(850,start+duration);
+    engineFilter.Q.value = 1.4;
+
+    turboFilter.type = "bandpass";
+    turboFilter.frequency.setValueAtTime(240,start+.16);
+    turboFilter.frequency.exponentialRampToValueAtTime(1800,start+.72);
+    turboFilter.Q.value = 3.2;
 
     engine.type = "sawtooth";
-    engine.frequency.setValueAtTime(72,start);
-    engine.frequency.exponentialRampToValueAtTime(230,start+.62);
-    engine.frequency.exponentialRampToValueAtTime(110,start+1.25);
-    engine.frequency.exponentialRampToValueAtTime(76,start+duration);
+    engine.frequency.setValueAtTime(68,start);
+    engine.frequency.exponentialRampToValueAtTime(310,start+.48);
+    engine.frequency.exponentialRampToValueAtTime(145,start+.82);
+    engine.frequency.exponentialRampToValueAtTime(82,start+duration);
+    engineGain.gain.setValueAtTime(.48,start);
+    engineGain.gain.exponentialRampToValueAtTime(.9,start+.38);
+    engineGain.gain.exponentialRampToValueAtTime(.12,start+duration);
 
-    rumble.type = "triangle";
-    rumble.frequency.setValueAtTime(38,start);
-    rumble.frequency.exponentialRampToValueAtTime(88,start+.65);
-    rumble.frequency.exponentialRampToValueAtTime(42,start+duration);
+    lowEngine.type = "triangle";
+    lowEngine.frequency.setValueAtTime(36,start);
+    lowEngine.frequency.exponentialRampToValueAtTime(118,start+.5);
+    lowEngine.frequency.exponentialRampToValueAtTime(48,start+duration);
+    lowGain.gain.value = .8;
 
-    engine.connect(filter);
-    rumble.connect(filter);
-    filter.connect(master);
+    turbo.type = "sine";
+    turbo.frequency.setValueAtTime(180,start+.12);
+    turbo.frequency.exponentialRampToValueAtTime(1450,start+.76);
+    turbo.frequency.exponentialRampToValueAtTime(520,start+duration);
+    turboGain.gain.setValueAtTime(.0001,start+.08);
+    turboGain.gain.exponentialRampToValueAtTime(.3,start+.25);
+    turboGain.gain.exponentialRampToValueAtTime(.0001,start+.92);
+
+    lfo.type = "sine";
+    lfo.frequency.value = 18;
+    lfoGain.gain.value = 9;
+    lfo.connect(lfoGain);
+    lfoGain.connect(engine.frequency);
+
+    engine.connect(engineGain);
+    lowEngine.connect(lowGain);
+    turbo.connect(turboGain);
+    engineGain.connect(engineFilter);
+    lowGain.connect(engineFilter);
+    turboGain.connect(turboFilter);
+    engineFilter.connect(master);
+    turboFilter.connect(master);
     master.connect(ctx.destination);
+
     engine.start(start);
-    rumble.start(start);
+    lowEngine.start(start);
+    turbo.start(start+.08);
+    lfo.start(start);
     engine.stop(start+duration);
-    rumble.stop(start+duration);
+    lowEngine.stop(start+duration);
+    turbo.stop(start+duration);
+    lfo.stop(start+duration);
 
     if(ctx.state==="suspended"){
       ctx.resume().catch(()=>{});
@@ -1632,31 +1668,7 @@ function playGeneratedEngineSound(){
 }
 
 function playSupercarSound(){
-  const audio = document.getElementById("supercarSound");
-  if(!audio){
-    playGeneratedEngineSound();
-    return;
-  }
-
-  try{
-    clearTimeout(audio._stopTimer);
-    audio.pause();
-    audio.currentTime = 0;
-
-    const p = audio.play();
-    if(p && typeof p.catch==="function"){
-      p.catch(()=>{
-        playGeneratedEngineSound();
-      });
-    }
-
-    audio._stopTimer = setTimeout(()=>{
-      audio.pause();
-      audio.currentTime = 0;
-    },DRIVE_DURATION);
-  }catch(e){
-    playGeneratedEngineSound();
-  }
+  playGeneratedEngineSound();
 }
 
 function transitionEffect(callback){
@@ -1669,7 +1681,7 @@ function transitionEffect(callback){
   /* restart animation */
   car.style.animation = "none";
   void car.offsetWidth;
-  car.style.animation = "carDrive 2s cubic-bezier(.18,.72,.25,1) forwards";
+  car.style.animation = "carDrive 1s cubic-bezier(.18,.72,.25,1) forwards";
 
   overlay.classList.add("show");
 
@@ -1677,7 +1689,7 @@ function transitionEffect(callback){
 
   setTimeout(()=>{
     callback();
-  },1000);
+  },520);
 
   setTimeout(()=>{
     overlay.classList.remove("show");
