@@ -2,2605 +2,2366 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#0f172a">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bli Driver Manager</title>
 
 <style>
 *{
-box-sizing:border-box;
--webkit-tap-highlight-color:transparent;
+  box-sizing:border-box;
 }
 
 body{
-margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;
-background:#f1f5f9;
-color:#0f172a;
+  margin:0;
+  font-family:Arial,Tahoma,sans-serif;
+  background:#f4f6f8;
+  color:#222;
 }
 
-button,input,select,textarea{
-font:inherit;
+header{
+  background:#111827;
+  color:white;
+  padding:18px 14px;
+  text-align:center;
 }
 
-button{
-cursor:pointer;
+header h1{
+  margin:0 0 6px;
+  font-size:24px;
 }
 
-.header{
-background:#0f172a;
-color:white;
-padding:18px 16px 16px;
-position:sticky;
-top:0;
-z-index:20;
+header p{
+  margin:0;
+  color:#d1d5db;
+  font-size:13px;
 }
 
-.header-title{
-font-size:23px;
-font-weight:800;
-text-align:center;
+nav{
+  display:flex;
+  overflow-x:auto;
+  background:white;
+  border-bottom:1px solid #ddd;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
 
-.header-sub{
-text-align:center;
-opacity:.75;
-font-size:13px;
-margin-top:4px;
+nav button{
+  flex:1;
+  min-width:90px;
+  padding:13px 8px;
+  border:0;
+  background:white;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.nav{
-display:flex;
-overflow-x:auto;
-gap:7px;
-padding:10px;
-background:#fff;
-border-bottom:1px solid #e2e8f0;
-position:sticky;
-top:78px;
-z-index:19;
+nav button.active{
+  background:#111827;
+  color:white;
 }
 
-.nav button{
-border:0;
-background:#e2e8f0;
-color:#334155;
-border-radius:12px;
-padding:9px 13px;
-white-space:nowrap;
-font-size:13px;
-font-weight:700;
+main{
+  max-width:900px;
+  margin:auto;
+  padding:15px;
 }
 
-.nav button.active{
-background:#0f172a;
-color:#fff;
+section{
+  display:none;
 }
 
-.container{
-max-width:900px;
-margin:auto;
-padding:14px;
-padding-bottom:90px;
-}
-
-.section{
-display:none;
-}
-
-.section.active{
-display:block;
+section.active{
+  display:block;
 }
 
 .card{
-background:#fff;
-border-radius:18px;
-padding:16px;
-margin-bottom:14px;
-box-shadow:0 4px 18px rgba(15,23,42,.06);
-border:1px solid #e2e8f0;
+  background:white;
+  border-radius:14px;
+  padding:16px;
+  margin-bottom:14px;
+  box-shadow:0 2px 8px rgba(0,0,0,.07);
 }
 
-.card-title{
-font-size:18px;
-font-weight:800;
-margin-bottom:13px;
+.card h2,
+.card h3{
+  margin-top:0;
 }
 
 .grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
 }
 
-@media(max-width:560px){
-.grid{
-grid-template-columns:1fr;
-}
+@media(max-width:600px){
+  .grid{
+    grid-template-columns:1fr;
+  }
 }
 
 label{
-display:block;
-font-size:13px;
-font-weight:700;
-color:#475569;
-margin-bottom:6px;
+  display:block;
+  font-weight:bold;
+  margin-bottom:6px;
 }
 
-input,select,textarea{
-width:100%;
-border:1px solid #cbd5e1;
-border-radius:12px;
-padding:12px;
-background:#fff;
-color:#0f172a;
-outline:none;
-}
-
-input:focus,select:focus,textarea:focus{
-border-color:#0f172a;
+input,
+select,
+textarea{
+  width:100%;
+  padding:11px;
+  border:1px solid #ccc;
+  border-radius:9px;
+  font-size:15px;
+  background:white;
 }
 
 textarea{
-min-height:80px;
-resize:vertical;
+  min-height:80px;
+  resize:vertical;
 }
 
-input[type="date"]{
-min-height:47px;
+.field{
+  margin-bottom:12px;
+}
+
+button{
+  border:0;
+  border-radius:9px;
+  padding:11px 14px;
+  cursor:pointer;
+  font-size:14px;
 }
 
 .btn{
-border:0;
-border-radius:13px;
-padding:12px 16px;
-font-weight:800;
-width:100%;
-}
-
-.btn-primary{
-background:#0f172a;
-color:white;
-}
-
-.btn-success{
-background:#16a34a;
-color:white;
-}
-
-.btn-danger{
-background:#dc2626;
-color:white;
+  background:#111827;
+  color:white;
 }
 
 .btn-secondary{
-background:#e2e8f0;
-color:#0f172a;
+  background:#e5e7eb;
+  color:#111;
 }
 
-.form-actions{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-margin-top:12px;
+.btn-danger{
+  background:#dc2626;
+  color:white;
 }
 
-@media(max-width:430px){
-.form-actions{
-grid-template-columns:1fr;
-}
-}
-
-.target-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
+.btn-green{
+  background:#16a34a;
+  color:white;
 }
 
-.target-card{
-border-radius:18px;
-padding:18px;
-color:white;
-min-height:125px;
+.actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
 }
 
-.target-card.goal{
-background:#16a34a;
+.stat-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
 }
 
-.target-card.remaining{
-background:#dc2626;
-}
-
-.target-card.remaining.done{
-background:#16a34a;
-}
-
-.target-label{
-font-size:13px;
-opacity:.95;
-}
-
-.target-value{
-font-size:25px;
-font-weight:900;
-margin-top:8px;
-}
-
-.progress-wrap{
-background:#e2e8f0;
-border-radius:99px;
-height:15px;
-overflow:hidden;
-margin-top:10px;
-}
-
-.progress-bar{
-height:100%;
-width:0%;
-background:#16a34a;
-transition:.3s;
-}
-
-.progress-text{
-text-align:center;
-font-weight:900;
-margin-top:8px;
-}
-
-.stats-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
+@media(max-width:600px){
+  .stat-grid{
+    grid-template-columns:1fr 1fr;
+  }
 }
 
 .stat{
-background:#f8fafc;
-border:1px solid #e2e8f0;
-border-radius:15px;
-padding:14px;
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:13px;
 }
 
-.stat-label{
-color:#64748b;
-font-size:12px;
+.stat-title{
+  font-size:12px;
+  color:#6b7280;
+  margin-bottom:5px;
 }
 
 .stat-value{
-font-size:19px;
-font-weight:900;
-margin-top:5px;
+  font-size:19px;
+  font-weight:bold;
 }
 
-.positive{
-color:#16a34a;
+.target-card{
+  border-radius:14px;
+  padding:16px;
+  background:#dcfce7;
+  border:1px solid #86efac;
 }
 
-.negative{
-color:#dc2626;
+.target-card.not-reached{
+  background:#dcfce7;
 }
 
-.table-wrap{
-overflow-x:auto;
+.target-card.reached{
+  background:#bbf7d0;
 }
 
-table{
-width:100%;
-border-collapse:collapse;
-min-width:620px;
+.target-number{
+  font-size:25px;
+  font-weight:bold;
 }
 
-th,td{
-padding:10px 8px;
-border-bottom:1px solid #e2e8f0;
-text-align:right;
-font-size:13px;
+.progress{
+  height:16px;
+  background:#e5e7eb;
+  border-radius:20px;
+  overflow:hidden;
+  margin:12px 0;
 }
 
-th{
-background:#f8fafc;
-font-weight:900;
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:#16a34a;
+  transition:.3s;
 }
 
-.day-today{
-background:#ecfdf5;
+.remaining{
+  color:#dc2626;
+  font-weight:bold;
 }
 
-.empty{
-text-align:center;
-color:#64748b;
-padding:20px;
+.remaining.done{
+  color:#16a34a;
 }
 
 .record{
-border:1px solid #e2e8f0;
-border-radius:14px;
-padding:12px;
-margin-top:9px;
-background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:11px;
+  padding:12px;
+  margin-top:9px;
+  background:#fafafa;
 }
 
 .record-top{
-display:flex;
-justify-content:space-between;
-gap:10px;
-align-items:center;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  font-weight:bold;
 }
 
-.record-title{
-font-weight:900;
+.record small{
+  color:#6b7280;
 }
 
-.record-date{
-color:#64748b;
-font-size:12px;
-margin-top:3px;
+.delete{
+  background:#fee2e2;
+  color:#b91c1c;
+  padding:6px 9px;
+  margin-top:8px;
 }
 
-.record-value{
-font-weight:900;
-color:#16a34a;
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13px;
 }
 
-.record-details{
-margin-top:7px;
-color:#475569;
-font-size:12px;
-line-height:1.7;
+th,
+td{
+  padding:9px 6px;
+  border-bottom:1px solid #e5e7eb;
+  text-align:center;
 }
 
-.delete-btn{
-border:0;
-background:#fee2e2;
-color:#b91c1c;
-border-radius:9px;
-padding:7px 9px;
-font-size:12px;
-font-weight:800;
-margin-top:5px;
+th{
+  background:#f3f4f6;
 }
 
-.auto-price{
-background:#f0fdf4;
-border-color:#86efac;
-color:#166534;
-font-weight:900;
-}
-
-.week-bar{
-display:flex;
-align-items:center;
-gap:8px;
-margin-bottom:12px;
-}
-
-.week-bar button{
-width:42px;
-height:42px;
-border:0;
-border-radius:12px;
-background:#e2e8f0;
-font-weight:900;
-font-size:20px;
-}
-
-.week-label{
-flex:1;
-text-align:center;
-font-weight:900;
-}
-
-.muted{
-color:#64748b;
-font-size:12px;
+.table-wrap{
+  overflow-x:auto;
 }
 
 .note{
-background:#fffbeb;
-border:1px solid #fde68a;
-color:#92400e;
-padding:11px;
-border-radius:12px;
-font-size:12px;
-line-height:1.7;
+  font-size:12px;
+  color:#6b7280;
 }
 
-.footer{
-text-align:center;
-color:#94a3b8;
-font-size:11px;
-margin-top:20px;
+.preview{
+  background:#eff6ff;
+  border:1px solid #bfdbfe;
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:12px;
+}
+
+footer{
+  text-align:center;
+  padding:25px 10px;
+  color:#777;
+  font-size:12px;
 }
 </style>
 </head>
 
 <body>
 
-<header class="header">
-<div class="header-title">🚕 Bli Driver Manager</div>
-<div class="header-sub">إدارة دخل Bli والوقود والمصاريف</div>
+<header>
+  <h1>🚗 Bli Driver Manager</h1>
+  <p>إدارة الدخل والمصاريف والوقود والأهداف</p>
 </header>
 
-<nav class="nav" id="nav">
-<button class="active" data-section="home">الرئيسية</button>
-<button data-section="bli">Bli</button>
-<button data-section="fuel">الوقود</button>
-<button data-section="extra">دخل إضافي</button>
-<button data-section="expenses">المصاريف</button>
-<button data-section="reports">التقارير</button>
-<button data-section="settings">الإعدادات</button>
+<nav>
+  <button class="nav-btn active" data-section="home">الرئيسية</button>
+  <button class="nav-btn" data-section="bli">Bli</button>
+  <button class="nav-btn" data-section="fuel">الوقود</button>
+  <button class="nav-btn" data-section="extra">دخل إضافي</button>
+  <button class="nav-btn" data-section="expenses">المصاريف</button>
+  <button class="nav-btn" data-section="reports">التقارير</button>
+  <button class="nav-btn" data-section="settings">الإعدادات</button>
 </nav>
 
-<main class="container">
+<main>
 
-<section id="home" class="section active">
+<!-- HOME -->
+<section id="home" class="active">
 
-<div class="week-bar">
-<button onclick="changeWeek(-1)">‹</button>
-<div class="week-label" id="weekLabel"></div>
-<button onclick="changeWeek(1)">›</button>
-</div>
+  <div class="card">
+    <h2>📊 ملخص الأسبوع</h2>
 
-<div class="target-grid">
+    <div class="field">
+      <label>الأسبوع</label>
+      <div class="actions">
+        <button class="btn-secondary" onclick="changeWeek(-1)">⬅ السابق</button>
+        <button class="btn-secondary" onclick="changeWeek(1)">التالي ➡</button>
+      </div>
+    </div>
 
-<div class="target-card goal">
-<div class="target-label">🎯 هدف الأسبوع</div>
-<div class="target-value" id="homeGoal">0</div>
-</div>
+    <div id="weekLabel" class="note"></div>
+  </div>
 
-<div class="target-card remaining" id="remainingCard">
-<div class="target-label">🔴 المتبقي للهدف</div>
-<div class="target-value" id="homeRemaining">0</div>
-</div>
+  <div id="targetCard" class="target-card not-reached">
+    <div>🎯 الهدف الأسبوعي</div>
+    <div id="targetAmount" class="target-number">250,000 د.ع</div>
 
-</div>
+    <div class="progress">
+      <div id="progressBar" class="progress-bar"></div>
+    </div>
 
-<div class="card">
+    <div>
+      الإنجاز:
+      <strong id="targetProgress">0%</strong>
+    </div>
 
-<div class="card-title">📊 نسبة تحقيق الهدف</div>
+    <p id="remainingText" class="remaining">
+      المتبقي: 250,000 د.ع
+    </p>
+  </div>
 
-<div class="progress-wrap">
-<div class="progress-bar" id="progressBar"></div>
-</div>
+  <div class="card">
+    <h3>ملخص الأسبوع</h3>
 
-<div class="progress-text" id="progressText">0%</div>
+    <div class="stat-grid">
 
-</div>
+      <div class="stat">
+        <div class="stat-title">دخل Bli</div>
+        <div id="homeBli" class="stat-value">0</div>
+      </div>
 
-<div class="card">
+      <div class="stat">
+        <div class="stat-title">دخل إضافي</div>
+        <div id="homeExtra" class="stat-value">0</div>
+      </div>
 
-<div class="card-title">💰 ملخص الأسبوع</div>
+      <div class="stat">
+        <div class="stat-title">إجمالي الدخل</div>
+        <div id="homeIncome" class="stat-value">0</div>
+      </div>
 
-<div class="stats-grid">
+      <div class="stat">
+        <div class="stat-title">الوقود</div>
+        <div id="homeFuel" class="stat-value">0</div>
+      </div>
 
-<div class="stat">
-<div class="stat-label">دخل Bli</div>
-<div class="stat-value positive" id="homeBli">0</div>
-</div>
+      <div class="stat">
+        <div class="stat-title">مصاريف أخرى</div>
+        <div id="homeExpenses" class="stat-value">0</div>
+      </div>
 
-<div class="stat">
-<div class="stat-label">الدخل الإضافي</div>
-<div class="stat-value positive" id="homeExtra">0</div>
-</div>
+      <div class="stat">
+        <div class="stat-title">صافي الربح</div>
+        <div id="homeProfit" class="stat-value">0</div>
+      </div>
 
-<div class="stat">
-<div class="stat-label">الوقود</div>
-<div class="stat-value negative" id="homeFuel">0</div>
-</div>
+    </div>
+  </div>
 
-<div class="stat">
-<div class="stat-label">المصاريف الأخرى</div>
-<div class="stat-value negative" id="homeExpenses">0</div>
-</div>
-
-<div class="stat" style="grid-column:1/-1">
-<div class="stat-label">صافي الربح</div>
-<div class="stat-value" id="homeProfit">0</div>
-</div>
-
-</div>
-</div>
-
-<div class="card">
-
-<div class="card-title">📅 أيام الأسبوع</div>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-<tr>
-<th>اليوم</th>
-<th>Bli</th>
-<th>إضافي</th>
-<th>الوقود</th>
-<th>المصاريف</th>
-<th>الصافي</th>
-</tr>
-</thead>
-
-<tbody id="weekTable"></tbody>
-
-</table>
-
-</div>
-</div>
+  <div class="card">
+    <h3>📅 أيام الأسبوع</h3>
+    <div id="weekTable"></div>
+  </div>
 
 </section>
 
 
-<section id="bli" class="section">
+<!-- BLI -->
+<section id="bli">
 
-<div class="card">
+  <div class="card">
+    <h2>💰 دخل Bli</h2>
 
-<div class="card-title">🚕 تسجيل دخل Bli</div>
+    <div class="field">
+      <label>التاريخ</label>
+      <input type="date" id="bliDate">
+    </div>
 
-<div class="grid">
+    <div class="field">
+      <label>دخل Bli بعد العمولة</label>
+      <input type="number" id="bliIncome" min="0" placeholder="مثلاً 16000">
+    </div>
 
-<div>
-<label>📅 التاريخ</label>
-<input type="date" id="bliDate">
-</div>
+    <div class="field">
+      <label>البونص</label>
+      <input type="number" id="bliBonus" min="0" value="0">
+    </div>
 
-<div>
-<label>💰 دخل Bli بعد العمولة</label>
-<input type="number" id="bliIncome" inputmode="numeric" placeholder="مثال: 22000">
-</div>
+    <div class="field">
+      <label>Tips داخل Bli</label>
+      <input type="number" id="bliTips" min="0" value="0">
+    </div>
 
-<div>
-<label>🎁 البونص</label>
-<input type="number" id="bliBonus" inputmode="numeric" value="0" placeholder="0">
-</div>
+    <div class="field">
+      <label>ملاحظة</label>
+      <textarea id="bliNote" placeholder="ملاحظات اختيارية"></textarea>
+    </div>
 
-<div>
-<label>💵 Tips</label>
-<input type="number" id="bliTips" inputmode="numeric" value="0" placeholder="0">
-</div>
+    <div class="actions">
+      <button class="btn-green" onclick="saveBli()">حفظ</button>
+      <button class="btn-secondary" onclick="resetBli()">مسح</button>
+    </div>
+  </div>
 
-<div style="grid-column:1/-1">
-<label>📝 ملاحظة اختيارية</label>
-<textarea id="bliNote" placeholder="مثلاً: شغل مسائي، يوم ممتاز..."></textarea>
-</div>
-
-</div>
-
-<div class="form-actions">
-
-<button class="btn btn-primary" onclick="saveBli()">
-حفظ دخل Bli
-</button>
-
-<button class="btn btn-secondary" onclick="resetBli()">
-مسح
-</button>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="card-title">📋 آخر تسجيلات Bli</div>
-
-<div id="bliList"></div>
-
-</div>
+  <div class="card">
+    <h3>السجلات</h3>
+    <div id="bliList"></div>
+  </div>
 
 </section>
 
 
-<section id="fuel" class="section">
+<!-- FUEL -->
+<section id="fuel">
 
-<div class="card">
+  <div class="card">
+    <h2>⛽ الوقود</h2>
 
-<div class="card-title">⛽ تسجيل الوقود</div>
+    <div class="field">
+      <label>التاريخ</label>
+      <input type="date" id="fuelDate">
+    </div>
 
-<div class="grid">
+    <div class="field">
+      <label>نوع الوقود</label>
+      <select id="fuelType" onchange="updateFuelPrice()">
+        <option value="petrol">بنزين</option>
+        <option value="lpg">غاز LPG</option>
+      </select>
+    </div>
 
-<div>
-<label>📅 التاريخ</label>
-<input type="date" id="fuelDate">
-</div>
+    <div class="field">
+      <label>اللترات</label>
+      <input type="number" id="fuelLiters" min="0" step="0.1" oninput="updateFuelPreview()">
+    </div>
 
-<div>
-<label>نوع الوقود</label>
+    <div class="field">
+      <label>سعر اللتر</label>
+      <input type="number" id="fuelPrice" readonly>
+    </div>
 
-<select id="fuelType" onchange="updateFuelPrice()">
+    <div id="fuelPreview" class="preview">
+      التكلفة: 0 د.ع
+    </div>
 
-<option value="petrol">⛽ بنزين</option>
-<option value="lpg">🔥 LPG / غاز</option>
+    <div class="actions">
+      <button class="btn-green" onclick="saveFuel()">حفظ</button>
+      <button class="btn-secondary" onclick="resetFuel()">مسح</button>
+    </div>
 
-</select>
+    <p class="note">
+      سعر البنزين الافتراضي 450 د.ع/لتر — سعر الغاز الافتراضي 200 د.ع/لتر.
+      يمكن تغييرهما من الإعدادات.
+    </p>
+  </div>
 
-</div>
-
-<div>
-
-<label>عدد اللترات</label>
-
-<input
-type="number"
-id="fuelLiters"
-inputmode="decimal"
-step="0.1"
-placeholder="مثال: 20">
-
-</div>
-
-<div>
-
-<label>سعر اللتر</label>
-
-<input
-type="number"
-id="fuelPrice"
-class="auto-price"
-readonly>
-
-</div>
-
-<div style="grid-column:1/-1">
-
-<div class="stat">
-
-<div class="stat-label">
-المبلغ المتوقع
-</div>
-
-<div class="stat-value" id="fuelTotalPreview">
-0 د.ع
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="note" style="margin-top:12px">
-
-السعر يتحدد تلقائياً حسب نوع الوقود:
-البنزين 450 د.ع/لتر والغاز 200 د.ع/لتر.
-لا تحتاج إلى إدخال عداد السيارة.
-
-</div>
-
-<div class="form-actions">
-
-<button class="btn btn-primary" onclick="saveFuel()">
-حفظ التعبئة
-</button>
-
-<button class="btn btn-secondary" onclick="resetFuel()">
-مسح
-</button>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="card-title">📋 آخر تسجيلات الوقود</div>
-
-<div id="fuelList"></div>
-
-</div>
+  <div class="card">
+    <h3>سجلات الوقود</h3>
+    <div id="fuelList"></div>
+  </div>
 
 </section>
 
 
-<section id="extra" class="section">
+<!-- EXTRA -->
+<section id="extra">
 
-<div class="card">
+  <div class="card">
+    <h2>➕ دخل إضافي</h2>
 
-<div class="card-title">➕ دخل إضافي</div>
+    <div class="field">
+      <label>التاريخ</label>
+      <input type="date" id="extraDate">
+    </div>
 
-<div class="grid">
+    <div class="field">
+      <label>نوع الدخل</label>
+      <select id="extraType">
+        <option value="fuelSale">بيع وقود</option>
+        <option value="tip">Tip خارج Bli</option>
+        <option value="other">دخل آخر</option>
+      </select>
+    </div>
 
-<div>
-<label>📅 التاريخ</label>
-<input type="date" id="extraDate">
-</div>
+    <div class="field">
+      <label>المبلغ</label>
+      <input type="number" id="extraAmount" min="0">
+    </div>
 
-<div>
+    <div class="field">
+      <label>ملاحظة</label>
+      <textarea id="extraNote"></textarea>
+    </div>
 
-<label>نوع الدخل</label>
+    <div class="actions">
+      <button class="btn-green" onclick="saveExtra()">حفظ</button>
+      <button class="btn-secondary" onclick="resetExtra()">مسح</button>
+    </div>
+  </div>
 
-<select id="extraType">
-
-<option value="fuelSale">⛽ بيع بنزين</option>
-<option value="tip">💵 Tips</option>
-<option value="other">💰 دخل آخر</option>
-
-</select>
-
-</div>
-
-<div>
-
-<label>💰 المبلغ</label>
-
-<input
-type="number"
-id="extraAmount"
-inputmode="numeric"
-placeholder="مثال: 13000">
-
-</div>
-
-<div style="grid-column:1/-1">
-
-<label>📝 ملاحظة</label>
-
-<textarea
-id="extraNote"
-placeholder="مثلاً: بيع بنزين، بقشيش، عمل إضافي..."></textarea>
-
-</div>
-
-</div>
-
-<div class="form-actions">
-
-<button class="btn btn-success" onclick="saveExtra()">
-حفظ الدخل
-</button>
-
-<button class="btn btn-secondary" onclick="resetExtra()">
-مسح
-</button>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="card-title">📋 آخر الدخول الإضافية</div>
-
-<div id="extraList"></div>
-
-</div>
-
-</section>
-<section id="expenses" class="section">
-
-<div class="card">
-
-<div class="card-title">💸 تسجيل مصروف</div>
-
-<div class="grid">
-
-<div>
-<label>📅 التاريخ</label>
-<input type="date" id="expenseDate">
-</div>
-
-<div>
-<label>نوع المصروف</label>
-
-<select id="expenseType">
-
-<option value="oil">🛢️ زيت</option>
-<option value="maintenance">🔧 صيانة</option>
-<option value="tires">🛞 إطارات</option>
-<option value="repair">🧰 تصليح</option>
-<option value="wash">🧽 غسيل</option>
-<option value="electrical">⚡ كهربائي</option>
-<option value="fees">📄 رسوم</option>
-<option value="other">📦 أخرى</option>
-
-</select>
-</div>
-
-<div>
-<label>💰 المبلغ</label>
-<input
-type="number"
-id="expenseAmount"
-inputmode="numeric"
-placeholder="مثال: 25000">
-</div>
-
-<div style="grid-column:1/-1">
-
-<label>📝 ملاحظة</label>
-
-<textarea
-id="expenseNote"
-placeholder="مثلاً: تبديل زيت، تصليح..."></textarea>
-
-</div>
-
-</div>
-
-<div class="note" style="margin-top:12px">
-
-لا تسجل البنزين أو LPG هنا.
-الوقود يتم حسابه تلقائياً من قسم الوقود حتى لا ينحسب مرتين.
-
-</div>
-
-<div class="form-actions">
-
-<button class="btn btn-primary" onclick="saveExpense()">
-حفظ المصروف
-</button>
-
-<button class="btn btn-secondary" onclick="resetExpense()">
-مسح
-</button>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="card-title">📋 آخر المصاريف</div>
-
-<div id="expenseList"></div>
-
-</div>
+  <div class="card">
+    <h3>السجلات</h3>
+    <div id="extraList"></div>
+  </div>
 
 </section>
 
 
-<section id="reports" class="section">
+<!-- EXPENSES -->
+<section id="expenses">
 
-<div class="card">
+  <div class="card">
+    <h2>💸 المصاريف الأخرى</h2>
 
-<div class="card-title">📊 التقارير</div>
+    <div class="field">
+      <label>التاريخ</label>
+      <input type="date" id="expenseDate">
+    </div>
 
-<div class="grid">
+    <div class="field">
+      <label>نوع المصروف</label>
+      <select id="expenseType">
+        <option value="oil">زيت</option>
+        <option value="maintenance">صيانة</option>
+        <option value="tires">إطارات</option>
+        <option value="repair">تصليح</option>
+        <option value="wash">غسل</option>
+        <option value="electrical">كهرباء</option>
+        <option value="fees">رسوم</option>
+        <option value="other">أخرى</option>
+      </select>
+    </div>
 
-<div>
+    <div class="field">
+      <label>المبلغ</label>
+      <input type="number" id="expenseAmount" min="0">
+    </div>
 
-<label>نوع التقرير</label>
+    <div class="field">
+      <label>ملاحظة</label>
+      <textarea id="expenseNote"></textarea>
+    </div>
 
-<select id="reportPeriod" onchange="renderReports()">
+    <div class="actions">
+      <button class="btn-green" onclick="saveExpense()">حفظ</button>
+      <button class="btn-secondary" onclick="resetExpense()">مسح</button>
+    </div>
+  </div>
 
-<option value="week">هذا الأسبوع</option>
-<option value="month">هذا الشهر</option>
-
-</select>
-
-</div>
-
-<div>
-
-<label>التاريخ المرجعي</label>
-
-<input
-type="date"
-id="reportDate"
-onchange="renderReports()">
-
-</div>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="stats-grid">
-
-<div class="stat">
-<div class="stat-label">دخل Bli</div>
-<div class="stat-value positive" id="reportBli">0</div>
-</div>
-
-<div class="stat">
-<div class="stat-label">الدخل الإضافي</div>
-<div class="stat-value positive" id="reportExtra">0</div>
-</div>
-
-<div class="stat">
-<div class="stat-label">إجمالي الدخل</div>
-<div class="stat-value positive" id="reportIncome">0</div>
-</div>
-
-<div class="stat">
-<div class="stat-label">بنزين</div>
-<div class="stat-value negative" id="reportPetrol">0</div>
-</div>
-
-<div class="stat">
-<div class="stat-label">LPG</div>
-<div class="stat-value negative" id="reportLpg">0</div>
-</div>
-
-<div class="stat">
-<div class="stat-label">المصاريف الأخرى</div>
-<div class="stat-value negative" id="reportExpenses">0</div>
-</div>
-
-<div class="stat" style="grid-column:1/-1">
-
-<div class="stat-label">
-صافي الربح
-</div>
-
-<div class="stat-value" id="reportProfit">
-0
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="card-title">
-⛽ كميات الوقود
-</div>
-
-<div class="stats-grid">
-
-<div class="stat">
-
-<div class="stat-label">
-لترات البنزين
-</div>
-
-<div class="stat-value" id="reportPetrolLiters">
-0
-</div>
-
-</div>
-
-<div class="stat">
-
-<div class="stat-label">
-لترات LPG
-</div>
-
-<div class="stat-value" id="reportLpgLiters">
-0
-</div>
-
-</div>
-
-</div>
-
-</div>
+  <div class="card">
+    <h3>السجلات</h3>
+    <div id="expenseList"></div>
+  </div>
 
 </section>
 
 
-<section id="settings" class="section">
+<!-- REPORTS -->
+<section id="reports">
 
-<div class="card">
+  <div class="card">
+    <h2>📈 التقارير</h2>
 
-<div class="card-title">
-⚙️ الإعدادات
-</div>
+    <div class="grid">
 
-<div class="grid">
+      <div class="field">
+        <label>نوع التقرير</label>
+        <select id="reportType" onchange="renderReports()">
+          <option value="week">أسبوعي</option>
+          <option value="month">شهري</option>
+        </select>
+      </div>
 
-<div>
+      <div class="field">
+        <label>التاريخ المرجعي</label>
+        <input type="date" id="reportDate" onchange="renderReports()">
+      </div>
 
-<label>🎯 الهدف الأسبوعي</label>
+    </div>
+  </div>
 
-<input
-type="number"
-id="settingWeeklyTarget"
-inputmode="numeric">
+  <div class="card">
+    <h3>النتائج</h3>
 
-</div>
+    <div class="stat-grid">
 
-<div>
+      <div class="stat">
+        <div class="stat-title">Bli</div>
+        <div id="reportBli" class="stat-value">0</div>
+      </div>
 
-<label>⛽ سعر البنزين</label>
+      <div class="stat">
+        <div class="stat-title">دخل إضافي</div>
+        <div id="reportExtra" class="stat-value">0</div>
+      </div>
 
-<input
-type="number"
-id="settingPetrolPrice"
-inputmode="numeric">
+      <div class="stat">
+        <div class="stat-title">إجمالي الدخل</div>
+        <div id="reportIncome" class="stat-value">0</div>
+      </div>
 
-</div>
+      <div class="stat">
+        <div class="stat-title">بنزين</div>
+        <div id="reportPetrol" class="stat-value">0</div>
+      </div>
 
-<div>
+      <div class="stat">
+        <div class="stat-title">غاز</div>
+        <div id="reportLpg" class="stat-value">0</div>
+      </div>
 
-<label>🔥 سعر LPG</label>
+      <div class="stat">
+        <div class="stat-title">مصاريف أخرى</div>
+        <div id="reportExpenses" class="stat-value">0</div>
+      </div>
 
-<input
-type="number"
-id="settingLpgPrice"
-inputmode="numeric">
+      <div class="stat">
+        <div class="stat-title">صافي الربح</div>
+        <div id="reportProfit" class="stat-value">0</div>
+      </div>
 
-</div>
+      <div class="stat">
+        <div class="stat-title">لترات البنزين</div>
+        <div id="reportPetrolLiters" class="stat-value">0</div>
+      </div>
 
-</div>
+      <div class="stat">
+        <div class="stat-title">لترات الغاز</div>
+        <div id="reportLpgLiters" class="stat-value">0</div>
+      </div>
 
-<div class="note" style="margin-top:12px">
-
-الأسعار الافتراضية:
-البنزين 450 د.ع والغاز 200 د.ع.
-
-</div>
-
-<button
-class="btn btn-primary"
-style="margin-top:12px"
-onclick="saveSettings()">
-
-حفظ الإعدادات
-
-</button>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-title">
-💾 النسخ الاحتياطي
-</div>
-
-<p class="muted">
-
-بيانات الموقع محفوظة على هذا الجهاز.
-استخدم النسخ الاحتياطي حتى لا تضيع بياناتك.
-
-</p>
-
-<div class="form-actions">
-
-<button
-class="btn btn-success"
-onclick="exportBackup()">
-
-تصدير البيانات
-
-</button>
-
-<button
-class="btn btn-secondary"
-onclick="document.getElementById('importFile').click()">
-
-استيراد البيانات
-
-</button>
-
-</div>
-
-<input
-type="file"
-id="importFile"
-accept=".json"
-style="display:none"
-onchange="importBackup(event)">
-
-</div>
-
-
-<div class="card">
-
-<div class="card-title">
-⚠️ حذف البيانات
-</div>
-
-<p class="muted">
-هذا الخيار يحذف جميع البيانات المحفوظة.
-</p>
-
-<button
-class="btn btn-danger"
-onclick="clearAllData()">
-
-حذف جميع البيانات
-
-</button>
-
-</div>
+    </div>
+  </div>
 
 </section>
 
-<div class="footer">
-Bli Driver Manager
-</div>
+
+<!-- SETTINGS -->
+<section id="settings">
+
+  <div class="card">
+    <h2>⚙️ الإعدادات</h2>
+
+    <div class="field">
+      <label>الهدف الأسبوعي</label>
+      <input type="number" id="settingTarget" min="0">
+    </div>
+
+    <div class="field">
+      <label>سعر البنزين / لتر</label>
+      <input type="number" id="settingPetrol" min="0">
+    </div>
+
+    <div class="field">
+      <label>سعر الغاز / لتر</label>
+      <input type="number" id="settingLpg" min="0">
+    </div>
+
+    <button class="btn-green" onclick="saveSettings()">حفظ الإعدادات</button>
+  </div>
+
+
+  <div class="card">
+    <h3>💾 النسخ الاحتياطي</h3>
+
+    <p class="note">
+      يمكنك تنزيل نسخة من بياناتك واستعادتها لاحقاً.
+    </p>
+
+    <div class="actions">
+      <button class="btn" onclick="exportBackup()">تصدير البيانات</button>
+
+      <label class="btn-secondary" style="display:inline-block;cursor:pointer;">
+        استيراد البيانات
+        <input
+          type="file"
+          id="importFile"
+          accept=".json"
+          onchange="importBackup(event)"
+          style="display:none;"
+        >
+      </label>
+    </div>
+  </div>
+
+
+  <div class="card">
+    <h3>⚠️ حذف البيانات</h3>
+
+    <p class="note">
+      هذا الخيار يحذف جميع البيانات المحفوظة من هذا الجهاز.
+    </p>
+
+    <button class="btn-danger" onclick="clearAllData()">
+      حذف كل البيانات
+    </button>
+  </div>
+
+</section>
+
+
+<footer>
+  Bli Driver Manager — بياناتك محفوظة على جهازك
+</footer>
 
 </main>
 
 
 <script>
 
-const STORAGE_KEY="bliDriverManager_v1";
+const STORAGE_KEY = "bli_driver_manager_v1";
 
-let state=loadState();
+let state = loadState();
 
-let currentWeekOffset=0;
+let currentWeekOffset = 0;
+
+
+/* =========================
+   DEFAULT STATE
+========================= */
 
 function defaultState(){
 
-return{
+  return {
+    settings:{
+      weeklyTarget:250000,
+      petrolPrice:450,
+      lpgPrice:200
+    },
 
-settings:{
-weeklyTarget:250000,
-petrolPrice:450,
-lpgPrice:200
-},
-
-bli:[],
-fuel:[],
-extra:[],
-expenses:[]
-
-};
+    bli:[],
+    fuel:[],
+    extra:[],
+    expenses:[]
+  };
 
 }
+
+
+/* =========================
+   LOAD / SAVE
+========================= */
 
 function loadState(){
 
-const defaults=defaultState();
+  try{
 
-try{
+    const saved = localStorage.getItem(STORAGE_KEY);
 
-const raw=localStorage.getItem(STORAGE_KEY);
+    if(!saved){
+      return defaultState();
+    }
 
-if(!raw){
-return defaults;
-}
+    const data = JSON.parse(saved);
 
-const old=JSON.parse(raw);
+    const base = defaultState();
 
-const result={
+    return {
+      settings:{
+        ...base.settings,
+        ...(data.settings || {})
+      },
 
-settings:{
-...defaults.settings,
-...(old.settings||{})
-},
+      bli:Array.isArray(data.bli) ? data.bli : [],
+      fuel:Array.isArray(data.fuel) ? data.fuel : [],
+      extra:Array.isArray(data.extra) ? data.extra : [],
+      expenses:Array.isArray(data.expenses) ? data.expenses : []
+    };
 
-bli:Array.isArray(old.bli)?old.bli:[],
+  }catch(error){
 
-fuel:Array.isArray(old.fuel)?old.fuel:[],
+    console.error(error);
 
-extra:Array.isArray(old.extra)?old.extra:[],
+    return defaultState();
 
-expenses:Array.isArray(old.expenses)?old.expenses:[]
-
-};
-
-result.bli=result.bli.map(item=>{
-
-if(item.income!==undefined){
-
-return{
-
-id:item.id||uid(),
-
-date:item.date||today(),
-
-income:Number(item.income)||0,
-
-bonus:Number(item.bonus)||0,
-
-tips:Number(item.tips)||0,
-
-note:item.note||""
-
-};
+  }
 
 }
 
-const gross=
-Number(item.grossIncome)||
-Number(item.gross)||
-0;
-
-let net=Number(item.netIncome);
-
-if(!Number.isFinite(net)){
-
-const commission=Number(item.commission);
-
-const rate=
-Number.isFinite(commission)
-?commission
-:20;
-
-net=gross*(1-rate/100);
-
-}
-
-return{
-
-id:item.id||uid(),
-
-date:item.date||today(),
-
-income:Math.round(net),
-
-bonus:Number(item.bonus)||0,
-
-tips:Number(item.tips)||0,
-
-note:item.note||""
-
-};
-
-});
-
-
-result.fuel=result.fuel.map(item=>{
-
-const type=
-item.type==="lpg"||
-item.fuelType==="lpg"
-?"lpg"
-:"petrol";
-
-const liters=
-Number(item.liters)||0;
-
-const price=
-Number(item.price)||
-Number(item.unitPrice)||
-(
-type==="lpg"
-?result.settings.lpgPrice
-:result.settings.petrolPrice
-);
-
-return{
-
-id:item.id||uid(),
-
-date:item.date||today(),
-
-type,
-
-liters,
-
-price,
-
-cost:Math.round(liters*price)
-
-};
-
-});
-
-
-result.extra=result.extra.map(item=>({
-
-id:item.id||uid(),
-
-date:item.date||today(),
-
-type:item.type||"other",
-
-amount:Number(item.amount)||0,
-
-note:item.note||""
-
-}));
-
-
-result.expenses=result.expenses.map(item=>({
-
-id:item.id||uid(),
-
-date:item.date||today(),
-
-type:item.type||"other",
-
-amount:Number(item.amount)||0,
-
-note:item.note||""
-
-}));
-
-
-return result;
-
-}catch(error){
-
-console.error(error);
-
-return defaults;
-
-}
-
-}
 
 function saveState(){
 
-localStorage.setItem(
-STORAGE_KEY,
-JSON.stringify(state)
-);
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(state)
+  );
 
 }
+
+
+/* =========================
+   HELPERS
+========================= */
 
 function uid(){
 
-return Date.now().toString(36)+
-Math.random().toString(36).slice(2,8);
+  return Date.now().toString(36) +
+    Math.random().toString(36).substring(2,8);
 
 }
+
 
 function today(){
 
-const d=new Date();
+  const d = new Date();
 
-const y=d.getFullYear();
+  const y = d.getFullYear();
 
-const m=String(d.getMonth()+1).padStart(2,"0");
+  const m = String(d.getMonth()+1).padStart(2,"0");
 
-const day=String(d.getDate()).padStart(2,"0");
+  const day = String(d.getDate()).padStart(2,"0");
 
-return `${y}-${m}-${day}`;
+  return `${y}-${m}-${day}`;
 
 }
+
 
 function money(value){
 
-return new Intl.NumberFormat("ar-IQ")
-.format(Math.round(Number(value)||0))
-+" د.ع";
+  return Number(value || 0).toLocaleString("ar-IQ") + " د.ع";
 
 }
+
 
 function number(value){
 
-return Math.round(Number(value)||0);
+  return Number(value || 0).toLocaleString("ar-IQ");
 
 }
 
-function escapeHtml(value){
 
-return String(value??"")
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
+function escapeHtml(text){
 
-}
-
-function formatDate(dateString){
-
-if(!dateString)return"";
-
-const d=new Date(
-dateString+"T00:00:00"
-);
-
-return d.toLocaleDateString(
-"ar-IQ",
-{
-year:"numeric",
-month:"long",
-day:"numeric"
-}
-);
+  return String(text ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
-function getWeekStart(date){
 
-const d=new Date(date);
+function formatDate(date){
 
-d.setHours(0,0,0,0);
+  if(!date) return "";
 
-const day=d.getDay();
-
-const diff=(day+1)%7;
-
-d.setDate(d.getDate()-diff);
-
-return d;
+  return new Date(date + "T00:00:00")
+    .toLocaleDateString("ar-IQ");
 
 }
+
 
 function dateToISO(date){
 
-const y=date.getFullYear();
+  const d = new Date(date);
 
-const m=String(
-date.getMonth()+1
-).padStart(2,"0");
+  const y = d.getFullYear();
 
-const d=String(
-date.getDate()
-).padStart(2,"0");
+  const m = String(d.getMonth()+1).padStart(2,"0");
 
-return `${y}-${m}-${d}`;
+  const day = String(d.getDate()).padStart(2,"0");
+
+  return `${y}-${m}-${day}`;
 
 }
 
-function addDays(date,amount){
 
-const d=new Date(date);
+function addDays(dateString,days){
 
-d.setDate(
-d.getDate()+amount
-);
+  const d = new Date(dateString + "T00:00:00");
 
-return d;
+  d.setDate(d.getDate()+days);
+
+  return dateToISO(d);
 
 }
+
+
+function getWeekStart(dateString){
+
+  const d = new Date(dateString + "T00:00:00");
+
+  const day = d.getDay();
+
+  const diff = day === 0 ? -6 : 1-day;
+
+  d.setDate(d.getDate()+diff);
+
+  return dateToISO(d);
+
+}
+
 
 function getCurrentWeekStart(){
 
-const start=
-getWeekStart(new Date());
-
-start.setDate(
-start.getDate()+
-currentWeekOffset*7
-);
-
-return start;
+  return getWeekStart(today());
 
 }
 
-function getWeekDates(){
 
-const start=
-getCurrentWeekStart();
+function getWeekDates(start){
 
-const result=[];
+  const dates = [];
 
-for(let i=0;i<7;i++){
+  for(let i=0;i<7;i++){
 
-result.push(
-addDays(start,i)
-);
+    dates.push(addDays(start,i));
 
-}
+  }
 
-return result;
+  return dates;
 
 }
 
-function changeWeek(direction){
 
-currentWeekOffset+=direction;
+function calculateRange(type,date){
 
-renderHome();
+  if(type === "month"){
 
-}
+    const d = new Date(date + "T00:00:00");
 
-function calculateRange(start,end){
+    const start = new Date(
+      d.getFullYear(),
+      d.getMonth(),
+      1
+    );
 
-const bli=
-state.bli
-.filter(x=>
-x.date>=start&&
-x.date<=end
-)
-.reduce(
-(sum,x)=>
-sum+
-number(x.income)+
-number(x.bonus)+
-number(x.tips),
-0
-);
+    const end = new Date(
+      d.getFullYear(),
+      d.getMonth()+1,
+      0
+    );
 
-const extra=
-state.extra
-.filter(x=>
-x.date>=start&&
-x.date<=end
-)
-.reduce(
-(sum,x)=>
-sum+number(x.amount),
-0
-);
+    return {
+      start:dateToISO(start),
+      end:dateToISO(end)
+    };
 
-const fuel=
-state.fuel
-.filter(x=>
-x.date>=start&&
-x.date<=end
-)
-.reduce(
-(sum,x)=>{
+  }
 
-const price=
-number(x.price)||
-(
-x.type==="lpg"
-?state.settings.lpgPrice
-:state.settings.petrolPrice
-);
+  const start = getWeekStart(date);
 
-return sum+
-number(x.liters)*price;
-
-},
-0
-);
-
-const expenses=
-state.expenses
-.filter(x=>
-x.date>=start&&
-x.date<=end
-)
-.reduce(
-(sum,x)=>
-sum+number(x.amount),
-0
-);
-
-return{
-
-bli,
-
-extra,
-
-fuel,
-
-expenses,
-
-income:bli+extra,
-
-profit:
-bli+extra-
-fuel-
-expenses
-
-};
+  return {
+    start:start,
+    end:addDays(start,6)
+  };
 
 }
 
-function getWeekTotals(){
 
-const dates=getWeekDates();
+/* =========================
+   NAVIGATION
+========================= */
 
-return calculateRange(
-dateToISO(dates[0]),
-dateToISO(dates[6])
-);
-
-}
-
-document
-.querySelectorAll("#nav button")
+document.querySelectorAll(".nav-btn")
 .forEach(button=>{
 
-button.addEventListener(
-"click",
-()=>{
+  button.addEventListener("click",()=>{
 
-showSection(
-button.dataset.section
-);
+    showSection(
+      button.dataset.section
+    );
 
-}
-);
+  });
 
 });
+
 
 function showSection(id){
 
-document
-.querySelectorAll(".section")
-.forEach(section=>{
-section.classList.remove("active");
-});
+  document.querySelectorAll("section")
+    .forEach(section=>{
+      section.classList.remove("active");
+    });
 
-document
-.getElementById(id)
-.classList.add("active");
+  const target = document.getElementById(id);
 
-document
-.querySelectorAll("#nav button")
-.forEach(button=>{
+  if(target){
+    target.classList.add("active");
+  }
 
-button.classList.toggle(
-"active",
-button.dataset.section===id
-);
+  document.querySelectorAll(".nav-btn")
+    .forEach(button=>{
+      button.classList.toggle(
+        "active",
+        button.dataset.section === id
+      );
+    });
 
-});
+  if(id === "home"){
+    renderHome();
+  }
 
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
+  if(id === "bli"){
+    renderBliList();
+  }
 
-if(id==="home")
-renderHome();
+  if(id === "fuel"){
+    updateFuelPrice();
+    renderFuelList();
+  }
 
-if(id==="bli")
-renderBliList();
+  if(id === "extra"){
+    renderExtraList();
+  }
 
-if(id==="fuel")
-renderFuelList();
+  if(id === "expenses"){
+    renderExpenseList();
+  }
 
-if(id==="extra")
-renderExtraList();
+  if(id === "reports"){
+    renderReports();
+  }
 
-if(id==="expenses")
-renderExpenseList();
+  if(id === "settings"){
+    renderSettings();
+  }
 
-if(id==="reports")
-renderReports();
-
-if(id==="settings")
-renderSettings();
-  
-} 
-  function saveBli(){
-
-const date=
-document.getElementById("bliDate").value||today();
-
-const income=
-number(document.getElementById("bliIncome").value);
-
-const bonus=
-number(document.getElementById("bliBonus").value);
-
-const tips=
-number(document.getElementById("bliTips").value);
-
-const note=
-document.getElementById("bliNote").value.trim();
-
-if(income<=0){
-alert("اكتب دخل Bli أولاً.");
-return;
 }
 
-state.bli.unshift({
-id:uid(),
-date,
-income,
-bonus,
-tips,
-note
-});
 
-saveState();
-resetBli();
-renderBliList();
-renderHome();
+/* =========================
+   WEEK
+========================= */
 
-alert("تم حفظ دخل Bli ✅");
+function changeWeek(direction){
+
+  currentWeekOffset += direction;
+
+  renderHome();
+
 }
+
+
+function getWeekTotals(startDate){
+
+  const endDate = addDays(startDate,6);
+
+  const inRange = date =>
+    date >= startDate && date <= endDate;
+
+
+  const bli = state.bli
+    .filter(x=>inRange(x.date))
+    .reduce((sum,x)=>
+      sum +
+      Number(x.income || 0) +
+      Number(x.bonus || 0) +
+      Number(x.tips || 0)
+    ,0);
+
+
+  const extra = state.extra
+    .filter(x=>inRange(x.date))
+    .reduce((sum,x)=>
+      sum + Number(x.amount || 0)
+    ,0);
+
+
+  const fuel = state.fuel
+    .filter(x=>inRange(x.date))
+    .reduce((sum,x)=>
+      sum + Number(x.cost || 0)
+    ,0);
+
+
+  const expenses = state.expenses
+    .filter(x=>inRange(x.date))
+    .reduce((sum,x)=>
+      sum + Number(x.amount || 0)
+    ,0);
+
+
+  return {
+    bli,
+    extra,
+    income:bli + extra,
+    fuel,
+    expenses,
+    profit:bli + extra - fuel - expenses
+  };
+
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+function renderHome(){
+
+  const baseWeek = getCurrentWeekStart();
+
+  const start = addDays(
+    baseWeek,
+    currentWeekOffset * 7
+  );
+
+  const end = addDays(start,6);
+
+  document.getElementById("weekLabel")
+    .textContent =
+      `${formatDate(start)} — ${formatDate(end)}`;
+
+
+  const totals = getWeekTotals(start);
+
+  const target =
+    Number(state.settings.weeklyTarget || 0);
+
+  const percent =
+    target > 0
+      ? Math.min(100,(totals.income / target)*100)
+      : 0;
+
+
+  document.getElementById("targetAmount")
+    .textContent = money(target);
+
+
+  document.getElementById("targetProgress")
+    .textContent = Math.round(percent) + "%";
+
+
+  document.getElementById("progressBar")
+    .style.width = percent + "%";
+
+
+  const targetCard =
+    document.getElementById("targetCard");
+
+  const remaining =
+    target - totals.income;
+
+
+  if(remaining > 0){
+
+    targetCard.classList.remove("reached");
+
+    document.getElementById("remainingText")
+      .className = "remaining";
+
+    document.getElementById("remainingText")
+      .textContent =
+        "المتبقي: " + money(remaining);
+
+  }else{
+
+    targetCard.classList.add("reached");
+
+    document.getElementById("remainingText")
+      .className = "remaining done";
+
+    document.getElementById("remainingText")
+      .textContent =
+        "🎉 تم تحقيق الهدف";
+
+  }
+
+
+  document.getElementById("homeBli")
+    .textContent = money(totals.bli);
+
+  document.getElementById("homeExtra")
+    .textContent = money(totals.extra);
+
+  document.getElementById("homeIncome")
+    .textContent = money(totals.income);
+
+  document.getElementById("homeFuel")
+    .textContent = money(totals.fuel);
+
+  document.getElementById("homeExpenses")
+    .textContent = money(totals.expenses);
+
+  document.getElementById("homeProfit")
+    .textContent = money(totals.profit);
+
+
+  renderWeekTable(start);
+
+}
+
+
+function renderWeekTable(start){
+
+  const dates = getWeekDates(start);
+
+  let html = `
+    <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>اليوم</th>
+          <th>الدخل</th>
+          <th>الوقود</th>
+          <th>المصاريف</th>
+          <th>الصافي</th>
+        </tr>
+      </thead>
+      <tbody>
+  `;
+
+
+  dates.forEach(date=>{
+
+    const bli =
+      state.bli
+      .filter(x=>x.date === date)
+      .reduce((s,x)=>
+        s +
+        Number(x.income||0) +
+        Number(x.bonus||0) +
+        Number(x.tips||0)
+      ,0);
+
+
+    const extra =
+      state.extra
+      .filter(x=>x.date === date)
+      .reduce((s,x)=>
+        s + Number(x.amount||0)
+      ,0);
+
+
+    const fuel =
+      state.fuel
+      .filter(x=>x.date === date)
+      .reduce((s,x)=>
+        s + Number(x.cost||0)
+      ,0);
+
+
+    const expenses =
+      state.expenses
+      .filter(x=>x.date === date)
+      .reduce((s,x)=>
+        s + Number(x.amount||0)
+      ,0);
+
+
+    const income = bli + extra;
+
+    const profit =
+      income - fuel - expenses;
+
+
+    html += `
+      <tr>
+        <td>${formatDate(date)}</td>
+        <td>${money(income)}</td>
+        <td>${money(fuel)}</td>
+        <td>${money(expenses)}</td>
+        <td>${money(profit)}</td>
+      </tr>
+    `;
+
+  });
+
+
+  html += `
+      </tbody>
+    </table>
+    </div>
+  `;
+
+
+  document.getElementById("weekTable")
+    .innerHTML = html;
+
+}
+
+
+/* =========================
+   BLI
+========================= */
+
+function saveBli(){
+
+  const date =
+    document.getElementById("bliDate").value;
+
+  const income =
+    Number(document.getElementById("bliIncome").value || 0);
+
+  const bonus =
+    Number(document.getElementById("bliBonus").value || 0);
+
+  const tips =
+    Number(document.getElementById("bliTips").value || 0);
+
+  const note =
+    document.getElementById("bliNote").value.trim();
+
+
+  if(!date){
+
+    alert("اختار التاريخ");
+
+    return;
+
+  }
+
+
+  if(income <= 0 && bonus <= 0 && tips <= 0){
+
+    alert("أدخل مبلغ الدخل");
+
+    return;
+
+  }
+
+
+  state.bli.unshift({
+
+    id:uid(),
+    date,
+    income,
+    bonus,
+    tips,
+    note
+
+  });
+
+
+  saveState();
+
+  resetBli();
+
+  renderBliList();
+
+  renderHome();
+
+}
+
 
 function resetBli(){
-document.getElementById("bliDate").value=today();
-document.getElementById("bliIncome").value="";
-document.getElementById("bliBonus").value="0";
-document.getElementById("bliTips").value="0";
-document.getElementById("bliNote").value="";
+
+  document.getElementById("bliDate").value = today();
+
+  document.getElementById("bliIncome").value = "";
+
+  document.getElementById("bliBonus").value = 0;
+
+  document.getElementById("bliTips").value = 0;
+
+  document.getElementById("bliNote").value = "";
+
 }
 
-function bliTotal(item){
-return number(item.income)+number(item.bonus)+number(item.tips);
-}
 
 function renderBliList(){
 
-const box=document.getElementById("bliList");
+  const box =
+    document.getElementById("bliList");
 
-if(!state.bli.length){
-box.innerHTML=`<div class="empty">لا توجد تسجيلات بعد.</div>`;
-return;
-}
+  if(!state.bli.length){
 
-box.innerHTML=state.bli
-.slice()
-.sort((a,b)=>b.date.localeCompare(a.date))
-.slice(0,30)
-.map(item=>`
+    box.innerHTML =
+      `<p class="note">لا توجد سجلات بعد.</p>`;
 
-<div class="record">
+    return;
 
-<div class="record-top">
+  }
 
-<div>
-<div class="record-title">🚕 دخل Bli</div>
-<div class="record-date">${formatDate(item.date)}</div>
-</div>
 
-<div style="text-align:left">
+  let html = "";
 
-<div class="record-value">
-${money(bliTotal(item))}
-</div>
 
-<button
-class="delete-btn"
-onclick="deleteBli('${item.id}')">
+  state.bli.forEach(item=>{
 
-حذف
+    const total =
+      Number(item.income||0) +
+      Number(item.bonus||0) +
+      Number(item.tips||0);
 
-</button>
 
-</div>
+    html += `
+      <div class="record">
 
-</div>
+        <div class="record-top">
+          <span>${formatDate(item.date)}</span>
+          <span>${money(total)}</span>
+        </div>
 
-<div class="record-details">
+        <small>
+          Bli: ${money(item.income)}
+          | Bonus: ${money(item.bonus)}
+          | Tips: ${money(item.tips)}
+        </small>
 
-دخل Bli:
-${money(item.income)}
+        ${
+          item.note
+          ? `<div>${escapeHtml(item.note)}</div>`
+          : ""
+        }
 
-· بونص:
-${money(item.bonus)}
+        <br>
 
-· Tips:
-${money(item.tips)}
+        <button
+          class="delete"
+          onclick="deleteBli('${item.id}')">
+          حذف
+        </button>
 
-${
-item.note
-?`<br>📝 ${escapeHtml(item.note)}`
-:""
-}
+      </div>
+    `;
 
-</div>
+  });
 
-</div>
 
-`)
-.join("");
+  box.innerHTML = html;
 
 }
+
 
 function deleteBli(id){
 
-if(!confirm("هل تريد حذف هذا التسجيل؟")){
-return;
+  if(!confirm("هل تريد حذف هذا السجل؟")) return;
+
+  state.bli =
+    state.bli.filter(x=>x.id !== id);
+
+  saveState();
+
+  renderBliList();
+
+  renderHome();
+
 }
 
-state.bli=state.bli.filter(x=>x.id!==id);
 
-saveState();
-
-renderBliList();
-renderHome();
-renderReports();
-
-}
+/* =========================
+   FUEL
+========================= */
 
 function updateFuelPrice(){
 
-const type=document.getElementById("fuelType").value;
+  const type =
+    document.getElementById("fuelType").value;
 
-const price=
-type==="lpg"
-?state.settings.lpgPrice
-:state.settings.petrolPrice;
+  const price =
+    type === "lpg"
+      ? Number(state.settings.lpgPrice)
+      : Number(state.settings.petrolPrice);
 
-document.getElementById("fuelPrice").value=price;
 
-updateFuelPreview();
+  document.getElementById("fuelPrice").value =
+    price;
+
+
+  updateFuelPreview();
 
 }
+
 
 function updateFuelPreview(){
 
-const liters=
-Number(document.getElementById("fuelLiters").value)||0;
+  const liters =
+    Number(document.getElementById("fuelLiters").value || 0);
 
-const price=
-Number(document.getElementById("fuelPrice").value)||0;
+  const price =
+    Number(document.getElementById("fuelPrice").value || 0);
 
-document.getElementById("fuelTotalPreview").textContent=
-money(liters*price);
+  const cost = liters * price;
+
+
+  document.getElementById("fuelPreview")
+    .textContent =
+      "التكلفة: " + money(cost);
 
 }
 
-document
-.getElementById("fuelLiters")
-.addEventListener("input",updateFuelPreview);
 
 function saveFuel(){
 
-const date=
-document.getElementById("fuelDate").value||today();
+  const date =
+    document.getElementById("fuelDate").value;
 
-const type=
-document.getElementById("fuelType").value;
+  const type =
+    document.getElementById("fuelType").value;
 
-const liters=
-Number(document.getElementById("fuelLiters").value)||0;
+  const liters =
+    Number(document.getElementById("fuelLiters").value || 0);
 
-const price=
-type==="lpg"
-?state.settings.lpgPrice
-:state.settings.petrolPrice;
+  const price =
+    Number(document.getElementById("fuelPrice").value || 0);
 
-if(liters<=0){
-alert("اكتب عدد اللترات.");
-return;
+
+  if(!date){
+
+    alert("اختار التاريخ");
+
+    return;
+
+  }
+
+
+  if(liters <= 0){
+
+    alert("أدخل عدد اللترات");
+
+    return;
+
+  }
+
+
+  state.fuel.unshift({
+
+    id:uid(),
+    date,
+    type,
+    liters,
+    price,
+    cost:liters * price
+
+  });
+
+
+  saveState();
+
+  resetFuel();
+
+  renderFuelList();
+
+  renderHome();
+
 }
 
-state.fuel.unshift({
-id:uid(),
-date,
-type,
-liters,
-price,
-cost:Math.round(liters*price)
-});
-
-saveState();
-
-resetFuel();
-renderFuelList();
-renderHome();
-renderReports();
-
-alert("تم حفظ تعبئة الوقود ✅");
-}
 
 function resetFuel(){
 
-document.getElementById("fuelDate").value=today();
-document.getElementById("fuelType").value="petrol";
-document.getElementById("fuelLiters").value="";
+  document.getElementById("fuelDate").value = today();
 
-updateFuelPrice();
+  document.getElementById("fuelType").value = "petrol";
 
-}
+  document.getElementById("fuelLiters").value = "";
 
-function fuelName(type){
-
-return type==="lpg"
-?"🔥 LPG / غاز"
-:"⛽ بنزين";
+  updateFuelPrice();
 
 }
+
 
 function renderFuelList(){
 
-const box=document.getElementById("fuelList");
+  const box =
+    document.getElementById("fuelList");
 
-if(!state.fuel.length){
 
-box.innerHTML=
-`<div class="empty">لا توجد تسجيلات وقود بعد.</div>`;
+  if(!state.fuel.length){
 
-return;
+    box.innerHTML =
+      `<p class="note">لا توجد سجلات بعد.</p>`;
 
-}
+    return;
 
-box.innerHTML=
-state.fuel
-.slice()
-.sort((a,b)=>b.date.localeCompare(a.date))
-.slice(0,30)
-.map(item=>{
+  }
 
-const price=
-number(item.price)||
-(
-item.type==="lpg"
-?state.settings.lpgPrice
-:state.settings.petrolPrice
-);
 
-const cost=
-number(item.liters)*price;
+  let html = "";
 
-return`
 
-<div class="record">
+  state.fuel.forEach(item=>{
 
-<div class="record-top">
+    const typeName =
+      item.type === "lpg"
+        ? "غاز LPG"
+        : "بنزين";
 
-<div>
 
-<div class="record-title">
-${fuelName(item.type)}
-</div>
+    html += `
+      <div class="record">
 
-<div class="record-date">
-${formatDate(item.date)}
-</div>
+        <div class="record-top">
+          <span>${formatDate(item.date)}</span>
+          <span>${money(item.cost)}</span>
+        </div>
 
-</div>
+        <small>
+          ${typeName} — ${number(item.liters)} لتر
+          × ${money(item.price)}
+        </small>
 
-<div style="text-align:left">
+        <br>
 
-<div
-class="record-value"
-style="color:#dc2626">
+        <button
+          class="delete"
+          onclick="deleteFuel('${item.id}')">
+          حذف
+        </button>
 
-${money(cost)}
+      </div>
+    `;
 
-</div>
+  });
 
-<button
-class="delete-btn"
-onclick="deleteFuel('${item.id}')">
 
-حذف
-
-</button>
-
-</div>
-
-</div>
-
-<div class="record-details">
-
-الكمية:
-${Number(item.liters).toFixed(1)}
-لتر
-
-· السعر:
-${money(price)}
-/ لتر
-
-</div>
-
-</div>
-
-`;
-
-})
-.join("");
+  box.innerHTML = html;
 
 }
+
 
 function deleteFuel(id){
 
-if(!confirm("هل تريد حذف هذه التعبئة؟")){
-return;
-}
+  if(!confirm("هل تريد حذف سجل الوقود؟")) return;
 
-state.fuel=state.fuel.filter(x=>x.id!==id);
+  state.fuel =
+    state.fuel.filter(x=>x.id !== id);
 
-saveState();
+  saveState();
 
-renderFuelList();
-renderHome();
-renderReports();
+  renderFuelList();
 
-}
-
-function extraName(type){
-
-if(type==="fuelSale")
-return"⛽ بيع بنزين";
-
-if(type==="tip")
-return"💵 Tips";
-
-return"💰 دخل آخر";
+  renderHome();
 
 }
+
+
+/* =========================
+   EXTRA
+========================= */
 
 function saveExtra(){
 
-const date=
-document.getElementById("extraDate").value||today();
+  const date =
+    document.getElementById("extraDate").value;
 
-const type=
-document.getElementById("extraType").value;
+  const type =
+    document.getElementById("extraType").value;
 
-const amount=
-number(document.getElementById("extraAmount").value);
+  const amount =
+    Number(document.getElementById("extraAmount").value || 0);
 
-const note=
-document.getElementById("extraNote").value.trim();
+  const note =
+    document.getElementById("extraNote").value.trim();
 
-if(amount<=0){
 
-alert("اكتب مبلغ الدخل.");
-return;
+  if(!date){
+
+    alert("اختار التاريخ");
+
+    return;
+
+  }
+
+
+  if(amount <= 0){
+
+    alert("أدخل المبلغ");
+
+    return;
+
+  }
+
+
+  state.extra.unshift({
+
+    id:uid(),
+    date,
+    type,
+    amount,
+    note
+
+  });
+
+
+  saveState();
+
+  resetExtra();
+
+  renderExtraList();
+
+  renderHome();
 
 }
 
-state.extra.unshift({
-id:uid(),
-date,
-type,
-amount,
-note
-});
-
-saveState();
-
-resetExtra();
-renderExtraList();
-renderHome();
-renderReports();
-
-alert("تم حفظ الدخل الإضافي ✅");
-
-}
 
 function resetExtra(){
 
-document.getElementById("extraDate").value=today();
-document.getElementById("extraType").value="fuelSale";
-document.getElementById("extraAmount").value="";
-document.getElementById("extraNote").value="";
+  document.getElementById("extraDate").value = today();
+
+  document.getElementById("extraType").value = "fuelSale";
+
+  document.getElementById("extraAmount").value = "";
+
+  document.getElementById("extraNote").value = "";
 
 }
+
 
 function renderExtraList(){
 
-const box=document.getElementById("extraList");
+  const box =
+    document.getElementById("extraList");
 
-if(!state.extra.length){
 
-box.innerHTML=
-`<div class="empty">لا توجد دخول إضافية بعد.</div>`;
+  if(!state.extra.length){
 
-return;
+    box.innerHTML =
+      `<p class="note">لا توجد سجلات بعد.</p>`;
 
-}
+    return;
 
-box.innerHTML=
-state.extra
-.slice()
-.sort((a,b)=>b.date.localeCompare(a.date))
-.slice(0,30)
-.map(item=>`
+  }
 
-<div class="record">
 
-<div class="record-top">
+  let html = "";
 
-<div>
 
-<div class="record-title">
-${extraName(item.type)}
-</div>
+  state.extra.forEach(item=>{
 
-<div class="record-date">
-${formatDate(item.date)}
-</div>
+    let typeName = "دخل آخر";
 
-</div>
+    if(item.type === "fuelSale"){
+      typeName = "بيع وقود";
+    }
 
-<div style="text-align:left">
+    if(item.type === "tip"){
+      typeName = "Tip خارج Bli";
+    }
 
-<div class="record-value">
-${money(item.amount)}
-</div>
 
-<button
-class="delete-btn"
-onclick="deleteExtra('${item.id}')">
+    html += `
+      <div class="record">
 
-حذف
+        <div class="record-top">
+          <span>${formatDate(item.date)}</span>
+          <span>${money(item.amount)}</span>
+        </div>
 
-</button>
+        <small>${typeName}</small>
 
-</div>
+        ${
+          item.note
+          ? `<div>${escapeHtml(item.note)}</div>`
+          : ""
+        }
 
-</div>
+        <br>
 
-${
-item.note
-?`<div class="record-details">
-📝 ${escapeHtml(item.note)}
-</div>`
-:""
-}
+        <button
+          class="delete"
+          onclick="deleteExtra('${item.id}')">
+          حذف
+        </button>
 
-</div>
+      </div>
+    `;
 
-`)
-.join("");
+  });
+
+
+  box.innerHTML = html;
 
 }
+
 
 function deleteExtra(id){
 
-if(!confirm("هل تريد حذف هذا الدخل؟")){
-return;
-}
+  if(!confirm("هل تريد حذف هذا السجل؟")) return;
 
-state.extra=state.extra.filter(x=>x.id!==id);
+  state.extra =
+    state.extra.filter(x=>x.id !== id);
 
-saveState();
+  saveState();
 
-renderExtraList();
-renderHome();
-renderReports();
+  renderExtraList();
 
-}
-
-function expenseName(type){
-
-const names={
-oil:"🛢️ زيت",
-maintenance:"🔧 صيانة",
-tires:"🛞 إطارات",
-repair:"🧰 تصليح",
-wash:"🧽 غسيل",
-electrical:"⚡ كهربائي",
-fees:"📄 رسوم",
-other:"📦 أخرى"
-};
-
-return names[type]||"📦 أخرى";
+  renderHome();
 
 }
+
+
+/* =========================
+   EXPENSES
+========================= */
 
 function saveExpense(){
 
-const date=
-document.getElementById("expenseDate").value||today();
+  const date =
+    document.getElementById("expenseDate").value;
 
-const type=
-document.getElementById("expenseType").value;
+  const type =
+    document.getElementById("expenseType").value;
 
-const amount=
-number(document.getElementById("expenseAmount").value);
+  const amount =
+    Number(document.getElementById("expenseAmount").value || 0);
 
-const note=
-document.getElementById("expenseNote").value.trim();
+  const note =
+    document.getElementById("expenseNote").value.trim();
 
-if(amount<=0){
 
-alert("اكتب مبلغ المصروف.");
-return;
+  if(!date){
+
+    alert("اختار التاريخ");
+
+    return;
+
+  }
+
+
+  if(amount <= 0){
+
+    alert("أدخل المبلغ");
+
+    return;
+
+  }
+
+
+  state.expenses.unshift({
+
+    id:uid(),
+    date,
+    type,
+    amount,
+    note
+
+  });
+
+
+  saveState();
+
+  resetExpense();
+
+  renderExpenseList();
+
+  renderHome();
 
 }
 
-state.expenses.unshift({
-id:uid(),
-date,
-type,
-amount,
-note
-});
-
-saveState();
-
-resetExpense();
-renderExpenseList();
-renderHome();
-renderReports();
-
-alert("تم حفظ المصروف ✅");
-
-}
 
 function resetExpense(){
 
-document.getElementById("expenseDate").value=today();
-document.getElementById("expenseType").value="oil";
-document.getElementById("expenseAmount").value="";
-document.getElementById("expenseNote").value="";
+  document.getElementById("expenseDate").value = today();
+
+  document.getElementById("expenseType").value = "oil";
+
+  document.getElementById("expenseAmount").value = "";
+
+  document.getElementById("expenseNote").value = "";
 
 }
+
 
 function renderExpenseList(){
 
-const box=document.getElementById("expenseList");
+  const box =
+    document.getElementById("expenseList");
 
-if(!state.expenses.length){
 
-box.innerHTML=
-`<div class="empty">لا توجد مصاريف بعد.</div>`;
+  if(!state.expenses.length){
 
-return;
+    box.innerHTML =
+      `<p class="note">لا توجد سجلات بعد.</p>`;
+
+    return;
+
+  }
+
+
+  let html = "";
+
+
+  state.expenses.forEach(item=>{
+
+    const names = {
+
+      oil:"زيت",
+
+      maintenance:"صيانة",
+
+      tires:"إطارات",
+
+      repair:"تصليح",
+
+      wash:"غسل",
+
+      electrical:"كهرباء",
+
+      fees:"رسوم",
+
+      other:"أخرى"
+
+    };
+
+
+    const typeName =
+      names[item.type] || "أخرى";
+
+
+    html += `
+      <div class="record">
+
+        <div class="record-top">
+          <span>${formatDate(item.date)}</span>
+          <span>${money(item.amount)}</span>
+        </div>
+
+        <small>${typeName}</small>
+
+        ${
+          item.note
+          ? `<div>${escapeHtml(item.note)}</div>`
+          : ""
+        }
+
+        <br>
+
+        <button
+          class="delete"
+          onclick="deleteExpense('${item.id}')">
+          حذف
+        </button>
+
+      </div>
+    `;
+
+  });
+
+
+  box.innerHTML = html;
 
 }
 
-box.innerHTML=
-state.expenses
-.slice()
-.sort((a,b)=>b.date.localeCompare(a.date))
-.slice(0,30)
-.map(item=>`
-
-<div class="record">
-
-<div class="record-top">
-
-<div>
-
-<div class="record-title">
-${expenseName(item.type)}
-</div>
-
-<div class="record-date">
-${formatDate(item.date)}
-</div>
-
-</div>
-
-<div style="text-align:left">
-
-<div
-class="record-value"
-style="color:#dc2626">
-
-${money(item.amount)}
-
-</div>
-
-<button
-class="delete-btn"
-onclick="deleteExpense('${item.id}')">
-
-حذف
-
-</button>
-
-</div>
-
-</div>
-
-${
-item.note
-?`<div class="record-details">
-📝 ${escapeHtml(item.note)}
-</div>`
-:""
-}
-
-</div>
-
-`)
-.join("");
-
-}
 
 function deleteExpense(id){
 
-if(!confirm("هل تريد حذف هذا المصروف؟")){
-return;
-}
+  if(!confirm("هل تريد حذف هذا المصروف؟")) return;
 
-state.expenses=state.expenses.filter(x=>x.id!==id);
+  state.expenses =
+    state.expenses.filter(x=>x.id !== id);
 
-saveState();
+  saveState();
 
-renderExpenseList();
-renderHome();
-renderReports();
+  renderExpenseList();
 
-}
-
-function getReportRange(){
-
-const period=
-document.getElementById("reportPeriod").value;
-
-const date=
-document.getElementById("reportDate").value||today();
-
-if(period==="month"){
-
-const d=new Date(date+"T00:00:00");
-
-const start=
-new Date(
-d.getFullYear(),
-d.getMonth(),
-1
-);
-
-const end=
-new Date(
-d.getFullYear(),
-d.getMonth()+1,
-0
-);
-
-return{
-start:dateToISO(start),
-end:dateToISO(end)
-};
+  renderHome();
 
 }
 
-const start=
-getWeekStart(
-new Date(date+"T00:00:00")
-);
 
-const end=addDays(start,6);
-
-return{
-start:dateToISO(start),
-end:dateToISO(end)
-};
-
-}
+/* =========================
+   REPORTS
+========================= */
 
 function renderReports(){
 
-const range=getReportRange();
+  const type =
+    document.getElementById("reportType").value;
 
-const totals=
-calculateRange(
-range.start,
-range.end
-);
+  const date =
+    document.getElementById("reportDate").value ||
+    today();
 
-document.getElementById("reportBli").textContent=
-money(totals.bli);
 
-document.getElementById("reportExtra").textContent=
-money(totals.extra);
+  const range =
+    calculateRange(type,date);
 
-document.getElementById("reportIncome").textContent=
-money(totals.income);
 
-document.getElementById("reportExpenses").textContent=
-money(totals.expenses);
+  const inRange = d =>
+    d >= range.start &&
+    d <= range.end;
 
-document.getElementById("reportProfit").textContent=
-money(totals.profit);
 
-const petrol=
-state.fuel.filter(x=>
-x.date>=range.start&&
-x.date<=range.end&&
-x.type==="petrol"
-);
+  const bli =
+    state.bli
+    .filter(x=>inRange(x.date))
+    .reduce((s,x)=>
+      s +
+      Number(x.income||0) +
+      Number(x.bonus||0) +
+      Number(x.tips||0)
+    ,0);
 
-const lpg=
-state.fuel.filter(x=>
-x.date>=range.start&&
-x.date<=range.end&&
-x.type==="lpg"
-);
 
-const petrolCost=
-petrol.reduce(
-(sum,x)=>{
-const price=
-number(x.price)||state.settings.petrolPrice;
+  const extra =
+    state.extra
+    .filter(x=>inRange(x.date))
+    .reduce((s,x)=>
+      s + Number(x.amount||0)
+    ,0);
 
-return sum+number(x.liters)*price;
-},
-0
-);
 
-const lpgCost=
-lpg.reduce(
-(sum,x)=>{
-const price=
-number(x.price)||state.settings.lpgPrice;
+  const petrolItems =
+    state.fuel.filter(
+      x=>inRange(x.date) &&
+      x.type === "petrol"
+    );
 
-return sum+number(x.liters)*price;
-},
-0
-);
 
-document.getElementById("reportPetrol").textContent=
-money(petrolCost);
+  const lpgItems =
+    state.fuel.filter(
+      x=>inRange(x.date) &&
+      x.type === "lpg"
+    );
 
-document.getElementById("reportLpg").textContent=
-money(lpgCost);
 
-document.getElementById("reportPetrolLiters").textContent=
-petrol
-.reduce(
-(sum,x)=>sum+Number(x.liters||0),
-0
-)
-.toFixed(1)+" لتر";
+  const petrol =
+    petrolItems.reduce(
+      (s,x)=>s + Number(x.cost||0)
+    ,0);
 
-document.getElementById("reportLpgLiters").textContent=
-lpg
-.reduce(
-(sum,x)=>sum+Number(x.liters||0),
-0
-)
-.toFixed(1)+" لتر";
 
-const profitEl=
-document.getElementById("reportProfit");
+  const lpg =
+    lpgItems.reduce(
+      (s,x)=>s + Number(x.cost||0)
+    ,0);
 
-profitEl.className=
-"stat-value "+
-(
-totals.profit>=0
-?"positive"
-:"negative"
-);
+
+  const petrolLiters =
+    petrolItems.reduce(
+      (s,x)=>s + Number(x.liters||0)
+    ,0);
+
+
+  const lpgLiters =
+    lpgItems.reduce(
+      (s,x)=>s + Number(x.liters||0)
+    ,0);
+
+
+  const expenses =
+    state.expenses
+    .filter(x=>inRange(x.date))
+    .reduce((s,x)=>
+      s + Number(x.amount||0)
+    ,0);
+
+
+  const income =
+    bli + extra;
+
+
+  const profit =
+    income - petrol - lpg - expenses;
+
+
+  document.getElementById("reportBli")
+    .textContent = money(bli);
+
+  document.getElementById("reportExtra")
+    .textContent = money(extra);
+
+  document.getElementById("reportIncome")
+    .textContent = money(income);
+
+  document.getElementById("reportPetrol")
+    .textContent = money(petrol);
+
+  document.getElementById("reportLpg")
+    .textContent = money(lpg);
+
+  document.getElementById("reportExpenses")
+    .textContent = money(expenses);
+
+  document.getElementById("reportProfit")
+    .textContent = money(profit);
+
+  document.getElementById("reportPetrolLiters")
+    .textContent =
+      number(petrolLiters) + " لتر";
+
+  document.getElementById("reportLpgLiters")
+    .textContent =
+      number(lpgLiters) + " لتر";
 
 }
+
+
+/* =========================
+   SETTINGS
+========================= */
 
 function renderSettings(){
 
-document.getElementById("settingWeeklyTarget").value=
-state.settings.weeklyTarget;
+  document.getElementById("settingTarget")
+    .value =
+      state.settings.weeklyTarget;
 
-document.getElementById("settingPetrolPrice").value=
-state.settings.petrolPrice;
+  document.getElementById("settingPetrol")
+    .value =
+      state.settings.petrolPrice;
 
-document.getElementById("settingLpgPrice").value=
-state.settings.lpgPrice;
+  document.getElementById("settingLpg")
+    .value =
+      state.settings.lpgPrice;
 
 }
+
 
 function saveSettings(){
 
-const target=
-number(document.getElementById("settingWeeklyTarget").value);
+  const target =
+    Number(document.getElementById("settingTarget").value || 0);
 
-const petrol=
-number(document.getElementById("settingPetrolPrice").value);
+  const petrol =
+    Number(document.getElementById("settingPetrol").value || 0);
 
-const lpg=
-number(document.getElementById("settingLpgPrice").value);
+  const lpg =
+    Number(document.getElementById("settingLpg").value || 0);
 
-if(target<=0){
 
-alert("هدف الأسبوع يجب أن يكون أكبر من صفر.");
-return;
+  state.settings.weeklyTarget = target;
 
-}
+  state.settings.petrolPrice = petrol;
 
-if(petrol<=0||lpg<=0){
+  state.settings.lpgPrice = lpg;
 
-alert("أسعار الوقود يجب أن تكون أكبر من صفر.");
-return;
 
-}
+  saveState();
 
-state.settings.weeklyTarget=target;
-state.settings.petrolPrice=petrol;
-state.settings.lpgPrice=lpg;
+  updateFuelPrice();
 
-saveState();
+  renderHome();
 
-updateFuelPrice();
-renderHome();
-renderFuelList();
-renderReports();
-
-alert("تم حفظ الإعدادات ✅");
+  alert("تم حفظ الإعدادات");
 
 }
+
+
+/* =========================
+   BACKUP
+========================= */
 
 function exportBackup(){
 
-const data=JSON.stringify(state,null,2);
+  const data =
+    JSON.stringify(state,null,2);
 
-const blob=new Blob(
-[data],
-{type:"application/json"}
-);
+  const blob =
+    new Blob(
+      [data],
+      {type:"application/json"}
+    );
 
-const url=URL.createObjectURL(blob);
 
-const a=document.createElement("a");
+  const url =
+    URL.createObjectURL(blob);
 
-a.href=url;
 
-a.download=
-`bli-driver-backup-${today()}.json`;
+  const a =
+    document.createElement("a");
 
-document.body.appendChild(a);
+  a.href = url;
 
-a.click();
+  a.download =
+    "bli-driver-backup-" +
+    today() +
+    ".json";
 
-a.remove();
 
-URL.revokeObjectURL(url);
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
 
 }
+
 
 function importBackup(event){
 
-const file=event.target.files[0];
+  const file =
+    event.target.files[0];
 
-if(!file)return;
+  if(!file) return;
 
-const reader=new FileReader();
 
-reader.onload=function(){
+  const reader =
+    new FileReader();
 
-try{
 
-const imported=JSON.parse(reader.result);
+  reader.onload = function(e){
 
-if(!imported||typeof imported!=="object"){
-throw new Error("Invalid");
+    try{
+
+      const imported =
+        JSON.parse(e.target.result);
+
+
+      if(
+        !imported ||
+        typeof imported !== "object"
+      ){
+
+        throw new Error("Invalid");
+
+      }
+
+
+      state = {
+
+        settings:{
+          ...defaultState().settings,
+          ...(imported.settings || {})
+        },
+
+        bli:Array.isArray(imported.bli)
+          ? imported.bli
+          : [],
+
+        fuel:Array.isArray(imported.fuel)
+          ? imported.fuel
+          : [],
+
+        extra:Array.isArray(imported.extra)
+          ? imported.extra
+          : [],
+
+        expenses:Array.isArray(imported.expenses)
+          ? imported.expenses
+          : []
+
+      };
+
+
+      saveState();
+
+      renderAll();
+
+      alert("تم استيراد البيانات بنجاح");
+
+    }catch(error){
+
+      alert("ملف النسخة الاحتياطية غير صالح");
+
+    }
+
+    event.target.value = "";
+
+  };
+
+
+  reader.readAsText(file);
+
 }
 
-const ok=confirm(
-"استيراد البيانات سيستبدل البيانات الحالية. هل أنت متأكد؟"
-);
 
-if(!ok)return;
-
-localStorage.setItem(
-STORAGE_KEY,
-JSON.stringify(imported)
-);
-
-state=loadState();
-
-setDefaultDates();
-renderAll();
-
-alert("تم استيراد البيانات ✅");
-
-}catch(error){
-
-alert("ملف النسخة الاحتياطية غير صالح.");
-
-}
-
-};
-
-reader.readAsText(file);
-
-event.target.value="";
-
-}
+/* =========================
+   CLEAR DATA
+========================= */
 
 function clearAllData(){
 
-const first=confirm(
-"⚠️ سيتم حذف جميع بيانات Bli والوقود والدخل والمصاريف. هل أنت متأكد؟"
-);
+  const answer =
+    confirm(
+      "تحذير!\n\nسيتم حذف كل بيانات Bli والوقود والدخل والمصاريف.\n\nهل أنت متأكد؟"
+    );
 
-if(!first)return;
 
-const second=confirm(
-"تأكيد أخير: لا يمكن التراجع بعد الحذف إلا إذا لديك نسخة احتياطية."
-);
+  if(!answer) return;
 
-if(!second)return;
 
-state=defaultState();
+  const answer2 =
+    confirm(
+      "تأكيد أخير: هل تريد حذف كل البيانات نهائياً؟"
+    );
 
-saveState();
 
-setDefaultDates();
-renderAll();
+  if(!answer2) return;
 
-alert("تم حذف جميع البيانات.");
+
+  state = defaultState();
+
+  saveState();
+
+  renderAll();
+
+  alert("تم حذف جميع البيانات");
 
 }
+
+
+/* =========================
+   DEFAULT DATES
+========================= */
 
 function setDefaultDates(){
 
-const fields=[
-"bliDate",
-"fuelDate",
-"extraDate",
-"expenseDate",
-"reportDate"
-];
+  document.getElementById("bliDate").value = today();
 
-fields.forEach(id=>{
+  document.getElementById("fuelDate").value = today();
 
-const el=document.getElementById(id);
+  document.getElementById("extraDate").value = today();
 
-if(el&&!el.value){
-el.value=today();
-}
+  document.getElementById("expenseDate").value = today();
 
-});
+  document.getElementById("reportDate").value = today();
 
 }
+
+
+/* =========================
+   RENDER ALL
+========================= */
 
 function renderAll(){
 
-renderHome();
-renderBliList();
-renderFuelList();
-renderExtraList();
-renderExpenseList();
-renderReports();
-renderSettings();
-updateFuelPrice();
+  renderHome();
+
+  renderBliList();
+
+  renderFuelList();
+
+  renderExtraList();
+
+  renderExpenseList();
+
+  renderReports();
+
+  renderSettings();
+
+  updateFuelPrice();
 
 }
 
+
+/* =========================
+   START
+========================= */
+
 setDefaultDates();
+
 renderAll();
 
 </script>
