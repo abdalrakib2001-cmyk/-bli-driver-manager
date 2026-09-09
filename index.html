@@ -573,7 +573,6 @@ footer{
     rgba(3,4,5,.94);
   backdrop-filter:blur(14px);
   -webkit-backdrop-filter:blur(14px);
-  overflow:hidden;
   opacity:0;
   visibility:hidden;
   pointer-events:none;
@@ -629,36 +628,19 @@ footer{
 .car{
   position:absolute;
   bottom:13px;
-  left:-116px;
-  width:104px;
-  height:54px;
+  left:-90px;
+  font-size:52px;
+  line-height:1;
   filter:
     drop-shadow(0 7px 10px rgba(0,0,0,.7))
     drop-shadow(0 0 12px rgba(255,59,48,.45));
   animation:carDrive 2s cubic-bezier(.18,.72,.25,1) forwards;
-  will-change:left,transform;
-}
-
-.car svg{
-  display:block;
-  width:100%;
-  height:100%;
-  overflow:visible;
-}
-
-.car-wheel{
-  transform-box:fill-box;
-  transform-origin:center;
-  animation:wheelSpin .32s linear infinite;
-}
-
-@keyframes wheelSpin{
-  to{transform:rotate(360deg)}
+  transform:scaleX(1);
 }
 
 @keyframes carDrive{
   0%{
-    left:-116px;
+    left:-95px;
     transform:translateY(3px) scale(1);
   }
   20%{
@@ -671,14 +653,14 @@ footer{
     transform:translateY(-1px) scale(1.02);
   }
   100%{
-    left:calc(100% + 116px);
+    left:calc(100% + 95px);
     transform:translateY(0) scale(1);
   }
 }
 
 .car-light{
   position:absolute;
-  width:110px;
+  width:75px;
   height:20px;
   right:-25px;
   bottom:25px;
@@ -700,11 +682,15 @@ footer{
 }
 
 .drive-text{
-  display:none;
+  margin-top:18px;
+  font-size:14px;
+  font-weight:900;
 }
 
 .drive-sub{
-  display:none;
+  color:#666b74;
+  font-size:10px;
+  margin-top:5px;
 }
 
 /* =========================================================
@@ -1408,46 +1394,19 @@ footer{
 
     <div class="road">
       <div class="car-light"></div>
-      <div class="car" aria-label="سيارة تتحرك">
-        <svg viewBox="0 0 220 116" role="img" aria-hidden="true">
-          <defs>
-            <linearGradient id="carBody" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#ff6258"/>
-              <stop offset=".55" stop-color="#e32820"/>
-              <stop offset="1" stop-color="#8f0f0b"/>
-            </linearGradient>
-            <linearGradient id="carGlass" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#dff7ff"/>
-              <stop offset=".35" stop-color="#4a7489"/>
-              <stop offset="1" stop-color="#101820"/>
-            </linearGradient>
-          </defs>
-          <path d="M28 70h164c8 0 14 6 14 14v8H14v-8c0-8 6-14 14-14Z"
-                fill="url(#carBody)" stroke="#ff8a82" stroke-width="2"/>
-          <path d="M57 70 78 38c3-5 8-8 14-8h43c6 0 11 3 15 8l23 32Z"
-                fill="url(#carBody)" stroke="#ff8a82" stroke-width="2"/>
-          <path d="M84 37h22v29H66l14-23c1-4 2-6 4-6Z"
-                fill="url(#carGlass)" stroke="#b9e9f6" stroke-width="1.5"/>
-          <path d="M111 37h23c3 0 6 2 8 5l14 24h-45Z"
-                fill="url(#carGlass)" stroke="#b9e9f6" stroke-width="1.5"/>
-          <path d="M24 73h22v10H18v-4c0-3 2-5 6-6Z" fill="#ffb52e"/>
-          <path d="M174 73h22c4 1 6 3 6 6v4h-28Z" fill="#ff3b30"/>
-          <path d="M88 82h44" stroke="#ffb52e" stroke-width="3" stroke-linecap="round"/>
-          <circle class="car-wheel" cx="57" cy="91" r="16" fill="#090a0c" stroke="#737985" stroke-width="3"/>
-          <circle class="car-wheel" cx="57" cy="91" r="6" fill="#d7d9dc"/>
-          <circle class="car-wheel" cx="166" cy="91" r="16" fill="#090a0c" stroke="#737985" stroke-width="3"/>
-          <circle class="car-wheel" cx="166" cy="91" r="6" fill="#d7d9dc"/>
-          <path d="M4 80h16" stroke="#ff6258" stroke-width="4" stroke-linecap="round" opacity=".55"/>
-          <path d="M0 94h24" stroke="#ff6258" stroke-width="3" stroke-linecap="round" opacity=".35"/>
-        </svg>
-      </div>
+      <div class="car">🏎️</div>
     </div>
 
-    <div class="drive-text">انطلاق...</div>
+    <div class="drive-text">جارٍ التحميل...</div>
     <div class="drive-sub">DRIVING TO YOUR DASHBOARD</div>
 
   </div>
 </div>
+
+<!-- SOUND FILE IS SEPARATE -->
+<audio id="supercarSound" preload="auto">
+  <source src="supercar-rev.mp3" type="audio/mpeg">
+</audio>
 
 <!-- DATE WHEEL -->
 <div id="dateModal" class="date-modal" onclick="dateModalBackground(event)">
@@ -1611,23 +1570,18 @@ function load(){
    NAVIGATION + CAR ANIMATION
    ========================================================= */
 
+const DRIVE_DURATION = 2000;
+let transitionBusy = false;
 let engineAudioContext = null;
-let engineSoundStop = null;
 
 /*
-  The engine sound is generated with Web Audio so the page does not
-  depend on a missing external MP3 file. It starts from the button tap,
-  which also keeps it compatible with mobile browser autoplay rules.
+  Use the original MP3 when it is available. If it is not beside the HTML
+  file, create a short engine-like fallback so the transition still works.
 */
-function playSupercarSound(){
+function playGeneratedEngineSound(){
   try{
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     if(!AudioContext) return;
-
-    if(engineSoundStop){
-      engineSoundStop();
-      engineSoundStop = null;
-    }
 
     if(!engineAudioContext){
       engineAudioContext = new AudioContext();
@@ -1635,72 +1589,41 @@ function playSupercarSound(){
 
     const ctx = engineAudioContext;
     const start = ctx.currentTime;
-    const duration = 2;
+    const duration = DRIVE_DURATION/1000;
     const master = ctx.createGain();
     const filter = ctx.createBiquadFilter();
     const engine = ctx.createOscillator();
     const rumble = ctx.createOscillator();
-    const engineGain = ctx.createGain();
-    const rumbleGain = ctx.createGain();
-    const vibration = ctx.createOscillator();
-    const vibrationGain = ctx.createGain();
 
-    master.gain.setValueAtTime(0.0001,start);
-    master.gain.exponentialRampToValueAtTime(0.34,start+0.08);
-    master.gain.exponentialRampToValueAtTime(0.0001,start+duration);
+    master.gain.setValueAtTime(.0001,start);
+    master.gain.exponentialRampToValueAtTime(.28,start+.08);
+    master.gain.exponentialRampToValueAtTime(.0001,start+duration);
 
     filter.type = "lowpass";
-    filter.frequency.setValueAtTime(700,start);
-    filter.frequency.exponentialRampToValueAtTime(1800,start+0.55);
-    filter.frequency.exponentialRampToValueAtTime(650,start+duration);
-    filter.Q.value = 1.2;
+    filter.frequency.setValueAtTime(650,start);
+    filter.frequency.exponentialRampToValueAtTime(1700,start+.55);
+    filter.frequency.exponentialRampToValueAtTime(600,start+duration);
+    filter.Q.value = 1.1;
 
     engine.type = "sawtooth";
     engine.frequency.setValueAtTime(72,start);
-    engine.frequency.exponentialRampToValueAtTime(235,start+0.62);
-    engine.frequency.exponentialRampToValueAtTime(118,start+1.25);
+    engine.frequency.exponentialRampToValueAtTime(230,start+.62);
+    engine.frequency.exponentialRampToValueAtTime(110,start+1.25);
     engine.frequency.exponentialRampToValueAtTime(76,start+duration);
-    engineGain.gain.value = 0.7;
 
     rumble.type = "triangle";
     rumble.frequency.setValueAtTime(38,start);
-    rumble.frequency.exponentialRampToValueAtTime(92,start+0.65);
+    rumble.frequency.exponentialRampToValueAtTime(88,start+.65);
     rumble.frequency.exponentialRampToValueAtTime(42,start+duration);
-    rumbleGain.gain.value = 0.75;
 
-    vibration.type = "sine";
-    vibration.frequency.value = 14;
-    vibrationGain.gain.value = 10;
-    vibration.connect(vibrationGain);
-    vibrationGain.connect(engine.frequency);
-
-    engine.connect(engineGain);
-    rumble.connect(rumbleGain);
-    engineGain.connect(filter);
-    rumbleGain.connect(filter);
+    engine.connect(filter);
+    rumble.connect(filter);
     filter.connect(master);
     master.connect(ctx.destination);
-
     engine.start(start);
     rumble.start(start);
-    vibration.start(start);
     engine.stop(start+duration);
     rumble.stop(start+duration);
-    vibration.stop(start+duration);
-
-    engineSoundStop = ()=>{
-      try{
-        engine.stop();
-        rumble.stop();
-        vibration.stop();
-      }catch(e){}
-      try{ master.disconnect(); }catch(e){}
-    };
-
-    setTimeout(()=>{
-      engineSoundStop = null;
-      try{ master.disconnect(); }catch(e){}
-    },duration*1000+100);
 
     if(ctx.state==="suspended"){
       ctx.resume().catch(()=>{});
@@ -1708,9 +1631,40 @@ function playSupercarSound(){
   }catch(e){}
 }
 
+function playSupercarSound(){
+  const audio = document.getElementById("supercarSound");
+  if(!audio){
+    playGeneratedEngineSound();
+    return;
+  }
+
+  try{
+    clearTimeout(audio._stopTimer);
+    audio.pause();
+    audio.currentTime = 0;
+
+    const p = audio.play();
+    if(p && typeof p.catch==="function"){
+      p.catch(()=>{
+        playGeneratedEngineSound();
+      });
+    }
+
+    audio._stopTimer = setTimeout(()=>{
+      audio.pause();
+      audio.currentTime = 0;
+    },DRIVE_DURATION);
+  }catch(e){
+    playGeneratedEngineSound();
+  }
+}
+
 function transitionEffect(callback){
   const overlay = document.getElementById("transition");
   const car = overlay.querySelector(".car");
+
+  if(transitionBusy) return;
+  transitionBusy = true;
 
   /* restart animation */
   car.style.animation = "none";
@@ -1719,16 +1673,16 @@ function transitionEffect(callback){
 
   overlay.classList.add("show");
 
-  /* start the two-second engine acceleration */
   playSupercarSound();
 
   setTimeout(()=>{
     callback();
-  },1100);
+  },1000);
 
   setTimeout(()=>{
     overlay.classList.remove("show");
-  },2050);
+    transitionBusy = false;
+  },DRIVE_DURATION+50);
 }
 
 function showSection(id){
