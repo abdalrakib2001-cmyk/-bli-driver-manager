@@ -2,937 +2,1478 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#090909">
-<title>BLI DRIVER MANAGER</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#070707">
+<title>BLI Driver Manager</title>
 
 <style>
-*{box-sizing:border-box}
-:root{
-  --bg:#070707;
-  --card:#111214;
-  --card2:#17181b;
-  --red:#ff2b2b;
-  --red2:#b80000;
-  --orange:#ff7a00;
-  --text:#f5f5f5;
-  --muted:#929292;
-  --line:rgba(255,255,255,.09);
-  --green:#23d477;
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
-html,body{
-  margin:0;
-  min-height:100%;
-  background:
-    radial-gradient(circle at 50% -10%,rgba(255,35,35,.18),transparent 35%),
-    linear-gradient(145deg,#050505,#101113 55%,#050505);
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-}
-body{overflow-x:hidden}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
 
-body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  opacity:.035;
-  background-image:linear-gradient(90deg,#fff 1px,transparent 1px);
-  background-size:7px 7px;
-  z-index:0;
+:root{
+  --bg:#050505;
+  --bg2:#0a0a0b;
+  --card:#111214;
+  --card2:#161719;
+  --red:#ff2929;
+  --red2:#a90000;
+  --orange:#ff7800;
+  --gold:#ffb000;
+  --green:#20d47b;
+  --text:#f5f5f5;
+  --muted:#8d8d92;
+  --line:rgba(255,255,255,.09);
+  --shadow:0 20px 60px rgba(0,0,0,.55);
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 85% 0%,rgba(255,35,35,.12),transparent 28%),
+    radial-gradient(circle at 0% 80%,rgba(255,100,0,.07),transparent 25%),
+    linear-gradient(145deg,#030303,#0a0a0b 45%,#030303);
+  overflow-x:hidden;
+}
+
+button,
+input,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
 }
 
 .app{
-  width:min(100%,700px);
+  width:100%;
+  max-width:900px;
   margin:auto;
-  min-height:100vh;
-  position:relative;
-  z-index:1;
-  padding-bottom:30px;
+  padding-bottom:40px;
 }
 
-/* HEADER */
-.header{
-  padding:25px 18px 12px;
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  padding:
+    calc(12px + env(safe-area-inset-top))
+    16px
+    12px;
+  background:rgba(5,5,5,.82);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+
+.topbar-inner{
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
-.brand small{
-  display:block;
-  color:#777;
-  font-size:10px;
-  letter-spacing:3px;
-  font-weight:800;
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
-.brand h1{
-  margin:3px 0 0;
-  font-size:25px;
-  font-weight:950;
-  letter-spacing:1px;
-}
-.brand h1 span{color:var(--red)}
-.status{
-  width:44px;
-  height:44px;
-  border-radius:50%;
-  border:1px solid rgba(255,40,40,.35);
-  background:rgba(255,30,30,.08);
+
+.brand-mark{
+  width:38px;
+  height:38px;
+  border-radius:12px;
   display:grid;
   place-items:center;
-  box-shadow:0 0 25px rgba(255,0,0,.12);
-}
-.status:after{
-  content:"";
-  width:9px;
-  height:9px;
-  background:#23d477;
-  border-radius:50%;
-  box-shadow:0 0 13px #23d477;
+  background:
+    linear-gradient(145deg,#ff3030,#870000);
+  box-shadow:
+    0 8px 25px rgba(255,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.25);
+  font-size:19px;
 }
 
-/* DASHBOARD */
-#home{display:block}
+.brand-title{
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:1.8px;
+}
+
+.brand-sub{
+  color:#777;
+  font-size:10px;
+  margin-top:2px;
+  letter-spacing:1px;
+}
+
+.status{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-size:10px;
+  color:#9b9b9b;
+  letter-spacing:1px;
+}
+
+.status-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 12px var(--green);
+}
+
+/* =========================
+   HERO
+========================= */
 
 .hero{
-  margin:8px 16px 18px;
-  min-height:170px;
-  border:1px solid rgba(255,40,40,.2);
-  border-radius:28px;
-  overflow:hidden;
   position:relative;
-  background:
-    radial-gradient(circle at 85% 45%,rgba(255,35,35,.25),transparent 35%),
-    linear-gradient(135deg,#191a1d,#090909 65%);
-  box-shadow:
-    0 18px 50px rgba(0,0,0,.45),
-    inset 0 1px rgba(255,255,255,.06);
+  padding:34px 18px 20px;
+  overflow:hidden;
 }
+
 .hero:before{
   content:"";
   position:absolute;
-  width:240px;
-  height:1px;
-  background:linear-gradient(90deg,transparent,var(--red),transparent);
-  right:-40px;
-  top:50px;
-  transform:rotate(-18deg);
-  box-shadow:0 30px 0 rgba(255,50,50,.3),0 60px 0 rgba(255,50,50,.12);
+  width:300px;
+  height:300px;
+  top:-140px;
+  right:-100px;
+  background:radial-gradient(circle,rgba(255,35,35,.16),transparent 65%);
+  pointer-events:none;
 }
-.heroContent{
-  position:relative;
-  z-index:2;
-  padding:25px;
-}
-.hero .mini{
+
+.hero-label{
   color:var(--red);
   font-size:11px;
   font-weight:900;
-  letter-spacing:2px;
-}
-.hero h2{
-  font-size:28px;
-  margin:7px 0;
-  font-weight:950;
-}
-.hero p{
-  margin:0;
-  color:#999;
-  font-size:13px;
-}
-.speed{
-  position:absolute;
-  left:20px;
-  bottom:22px;
-  font-size:48px;
-  font-weight:950;
-  font-style:italic;
-  color:rgba(255,255,255,.035);
-  letter-spacing:-5px;
+  letter-spacing:3px;
+  margin-bottom:8px;
 }
 
-/* TARGET */
-.target{
-  margin:0 16px 18px;
-  padding:18px;
-  border-radius:22px;
-  background:linear-gradient(135deg,#151618,#0d0e10);
-  border:1px solid rgba(255,255,255,.07);
+.hero h1{
+  margin:0;
+  font-size:clamp(32px,9vw,60px);
+  line-height:.95;
+  font-weight:1000;
+  letter-spacing:-2px;
+  text-transform:uppercase;
 }
-.targetTop{
+
+.hero h1 span{
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.3);
+}
+
+.hero p{
+  color:#8b8b8f;
+  font-size:13px;
+  margin:14px 0 0;
+}
+
+/* =========================
+   TARGET CARD
+========================= */
+
+.target-card{
+  margin:10px 16px 22px;
+  padding:18px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:24px;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.025)),
+    #101112;
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+
+.target-card:after{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  left:-70px;
+  bottom:-100px;
+  background:radial-gradient(circle,rgba(255,40,40,.2),transparent 65%);
+}
+
+.target-top{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:13px;
-}
-.targetTop span:first-child{color:#aaa;font-size:12px}
-.targetTop strong{font-size:17px}
-.progress{
-  height:9px;
-  background:#27282b;
-  border-radius:20px;
-  overflow:hidden;
-}
-.progress i{
-  display:block;
-  height:100%;
-  width:0%;
-  border-radius:20px;
-  background:linear-gradient(90deg,var(--red2),var(--red),var(--orange));
-  box-shadow:0 0 15px rgba(255,30,30,.5);
-  transition:.5s;
-}
-.targetMsg{
-  margin-top:10px;
-  font-size:12px;
-  color:#aaa;
-}
-.target.done{
-  border-color:rgba(35,212,119,.3);
-}
-.target.done .progress i{
-  background:linear-gradient(90deg,#14a85b,#23d477);
-  box-shadow:0 0 15px rgba(35,212,119,.35);
+  gap:10px;
 }
 
-/* MODULE GRID */
-.sectionTitle{
-  padding:0 18px 12px;
-  color:#888;
+.target-title{
+  font-weight:900;
+  font-size:14px;
+}
+
+.target-week{
+  font-size:11px;
+  color:#777;
+}
+
+.target-number{
+  margin-top:12px;
+  font-size:30px;
+  font-weight:1000;
+}
+
+.target-number span{
   font-size:12px;
-  font-weight:800;
+  color:#777;
+  font-weight:600;
+}
+
+.progress{
+  height:8px;
+  border-radius:99px;
+  background:#292a2c;
+  margin-top:14px;
+  overflow:hidden;
+}
+
+.progress-bar{
+  height:100%;
+  width:0%;
+  border-radius:99px;
+  background:linear-gradient(90deg,var(--red2),var(--red),var(--orange));
+  box-shadow:0 0 18px rgba(255,30,30,.5);
+  transition:width .7s cubic-bezier(.2,.8,.2,1);
+}
+
+.target-bottom{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:10px;
+  font-size:11px;
+  color:#8d8d8d;
+}
+
+.target-bottom strong{
+  color:white;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard{
+  padding:0 16px;
+}
+
+.section-heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin:22px 2px 12px;
+}
+
+.section-heading h2{
+  margin:0;
+  font-size:17px;
+}
+
+.section-heading span{
+  color:#777;
+  font-size:10px;
   letter-spacing:1px;
 }
-.modules{
-  padding:0 14px;
+
+.launcher{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:12px;
 }
+
 .module{
-  min-height:145px;
-  border-radius:24px;
   position:relative;
-  overflow:hidden;
-  padding:20px 17px;
-  text-align:right;
-  border:1px solid var(--line);
+  min-height:150px;
+  padding:17px;
+  border-radius:23px;
+  border:1px solid rgba(255,255,255,.09);
   background:
-    linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.015)),
-    #101113;
-  color:#fff;
-  box-shadow:0 10px 30px rgba(0,0,0,.25);
-  transition:transform .18s,box-shadow .18s,border .18s;
+    linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.018));
+  box-shadow:0 16px 35px rgba(0,0,0,.38);
+  overflow:hidden;
+  text-align:right;
+  color:white;
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease;
 }
-.module:active{
-  transform:scale(.96);
-  box-shadow:0 3px 10px rgba(0,0,0,.4);
-}
+
 .module:before{
   content:"";
   position:absolute;
-  width:90px;
-  height:90px;
+  width:150px;
+  height:150px;
+  left:-75px;
+  bottom:-80px;
   border-radius:50%;
-  background:var(--red);
-  opacity:.08;
-  left:-25px;
-  bottom:-35px;
+  background:var(--accent,rgba(255,40,40,.2));
+  filter:blur(15px);
+  opacity:.5;
 }
-.module .icon{
-  font-size:31px;
-  display:block;
+
+.module:after{
+  content:"";
+  position:absolute;
+  top:0;
+  right:-100%;
+  width:70%;
+  height:100%;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.07),
+    transparent
+  );
+  transform:skewX(-18deg);
+  transition:right .6s ease;
+}
+
+.module:active{
+  transform:scale(.96);
+  border-color:rgba(255,50,50,.6);
+  box-shadow:
+    0 0 30px rgba(255,30,30,.2),
+    inset 0 0 25px rgba(255,255,255,.03);
+}
+
+.module:active:after{
+  right:140%;
+}
+
+.module-icon{
+  position:relative;
+  z-index:2;
+  width:48px;
+  height:48px;
+  border-radius:16px;
+  display:grid;
+  place-items:center;
+  font-size:25px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.08);
   margin-bottom:18px;
 }
-.module strong{
-  display:block;
-  font-size:17px;
-  font-weight:900;
+
+.module-title{
+  position:relative;
+  z-index:2;
+  font-size:16px;
+  font-weight:950;
 }
-.module small{
-  display:block;
+
+.module-desc{
+  position:relative;
+  z-index:2;
   color:#777;
   font-size:10px;
   margin-top:5px;
 }
+
+.module-arrow{
+  position:absolute;
+  left:14px;
+  bottom:14px;
+  color:#666;
+  z-index:2;
+}
+
 .module.red{
-  border-color:rgba(255,40,40,.24);
-  background:linear-gradient(145deg,rgba(255,30,30,.14),#101113);
-}
-.module.wide{
-  grid-column:span 2;
-  min-height:100px;
-}
-.module.wide .icon{
-  display:inline-block;
-  margin:0 0 0 12px;
+  --accent:rgba(255,30,30,.28);
 }
 
-/* SECTIONS */
-section.modulePage{
+.module.orange{
+  --accent:rgba(255,110,0,.25);
+}
+
+.module.green{
+  --accent:rgba(20,220,120,.2);
+}
+
+.module.blue{
+  --accent:rgba(0,140,255,.18);
+}
+
+.module.purple{
+  --accent:rgba(150,70,255,.2);
+}
+
+.module.gold{
+  --accent:rgba(255,180,0,.2);
+}
+
+/* =========================
+   PAGE SECTIONS
+========================= */
+
+.page-section{
   display:none;
-  padding:5px 15px 25px;
-  animation:pageIn .35s ease both;
-}
-section.modulePage.active{display:block}
-
-@keyframes pageIn{
-  from{opacity:0;transform:translateX(35px) scale(.97)}
-  to{opacity:1;transform:none}
+  padding:18px 16px 50px;
+  animation:sectionIn .38s ease both;
 }
 
-.pageHead{
+.page-section.active{
+  display:block;
+}
+
+@keyframes sectionIn{
+  from{
+    opacity:0;
+    transform:translateX(25px) scale(.985);
+    filter:blur(5px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+    filter:none;
+  }
+}
+
+.page-header{
   display:flex;
   align-items:center;
   gap:12px;
-  margin:8px 0 18px;
+  margin-bottom:18px;
 }
-.back{
+
+.back-btn{
   width:44px;
   height:44px;
   border-radius:15px;
-  border:1px solid rgba(255,255,255,.1);
-  background:#151619;
-  color:#fff;
-  font-size:21px;
-}
-.pageTitle h2{
-  margin:0;
-  font-size:22px;
-}
-.pageTitle small{
-  color:#777;
-  font-size:10px;
+  border:1px solid var(--line);
+  background:#111;
+  color:white;
+  font-size:20px;
 }
 
-/* FORMS */
-.panel{
-  background:linear-gradient(145deg,#151618,#0d0e10);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:23px;
-  padding:17px;
-  margin-bottom:14px;
-  box-shadow:0 12px 35px rgba(0,0,0,.3);
+.page-header-text h2{
+  margin:0;
+  font-size:24px;
 }
-label{
-  display:block;
-  color:#999;
+
+.page-header-text p{
+  margin:4px 0 0;
+  color:#777;
   font-size:11px;
-  margin:0 0 7px;
-  font-weight:700;
 }
-input,select,textarea{
-  width:100%;
-  border:1px solid rgba(255,255,255,.09);
-  border-radius:14px;
-  background:#090a0b;
-  color:#fff;
-  padding:13px;
-  outline:none;
+
+/* =========================
+   FORM PANEL
+========================= */
+
+.panel{
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:16px;
+  box-shadow:0 18px 45px rgba(0,0,0,.35);
+  margin-bottom:14px;
 }
-input:focus,select:focus,textarea:focus{
-  border-color:rgba(255,40,40,.65);
-  box-shadow:0 0 0 3px rgba(255,30,30,.08);
-}
-textarea{resize:vertical;min-height:75px}
-.formGrid{
+
+.form-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
   gap:12px;
 }
-.full{grid-column:1/-1}
 
-.btns{
+.field label{
+  display:block;
+  font-size:11px;
+  color:#999;
+  margin-bottom:7px;
+}
+
+input,
+select{
+  width:100%;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:14px;
+  padding:13px 14px;
+  color:white;
+  background:#0b0c0d;
+  outline:none;
+  font-size:14px;
+}
+
+input:focus,
+select:focus{
+  border-color:rgba(255,45,45,.6);
+  box-shadow:0 0 0 3px rgba(255,35,35,.08);
+}
+
+input[readonly]{
+  color:#aaa;
+  background:#111;
+}
+
+.form-actions{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
-  margin-top:13px;
+  margin-top:14px;
 }
+
 .btn{
   border:0;
   border-radius:14px;
-  padding:14px;
+  min-height:46px;
+  padding:0 15px;
   font-weight:900;
+  color:white;
 }
-.btn.primary{
-  color:#fff;
-  background:linear-gradient(135deg,#ff3030,#a50000);
-  box-shadow:0 7px 20px rgba(255,0,0,.18);
+
+.btn-primary{
+  background:linear-gradient(135deg,#ff3333,#9d0000);
+  box-shadow:0 9px 25px rgba(255,0,0,.22);
 }
-.btn.secondary{
-  color:#aaa;
-  background:#202124;
+
+.btn-secondary{
+  background:#202123;
+  border:1px solid rgba(255,255,255,.08);
 }
-.btn.danger{
-  background:#351010;
+
+.btn-danger{
+  background:#401010;
   color:#ff7777;
 }
 
-/* LISTS */
-.list{
-  display:grid;
-  gap:9px;
-}
-.item{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  background:#121315;
+/* =========================
+   PREVIEW
+========================= */
+
+.preview{
+  margin-top:12px;
+  padding:14px;
+  border-radius:15px;
+  background:#090a0a;
   border:1px solid rgba(255,255,255,.06);
-  border-radius:17px;
-  padding:13px;
-}
-.itemMain strong{font-size:14px}
-.itemMain small{
-  display:block;
-  color:#777;
-  margin-top:4px;
-  font-size:10px;
-}
-.itemMoney{
-  font-weight:950;
-  color:#fff;
-  white-space:nowrap;
-}
-.delete{
-  border:0;
-  background:#291011;
-  color:#ff6666;
-  border-radius:10px;
-  padding:7px 9px;
-}
-.empty{
-  padding:30px 10px;
-  text-align:center;
-  color:#666;
+  color:#aaa;
   font-size:12px;
 }
 
-/* STATS */
+.preview strong{
+  color:white;
+}
+
+/* =========================
+   LISTS
+========================= */
+
+.list{
+  display:grid;
+  gap:10px;
+}
+
+.item{
+  position:relative;
+  padding:14px;
+  border-radius:17px;
+  background:#0d0e0f;
+  border:1px solid rgba(255,255,255,.07);
+}
+
+.item-main{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.item-title{
+  font-size:13px;
+  font-weight:800;
+}
+
+.item-date{
+  font-size:10px;
+  color:#666;
+  margin-top:4px;
+}
+
+.item-value{
+  font-size:16px;
+  font-weight:950;
+}
+
+.item-meta{
+  margin-top:8px;
+  color:#777;
+  font-size:10px;
+}
+
+.delete-btn{
+  margin-top:10px;
+  border:0;
+  border-radius:9px;
+  padding:7px 10px;
+  background:#251010;
+  color:#ff7272;
+  font-size:10px;
+}
+
+/* =========================
+   REPORTS
+========================= */
+
+.report-controls{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
 .stats{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:10px;
-  margin-bottom:14px;
+  margin-top:12px;
 }
-.stat{
-  background:#121315;
-  border:1px solid rgba(255,255,255,.06);
-  border-radius:18px;
-  padding:15px;
-}
-.stat small{color:#777}
-.stat strong{
-  display:block;
-  font-size:19px;
-  margin-top:7px;
-}
-.stat.green strong{color:var(--green)}
-.stat.red strong{color:#ff5656}
 
-.tableWrap{
-  overflow:auto;
-  border-radius:18px;
-  border:1px solid rgba(255,255,255,.06);
+.stat{
+  padding:15px;
+  border-radius:17px;
+  background:#0d0e0f;
+  border:1px solid rgba(255,255,255,.07);
 }
-table{
+
+.stat-label{
+  color:#777;
+  font-size:10px;
+}
+
+.stat-value{
+  margin-top:6px;
+  font-size:19px;
+  font-weight:950;
+}
+
+.stat.green .stat-value{
+  color:var(--green);
+}
+
+.stat.red .stat-value{
+  color:#ff5555;
+}
+
+.report-table{
   width:100%;
   border-collapse:collapse;
-  min-width:500px;
-}
-th,td{
-  padding:11px;
-  text-align:center;
-  border-bottom:1px solid rgba(255,255,255,.05);
+  margin-top:14px;
+  overflow:hidden;
+  border-radius:15px;
   font-size:11px;
 }
-th{color:#777;background:#101113}
-td{color:#ddd}
 
-/* SETTINGS */
-.setting{
-  margin-bottom:13px;
+.report-table th,
+.report-table td{
+  padding:11px 8px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  text-align:right;
 }
-.backup{
+
+.report-table th{
+  color:#777;
+  font-weight:700;
+}
+
+.report-table td{
+  color:#ddd;
+}
+
+/* =========================
+   SETTINGS
+========================= */
+
+.setting-row{
+  margin-bottom:14px;
+}
+
+.setting-row label{
+  display:block;
+  color:#999;
+  font-size:11px;
+  margin-bottom:7px;
+}
+
+.backup-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
   gap:10px;
-  margin-top:15px;
+  margin-top:12px;
 }
 
-/* TRANSITION */
-#transition{
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+  padding:25px;
+  text-align:center;
+  color:#555;
+  border:1px dashed rgba(255,255,255,.08);
+  border-radius:17px;
+  font-size:12px;
+}
+
+/* =========================
+   TRANSITION
+========================= */
+
+.transition{
   position:fixed;
   inset:0;
-  z-index:999;
+  z-index:100;
   pointer-events:none;
   opacity:0;
   background:
-    radial-gradient(circle at center,rgba(255,40,40,.3),transparent 35%),
+    radial-gradient(circle at center,rgba(255,30,30,.18),transparent 35%),
     #050505;
 }
-#transition.go{
-  animation:drive .48s ease both;
-}
-@keyframes drive{
-  0%{opacity:0}
-  30%{opacity:1}
-  65%{opacity:1}
-  100%{opacity:0}
-}
-.speedLine{
-  position:absolute;
-  height:2px;
-  background:linear-gradient(90deg,transparent,#fff,transparent);
-  width:65%;
-  right:-70%;
-  top:var(--y);
-  animation:line .4s linear;
-}
-@keyframes line{
-  to{right:120%}
+
+.transition.active{
+  animation:driveTransition .52s ease both;
 }
 
-/* FOOTER */
+.speed-line{
+  position:absolute;
+  height:2px;
+  width:var(--w);
+  right:-30%;
+  top:var(--top);
+  background:linear-gradient(90deg,transparent,#fff,transparent);
+  opacity:.7;
+  transform:skewX(-20deg);
+}
+
+.transition.active .speed-line{
+  animation:speed .42s linear both;
+  animation-delay:var(--delay);
+}
+
+@keyframes speed{
+  from{
+    right:-30%;
+  }
+  to{
+    right:130%;
+  }
+}
+
+@keyframes driveTransition{
+  0%{
+    opacity:0;
+  }
+  20%{
+    opacity:1;
+  }
+  70%{
+    opacity:1;
+  }
+  100%{
+    opacity:0;
+  }
+}
+
+/* =========================
+   FOOTER
+========================= */
+
 footer{
   text-align:center;
   color:#444;
   font-size:9px;
   letter-spacing:2px;
-  margin-top:25px;
+  padding:25px 15px;
 }
 
-/* MOBILE */
-@media(max-width:390px){
-  .modules{gap:9px;padding:0 11px}
-  .module{min-height:135px;padding:17px 14px}
-  .module strong{font-size:15px}
-  .hero h2{font-size:24px}
+/* =========================
+   DESKTOP
+========================= */
+
+@media(min-width:700px){
+  .launcher{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .form-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .field.full{
+    grid-column:1/-1;
+  }
+
+  .stats{
+    grid-template-columns:repeat(4,1fr);
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div id="transition"></div>
-
 <div class="app">
 
-<header class="header">
-  <div class="brand">
-    <small>DRIVER MANAGEMENT SYSTEM</small>
-    <h1>BLI <span>DRIVER</span></h1>
+<header class="topbar">
+  <div class="topbar-inner">
+
+    <div class="brand">
+      <div class="brand-mark">🏎️</div>
+      <div>
+        <div class="brand-title">BLI DRIVER</div>
+        <div class="brand-sub">MANAGEMENT SYSTEM</div>
+      </div>
+    </div>
+
+    <div class="status">
+      <span class="status-dot"></span>
+      DRIVER MODE
+    </div>
+
   </div>
-  <div class="status"></div>
 </header>
 
-<!-- HOME / DASHBOARD -->
-<section id="home">
+<main>
+
+<!-- =========================
+     HOME
+========================= -->
+
+<section id="home" class="page-section active">
 
   <div class="hero">
-    <div class="heroContent">
-      <div class="mini">READY TO DRIVE</div>
-      <h2>أهلاً بك يا سائق</h2>
-      <p>إدارة الدخل والوقود والمصاريف بطريقة ذكية.</p>
+    <div class="hero-label">READY TO DRIVE</div>
+
+    <h1>
+      DRIVER<br>
+      <span>MANAGER</span>
+    </h1>
+
+    <p>
+      إدارة دخلك ومصاريفك ووقودك من مكان واحد.
+    </p>
+  </div>
+
+  <div class="target-card">
+
+    <div class="target-top">
+      <div>
+        <div class="target-title">🎯 هدف الأسبوع</div>
+        <div class="target-week" id="homeWeekText"></div>
+      </div>
+
+      <div id="targetStatus">جاهز</div>
     </div>
-    <div class="speed">DRIVE</div>
-  </div>
 
-  <div class="target" id="targetCard">
-    <div class="targetTop">
-      <span>هدف هذا الأسبوع</span>
-      <strong id="targetText">0 / 250,000</strong>
+    <div class="target-number">
+      <span id="homeIncome">0</span>
+      <span>د.ع</span>
     </div>
-    <div class="progress"><i id="targetBar"></i></div>
-    <div class="targetMsg" id="targetMsg">متبقي للوصول إلى الهدف</div>
-  </div>
 
-  <div class="sectionTitle">اختار القسم</div>
+    <div class="progress">
+      <div id="homeProgress" class="progress-bar"></div>
+    </div>
 
-  <div class="modules">
+    <div class="target-bottom">
+      <span>
+        الهدف:
+        <strong id="homeTarget">250,000</strong>
+      </span>
 
-    <button class="module red" onclick="navigateToSection('bli')">
-      <span class="icon">💰</span>
-      <strong>دخل Bli</strong>
-      <small>الأرباح والبونص والتيبس</small>
-    </button>
-
-    <button class="module" onclick="navigateToSection('fuel')">
-      <span class="icon">⛽</span>
-      <strong>الوقود</strong>
-      <small>بنزين وغاز LPG</small>
-    </button>
-
-    <button class="module" onclick="navigateToSection('extra')">
-      <span class="icon">➕</span>
-      <strong>دخل إضافي</strong>
-      <small>مبيعات وتيبات وغيرها</small>
-    </button>
-
-    <button class="module" onclick="navigateToSection('expenses')">
-      <span class="icon">💸</span>
-      <strong>المصاريف</strong>
-      <small>صيانة وغسيل وإصلاح</small>
-    </button>
-
-    <button class="module red" onclick="navigateToSection('reports')">
-      <span class="icon">📈</span>
-      <strong>التقارير</strong>
-      <small>أسبوعية وشهرية</small>
-    </button>
-
-    <button class="module" onclick="navigateToSection('settings')">
-      <span class="icon">⚙️</span>
-      <strong>الإعدادات</strong>
-      <small>الأسعار والهدف والنسخ الاحتياطي</small>
-    </button>
+      <span id="homeRemaining">المتبقي 250,000 د.ع</span>
+    </div>
 
   </div>
+
+  <div class="dashboard">
+
+    <div class="section-heading">
+      <h2>اختر المهمة</h2>
+      <span>SELECT MODULE</span>
+    </div>
+
+    <div class="launcher">
+
+      <button class="module red" onclick="openModule('bli')">
+        <div class="module-icon">💰</div>
+        <div class="module-title">دخل Bli</div>
+        <div class="module-desc">الدخل والعمولة والبونص</div>
+        <div class="module-arrow">←</div>
+      </button>
+
+      <button class="module orange" onclick="openModule('fuel')">
+        <div class="module-icon">⛽</div>
+        <div class="module-title">الوقود</div>
+        <div class="module-desc">بنزين وغاز</div>
+        <div class="module-arrow">←</div>
+      </button>
+
+      <button class="module green" onclick="openModule('extra')">
+        <div class="module-icon">➕</div>
+        <div class="module-title">دخل إضافي</div>
+        <div class="module-desc">بيع وقود، بقشيش، أخرى</div>
+        <div class="module-arrow">←</div>
+      </button>
+
+      <button class="module red" onclick="openModule('expenses')">
+        <div class="module-icon">💸</div>
+        <div class="module-title">المصاريف</div>
+        <div class="module-desc">صيانة ومصاريف السيارة</div>
+        <div class="module-arrow">←</div>
+      </button>
+
+      <button class="module blue" onclick="openModule('reports')">
+        <div class="module-icon">📈</div>
+        <div class="module-title">التقارير</div>
+        <div class="module-desc">أسبوعي وشهري</div>
+        <div class="module-arrow">←</div>
+      </button>
+
+      <button class="module purple" onclick="openModule('settings')">
+        <div class="module-icon">⚙️</div>
+        <div class="module-title">الإعدادات</div>
+        <div class="module-desc">الأسعار والهدف والنسخ الاحتياطي</div>
+        <div class="module-arrow">←</div>
+      </button>
+
+    </div>
+
+  </div>
+
 </section>
 
+<!-- =========================
+     BLI
+========================= -->
 
-<!-- BLI -->
-<section id="bli" class="modulePage">
-  <div class="pageHead">
-    <button class="back" onclick="goHome()">→</button>
-    <div class="pageTitle">
+<section id="bli" class="page-section">
+
+  <div class="page-header">
+    <button class="back-btn" onclick="goHome()">→</button>
+
+    <div class="page-header-text">
       <h2>دخل Bli</h2>
-      <small>BLI INCOME</small>
+      <p>BLI INCOME</p>
     </div>
   </div>
 
   <div class="panel">
-    <div class="formGrid">
-      <div>
+
+    <div class="form-grid">
+
+      <div class="field">
         <label>التاريخ</label>
         <input id="bliDate" type="date">
       </div>
 
-      <div>
-        <label>دخل الرحلات بعد العمولة</label>
+      <div class="field">
+        <label>الدخل بعد العمولة</label>
         <input id="bliIncome" type="number" inputmode="decimal" placeholder="مثلاً 16000">
       </div>
 
-      <div>
+      <div class="field">
         <label>البونص</label>
-        <input id="bliBonus" type="number" inputmode="decimal" value="0">
+        <input id="bliBonus" type="number" inputmode="decimal" placeholder="0">
       </div>
 
-      <div>
-        <label>التيب</label>
-        <input id="bliTips" type="number" inputmode="decimal" value="0">
+      <div class="field">
+        <label>البقشيش</label>
+        <input id="bliTip" type="number" inputmode="decimal" placeholder="0">
       </div>
 
-      <div class="full">
+      <div class="field full">
         <label>ملاحظة</label>
-        <textarea id="bliNote" placeholder="مثلاً 13 رحلة / 4 ساعات"></textarea>
+        <input id="bliNote" type="text" placeholder="اختياري">
       </div>
+
     </div>
 
-    <div class="btns">
-      <button class="btn primary" onclick="saveBli()">حفظ الدخل</button>
-      <button class="btn secondary" onclick="resetBli()">مسح</button>
+    <div class="form-actions">
+      <button class="btn btn-primary" onclick="saveBli()">حفظ الدخل</button>
+      <button class="btn btn-secondary" onclick="resetBli()">مسح</button>
     </div>
+
   </div>
 
-  <div class="list" id="bliList"></div>
+  <div class="section-heading">
+    <h2>السجلات</h2>
+    <span>BLI LOG</span>
+  </div>
+
+  <div id="bliList" class="list"></div>
+
 </section>
 
+<!-- =========================
+     FUEL
+========================= -->
 
-<!-- FUEL -->
-<section id="fuel" class="modulePage">
-  <div class="pageHead">
-    <button class="back" onclick="goHome()">→</button>
-    <div class="pageTitle">
+<section id="fuel" class="page-section">
+
+  <div class="page-header">
+    <button class="back-btn" onclick="goHome()">→</button>
+
+    <div class="page-header-text">
       <h2>الوقود</h2>
-      <small>FUEL TRACKER</small>
+      <p>FUEL MANAGEMENT</p>
     </div>
   </div>
 
   <div class="panel">
-    <div class="formGrid">
 
-      <div>
+    <div class="form-grid">
+
+      <div class="field">
         <label>التاريخ</label>
         <input id="fuelDate" type="date">
       </div>
 
-      <div>
+      <div class="field">
         <label>نوع الوقود</label>
+
         <select id="fuelType" onchange="updateFuelPrice()">
           <option value="petrol">بنزين</option>
           <option value="lpg">غاز LPG</option>
         </select>
       </div>
 
-      <div>
+      <div class="field">
         <label>اللترات</label>
-        <input id="fuelLiters" type="number" step="0.01" inputmode="decimal" placeholder="مثلاً 12.5" oninput="updateFuelPreview()">
+        <input
+          id="fuelLiters"
+          type="number"
+          inputmode="decimal"
+          step="0.1"
+          placeholder="مثلاً 20"
+          oninput="updateFuelPreview()"
+        >
       </div>
 
-      <div>
-        <label>سعر اللتر</label>
-        <input id="fuelPrice" readonly>
-      </div>
-
-      <div class="full">
-        <div class="item">
-          <div class="itemMain">
-            <strong>قيمة التعبئة</strong>
-            <small>يتم الحساب تلقائياً</small>
-          </div>
-          <div class="itemMoney" id="fuelPreview">0 د.ع</div>
-        </div>
+      <div class="field">
+        <label>السعر / لتر</label>
+        <input id="fuelPrice" type="number" readonly>
       </div>
 
     </div>
 
-    <div class="btns">
-      <button class="btn primary" onclick="saveFuel()">حفظ التعبئة</button>
-      <button class="btn secondary" onclick="resetFuel()">مسح</button>
+    <div id="fuelPreview" class="preview">
+      التكلفة: <strong>0 د.ع</strong>
     </div>
+
+    <div class="form-actions">
+      <button class="btn btn-primary" onclick="saveFuel()">حفظ الوقود</button>
+      <button class="btn btn-secondary" onclick="resetFuel()">مسح</button>
+    </div>
+
   </div>
 
-  <div class="list" id="fuelList"></div>
+  <div class="section-heading">
+    <h2>السجلات</h2>
+    <span>FUEL LOG</span>
+  </div>
+
+  <div id="fuelList" class="list"></div>
+
 </section>
 
+<!-- =========================
+     EXTRA
+========================= -->
 
-<!-- EXTRA -->
-<section id="extra" class="modulePage">
-  <div class="pageHead">
-    <button class="back" onclick="goHome()">→</button>
-    <div class="pageTitle">
+<section id="extra" class="page-section">
+
+  <div class="page-header">
+    <button class="back-btn" onclick="goHome()">→</button>
+
+    <div class="page-header-text">
       <h2>دخل إضافي</h2>
-      <small>EXTRA INCOME</small>
+      <p>EXTRA INCOME</p>
     </div>
   </div>
 
   <div class="panel">
-    <div class="formGrid">
 
-      <div>
+    <div class="form-grid">
+
+      <div class="field">
         <label>التاريخ</label>
         <input id="extraDate" type="date">
       </div>
 
-      <div>
+      <div class="field">
         <label>نوع الدخل</label>
+
         <select id="extraType">
           <option value="fuelSale">بيع وقود</option>
-          <option value="tip">تيب خارج Bli</option>
+          <option value="tip">بقشيش خارج Bli</option>
           <option value="other">دخل آخر</option>
         </select>
       </div>
 
-      <div class="full">
+      <div class="field">
         <label>المبلغ</label>
-        <input id="extraAmount" type="number" inputmode="decimal" placeholder="المبلغ بالدينار">
+        <input id="extraAmount" type="number" inputmode="decimal" placeholder="مثلاً 5000">
       </div>
 
-      <div class="full">
+      <div class="field">
         <label>ملاحظة</label>
-        <textarea id="extraNote"></textarea>
+        <input id="extraNote" type="text" placeholder="اختياري">
       </div>
 
     </div>
 
-    <div class="btns">
-      <button class="btn primary" onclick="saveExtra()">حفظ الدخل</button>
-      <button class="btn secondary" onclick="resetExtra()">مسح</button>
+    <div class="form-actions">
+      <button class="btn btn-primary" onclick="saveExtra()">حفظ الدخل</button>
+      <button class="btn btn-secondary" onclick="resetExtra()">مسح</button>
     </div>
+
   </div>
 
-  <div class="list" id="extraList"></div>
+  <div class="section-heading">
+    <h2>السجلات</h2>
+    <span>EXTRA LOG</span>
+  </div>
+
+  <div id="extraList" class="list"></div>
+
 </section>
 
+<!-- =========================
+     EXPENSES
+========================= -->
 
-<!-- EXPENSES -->
-<section id="expenses" class="modulePage">
-  <div class="pageHead">
-    <button class="back" onclick="goHome()">→</button>
-    <div class="pageTitle">
+<section id="expenses" class="page-section">
+
+  <div class="page-header">
+    <button class="back-btn" onclick="goHome()">→</button>
+
+    <div class="page-header-text">
       <h2>المصاريف</h2>
-      <small>EXPENSES</small>
+      <p>CAR EXPENSES</p>
     </div>
   </div>
 
   <div class="panel">
-    <div class="formGrid">
 
-      <div>
+    <div class="form-grid">
+
+      <div class="field">
         <label>التاريخ</label>
         <input id="expenseDate" type="date">
       </div>
 
-      <div>
+      <div class="field">
         <label>نوع المصروف</label>
+
         <select id="expenseType">
           <option value="oil">زيت</option>
           <option value="maintenance">صيانة</option>
           <option value="tires">إطارات</option>
-          <option value="repair">إصلاح</option>
-          <option value="wash">غسيل</option>
+          <option value="repair">تصليح</option>
+          <option value="wash">غسل</option>
           <option value="electrical">كهرباء</option>
           <option value="fees">رسوم</option>
           <option value="other">أخرى</option>
         </select>
       </div>
 
-      <div class="full">
+      <div class="field">
         <label>المبلغ</label>
-        <input id="expenseAmount" type="number" inputmode="decimal">
+        <input id="expenseAmount" type="number" inputmode="decimal" placeholder="مثلاً 25000">
       </div>
 
-      <div class="full">
+      <div class="field">
         <label>ملاحظة</label>
-        <textarea id="expenseNote"></textarea>
+        <input id="expenseNote" type="text" placeholder="اختياري">
       </div>
 
     </div>
 
-    <div class="btns">
-      <button class="btn primary" onclick="saveExpense()">حفظ المصروف</button>
-      <button class="btn secondary" onclick="resetExpense()">مسح</button>
+    <div class="form-actions">
+      <button class="btn btn-primary" onclick="saveExpense()">حفظ المصروف</button>
+      <button class="btn btn-secondary" onclick="resetExpense()">مسح</button>
     </div>
+
   </div>
 
-  <div class="list" id="expenseList"></div>
+  <div class="section-heading">
+    <h2>السجلات</h2>
+    <span>EXPENSE LOG</span>
+  </div>
+
+  <div id="expenseList" class="list"></div>
+
 </section>
 
+<!-- =========================
+     REPORTS
+========================= -->
 
-<!-- REPORTS -->
-<section id="reports" class="modulePage">
-  <div class="pageHead">
-    <button class="back" onclick="goHome()">→</button>
-    <div class="pageTitle">
+<section id="reports" class="page-section">
+
+  <div class="page-header">
+    <button class="back-btn" onclick="goHome()">→</button>
+
+    <div class="page-header-text">
       <h2>التقارير</h2>
-      <small>PERFORMANCE REPORT</small>
+      <p>PERFORMANCE REPORTS</p>
     </div>
   </div>
 
   <div class="panel">
-    <div class="formGrid">
-      <div>
+
+    <div class="report-controls">
+
+      <div class="field">
         <label>الفترة</label>
+
         <select id="reportPeriod" onchange="renderReports()">
           <option value="week">أسبوع</option>
           <option value="month">شهر</option>
         </select>
       </div>
 
-      <div>
+      <div class="field">
         <label>التاريخ المرجعي</label>
         <input id="reportDate" type="date" onchange="renderReports()">
       </div>
+
     </div>
+
   </div>
 
   <div class="stats">
+
     <div class="stat">
-      <small>دخل Bli</small>
-      <strong id="rBli">0</strong>
+      <div class="stat-label">دخل Bli</div>
+      <div id="reportBli" class="stat-value">0</div>
     </div>
+
     <div class="stat">
-      <small>دخل إضافي</small>
-      <strong id="rExtra">0</strong>
+      <div class="stat-label">دخل إضافي</div>
+      <div id="reportExtra" class="stat-value">0</div>
     </div>
+
     <div class="stat">
-      <small>إجمالي الدخل</small>
-      <strong id="rIncome">0</strong>
+      <div class="stat-label">إجمالي الدخل</div>
+      <div id="reportIncome" class="stat-value">0</div>
     </div>
-    <div class="stat red">
-      <small>المصاريف</small>
-      <strong id="rExpenses">0</strong>
-    </div>
+
     <div class="stat">
-      <small>بنزين</small>
-      <strong id="rPetrol">0</strong>
+      <div class="stat-label">المصاريف</div>
+      <div id="reportExpenses" class="stat-value">0</div>
     </div>
+
     <div class="stat">
-      <small>غاز LPG</small>
-      <strong id="rLpg">0</strong>
+      <div class="stat-label">بنزين</div>
+      <div id="reportPetrol" class="stat-value">0 L</div>
     </div>
+
     <div class="stat">
-      <small>اللترات</small>
-      <strong id="rLiters">0</strong>
+      <div class="stat-label">غاز</div>
+      <div id="reportLpg" class="stat-value">0 L</div>
     </div>
+
     <div class="stat green">
-      <small>صافي الربح</small>
-      <strong id="rProfit">0</strong>
+      <div class="stat-label">الربح الصافي</div>
+      <div id="reportProfit" class="stat-value">0</div>
     </div>
+
+    <div class="stat">
+      <div class="stat-label">إجمالي اللترات</div>
+      <div id="reportLiters" class="stat-value">0 L</div>
+    </div>
+
   </div>
+
+  <div class="panel" style="margin-top:14px;">
+    <div class="section-heading" style="margin-top:0;">
+      <h2>ملخص الفترة</h2>
+      <span>SUMMARY</span>
+    </div>
+
+    <table class="report-table">
+      <tbody>
+        <tr>
+          <td>دخل Bli</td>
+          <td id="tableBli">0 د.ع</td>
+        </tr>
+        <tr>
+          <td>دخل إضافي</td>
+          <td id="tableExtra">0 د.ع</td>
+        </tr>
+        <tr>
+          <td>إجمالي الدخل</td>
+          <td id="tableIncome">0 د.ع</td>
+        </tr>
+        <tr>
+          <td>تكلفة الوقود</td>
+          <td id="tableFuel">0 د.ع</td>
+        </tr>
+        <tr>
+          <td>المصاريف الأخرى</td>
+          <td id="tableExpenses">0 د.ع</td>
+        </tr>
+        <tr>
+          <td><strong>الربح الصافي</strong></td>
+          <td id="tableProfit"><strong>0 د.ع</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
 </section>
 
+<!-- =========================
+     SETTINGS
+========================= -->
 
-<!-- SETTINGS -->
-<section id="settings" class="modulePage">
-  <div class="pageHead">
-    <button class="back" onclick="goHome()">→</button>
-    <div class="pageTitle">
+<section id="settings" class="page-section">
+
+  <div class="page-header">
+    <button class="back-btn" onclick="goHome()">→</button>
+
+    <div class="page-header-text">
       <h2>الإعدادات</h2>
-      <small>SYSTEM SETTINGS</small>
+      <p>SYSTEM SETTINGS</p>
     </div>
   </div>
 
   <div class="panel">
 
-    <div class="setting">
+    <div class="setting-row">
       <label>الهدف الأسبوعي</label>
       <input id="settingTarget" type="number" inputmode="decimal">
     </div>
 
-    <div class="setting">
+    <div class="setting-row">
       <label>سعر البنزين / لتر</label>
       <input id="settingPetrol" type="number" inputmode="decimal">
     </div>
 
-    <div class="setting">
-      <label>سعر LPG / لتر</label>
+    <div class="setting-row">
+      <label>سعر الغاز / لتر</label>
       <input id="settingLpg" type="number" inputmode="decimal">
     </div>
 
-    <button class="btn primary" style="width:100%" onclick="saveSettings()">
+    <button class="btn btn-primary" style="width:100%;" onclick="saveSettings()">
       حفظ الإعدادات
     </button>
 
-    <div class="backup">
-      <button class="btn secondary" onclick="exportBackup()">تصدير نسخة</button>
+  </div>
 
-      <button class="btn secondary" onclick="document.getElementById('importFile').click()">
-        استيراد نسخة
-      </button>
+  <div class="panel">
 
-      <input id="importFile" type="file" accept=".json" hidden onchange="importBackup(event)">
+    <div class="section-heading" style="margin-top:0;">
+      <h2>النسخ الاحتياطي</h2>
+      <span>BACKUP</span>
     </div>
 
-    <button class="btn danger" style="width:100%;margin-top:10px" onclick="clearAllData()">
-      حذف كل البيانات
+    <div class="backup-grid">
+
+      <button class="btn btn-secondary" onclick="exportBackup()">
+        📤 تصدير نسخة احتياطية
+      </button>
+
+      <button class="btn btn-secondary" onclick="document.getElementById('backupFile').click()">
+        📥 استيراد نسخة احتياطية
+      </button>
+
+      <input
+        id="backupFile"
+        type="file"
+        accept=".json,application/json"
+        style="display:none"
+        onchange="importBackup(event)"
+      >
+
+    </div>
+
+  </div>
+
+  <div class="panel">
+
+    <div class="section-heading" style="margin-top:0;">
+      <h2>منطقة خطرة</h2>
+      <span>DATA</span>
+    </div>
+
+    <button class="btn btn-danger" style="width:100%;" onclick="clearAllData()">
+      حذف جميع البيانات
     </button>
 
   </div>
+
 </section>
 
-<footer>BLI DRIVER MANAGER • DRIVE SMART • EARN SMART</footer>
+</main>
+
+<footer>
+  BLI DRIVER MANAGER • READY TO DRIVE
+</footer>
 
 </div>
 
+<!-- =========================
+     TRANSITION
+========================= -->
+
+<div id="transition" class="transition">
+
+  <div class="speed-line" style="--w:35%;--top:15%;--delay:0s"></div>
+  <div class="speed-line" style="--w:50%;--top:25%;--delay:.03s"></div>
+  <div class="speed-line" style="--w:25%;--top:37%;--delay:.06s"></div>
+  <div class="speed-line" style="--w:60%;--top:48%;--delay:.01s"></div>
+  <div class="speed-line" style="--w:40%;--top:59%;--delay:.08s"></div>
+  <div class="speed-line" style="--w:30%;--top:70%;--delay:.04s"></div>
+  <div class="speed-line" style="--w:55%;--top:82%;--delay:.09s"></div>
+
+</div>
+
+<!--
+  REAL SUPERCAR SOUND
+  يجب وضع supercar-rev.mp3 بجانب index.html
+-->
+<audio
+  id="supercarSound"
+  preload="auto"
+  src="supercar-rev.mp3">
+</audio>
 
 <script>
-/* ================================
-   DATA
-================================ */
 
-const STORAGE_KEY="bli_driver_manager_v1";
+/* =========================================================
+   STORAGE
+========================================================= */
 
-let state={
+const STORAGE_KEY = "bli_driver_manager_v1";
+
+let state = {
   settings:{
     weeklyTarget:250000,
     petrolPrice:450,
     lpgPrice:200
   },
+
   bli:[],
   fuel:[],
   extra:[],
@@ -940,858 +1481,1348 @@ let state={
 };
 
 function load(){
+
   try{
-    const saved=localStorage.getItem(STORAGE_KEY);
+
+    const saved = localStorage.getItem(STORAGE_KEY);
+
     if(saved){
-      const parsed=JSON.parse(saved);
-      state={
-        ...state,
-        ...parsed,
+
+      const parsed = JSON.parse(saved);
+
+      state = {
         settings:{
-          ...state.settings,
-          ...(parsed.settings||{})
-        }
+          weeklyTarget:
+            Number(parsed?.settings?.weeklyTarget) || 250000,
+
+          petrolPrice:
+            Number(parsed?.settings?.petrolPrice) || 450,
+
+          lpgPrice:
+            Number(parsed?.settings?.lpgPrice) || 200
+        },
+
+        bli:Array.isArray(parsed.bli) ? parsed.bli : [],
+        fuel:Array.isArray(parsed.fuel) ? parsed.fuel : [],
+        extra:Array.isArray(parsed.extra) ? parsed.extra : [],
+        expenses:Array.isArray(parsed.expenses) ? parsed.expenses : []
       };
     }
-  }catch(e){
-    console.log(e);
+
+  }catch(error){
+
+    console.error(error);
+
   }
+
 }
 
 function save(){
   localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
 }
 
+/* =========================================================
+   HELPERS
+========================================================= */
+
 function uid(){
-  return Date.now().toString(36)+Math.random().toString(36).slice(2);
+  return Date.now().toString(36)+"-"+Math.random().toString(36).slice(2);
 }
 
 function today(){
-  return new Date().toISOString().slice(0,10);
+
+  const d = new Date();
+
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,"0");
+  const day = String(d.getDate()).padStart(2,"0");
+
+  return `${y}-${m}-${day}`;
 }
 
-function number(v){
-  const n=parseFloat(v);
-  return Number.isFinite(n)?n:0;
+function number(value){
+  const n = Number(value);
+  return Number.isFinite(n) ? n : 0;
 }
 
-function money(v){
-  return Math.round(number(v)).toLocaleString("en-US")+" د.ع";
+function money(value){
+
+  return Math.round(number(value))
+    .toLocaleString("ar-IQ") + " د.ع";
+
 }
 
-function escapeHtml(v){
-  return String(v??"")
+function formatDate(date){
+
+  if(!date) return "";
+
+  try{
+    return new Date(date+"T00:00:00")
+      .toLocaleDateString("ar-IQ",{
+        year:"numeric",
+        month:"short",
+        day:"numeric"
+      });
+  }catch{
+    return date;
+  }
+
+}
+
+function escapeHtml(value){
+
+  return String(value ?? "")
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
+
 }
 
-function formatDate(d){
-  if(!d)return "";
-  return new Date(d+"T00:00:00").toLocaleDateString("ar-IQ",{
-    year:"numeric",
-    month:"short",
-    day:"numeric"
-  });
+function dateToISO(date){
+
+  const d = new Date(date);
+
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,"0");
+  const day = String(d.getDate()).padStart(2,"0");
+
+  return `${y}-${m}-${day}`;
+
 }
 
-function dateToISO(d){
-  return new Date(d).toISOString().slice(0,10);
-}
+function addDays(dateString,days){
 
-function addDays(date,days){
-  const d=new Date(date+"T00:00:00");
+  const d = new Date(dateString+"T00:00:00");
+
   d.setDate(d.getDate()+days);
+
   return dateToISO(d);
+
 }
 
-function getWeekStart(date){
-  const d=new Date(date+"T00:00:00");
-  const day=d.getDay();
-  const diff=day===0?-6:1-day;
+function getWeekStart(dateString){
+
+  const d = new Date(dateString+"T00:00:00");
+
+  const day = d.getDay();
+
+  const diff = day === 0 ? -6 : 1-day;
+
   d.setDate(d.getDate()+diff);
+
   return dateToISO(d);
+
 }
 
 function getCurrentWeekStart(){
   return getWeekStart(today());
 }
 
-function calculateRange(period,date){
-  if(period==="month"){
-    const d=new Date(date+"T00:00:00");
-    const start=dateToISO(new Date(d.getFullYear(),d.getMonth(),1));
-    const end=dateToISO(new Date(d.getFullYear(),d.getMonth()+1,0));
+function calculateRange(period,dateString){
+
+  if(period === "month"){
+
+    const d = new Date(dateString+"T00:00:00");
+
+    const start =
+      dateToISO(
+        new Date(d.getFullYear(),d.getMonth(),1)
+      );
+
+    const end =
+      dateToISO(
+        new Date(d.getFullYear(),d.getMonth()+1,0)
+      );
+
     return {start,end};
   }
 
-  const start=getWeekStart(date);
+  const start = getWeekStart(dateString);
+
   return {
     start,
     end:addDays(start,6)
   };
+
 }
 
+/* =========================================================
+   REAL SUPERCAR SOUND
+========================================================= */
 
-/* ================================
-   SPORTS CAR SOUND
-================================ */
+/*
+  الصوت يأتي من:
+  supercar-rev.mp3
 
-let audioCtx=null;
+  عند الضغط على بطاقة:
+  - يرجع الصوت للبداية
+  - يرفع الصوت
+  - يشغله مباشرة من user gesture
+  - لا يستخدم Web Audio synthesis
+*/
+
+const supercarSound =
+  document.getElementById("supercarSound");
+
+supercarSound.volume = 1.0;
 
 function playThrottleSound(){
+
   try{
-    const AC=window.AudioContext||window.webkitAudioContext;
-    if(!AC)return;
 
-    if(!audioCtx)audioCtx=new AC();
+    supercarSound.pause();
 
-    if(audioCtx.state==="suspended")audioCtx.resume();
+    supercarSound.currentTime = 0;
 
-    const now=audioCtx.currentTime;
+    const playPromise = supercarSound.play();
 
-    const osc=audioCtx.createOscillator();
-    const osc2=audioCtx.createOscillator();
+    if(playPromise !== undefined){
 
-    const gain=audioCtx.createGain();
-    const gain2=audioCtx.createGain();
+      playPromise.catch(error => {
 
-    const filter=audioCtx.createBiquadFilter();
+        console.warn(
+          "Supercar sound could not play:",
+          error
+        );
 
-    osc.type="sawtooth";
-    osc2.type="triangle";
+      });
 
-    osc.frequency.setValueAtTime(105,now);
-    osc.frequency.exponentialRampToValueAtTime(390,now+.22);
-    osc.frequency.exponentialRampToValueAtTime(150,now+.48);
+    }
 
-    osc2.frequency.setValueAtTime(70,now);
-    osc2.frequency.exponentialRampToValueAtTime(210,now+.25);
-    osc2.frequency.exponentialRampToValueAtTime(85,now+.45);
+  }catch(error){
 
-    gain.gain.setValueAtTime(.0001,now);
-    gain.gain.exponentialRampToValueAtTime(.08,now+.035);
-    gain.gain.exponentialRampToValueAtTime(.0001,now+.5);
+    console.warn(error);
 
-    gain2.gain.setValueAtTime(.0001,now);
-    gain2.gain.exponentialRampToValueAtTime(.045,now+.04);
-    gain2.gain.exponentialRampToValueAtTime(.0001,now+.46);
-
-    filter.type="lowpass";
-    filter.frequency.setValueAtTime(900,now);
-    filter.frequency.exponentialRampToValueAtTime(1800,now+.18);
-    filter.frequency.exponentialRampToValueAtTime(700,now+.5);
-
-    osc.connect(filter);
-    osc2.connect(filter);
-    filter.connect(gain);
-    filter.connect(gain2);
-    gain.connect(audioCtx.destination);
-    gain2.connect(audioCtx.destination);
-
-    osc.start(now);
-    osc2.start(now);
-    osc.stop(now+.52);
-    osc2.stop(now+.52);
-  }catch(e){}
-}
-
-
-/* ================================
-   NAVIGATION
-================================ */
-
-function transitionEffect(){
-  const t=document.getElementById("transition");
-  t.innerHTML="";
-
-  for(let i=0;i<8;i++){
-    const line=document.createElement("div");
-    line.className="speedLine";
-    line.style.setProperty("--y",(10+i*11)+"%");
-    line.style.animationDelay=(i*.018)+"s";
-    t.appendChild(line);
   }
 
-  t.classList.remove("go");
-  void t.offsetWidth;
-  t.classList.add("go");
 }
 
-function navigateToSection(id){
-  playThrottleSound();
-  transitionEffect();
+/* =========================================================
+   TRANSITION
+========================================================= */
+
+function transitionEffect(){
+
+  const el = document.getElementById("transition");
+
+  el.classList.remove("active");
+
+  void el.offsetWidth;
+
+  el.classList.add("active");
 
   setTimeout(()=>{
-    showSection(id);
-    window.scrollTo({top:0,behavior:"instant"});
-  },220);
+    el.classList.remove("active");
+  },600);
+
 }
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
 function showSection(id){
 
-  document.querySelectorAll("section").forEach(s=>{
-    s.classList.remove("active");
-    if(s.id!=="home")s.style.display="none";
-  });
+  document
+    .querySelectorAll(".page-section")
+    .forEach(section=>{
+      section.classList.remove("active");
+    });
 
-  if(id==="home"){
-    const home=document.getElementById("home");
-    home.style.display="block";
-    renderHome();
-    return;
-  }
-
-  const section=document.getElementById(id);
+  const section = document.getElementById(id);
 
   if(section){
-    section.style.display="block";
+
     section.classList.add("active");
+
+    window.scrollTo({
+      top:0,
+      behavior:"instant"
+    });
+
   }
 
-  if(id==="bli")renderBliList();
-  if(id==="fuel"){
-    updateFuelPrice();
-    renderFuelList();
-  }
-  if(id==="extra")renderExtraList();
-  if(id==="expenses")renderExpenseList();
-  if(id==="reports")renderReports();
-  if(id==="settings")renderSettings();
 }
 
-function goHome(){
+function openModule(id){
+
+  /*
+    الصوت يبدأ داخل نفس tap/click.
+    هذا مهم للآيفون بسبب سياسات autoplay.
+  */
+
   playThrottleSound();
+
   transitionEffect();
 
   setTimeout(()=>{
-    showSection("home");
-    window.scrollTo({top:0,behavior:"instant"});
-  },220);
+
+    showSection(id);
+
+    renderAll();
+
+  },150);
+
 }
 
+function goHome(){
 
-/* ================================
+  playThrottleSound();
+
+  transitionEffect();
+
+  setTimeout(()=>{
+
+    showSection("home");
+
+    renderAll();
+
+  },150);
+
+}
+
+/* =========================================================
    HOME
-================================ */
+========================================================= */
 
-function getWeekTotals(start){
-  const end=addDays(start,6);
+function getWeekTotals(){
 
-  const inRange=d=>d>=start&&d<=end;
+  const start = getCurrentWeekStart();
 
-  const bli=state.bli
+  const end = addDays(start,6);
+
+  const inRange = date =>
+    date >= start && date <= end;
+
+  const bli = state.bli
     .filter(x=>inRange(x.date))
-    .reduce((a,x)=>a+number(x.income)+number(x.bonus)+number(x.tips),0);
+    .reduce((sum,x)=>
+      sum +
+      number(x.income) +
+      number(x.bonus) +
+      number(x.tip),0);
 
-  const extra=state.extra
+  const extra = state.extra
     .filter(x=>inRange(x.date))
-    .reduce((a,x)=>a+number(x.amount),0);
+    .reduce((sum,x)=>
+      sum + number(x.amount),0);
 
-  const petrol=state.fuel
-    .filter(x=>inRange(x.date)&&x.type==="petrol")
-    .reduce((a,x)=>a+number(x.liters)*state.settings.petrolPrice,0);
-
-  const lpg=state.fuel
-    .filter(x=>inRange(x.date)&&x.type==="lpg")
-    .reduce((a,x)=>a+number(x.liters)*state.settings.lpgPrice,0);
-
-  const expenses=state.expenses
+  const fuel = state.fuel
     .filter(x=>inRange(x.date))
-    .reduce((a,x)=>a+number(x.amount),0);
+    .reduce((sum,x)=>
+      sum + number(x.liters) * number(x.price),0);
+
+  const expenses = state.expenses
+    .filter(x=>inRange(x.date))
+    .reduce((sum,x)=>
+      sum + number(x.amount),0);
+
+  const petrolLiters = state.fuel
+    .filter(x=>inRange(x.date) && x.type==="petrol")
+    .reduce((sum,x)=>sum+number(x.liters),0);
+
+  const lpgLiters = state.fuel
+    .filter(x=>inRange(x.date) && x.type==="lpg")
+    .reduce((sum,x)=>sum+number(x.liters),0);
 
   return {
     bli,
     extra,
     income:bli+extra,
-    petrol,
-    lpg,
+    fuel,
     expenses,
-    profit:bli+extra-petrol-lpg-expenses
+    profit:bli+extra-fuel-expenses,
+    petrolLiters,
+    lpgLiters
   };
+
 }
 
 function renderHome(){
-  const start=getCurrentWeekStart();
-  const t=getWeekTotals(start);
 
-  const target=number(state.settings.weeklyTarget);
-  const progress=target?Math.min(100,(t.income/target)*100):0;
-  const card=document.getElementById("targetCard");
+  const totals = getWeekTotals();
 
-  document.getElementById("targetText").textContent=
-    money(t.income)+" / "+money(target);
+  const target =
+    number(state.settings.weeklyTarget) || 250000;
 
-  document.getElementById("targetBar").style.width=progress+"%";
+  const income = totals.income;
 
-  if(t.income>=target){
-    card.classList.add("done");
-    document.getElementById("targetMsg").textContent="🔥 تم تحقيق الهدف الأسبوعي";
+  const percentage =
+    Math.min(100,(income/target)*100);
+
+  document.getElementById("homeIncome").textContent =
+    Math.round(income).toLocaleString("ar-IQ");
+
+  document.getElementById("homeTarget").textContent =
+    Math.round(target).toLocaleString("ar-IQ");
+
+  document.getElementById("homeProgress").style.width =
+    percentage+"%";
+
+  document.getElementById("homeWeekText").textContent =
+    `من ${formatDate(getCurrentWeekStart())} إلى ${formatDate(addDays(getCurrentWeekStart(),6))}`;
+
+  const remaining = target-income;
+
+  const remainingEl =
+    document.getElementById("homeRemaining");
+
+  const statusEl =
+    document.getElementById("targetStatus");
+
+  if(remaining <= 0){
+
+    remainingEl.textContent =
+      "تم تحقيق الهدف";
+
+    remainingEl.style.color =
+      "var(--green)";
+
+    statusEl.textContent =
+      "✓ TARGET HIT";
+
+    statusEl.style.color =
+      "var(--green)";
+
   }else{
-    card.classList.remove("done");
-    document.getElementById("targetMsg").textContent=
-      "متبقي "+money(target-t.income)+" للوصول إلى الهدف";
+
+    remainingEl.textContent =
+      "المتبقي "+money(remaining);
+
+    remainingEl.style.color =
+      "#ff6666";
+
+    statusEl.textContent =
+      "IN PROGRESS";
+
+    statusEl.style.color =
+      "#999";
+
   }
+
 }
 
-
-/* ================================
+/* =========================================================
    BLI
-================================ */
+========================================================= */
 
 function saveBli(){
 
-  const date=document.getElementById("bliDate").value||today();
-  const income=number(document.getElementById("bliIncome").value);
-  const bonus=number(document.getElementById("bliBonus").value);
-  const tips=number(document.getElementById("bliTips").value);
-  const note=document.getElementById("bliNote").value.trim();
+  const date =
+    document.getElementById("bliDate").value || today();
 
-  if(income+bonus+tips<=0){
-    alert("أدخل مبلغ الدخل");
+  const income =
+    number(document.getElementById("bliIncome").value);
+
+  const bonus =
+    number(document.getElementById("bliBonus").value);
+
+  const tip =
+    number(document.getElementById("bliTip").value);
+
+  const note =
+    document.getElementById("bliNote").value.trim();
+
+  if(income <= 0 && bonus <= 0 && tip <= 0){
+
+    alert("أدخل قيمة الدخل أو البونص أو البقشيش.");
+
     return;
+
   }
 
   state.bli.unshift({
+
     id:uid(),
     date,
     income,
     bonus,
-    tips,
+    tip,
     note
+
   });
 
   save();
+
   resetBli();
-  renderBliList();
-  renderHome();
+
+  renderAll();
+
 }
 
 function resetBli(){
-  document.getElementById("bliDate").value=today();
-  document.getElementById("bliIncome").value="";
-  document.getElementById("bliBonus").value=0;
-  document.getElementById("bliTips").value=0;
-  document.getElementById("bliNote").value="";
+
+  document.getElementById("bliDate").value = today();
+  document.getElementById("bliIncome").value = "";
+  document.getElementById("bliBonus").value = "";
+  document.getElementById("bliTip").value = "";
+  document.getElementById("bliNote").value = "";
+
 }
 
 function renderBliList(){
 
-  const box=document.getElementById("bliList");
+  const container =
+    document.getElementById("bliList");
 
   if(!state.bli.length){
-    box.innerHTML='<div class="empty">لا توجد تسجيلات دخل Bli بعد</div>';
+
+    container.innerHTML =
+      `<div class="empty">لا توجد سجلات دخل Bli بعد.</div>`;
+
     return;
   }
 
-  box.innerHTML=state.bli.map(x=>{
+  container.innerHTML =
+    state.bli.map(item=>{
 
-    const total=number(x.income)+number(x.bonus)+number(x.tips);
+      const total =
+        number(item.income) +
+        number(item.bonus) +
+        number(item.tip);
 
-    return `
-      <div class="item">
-        <div class="itemMain">
-          <strong>${money(total)}</strong>
-          <small>${formatDate(x.date)}
-          ${x.bonus?` • بونص ${money(x.bonus)}`:""}
-          ${x.tips?` • تيب ${money(x.tips)}`:""}
-          ${x.note?` • ${escapeHtml(x.note)}`:""}
-          </small>
+      return `
+
+        <div class="item">
+
+          <div class="item-main">
+
+            <div>
+              <div class="item-title">
+                دخل Bli
+              </div>
+
+              <div class="item-date">
+                ${formatDate(item.date)}
+              </div>
+            </div>
+
+            <div class="item-value">
+              ${money(total)}
+            </div>
+
+          </div>
+
+          <div class="item-meta">
+            دخل: ${money(item.income)}
+            • بونص: ${money(item.bonus)}
+            • بقشيش: ${money(item.tip)}
+            ${item.note ? "• "+escapeHtml(item.note) : ""}
+          </div>
+
+          <button
+            class="delete-btn"
+            onclick="deleteBli('${item.id}')">
+            حذف
+          </button>
+
         </div>
-        <button class="delete" onclick="deleteBli('${x.id}')">حذف</button>
-      </div>
-    `;
-  }).join("");
+
+      `;
+
+    }).join("");
+
 }
 
 function deleteBli(id){
-  if(!confirm("حذف هذا الدخل؟"))return;
 
-  state.bli=state.bli.filter(x=>x.id!==id);
+  if(!confirm("حذف هذا السجل؟")) return;
+
+  state.bli =
+    state.bli.filter(x=>x.id!==id);
+
   save();
-  renderBliList();
-  renderHome();
+
+  renderAll();
+
 }
 
-
-/* ================================
+/* =========================================================
    FUEL
-================================ */
+========================================================= */
 
 function updateFuelPrice(){
 
-  const type=document.getElementById("fuelType").value;
+  const type =
+    document.getElementById("fuelType").value;
 
-  const price=
-    type==="petrol"
-      ? state.settings.petrolPrice
-      : state.settings.lpgPrice;
+  const price =
+    type === "lpg"
+      ? state.settings.lpgPrice
+      : state.settings.petrolPrice;
 
-  document.getElementById("fuelPrice").value=price;
+  document.getElementById("fuelPrice").value =
+    price;
+
   updateFuelPreview();
+
 }
 
 function updateFuelPreview(){
 
-  const liters=number(document.getElementById("fuelLiters").value);
-  const price=number(document.getElementById("fuelPrice").value);
+  const liters =
+    number(document.getElementById("fuelLiters").value);
 
-  document.getElementById("fuelPreview").textContent=
-    money(liters*price);
+  const price =
+    number(document.getElementById("fuelPrice").value);
+
+  const total = liters*price;
+
+  document.getElementById("fuelPreview").innerHTML =
+    `التكلفة: <strong>${money(total)}</strong>`;
+
 }
 
 function saveFuel(){
 
-  const date=document.getElementById("fuelDate").value||today();
-  const type=document.getElementById("fuelType").value;
-  const liters=number(document.getElementById("fuelLiters").value);
+  const date =
+    document.getElementById("fuelDate").value || today();
 
-  if(liters<=0){
-    alert("أدخل عدد اللترات");
+  const type =
+    document.getElementById("fuelType").value;
+
+  const liters =
+    number(document.getElementById("fuelLiters").value);
+
+  const price =
+    number(document.getElementById("fuelPrice").value);
+
+  if(liters <= 0){
+
+    alert("أدخل كمية الوقود.");
+
     return;
+
   }
 
   state.fuel.unshift({
+
     id:uid(),
     date,
     type,
-    liters
+    liters,
+    price
+
   });
 
   save();
+
   resetFuel();
-  renderFuelList();
-  renderHome();
+
+  renderAll();
+
 }
 
 function resetFuel(){
 
-  document.getElementById("fuelDate").value=today();
-  document.getElementById("fuelType").value="petrol";
-  document.getElementById("fuelLiters").value="";
+  document.getElementById("fuelDate").value = today();
+  document.getElementById("fuelType").value = "petrol";
+  document.getElementById("fuelLiters").value = "";
+
   updateFuelPrice();
+
 }
 
 function renderFuelList(){
 
-  const box=document.getElementById("fuelList");
+  const container =
+    document.getElementById("fuelList");
 
   if(!state.fuel.length){
-    box.innerHTML='<div class="empty">لا توجد تعبئات وقود بعد</div>';
+
+    container.innerHTML =
+      `<div class="empty">لا توجد سجلات وقود بعد.</div>`;
+
     return;
   }
 
-  box.innerHTML=state.fuel.map(x=>{
+  container.innerHTML =
+    state.fuel.map(item=>{
 
-    const price=
-      x.type==="petrol"
-        ? state.settings.petrolPrice
-        : state.settings.lpgPrice;
+      const name =
+        item.type === "lpg"
+          ? "غاز LPG"
+          : "بنزين";
 
-    const name=x.type==="petrol"?"بنزين":"غاز LPG";
+      const total =
+        number(item.liters) *
+        number(item.price);
 
-    return `
-      <div class="item">
-        <div class="itemMain">
-          <strong>${name} • ${number(x.liters)} لتر</strong>
-          <small>${formatDate(x.date)} • ${money(number(x.liters)*price)}</small>
+      return `
+
+        <div class="item">
+
+          <div class="item-main">
+
+            <div>
+              <div class="item-title">
+                ${name}
+              </div>
+
+              <div class="item-date">
+                ${formatDate(item.date)}
+              </div>
+            </div>
+
+            <div class="item-value">
+              ${number(item.liters).toLocaleString("en-US")}
+              L
+            </div>
+
+          </div>
+
+          <div class="item-meta">
+            السعر: ${money(item.price)} / L
+            • التكلفة: ${money(total)}
+          </div>
+
+          <button
+            class="delete-btn"
+            onclick="deleteFuel('${item.id}')">
+            حذف
+          </button>
+
         </div>
-        <button class="delete" onclick="deleteFuel('${x.id}')">حذف</button>
-      </div>
-    `;
-  }).join("");
+
+      `;
+
+    }).join("");
+
 }
 
 function deleteFuel(id){
 
-  if(!confirm("حذف تعبئة الوقود؟"))return;
+  if(!confirm("حذف سجل الوقود؟")) return;
 
-  state.fuel=state.fuel.filter(x=>x.id!==id);
+  state.fuel =
+    state.fuel.filter(x=>x.id!==id);
+
   save();
-  renderFuelList();
-  renderHome();
+
+  renderAll();
+
 }
 
-
-/* ================================
+/* =========================================================
    EXTRA
-================================ */
+========================================================= */
 
 function extraName(type){
 
-  if(type==="fuelSale")return"بيع وقود";
-  if(type==="tip")return"تيب خارج Bli";
-  return"دخل آخر";
+  if(type==="fuelSale") return "بيع وقود";
+  if(type==="tip") return "بقشيش خارج Bli";
+
+  return "دخل آخر";
+
 }
 
 function saveExtra(){
 
-  const date=document.getElementById("extraDate").value||today();
-  const type=document.getElementById("extraType").value;
-  const amount=number(document.getElementById("extraAmount").value);
-  const note=document.getElementById("extraNote").value.trim();
+  const date =
+    document.getElementById("extraDate").value || today();
 
-  if(amount<=0){
-    alert("أدخل المبلغ");
+  const type =
+    document.getElementById("extraType").value;
+
+  const amount =
+    number(document.getElementById("extraAmount").value);
+
+  const note =
+    document.getElementById("extraNote").value.trim();
+
+  if(amount <= 0){
+
+    alert("أدخل المبلغ.");
+
     return;
+
   }
 
   state.extra.unshift({
+
     id:uid(),
     date,
     type,
     amount,
     note
+
   });
 
   save();
+
   resetExtra();
-  renderExtraList();
-  renderHome();
+
+  renderAll();
+
 }
 
 function resetExtra(){
-  document.getElementById("extraDate").value=today();
-  document.getElementById("extraType").value="fuelSale";
-  document.getElementById("extraAmount").value="";
-  document.getElementById("extraNote").value="";
+
+  document.getElementById("extraDate").value = today();
+  document.getElementById("extraType").value = "fuelSale";
+  document.getElementById("extraAmount").value = "";
+  document.getElementById("extraNote").value = "";
+
 }
 
 function renderExtraList(){
 
-  const box=document.getElementById("extraList");
+  const container =
+    document.getElementById("extraList");
 
   if(!state.extra.length){
-    box.innerHTML='<div class="empty">لا توجد مداخيل إضافية</div>';
+
+    container.innerHTML =
+      `<div class="empty">لا توجد سجلات دخل إضافي.</div>`;
+
     return;
   }
 
-  box.innerHTML=state.extra.map(x=>`
-    <div class="item">
-      <div class="itemMain">
-        <strong>${money(x.amount)}</strong>
-        <small>${extraName(x.type)} • ${formatDate(x.date)}
-        ${x.note?` • ${escapeHtml(x.note)}`:""}</small>
-      </div>
-      <button class="delete" onclick="deleteExtra('${x.id}')">حذف</button>
-    </div>
-  `).join("");
+  container.innerHTML =
+    state.extra.map(item=>{
+
+      return `
+
+        <div class="item">
+
+          <div class="item-main">
+
+            <div>
+              <div class="item-title">
+                ${extraName(item.type)}
+              </div>
+
+              <div class="item-date">
+                ${formatDate(item.date)}
+              </div>
+            </div>
+
+            <div class="item-value">
+              ${money(item.amount)}
+            </div>
+
+          </div>
+
+          ${
+            item.note
+              ? `<div class="item-meta">
+                   ${escapeHtml(item.note)}
+                 </div>`
+              : ""
+          }
+
+          <button
+            class="delete-btn"
+            onclick="deleteExtra('${item.id}')">
+            حذف
+          </button>
+
+        </div>
+
+      `;
+
+    }).join("");
+
 }
 
 function deleteExtra(id){
 
-  if(!confirm("حذف الدخل الإضافي؟"))return;
+  if(!confirm("حذف سجل الدخل؟")) return;
 
-  state.extra=state.extra.filter(x=>x.id!==id);
+  state.extra =
+    state.extra.filter(x=>x.id!==id);
+
   save();
-  renderExtraList();
-  renderHome();
+
+  renderAll();
+
 }
 
-
-/* ================================
+/* =========================================================
    EXPENSES
-================================ */
+========================================================= */
 
 function expenseName(type){
 
-  const names={
+  const names = {
+
     oil:"زيت",
     maintenance:"صيانة",
     tires:"إطارات",
-    repair:"إصلاح",
-    wash:"غسيل",
+    repair:"تصليح",
+    wash:"غسل",
     electrical:"كهرباء",
     fees:"رسوم",
     other:"أخرى"
+
   };
 
-  return names[type]||"مصروف";
+  return names[type] || "أخرى";
+
 }
 
 function saveExpense(){
 
-  const date=document.getElementById("expenseDate").value||today();
-  const type=document.getElementById("expenseType").value;
-  const amount=number(document.getElementById("expenseAmount").value);
-  const note=document.getElementById("expenseNote").value.trim();
+  const date =
+    document.getElementById("expenseDate").value || today();
 
-  if(amount<=0){
-    alert("أدخل المبلغ");
+  const type =
+    document.getElementById("expenseType").value;
+
+  const amount =
+    number(document.getElementById("expenseAmount").value);
+
+  const note =
+    document.getElementById("expenseNote").value.trim();
+
+  if(amount <= 0){
+
+    alert("أدخل قيمة المصروف.");
+
     return;
+
   }
 
   state.expenses.unshift({
+
     id:uid(),
     date,
     type,
     amount,
     note
+
   });
 
   save();
+
   resetExpense();
-  renderExpenseList();
-  renderHome();
+
+  renderAll();
+
 }
 
 function resetExpense(){
-  document.getElementById("expenseDate").value=today();
-  document.getElementById("expenseType").value="oil";
-  document.getElementById("expenseAmount").value="";
-  document.getElementById("expenseNote").value="";
+
+  document.getElementById("expenseDate").value = today();
+  document.getElementById("expenseType").value = "oil";
+  document.getElementById("expenseAmount").value = "";
+  document.getElementById("expenseNote").value = "";
+
 }
 
 function renderExpenseList(){
 
-  const box=document.getElementById("expenseList");
+  const container =
+    document.getElementById("expenseList");
 
   if(!state.expenses.length){
-    box.innerHTML='<div class="empty">لا توجد مصاريف مسجلة</div>';
+
+    container.innerHTML =
+      `<div class="empty">لا توجد مصاريف مسجلة.</div>`;
+
     return;
   }
 
-  box.innerHTML=state.expenses.map(x=>`
-    <div class="item">
-      <div class="itemMain">
-        <strong>${money(x.amount)}</strong>
-        <small>${expenseName(x.type)} • ${formatDate(x.date)}
-        ${x.note?` • ${escapeHtml(x.note)}`:""}</small>
-      </div>
-      <button class="delete" onclick="deleteExpense('${x.id}')">حذف</button>
-    </div>
-  `).join("");
+  container.innerHTML =
+    state.expenses.map(item=>{
+
+      return `
+
+        <div class="item">
+
+          <div class="item-main">
+
+            <div>
+              <div class="item-title">
+                ${expenseName(item.type)}
+              </div>
+
+              <div class="item-date">
+                ${formatDate(item.date)}
+              </div>
+            </div>
+
+            <div class="item-value">
+              ${money(item.amount)}
+            </div>
+
+          </div>
+
+          ${
+            item.note
+              ? `<div class="item-meta">
+                   ${escapeHtml(item.note)}
+                 </div>`
+              : ""
+          }
+
+          <button
+            class="delete-btn"
+            onclick="deleteExpense('${item.id}')">
+            حذف
+          </button>
+
+        </div>
+
+      `;
+
+    }).join("");
+
 }
 
 function deleteExpense(id){
 
-  if(!confirm("حذف هذا المصروف؟"))return;
+  if(!confirm("حذف المصروف؟")) return;
 
-  state.expenses=state.expenses.filter(x=>x.id!==id);
+  state.expenses =
+    state.expenses.filter(x=>x.id!==id);
+
   save();
-  renderExpenseList();
-  renderHome();
+
+  renderAll();
+
 }
 
-
-/* ================================
+/* =========================================================
    REPORTS
-================================ */
+========================================================= */
 
 function renderReports(){
 
-  const period=document.getElementById("reportPeriod").value;
-  const date=document.getElementById("reportDate").value||today();
+  const period =
+    document.getElementById("reportPeriod").value;
 
-  const {start,end}=calculateRange(period,date);
+  const date =
+    document.getElementById("reportDate").value || today();
 
-  const inside=d=>d>=start&&d<=end;
+  const range =
+    calculateRange(period,date);
 
-  const bli=state.bli
-    .filter(x=>inside(x.date))
-    .reduce((a,x)=>a+number(x.income)+number(x.bonus)+number(x.tips),0);
+  const inRange =
+    item =>
+      item.date >= range.start &&
+      item.date <= range.end;
 
-  const extra=state.extra
-    .filter(x=>inside(x.date))
-    .reduce((a,x)=>a+number(x.amount),0);
+  const bli =
+    state.bli
+      .filter(inRange)
+      .reduce((sum,x)=>
+        sum+
+        number(x.income)+
+        number(x.bonus)+
+        number(x.tip),0);
 
-  let petrolCost=0;
-  let lpgCost=0;
-  let petrolLiters=0;
-  let lpgLiters=0;
+  const extra =
+    state.extra
+      .filter(inRange)
+      .reduce((sum,x)=>
+        sum+number(x.amount),0);
 
-  state.fuel.filter(x=>inside(x.date)).forEach(x=>{
-    if(x.type==="petrol"){
-      petrolLiters+=number(x.liters);
-      petrolCost+=number(x.liters)*state.settings.petrolPrice;
-    }else{
-      lpgLiters+=number(x.liters);
-      lpgCost+=number(x.liters)*state.settings.lpgPrice;
-    }
-  });
+  const fuel =
+    state.fuel
+      .filter(inRange)
+      .reduce((sum,x)=>
+        sum+
+        number(x.liters)*
+        number(x.price),0);
 
-  const expenses=state.expenses
-    .filter(x=>inside(x.date))
-    .reduce((a,x)=>a+number(x.amount),0);
+  const expenses =
+    state.expenses
+      .filter(inRange)
+      .reduce((sum,x)=>
+        sum+number(x.amount),0);
 
-  const income=bli+extra;
-  const totalFuel=petrolCost+lpgCost;
-  const profit=income-totalFuel-expenses;
+  const petrol =
+    state.fuel
+      .filter(x=>inRange(x) && x.type==="petrol")
+      .reduce((sum,x)=>
+        sum+number(x.liters),0);
 
-  document.getElementById("rBli").textContent=money(bli);
-  document.getElementById("rExtra").textContent=money(extra);
-  document.getElementById("rIncome").textContent=money(income);
-  document.getElementById("rExpenses").textContent=money(expenses);
-  document.getElementById("rPetrol").textContent=
-    money(petrolCost)+" / "+petrolLiters.toFixed(1)+"L";
-  document.getElementById("rLpg").textContent=
-    money(lpgCost)+" / "+lpgLiters.toFixed(1)+"L";
-  document.getElementById("rLiters").textContent=
-    (petrolLiters+lpgLiters).toFixed(1)+" L";
-  document.getElementById("rProfit").textContent=money(profit);
+  const lpg =
+    state.fuel
+      .filter(x=>inRange(x) && x.type==="lpg")
+      .reduce((sum,x)=>
+        sum+number(x.liters),0);
+
+  const liters = petrol+lpg;
+
+  const income = bli+extra;
+
+  const profit =
+    income-fuel-expenses;
+
+  document.getElementById("reportBli").textContent =
+    money(bli);
+
+  document.getElementById("reportExtra").textContent =
+    money(extra);
+
+  document.getElementById("reportIncome").textContent =
+    money(income);
+
+  document.getElementById("reportExpenses").textContent =
+    money(expenses);
+
+  document.getElementById("reportPetrol").textContent =
+    petrol.toFixed(1)+" L";
+
+  document.getElementById("reportLpg").textContent =
+    lpg.toFixed(1)+" L";
+
+  document.getElementById("reportProfit").textContent =
+    money(profit);
+
+  document.getElementById("reportLiters").textContent =
+    liters.toFixed(1)+" L";
+
+  document.getElementById("tableBli").textContent =
+    money(bli);
+
+  document.getElementById("tableExtra").textContent =
+    money(extra);
+
+  document.getElementById("tableIncome").textContent =
+    money(income);
+
+  document.getElementById("tableFuel").textContent =
+    money(fuel);
+
+  document.getElementById("tableExpenses").textContent =
+    money(expenses);
+
+  document.getElementById("tableProfit").textContent =
+    money(profit);
+
 }
 
-
-/* ================================
+/* =========================================================
    SETTINGS
-================================ */
+========================================================= */
 
 function renderSettings(){
 
-  document.getElementById("settingTarget").value=
+  document.getElementById("settingTarget").value =
     state.settings.weeklyTarget;
 
-  document.getElementById("settingPetrol").value=
+  document.getElementById("settingPetrol").value =
     state.settings.petrolPrice;
 
-  document.getElementById("settingLpg").value=
+  document.getElementById("settingLpg").value =
     state.settings.lpgPrice;
+
 }
 
 function saveSettings(){
 
-  state.settings.weeklyTarget=
-    number(document.getElementById("settingTarget").value)||250000;
+  const target =
+    number(document.getElementById("settingTarget").value);
 
-  state.settings.petrolPrice=
-    number(document.getElementById("settingPetrol").value)||450;
+  const petrol =
+    number(document.getElementById("settingPetrol").value);
 
-  state.settings.lpgPrice=
-    number(document.getElementById("settingLpg").value)||200;
+  const lpg =
+    number(document.getElementById("settingLpg").value);
+
+  state.settings.weeklyTarget =
+    target > 0 ? target : 250000;
+
+  state.settings.petrolPrice =
+    petrol > 0 ? petrol : 450;
+
+  state.settings.lpgPrice =
+    lpg > 0 ? lpg : 200;
 
   save();
-  updateFuelPrice();
-  renderHome();
 
-  alert("تم حفظ الإعدادات بنجاح");
+  renderAll();
+
+  alert("تم حفظ الإعدادات.");
+
 }
 
-
-/* ================================
+/* =========================================================
    BACKUP
-================================ */
+========================================================= */
 
 function exportBackup(){
 
-  const data=JSON.stringify(state,null,2);
-  const blob=new Blob([data],{type:"application/json"});
-  const url=URL.createObjectURL(blob);
+  const data =
+    JSON.stringify(state,null,2);
 
-  const a=document.createElement("a");
-  a.href=url;
-  a.download="bli-driver-backup-"+today()+".json";
+  const blob =
+    new Blob(
+      [data],
+      {type:"application/json"}
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+
+  a.download =
+    "bli-driver-backup-"+today()+".json";
+
+  document.body.appendChild(a);
+
   a.click();
 
+  a.remove();
+
   URL.revokeObjectURL(url);
+
 }
 
 function importBackup(event){
 
-  const file=event.target.files[0];
-  if(!file)return;
+  const file =
+    event.target.files[0];
 
-  const reader=new FileReader();
+  if(!file) return;
 
-  reader.onload=e=>{
+  const reader =
+    new FileReader();
+
+  reader.onload = function(e){
+
     try{
 
-      const imported=JSON.parse(e.target.result);
+      const parsed =
+        JSON.parse(e.target.result);
 
-      if(!imported.settings||
-         !Array.isArray(imported.bli)||
-         !Array.isArray(imported.fuel)||
-         !Array.isArray(imported.extra)||
-         !Array.isArray(imported.expenses)){
+      if(!parsed ||
+         !parsed.settings ||
+         !Array.isArray(parsed.bli) ||
+         !Array.isArray(parsed.fuel) ||
+         !Array.isArray(parsed.extra) ||
+         !Array.isArray(parsed.expenses)){
 
-        alert("النسخة غير صالحة");
-        return;
+        throw new Error("Invalid backup");
+
       }
 
-      if(!confirm("استيراد النسخة سيستبدل البيانات الحالية. متابعة؟"))
-        return;
+      state = parsed;
 
-      state=imported;
       save();
+
       renderAll();
 
-      alert("تم استيراد النسخة بنجاح");
+      alert("تم استيراد النسخة الاحتياطية بنجاح.");
 
-    }catch(err){
-      alert("تعذر قراءة النسخة");
+    }catch(error){
+
+      alert("النسخة الاحتياطية غير صالحة.");
+
     }
+
   };
 
   reader.readAsText(file);
+
 }
 
-
-/* ================================
+/* =========================================================
    CLEAR
-================================ */
+========================================================= */
 
 function clearAllData(){
 
-  if(!confirm("⚠️ سيتم حذف كل بيانات Bli والوقود والدخل والمصاريف. هل أنت متأكد؟"))
-    return;
+  const confirmed =
+    confirm(
+      "تحذير: سيتم حذف جميع البيانات نهائياً. هل أنت متأكد؟"
+    );
 
-  if(!confirm("تأكيد نهائي: حذف كل البيانات؟"))
-    return;
+  if(!confirmed) return;
 
-  state={
+  const confirmed2 =
+    confirm(
+      "تأكيد أخير: حذف كل سجلات Bli والوقود والدخل والمصاريف؟"
+    );
+
+  if(!confirmed2) return;
+
+  state = {
+
     settings:{
       weeklyTarget:250000,
       petrolPrice:450,
       lpgPrice:200
     },
+
     bli:[],
     fuel:[],
     extra:[],
     expenses:[]
+
   };
 
   save();
+
   renderAll();
+
 }
 
-
-/* ================================
-   INITIALIZATION
-================================ */
+/* =========================================================
+   DEFAULT DATES
+========================================================= */
 
 function setDefaultDates(){
 
-  const ids=[
-    "bliDate",
-    "fuelDate",
-    "extraDate",
-    "expenseDate",
-    "reportDate"
-  ];
+  document.getElementById("bliDate").value =
+    today();
 
-  ids.forEach(id=>{
-    const el=document.getElementById(id);
-    if(el)el.value=today();
-  });
+  document.getElementById("fuelDate").value =
+    today();
+
+  document.getElementById("extraDate").value =
+    today();
+
+  document.getElementById("expenseDate").value =
+    today();
+
+  document.getElementById("reportDate").value =
+    today();
+
+  updateFuelPrice();
+
 }
+
+/* =========================================================
+   RENDER ALL
+========================================================= */
 
 function renderAll(){
 
   renderHome();
+
   renderBliList();
+
   renderFuelList();
+
   renderExtraList();
+
   renderExpenseList();
+
   renderReports();
+
   renderSettings();
-  updateFuelPrice();
+
 }
 
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
 load();
+
 setDefaultDates();
+
 renderAll();
-showSection("home");
 
 </script>
 
