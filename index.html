@@ -35,16 +35,16 @@ button{
 }
 
 :root{
-  --bg:#07080a;
-  --card:#111317;
-  --card2:#16191e;
-  --line:rgba(255,255,255,.10);
-  --red:#ff3b30;
-  --orange:#ff7a18;
-  --gold:#ffb52e;
+  --bg:#080808;
+  --card:#111111;
+  --card2:#181818;
+  --line:rgba(212,175,55,.18);
+  --red:#c99a3e;
+  --orange:#e0b85a;
+  --gold:#f0cf74;
   --green:#24d66b;
-  --text:#f5f5f5;
-  --muted:#9297a2;
+  --text:#f7f1e3;
+  --muted:#a69f90;
 }
 
 /* ---------- MAIN ---------- */
@@ -56,6 +56,9 @@ button{
   min-height:100vh;
   padding:14px;
   position:relative;
+  background:
+    radial-gradient(circle at 50% -10%,rgba(212,175,55,.07),transparent 30%),
+    linear-gradient(180deg,#0a0a0a 0%,#080808 55%,#0b0a08 100%);
 }
 
 .topbar{
@@ -70,20 +73,22 @@ button{
   font-weight:900;
   letter-spacing:1.5px;
   font-size:16px;
+  color:#f7f1e3;
 }
 
 .brand span{
-  color:var(--red);
+  color:var(--gold);
 }
 
 .status{
   font-size:10px;
-  color:#858a94;
+  color:#cdbb83;
   letter-spacing:1.2px;
-  border:1px solid var(--line);
+  border:1px solid rgba(212,175,55,.28);
   padding:7px 10px;
   border-radius:20px;
-  background:rgba(255,255,255,.03);
+  background:rgba(212,175,55,.06);
+  box-shadow:inset 0 1px rgba(255,255,255,.08);
 }
 
 .hero{
@@ -95,12 +100,13 @@ button{
   padding:26px 22px;
   margin-bottom:14px;
   background:
-    radial-gradient(circle at 10% 80%,rgba(255,59,48,.20),transparent 35%),
-    radial-gradient(circle at 90% 10%,rgba(255,122,24,.14),transparent 30%),
-    linear-gradient(135deg,#17191d,#0d0f12 55%,#121418);
+    radial-gradient(circle at 10% 80%,rgba(212,175,55,.18),transparent 35%),
+    radial-gradient(circle at 90% 10%,rgba(240,207,116,.11),transparent 30%),
+    linear-gradient(135deg,#1c1913,#0d0d0c 55%,#17130c);
   box-shadow:
     0 20px 50px rgba(0,0,0,.45),
-    inset 0 1px rgba(255,255,255,.05);
+    inset 0 1px rgba(255,255,255,.10),
+    0 0 0 1px rgba(212,175,55,.04);
 }
 
 .hero:after{
@@ -129,21 +135,22 @@ button{
 }
 
 .hero h1 span{
-  color:var(--red);
+  color:var(--gold);
 }
 
 .hero p{
   margin:10px 0 0;
-  color:#999ea8;
+  color:#afa694;
   font-size:13px;
 }
 
 .target-card{
   margin-top:15px;
-  border:1px solid rgba(255,255,255,.09);
+  border:1px solid rgba(212,175,55,.16);
   background:rgba(255,255,255,.035);
   border-radius:18px;
   padding:14px;
+  box-shadow:inset 0 1px rgba(255,255,255,.05);
 }
 
 .target-top{
@@ -162,7 +169,7 @@ button{
 .target-bar{
   height:8px;
   border-radius:10px;
-  background:#272a30;
+  background:#2b261b;
   overflow:hidden;
   margin-top:12px;
 }
@@ -171,7 +178,7 @@ button{
   height:100%;
   width:0;
   border-radius:10px;
-  background:linear-gradient(90deg,var(--red),var(--orange));
+  background:linear-gradient(90deg,#a87825,var(--gold));
   transition:.5s;
 }
 
@@ -215,14 +222,22 @@ button{
   min-height:145px;
   border-radius:25px;
   padding:20px;
-  border:1px solid rgba(255,255,255,.09);
+  border:1px solid rgba(212,175,55,.14);
   background:
-    linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.018));
+    linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.018));
   box-shadow:
     0 15px 35px rgba(0,0,0,.25),
-    inset 0 1px rgba(255,255,255,.05);
-  transition:.22s;
+    inset 0 1px rgba(255,255,255,.08);
+  transition:transform .22s, border-color .22s, box-shadow .22s;
   text-align:right;
+}
+
+.module:hover{
+  border-color:rgba(240,207,116,.42);
+  box-shadow:
+    0 18px 38px rgba(0,0,0,.34),
+    0 0 22px rgba(212,175,55,.06),
+    inset 0 1px rgba(255,255,255,.10);
 }
 
 .module:active{
@@ -235,8 +250,8 @@ button{
   width:90px;
   height:90px;
   border-radius:50%;
-  background:var(--accent);
-  opacity:.08;
+  background:linear-gradient(135deg,var(--accent),var(--gold));
+  opacity:.12;
   left:-30px;
   bottom:-35px;
   filter:blur(5px);
@@ -249,9 +264,11 @@ button{
   align-items:center;
   justify-content:center;
   border-radius:16px;
-  background:rgba(255,255,255,.055);
+  background:linear-gradient(145deg,rgba(240,207,116,.12),rgba(255,255,255,.035));
+  border:1px solid rgba(240,207,116,.15);
   font-size:25px;
   margin-bottom:15px;
+  box-shadow:inset 0 1px rgba(255,255,255,.10),0 8px 20px rgba(0,0,0,.18);
 }
 
 .module-title{
@@ -260,7 +277,7 @@ button{
 }
 
 .module-sub{
-  color:#777d87;
+  color:#918a7a;
   font-size:10px;
   margin-top:5px;
 }
@@ -277,24 +294,26 @@ button{
 .page-title{
   font-size:24px;
   font-weight:950;
+  color:#f3df9b;
 }
 
 .back-btn{
-  border:1px solid rgba(255,255,255,.10);
-  background:#15171b;
-  color:#fff;
+  border:1px solid rgba(212,175,55,.24);
+  background:linear-gradient(145deg,#211d14,#12110e);
+  color:#f0d57f;
   border-radius:14px;
   padding:10px 14px;
+  box-shadow:inset 0 1px rgba(255,255,255,.08);
 }
 
 .panel{
-  border:1px solid rgba(255,255,255,.09);
+  border:1px solid rgba(212,175,55,.14);
   background:
-    linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+    linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.018));
   border-radius:24px;
   padding:16px;
   margin-bottom:14px;
-  box-shadow:0 15px 35px rgba(0,0,0,.25);
+  box-shadow:0 15px 35px rgba(0,0,0,.30),inset 0 1px rgba(255,255,255,.06);
 }
 
 .form-grid{
@@ -327,7 +346,7 @@ textarea{
   border:1px solid rgba(255,255,255,.10);
   outline:none;
   color:#fff;
-  background:#0c0e11;
+  background:#0d0d0c;
   border-radius:14px;
   padding:13px 12px;
   font-size:14px;
@@ -336,8 +355,8 @@ textarea{
 input:focus,
 select:focus,
 textarea:focus{
-  border-color:rgba(255,59,48,.55);
-  box-shadow:0 0 0 3px rgba(255,59,48,.08);
+  border-color:rgba(240,207,116,.65);
+  box-shadow:0 0 0 3px rgba(212,175,55,.10);
 }
 
 textarea{
@@ -404,8 +423,8 @@ textarea{
 
 .btn-primary{
   color:white;
-  background:linear-gradient(135deg,var(--red),#c91f18);
-  box-shadow:0 10px 25px rgba(255,59,48,.18);
+  background:linear-gradient(135deg,#d9b458,#9a6e20);
+  box-shadow:0 10px 25px rgba(212,175,55,.18);
 }
 
 .btn-secondary{
@@ -415,7 +434,7 @@ textarea{
 }
 
 .btn-green{
-  background:linear-gradient(135deg,#24d66b,#159e4c);
+  background:linear-gradient(135deg,#2fbd78,#17704b);
   color:#fff;
 }
 
@@ -498,7 +517,7 @@ textarea{
 }
 
 .report-selector button.active{
-  background:var(--red);
+  background:linear-gradient(135deg,#d9b458,#9a6e20);
   color:#fff;
 }
 
@@ -509,10 +528,11 @@ textarea{
 }
 
 .stat{
-  border:1px solid rgba(255,255,255,.08);
-  background:#111317;
+  border:1px solid rgba(212,175,55,.14);
+  background:linear-gradient(145deg,#171612,#10100f);
   border-radius:18px;
   padding:15px;
+  box-shadow:inset 0 1px rgba(255,255,255,.05);
 }
 
 .stat-label{
@@ -558,7 +578,7 @@ footer{
 }
 
 /* =========================================================
-   CAR TRANSITION
+   LUXURY WHEEL TRANSITION
    ========================================================= */
 
 .transition{
@@ -569,7 +589,7 @@ footer{
   align-items:center;
   justify-content:center;
   background:
-    radial-gradient(circle at center,rgba(255,59,48,.12),transparent 35%),
+    radial-gradient(circle at center,rgba(212,175,55,.16),transparent 35%),
     rgba(3,4,5,.94);
   backdrop-filter:blur(14px);
   -webkit-backdrop-filter:blur(14px);
@@ -591,18 +611,21 @@ footer{
 }
 
 .drive-title{
-  font-size:11px;
-  color:#777d87;
+  font-size:10px;
+  color:#cdbb83;
   letter-spacing:4px;
-  margin-bottom:25px;
+  margin-bottom:20px;
 }
 
 .road{
   position:relative;
   width:100%;
-  height:82px;
+  height:142px;
   overflow:hidden;
-  border-bottom:2px solid rgba(255,255,255,.18);
+  border-bottom:1px solid rgba(240,207,116,.30);
+  border-top:1px solid rgba(255,255,255,.04);
+  background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(212,175,55,.035));
+  box-shadow:inset 0 1px rgba(255,255,255,.04),0 20px 45px rgba(0,0,0,.35);
 }
 
 .road:before{
@@ -610,85 +633,112 @@ footer{
   position:absolute;
   left:0;
   right:0;
-  bottom:7px;
-  height:2px;
+  bottom:12px;
+  height:1px;
   background:repeating-linear-gradient(
     90deg,
-    rgba(255,255,255,.35) 0 38px,
-    transparent 38px 72px
+    rgba(240,207,116,.38) 0 34px,
+    transparent 34px 74px
   );
-  animation:roadMove .38s linear infinite;
+  animation:roadMove .24s linear infinite;
 }
 
 @keyframes roadMove{
   from{background-position:0 0}
-  to{background-position:-72px 0}
+  to{background-position:-74px 0}
 }
 
-.car{
+.wheel-halo{
   position:absolute;
-  bottom:13px;
-  left:-90px;
-  font-size:52px;
-  line-height:1;
-  filter:
-    drop-shadow(0 7px 10px rgba(0,0,0,.7))
-    drop-shadow(0 0 12px rgba(255,59,48,.45));
-  animation:carDrive 1s cubic-bezier(.18,.72,.25,1) forwards;
-  transform:scaleX(1);
+  width:112px;
+  height:112px;
+  left:50%;
+  top:15px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(240,207,116,.28),rgba(212,175,55,.04) 48%,transparent 70%);
+  filter:blur(2px);
+  animation:haloPulse 1s ease-out forwards;
 }
 
-@keyframes carDrive{
-  0%{
-    left:-95px;
-    transform:translateY(3px) scale(1);
-  }
-  20%{
-    transform:translateY(-1px) scale(1.02);
-  }
-  45%{
-    transform:translateY(2px) scale(1);
-  }
-  70%{
-    transform:translateY(-1px) scale(1.02);
-  }
-  100%{
-    left:calc(100% + 95px);
-    transform:translateY(0) scale(1);
-  }
-}
-
-.car-light{
+.luxury-wheel{
   position:absolute;
-  width:75px;
-  height:20px;
-  right:-25px;
-  bottom:25px;
-  background:linear-gradient(90deg,transparent,rgba(255,59,48,.4));
-  filter:blur(8px);
-  animation:lightMove 1s ease forwards;
+  width:92px;
+  height:92px;
+  left:50%;
+  top:25px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  border:7px solid #171717;
+  background:
+    radial-gradient(circle at 35% 28%,#fff0a6 0 4%,#d2a941 18%,#75551c 42%,#20190d 66%,#090909 67% 100%);
+  box-shadow:
+    0 12px 15px rgba(0,0,0,.65),
+    0 0 0 2px rgba(240,207,116,.75),
+    0 0 0 8px rgba(240,207,116,.10),
+    inset 0 2px 4px rgba(255,255,255,.34),
+    inset 0 -7px 12px rgba(0,0,0,.75);
+  animation:wheelSpin 1s cubic-bezier(.18,.72,.25,1) forwards;
+  will-change:transform;
 }
 
-@keyframes lightMove{
-  from{
-    opacity:0;
-    transform:translateX(-10px);
-  }
+.luxury-wheel:before{
+  content:"";
+  position:absolute;
+  inset:10px;
+  border-radius:50%;
+  border:2px solid rgba(255,239,166,.72);
+  box-shadow:inset 0 0 0 3px rgba(34,25,10,.9);
+}
+
+.wheel-spoke{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:4px;
+  height:30px;
+  border-radius:5px;
+  background:linear-gradient(90deg,#76551a,#ffe38b,#9e7528);
+  transform-origin:50% 100%;
+  transform:translate(-50%,-100%) rotate(var(--angle));
+  box-shadow:0 0 3px rgba(255,225,132,.7);
+}
+
+.wheel-hub{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:18px;
+  height:18px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#fff0a6,#c6962d 45%,#594016 100%);
+  border:2px solid #251b0a;
+  box-shadow:0 1px 4px rgba(0,0,0,.7),inset 0 1px rgba(255,255,255,.65);
+}
+
+@keyframes wheelSpin{
+  0%{transform:translateX(-50%) rotate(0deg) scale(.76)}
+  15%{transform:translateX(-50%) rotate(70deg) scale(1.04)}
+  72%{transform:translateX(-50%) rotate(680deg) scale(1)}
+  100%{transform:translateX(-50%) rotate(900deg) scale(1)}
+}
+
+@keyframes haloPulse{
+  0%{opacity:0;transform:translateX(-50%) scale(.7)}
   25%{opacity:1}
-  to{
-    opacity:0;
-    transform:translateX(360px);
-  }
+  100%{opacity:0;transform:translateX(-50%) scale(1.35)}
 }
 
 .drive-text{
   margin-top:18px;
   font-size:14px;
   font-weight:900;
+  color:#f1d47f;
 }
 
 .drive-sub{
-  color:#666b74;
+  color:#77705e;
   font-size:10px;
   margin-top:5px;
 }
@@ -758,7 +808,7 @@ footer{
 }
 
 .date-preview{
-  color:var(--red);
+  color:var(--gold);
   font-size:11px;
   font-weight:800;
 }
@@ -852,9 +902,9 @@ footer{
   right:8px;
   top:92px;
   height:46px;
-  border-top:1px solid rgba(255,59,48,.35);
-  border-bottom:1px solid rgba(255,59,48,.35);
-  background:rgba(255,59,48,.055);
+  border-top:1px solid rgba(212,175,55,.35);
+  border-bottom:1px solid rgba(212,175,55,.35);
+  background:rgba(212,175,55,.055);
   border-radius:12px;
   pointer-events:none;
   z-index:2;
@@ -880,7 +930,7 @@ footer{
 }
 
 .date-confirm{
-  background:linear-gradient(135deg,var(--red),#c91f18);
+  background:linear-gradient(135deg,#d9b458,#9a6e20);
   color:#fff;
 }
 
@@ -1393,12 +1443,22 @@ footer{
     <div class="drive-title">DRIVER MODE</div>
 
     <div class="road">
-      <div class="car-light"></div>
-      <div class="car">🏎️</div>
+      <div class="wheel-halo"></div>
+      <div class="luxury-wheel" aria-label="عجلة سيارة فاخرة تدور">
+        <span class="wheel-spoke" style="--angle:0deg"></span>
+        <span class="wheel-spoke" style="--angle:45deg"></span>
+        <span class="wheel-spoke" style="--angle:90deg"></span>
+        <span class="wheel-spoke" style="--angle:135deg"></span>
+        <span class="wheel-spoke" style="--angle:180deg"></span>
+        <span class="wheel-spoke" style="--angle:225deg"></span>
+        <span class="wheel-spoke" style="--angle:270deg"></span>
+        <span class="wheel-spoke" style="--angle:315deg"></span>
+        <span class="wheel-hub"></span>
+      </div>
     </div>
 
-    <div class="drive-text">جارٍ التحميل...</div>
-    <div class="drive-sub">DRIVING TO YOUR DASHBOARD</div>
+    <div class="drive-text">انطلاقة فاخرة</div>
+    <div class="drive-sub">PREMIUM DRIVE EXPERIENCE</div>
 
   </div>
 </div>
@@ -1562,130 +1622,25 @@ function load(){
 }
 
 /* =========================================================
-   NAVIGATION + CAR ANIMATION
+   NAVIGATION + WHEEL ANIMATION
    ========================================================= */
 
 const DRIVE_DURATION = 1000;
 let transitionBusy = false;
-let engineAudioContext = null;
-
-/*
-  Sporty one-second launch sound:
-  deep engine rev + bright acceleration + a short turbo whoosh.
-  It is generated here so no external MP3 is required.
-*/
-function playGeneratedEngineSound(){
-  try{
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if(!AudioContext) return;
-
-    if(!engineAudioContext){
-      engineAudioContext = new AudioContext();
-    }
-
-    const ctx = engineAudioContext;
-    const start = ctx.currentTime;
-    const duration = DRIVE_DURATION/1000;
-    const master = ctx.createGain();
-    const engineFilter = ctx.createBiquadFilter();
-    const turboFilter = ctx.createBiquadFilter();
-    const engine = ctx.createOscillator();
-    const lowEngine = ctx.createOscillator();
-    const turbo = ctx.createOscillator();
-    const engineGain = ctx.createGain();
-    const lowGain = ctx.createGain();
-    const turboGain = ctx.createGain();
-    const lfo = ctx.createOscillator();
-    const lfoGain = ctx.createGain();
-
-    master.gain.setValueAtTime(.0001,start);
-    master.gain.exponentialRampToValueAtTime(.38,start+.035);
-    master.gain.exponentialRampToValueAtTime(.0001,start+duration);
-
-    engineFilter.type = "lowpass";
-    engineFilter.frequency.setValueAtTime(520,start);
-    engineFilter.frequency.exponentialRampToValueAtTime(2500,start+.42);
-    engineFilter.frequency.exponentialRampToValueAtTime(850,start+duration);
-    engineFilter.Q.value = 1.4;
-
-    turboFilter.type = "bandpass";
-    turboFilter.frequency.setValueAtTime(240,start+.16);
-    turboFilter.frequency.exponentialRampToValueAtTime(1800,start+.72);
-    turboFilter.Q.value = 3.2;
-
-    engine.type = "sawtooth";
-    engine.frequency.setValueAtTime(68,start);
-    engine.frequency.exponentialRampToValueAtTime(310,start+.48);
-    engine.frequency.exponentialRampToValueAtTime(145,start+.82);
-    engine.frequency.exponentialRampToValueAtTime(82,start+duration);
-    engineGain.gain.setValueAtTime(.48,start);
-    engineGain.gain.exponentialRampToValueAtTime(.9,start+.38);
-    engineGain.gain.exponentialRampToValueAtTime(.12,start+duration);
-
-    lowEngine.type = "triangle";
-    lowEngine.frequency.setValueAtTime(36,start);
-    lowEngine.frequency.exponentialRampToValueAtTime(118,start+.5);
-    lowEngine.frequency.exponentialRampToValueAtTime(48,start+duration);
-    lowGain.gain.value = .8;
-
-    turbo.type = "sine";
-    turbo.frequency.setValueAtTime(180,start+.12);
-    turbo.frequency.exponentialRampToValueAtTime(1450,start+.76);
-    turbo.frequency.exponentialRampToValueAtTime(520,start+duration);
-    turboGain.gain.setValueAtTime(.0001,start+.08);
-    turboGain.gain.exponentialRampToValueAtTime(.3,start+.25);
-    turboGain.gain.exponentialRampToValueAtTime(.0001,start+.92);
-
-    lfo.type = "sine";
-    lfo.frequency.value = 18;
-    lfoGain.gain.value = 9;
-    lfo.connect(lfoGain);
-    lfoGain.connect(engine.frequency);
-
-    engine.connect(engineGain);
-    lowEngine.connect(lowGain);
-    turbo.connect(turboGain);
-    engineGain.connect(engineFilter);
-    lowGain.connect(engineFilter);
-    turboGain.connect(turboFilter);
-    engineFilter.connect(master);
-    turboFilter.connect(master);
-    master.connect(ctx.destination);
-
-    engine.start(start);
-    lowEngine.start(start);
-    turbo.start(start+.08);
-    lfo.start(start);
-    engine.stop(start+duration);
-    lowEngine.stop(start+duration);
-    turbo.stop(start+duration);
-    lfo.stop(start+duration);
-
-    if(ctx.state==="suspended"){
-      ctx.resume().catch(()=>{});
-    }
-  }catch(e){}
-}
-
-function playSupercarSound(){
-  playGeneratedEngineSound();
-}
 
 function transitionEffect(callback){
   const overlay = document.getElementById("transition");
-  const car = overlay.querySelector(".car");
+  const wheel = overlay.querySelector(".luxury-wheel");
 
   if(transitionBusy) return;
   transitionBusy = true;
 
-  /* restart animation */
-  car.style.animation = "none";
-  void car.offsetWidth;
-  car.style.animation = "carDrive 1s cubic-bezier(.18,.72,.25,1) forwards";
+  /* restart the luxury wheel animation */
+  wheel.style.animation = "none";
+  void wheel.offsetWidth;
+  wheel.style.animation = "wheelSpin 1s cubic-bezier(.18,.72,.25,1) forwards";
 
   overlay.classList.add("show");
-
-  playSupercarSound();
 
   setTimeout(()=>{
     callback();
