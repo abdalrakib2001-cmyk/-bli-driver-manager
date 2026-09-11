@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+<meta name="theme-color" content="#111315">
 <title>BLI DRIVER</title>
 
 <style>
@@ -13,30 +13,38 @@
 }
 
 :root{
-    --red:#b30000;
-    --red2:#e00000;
-    --dark:#070707;
-    --dark2:#111111;
-    --card:#151515;
-    --card2:#1b1b1b;
-    --text:#ffffff;
-    --muted:#999;
-    --green:#18c76f;
-    --yellow:#ffc107;
-    --danger:#ff3030;
+    --bg:#0f1112;
+    --card:#181b1d;
+    --card2:#1d2123;
+    --border:#2b3032;
+
+    --green:#67c58a;
+    --green2:#8addaa;
+    --green-soft:rgba(103,197,138,.13);
+
+    --blue:#7897ad;
+    --orange:#d6a46a;
+    --red:#c96f6f;
+
+    --text:#f1f3f2;
+    --muted:#969d9f;
+    --shadow:0 8px 24px rgba(0,0,0,.25);
 }
 
 body{
     margin:0;
     background:
-        radial-gradient(circle at top right, rgba(179,0,0,.20), transparent 35%),
-        linear-gradient(180deg,#050505,#0b0b0b 45%,#050505);
+        radial-gradient(circle at top right,rgba(103,197,138,.055),transparent 30%),
+        radial-gradient(circle at bottom left,rgba(120,151,173,.035),transparent 30%),
+        var(--bg);
     color:var(--text);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;
     min-height:100vh;
 }
 
-button,input,select{
+button,
+input,
+select{
     font-family:inherit;
 }
 
@@ -47,374 +55,476 @@ button{
 
 .app{
     width:100%;
-    max-width:600px;
+    max-width:520px;
     margin:auto;
     min-height:100vh;
-    padding-bottom:90px;
+    padding-bottom:85px;
 }
 
+/* HEADER */
+
 .header{
-    padding:20px 18px 12px;
-    position:sticky;
-    top:0;
-    z-index:20;
-    background:rgba(5,5,5,.92);
-    backdrop-filter:blur(12px);
-    border-bottom:1px solid rgba(255,0,0,.12);
+    padding:22px 18px 12px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
 
 .brand{
     display:flex;
-    align-items:center;
-    justify-content:space-between;
+    flex-direction:column;
+    gap:3px;
 }
 
-.brand-left{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.logo{
-    width:48px;
-    height:48px;
-    border-radius:15px;
-    background:linear-gradient(145deg,#d90000,#650000);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:22px;
+.brand-title{
+    font-size:25px;
     font-weight:900;
-    box-shadow:0 8px 25px rgba(180,0,0,.35);
+    letter-spacing:1.5px;
 }
 
-.brand h1{
-    margin:0;
-    font-size:23px;
-    letter-spacing:1px;
-}
-
-.status{
-    color:#ff4444;
+.brand-sub{
     font-size:11px;
-    font-weight:800;
+    color:var(--green2);
     letter-spacing:2px;
-    margin-top:3px;
+    font-weight:700;
 }
+
+.header-date{
+    font-size:12px;
+    color:var(--muted);
+}
+
+/* PAGE */
 
 .page{
     display:none;
-    padding:16px;
+    padding:0 15px 20px;
+    animation:pageIn .22s ease;
 }
 
 .page.active{
     display:block;
-    animation:fadeIn .22s ease;
 }
 
-@keyframes fadeIn{
-    from{opacity:0;transform:translateY(7px)}
+@keyframes pageIn{
+    from{opacity:0;transform:translateY(5px)}
     to{opacity:1;transform:translateY(0)}
 }
 
-/* HOME */
+/* WEEK RANGE */
 
-.week-box{
-    background:
-        linear-gradient(145deg,rgba(180,0,0,.30),rgba(15,15,15,.96));
-    border:1px solid rgba(255,0,0,.25);
-    border-radius:25px;
-    padding:20px;
-    box-shadow:0 15px 40px rgba(0,0,0,.4);
-    margin-bottom:15px;
+.week-range{
+    background:linear-gradient(135deg,#1a1f20,#151819);
+    border:1px solid #29302e;
+    border-radius:17px;
+    padding:13px 15px;
+    margin-bottom:12px;
+    box-shadow:var(--shadow);
+    text-align:center;
 }
 
-.week-title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.week-label{
+    font-size:10px;
+    color:var(--muted);
+    margin-bottom:7px;
+    letter-spacing:1px;
+}
+
+.week-dates{
+    color:#b7c9bf;
+    font-size:18px;
+    font-weight:800;
+    direction:ltr;
+}
+
+.today-label{
+    margin-top:5px;
+    font-size:10px;
+    color:var(--green);
+    font-weight:700;
+}
+
+/* GOAL CARD */
+
+.goal-card{
+    background:
+        linear-gradient(145deg,rgba(103,197,138,.13),rgba(103,197,138,.035)),
+        var(--card);
+    border:1px solid rgba(103,197,138,.22);
+    border-radius:22px;
+    padding:20px;
+    box-shadow:var(--shadow);
     margin-bottom:14px;
 }
 
-.week-title strong{
-    font-size:16px;
+.goal-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
 }
 
-.week-date{
-    font-size:14px;
-    color:#ff6767;
+.section-title{
+    font-size:13px;
     font-weight:800;
+    color:#dce2df;
 }
 
-.goal-number{
-    font-size:37px;
+.goal-percent{
+    font-size:24px;
     font-weight:900;
-    margin:4px 0;
-}
-
-.goal-label{
-    color:var(--muted);
-    font-size:12px;
-}
-
-.progress-wrap{
-    height:12px;
-    background:#292929;
-    border-radius:20px;
-    overflow:hidden;
-    margin:18px 0 10px;
+    color:var(--green2);
 }
 
 .progress{
-    height:100%;
-    width:0%;
-    background:linear-gradient(90deg,#7c0000,#ff2020);
+    height:11px;
     border-radius:20px;
-    transition:.3s;
+    background:#252b2c;
+    overflow:hidden;
+    margin:12px 0 16px;
 }
 
-.goal-stats{
+.progress-fill{
+    height:100%;
+    width:0%;
+    border-radius:20px;
+    background:linear-gradient(90deg,#579c72,#8addaa);
+    transition:width .4s ease;
+}
+
+.goal-numbers{
     display:grid;
     grid-template-columns:1fr 1fr 1fr;
     gap:8px;
-}
-
-.stat{
-    background:rgba(0,0,0,.30);
-    border-radius:14px;
-    padding:11px 7px;
     text-align:center;
 }
 
-.stat small{
-    color:#888;
+.goal-number{
+    background:rgba(255,255,255,.025);
+    border-radius:13px;
+    padding:10px 5px;
+}
+
+.goal-number .label{
+    color:var(--muted);
     font-size:10px;
-    display:block;
-    margin-bottom:4px;
+    margin-bottom:5px;
 }
 
-.stat b{
-    font-size:14px;
+.goal-number .value{
+    font-size:15px;
+    font-weight:800;
 }
 
-.remaining{
-    color:#ff4444;
+.goal-number.remaining .value{
+    color:var(--orange);
 }
 
-.completed{
-    color:#22dc7c;
+.goal-number.done .value{
+    color:var(--green2);
 }
 
-.today-required{
-    margin-top:13px;
-    background:#111;
-    border:1px solid #252525;
-    padding:12px;
-    border-radius:15px;
-    text-align:center;
-    font-size:13px;
+/* DAILY TARGET */
+
+.daily-target{
+    background:linear-gradient(145deg,#202527,#181c1e);
+    border:1px solid #303638;
+    border-radius:17px;
+    padding:14px 16px;
+    margin-bottom:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-.today-required b{
-    color:#ff3b3b;
-}
-
-/* MAIN CARDS */
-
-.main-cards{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-    margin-top:15px;
-}
-
-.main-card{
-    min-height:135px;
-    border-radius:23px;
-    padding:18px;
-    background:linear-gradient(145deg,#191919,#0d0d0d);
-    border:1px solid #272727;
-    box-shadow:0 10px 25px rgba(0,0,0,.3);
+.daily-target-text{
     display:flex;
     flex-direction:column;
-    justify-content:space-between;
-    text-align:right;
-    color:white;
-    position:relative;
-    overflow:hidden;
+    gap:4px;
 }
 
-.main-card:before{
-    content:"";
-    position:absolute;
-    width:80px;
-    height:80px;
-    background:rgba(190,0,0,.12);
-    border-radius:50%;
-    left:-20px;
-    bottom:-25px;
+.daily-target-text strong{
+    font-size:12px;
 }
 
-.main-card:active{
-    transform:scale(.97);
-}
-
-.card-icon{
-    font-size:30px;
-}
-
-.card-title{
-    font-size:17px;
-    font-weight:900;
-}
-
-.card-sub{
+.daily-target-text span{
+    color:var(--muted);
     font-size:10px;
-    color:#777;
-    margin-top:4px;
 }
+
+.daily-target-value{
+    color:var(--green2);
+    font-size:19px;
+    font-weight:900;
+    direction:ltr;
+}
+
+/* SUMMARY */
 
 .summary-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:10px;
-    margin-top:15px;
+    margin-bottom:14px;
 }
 
-.summary{
-    background:#111;
-    border:1px solid #222;
+.summary-card{
+    background:var(--card);
+    border:1px solid var(--border);
     border-radius:17px;
-    padding:14px;
+    padding:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.14);
 }
 
-.summary small{
-    color:#777;
+.summary-card .icon{
+    font-size:17px;
+    margin-bottom:9px;
+}
+
+.summary-card .label{
     font-size:10px;
+    color:var(--muted);
 }
 
-.summary b{
-    display:block;
+.summary-card .value{
+    margin-top:5px;
     font-size:18px;
-    margin-top:6px;
+    font-weight:900;
+    direction:ltr;
+    text-align:right;
 }
 
-/* BACK BUTTON */
+.summary-card.green .value{
+    color:var(--green2);
+}
 
-.back-btn{
-    width:100%;
+.summary-card.orange .value{
+    color:var(--orange);
+}
+
+.summary-card.blue .value{
+    color:#9ab2c2;
+}
+
+/* MAIN ACTIONS */
+
+.actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:11px;
     margin-bottom:15px;
-    padding:13px 17px;
-    border-radius:17px;
-    color:#fff;
-    background:
-        linear-gradient(135deg,#231010,#0d0d0d);
-    border:1px solid rgba(255,0,0,.30);
-    box-shadow:
-        0 7px 18px rgba(0,0,0,.35),
-        inset 0 1px rgba(255,255,255,.04);
-    display:flex;
-    align-items:center;
-    justify-content:flex-start;
-    gap:10px;
+}
+
+.action-card{
+    background:linear-gradient(145deg,#1b1f21,#151819);
+    border:1px solid #2b3032;
+    border-radius:18px;
+    min-height:105px;
+    padding:17px;
+    color:white;
+    text-align:right;
+    box-shadow:var(--shadow);
+    transition:.15s;
+}
+
+.action-card:active{
+    transform:scale(.98);
+}
+
+.action-icon{
+    font-size:25px;
+    margin-bottom:10px;
+}
+
+.action-title{
     font-size:14px;
+    font-weight:900;
+}
+
+.action-desc{
+    font-size:10px;
+    color:var(--muted);
+    margin-top:5px;
+}
+
+/* DAYS */
+
+.days-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:19px;
+    overflow:hidden;
+    margin-bottom:15px;
+}
+
+.days-head{
+    padding:14px 15px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.days-head span{
+    font-size:12px;
     font-weight:800;
 }
 
-.back-icon{
-    width:32px;
-    height:32px;
-    border-radius:11px;
-    background:linear-gradient(145deg,#c60000,#690000);
+.days-head small{
+    color:var(--muted);
+    font-size:9px;
+}
+
+.day-row{
+    padding:13px 15px;
     display:flex;
     align-items:center;
-    justify-content:center;
-    font-size:21px;
-    box-shadow:0 5px 12px rgba(180,0,0,.35);
+    justify-content:space-between;
+    border-bottom:1px solid rgba(255,255,255,.045);
+    transition:.15s;
+}
+
+.day-row:last-child{
+    border-bottom:0;
+}
+
+.day-row.today{
+    background:linear-gradient(90deg,rgba(103,197,138,.14),rgba(103,197,138,.035));
+    border-right:3px solid var(--green);
+}
+
+.day-name{
+    min-width:80px;
+}
+
+.day-name strong{
+    display:block;
+    font-size:12px;
+}
+
+.day-name small{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    direction:ltr;
+    text-align:right;
+    margin-top:3px;
+}
+
+.day-income{
+    direction:ltr;
+    text-align:left;
+    font-size:13px;
+    font-weight:800;
+}
+
+.day-income small{
+    display:block;
+    color:var(--muted);
+    font-size:8px;
+    margin-top:3px;
+}
+
+/* INNER PAGE HEADER */
+
+.inner-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:4px 0 15px;
+}
+
+.back-btn{
+    background:linear-gradient(145deg,#23282a,#171a1c);
+    color:#dfe5e2;
+    border:1px solid #343b3c;
+    border-radius:13px;
+    padding:9px 14px;
+    font-size:12px;
+    font-weight:800;
+    box-shadow:0 5px 13px rgba(0,0,0,.18);
 }
 
 .back-btn:active{
-    transform:scale(.98);
+    transform:scale(.97);
 }
 
-/* SECTION */
-
-.section-title{
-    font-size:20px;
+.inner-title{
+    font-size:18px;
     font-weight:900;
-    margin:5px 0 15px;
 }
 
-.card{
-    background:linear-gradient(145deg,#181818,#101010);
-    border:1px solid #292929;
-    border-radius:21px;
-    padding:16px;
-    margin-bottom:12px;
-}
+/* FORM */
 
-.input-group{
+.form-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:19px;
+    padding:17px;
     margin-bottom:13px;
 }
 
-.input-group label{
+.field{
+    margin-bottom:13px;
+}
+
+.field:last-child{
+    margin-bottom:0;
+}
+
+.field label{
     display:block;
-    color:#aaa;
-    font-size:12px;
+    color:#b7bfbd;
+    font-size:11px;
     margin-bottom:7px;
+    font-weight:700;
 }
 
-.input,
-.select{
+input,
+select{
     width:100%;
-    height:50px;
-    border-radius:14px;
-    border:1px solid #333;
-    background:#090909;
-    color:#fff;
-    padding:0 14px;
-    font-size:16px;
+    background:#111516;
+    color:#f2f4f3;
+    border:1px solid #303638;
+    border-radius:12px;
+    padding:13px 12px;
     outline:none;
+    font-size:14px;
 }
 
-.input:focus,
-.select:focus{
-    border-color:#b00000;
+input:focus,
+select:focus{
+    border-color:rgba(103,197,138,.6);
 }
 
-.primary-btn{
+input::placeholder{
+    color:#666e70;
+}
+
+.save-btn{
     width:100%;
-    min-height:52px;
-    border-radius:16px;
-    color:#fff;
-    background:linear-gradient(135deg,#c80000,#720000);
-    font-size:15px;
+    padding:14px;
+    border-radius:13px;
+    background:linear-gradient(135deg,#5da879,#7ac894);
+    color:#0d1711;
     font-weight:900;
-    box-shadow:0 9px 22px rgba(170,0,0,.25);
+    font-size:14px;
+    margin-top:4px;
 }
 
-.primary-btn:active{
-    transform:scale(.98);
-}
-
-.secondary-btn{
-    width:100%;
-    min-height:48px;
-    border-radius:15px;
-    color:#fff;
-    background:#191919;
-    border:1px solid #333;
-    font-weight:800;
+.save-btn:active{
+    transform:scale(.985);
 }
 
 .danger-btn{
     width:100%;
-    min-height:48px;
-    border-radius:15px;
-    color:#fff;
-    background:#310909;
-    border:1px solid #760000;
+    padding:13px;
+    border-radius:13px;
+    background:rgba(201,111,111,.08);
+    border:1px solid rgba(201,111,111,.25);
+    color:#d99393;
     font-weight:800;
+    margin-top:10px;
 }
 
 /* DATE ROLL */
@@ -423,205 +533,245 @@ button{
     display:grid;
     grid-template-columns:1fr 1fr 1fr;
     gap:8px;
+    direction:ltr;
 }
 
-.date-roll .select{
+.date-roll select{
     text-align:center;
-    padding:0 5px;
-    font-weight:800;
 }
 
-/* DAYS */
+/* MINI STATS */
 
-.days{
-    margin-top:15px;
+.mini-stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+    margin-bottom:13px;
 }
 
-.day-card{
-    background:#111;
-    border:1px solid #252525;
-    border-radius:18px;
-    padding:14px;
-    margin-bottom:9px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+.mini-stat{
+    background:#141819;
+    border:1px solid #292f30;
+    border-radius:13px;
+    padding:12px;
 }
 
-.day-left{
-    display:flex;
-    flex-direction:column;
-    gap:4px;
-}
-
-.day-name{
-    font-weight:900;
-}
-
-.day-date{
-    color:#777;
-    font-size:11px;
-}
-
-.day-money{
-    text-align:left;
-}
-
-.day-money b{
+.mini-stat label{
     display:block;
-    font-size:16px;
+    color:var(--muted);
+    font-size:9px;
 }
 
-.day-money small{
-    color:#777;
-    font-size:10px;
+.mini-stat strong{
+    display:block;
+    direction:ltr;
+    text-align:right;
+    margin-top:4px;
+    font-size:15px;
 }
 
 /* LINE */
 
-.line-card{
-    background:
-        linear-gradient(145deg,#181818,#0d0d0d);
-    border:1px solid #292929;
-    border-radius:21px;
-    padding:16px;
-    margin-bottom:11px;
+.line-item{
+    background:#141819;
+    border:1px solid #292f30;
+    border-radius:15px;
+    padding:13px;
+    margin-bottom:9px;
 }
 
-.line-head{
+.line-item-top{
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    gap:10px;
+    justify-content:space-between;
 }
 
 .line-name{
-    font-size:17px;
+    font-size:13px;
     font-weight:900;
 }
 
 .line-amount{
-    font-size:20px;
+    direction:ltr;
+    color:var(--green2);
+    font-size:14px;
     font-weight:900;
-    color:#25dc7c;
-    white-space:nowrap;
+}
+
+.line-meta{
+    color:var(--muted);
+    font-size:9px;
+    margin-top:5px;
 }
 
 .line-actions{
     display:flex;
-    gap:8px;
-    margin-top:12px;
+    gap:7px;
+    margin-top:10px;
 }
 
 .small-btn{
     flex:1;
-    padding:10px;
-    border-radius:12px;
-    background:#1b1b1b;
-    color:#ddd;
-    border:1px solid #303030;
-    font-weight:700;
+    padding:8px;
+    border-radius:9px;
+    font-size:10px;
+    font-weight:800;
 }
 
-.small-btn.delete{
-    color:#ff5555;
-    border-color:#4b1717;
+.edit-btn{
+    background:rgba(120,151,173,.1);
+    color:#a9bfce;
+    border:1px solid rgba(120,151,173,.22);
 }
 
-/* WEEK */
+.delete-btn{
+    background:rgba(201,111,111,.08);
+    color:#d99292;
+    border:1px solid rgba(201,111,111,.2);
+}
+
+/* WEEK TABLE */
 
 .week-total{
-    background:linear-gradient(145deg,#260606,#101010);
-    border:1px solid #620000;
-    border-radius:21px;
-    padding:18px;
-    margin-bottom:12px;
+    background:linear-gradient(145deg,rgba(103,197,138,.11),rgba(103,197,138,.03));
+    border:1px solid rgba(103,197,138,.18);
+    border-radius:18px;
+    padding:16px;
+    margin-bottom:13px;
+    text-align:center;
 }
 
-.week-total-row{
+.week-total-label{
+    color:var(--muted);
+    font-size:10px;
+}
+
+.week-total-value{
+    color:var(--green2);
+    font-size:25px;
+    font-weight:900;
+    direction:ltr;
+    margin-top:4px;
+}
+
+.week-table-row{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:12px;
+    margin-bottom:8px;
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    padding:7px 0;
+    justify-content:space-between;
 }
 
-.week-total-row span{
-    color:#aaa;
+.week-table-row.today{
+    border-color:rgba(103,197,138,.38);
+    box-shadow:inset 0 0 0 1px rgba(103,197,138,.08);
 }
 
-.week-total-row b{
-    font-size:17px;
+.week-table-left strong{
+    display:block;
+    font-size:12px;
+}
+
+.week-table-left small{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    margin-top:3px;
+}
+
+.week-table-right{
+    text-align:left;
+    direction:ltr;
+}
+
+.week-table-right strong{
+    display:block;
+    font-size:13px;
+}
+
+.week-table-right small{
+    display:block;
+    color:var(--muted);
+    font-size:8px;
+    margin-top:3px;
 }
 
 /* SETTINGS */
 
-.setting-item{
-    background:#111;
-    border:1px solid #292929;
-    border-radius:16px;
+.setting-row{
+    background:#141819;
+    border:1px solid #292f30;
+    border-radius:14px;
     padding:13px;
-    margin-bottom:10px;
+    margin-bottom:9px;
 }
 
-.setting-item label{
-    color:#aaa;
-    display:block;
+.setting-label{
     font-size:11px;
+    color:#b8c0be;
     margin-bottom:7px;
+    font-weight:700;
+}
+
+/* EMPTY */
+
+.empty{
+    text-align:center;
+    color:var(--muted);
+    font-size:11px;
+    padding:25px 10px;
 }
 
 /* NAV */
 
 .bottom-nav{
     position:fixed;
+    z-index:20;
     bottom:0;
-    left:0;
-    right:0;
-    z-index:50;
-    max-width:600px;
-    margin:auto;
-    padding:10px 12px calc(10px + env(safe-area-inset-bottom));
-    background:rgba(7,7,7,.95);
-    backdrop-filter:blur(15px);
-    border-top:1px solid #252525;
+    left:50%;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:520px;
+    background:rgba(17,20,21,.96);
+    backdrop-filter:blur(12px);
+    border-top:1px solid #292f30;
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:7px;
+    padding:8px 8px calc(8px + env(safe-area-inset-bottom));
 }
 
 .nav-btn{
-    background:transparent;
-    color:#777;
-    border-radius:14px;
-    padding:7px 3px;
-    font-size:10px;
-    font-weight:800;
+    background:none;
+    color:#777f81;
+    padding:7px 2px;
+    font-size:9px;
+    font-weight:700;
 }
 
 .nav-btn .nav-icon{
     display:block;
-    font-size:20px;
+    font-size:19px;
     margin-bottom:3px;
 }
 
 .nav-btn.active{
-    color:#fff;
-    background:#1b0a0a;
-    box-shadow:inset 0 0 0 1px rgba(190,0,0,.25);
+    color:var(--green2);
 }
 
 /* MODAL */
 
 .modal{
     position:fixed;
+    z-index:50;
     inset:0;
-    background:rgba(0,0,0,.72);
-    backdrop-filter:blur(7px);
-    z-index:100;
+    background:rgba(0,0,0,.7);
+    backdrop-filter:blur(5px);
     display:none;
     align-items:flex-end;
     justify-content:center;
-    padding:12px;
 }
 
 .modal.show{
@@ -630,75 +780,61 @@ button{
 
 .modal-box{
     width:100%;
-    max-width:580px;
+    max-width:520px;
+    background:#181c1e;
+    border:1px solid #303637;
+    border-radius:23px 23px 0 0;
+    padding:20px 16px calc(20px + env(safe-area-inset-bottom));
     max-height:90vh;
     overflow:auto;
-    background:linear-gradient(180deg,#191919,#0b0b0b);
-    border:1px solid #3a1717;
-    border-radius:27px;
-    padding:20px;
-    box-shadow:0 -10px 50px rgba(0,0,0,.7);
-    animation:modalUp .22s ease;
+    animation:modalUp .2s ease;
 }
 
 @keyframes modalUp{
-    from{transform:translateY(100%)}
-    to{transform:translateY(0)}
+    from{transform:translateY(30px);opacity:0}
+    to{transform:translateY(0);opacity:1}
 }
 
 .modal-head{
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    margin-bottom:17px;
+    justify-content:space-between;
+    margin-bottom:16px;
 }
 
-.modal-head h3{
-    margin:0;
-    font-size:19px;
+.modal-title{
+    font-size:16px;
+    font-weight:900;
 }
 
-.close{
-    width:36px;
-    height:36px;
-    border-radius:12px;
-    background:#292929;
-    color:#fff;
-    font-size:18px;
-}
-
-/* EMPTY */
-
-.empty{
-    text-align:center;
-    padding:30px 10px;
-    color:#666;
-}
-
-.empty-icon{
-    font-size:40px;
-    margin-bottom:8px;
+.close-btn{
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    background:#252a2c;
+    color:#bfc5c3;
+    font-size:17px;
 }
 
 /* TOAST */
 
 .toast{
     position:fixed;
+    z-index:100;
     left:50%;
-    bottom:95px;
-    transform:translateX(-50%) translateY(20px);
-    background:#191919;
-    border:1px solid #500000;
-    color:#fff;
-    padding:12px 18px;
-    border-radius:14px;
-    z-index:200;
+    bottom:90px;
+    transform:translateX(-50%) translateY(15px);
+    background:#202627;
+    border:1px solid #39403f;
+    color:#e7ece9;
+    padding:11px 16px;
+    border-radius:12px;
+    font-size:11px;
     opacity:0;
     pointer-events:none;
     transition:.25s;
-    font-size:12px;
-    font-weight:800;
     white-space:nowrap;
+    box-shadow:var(--shadow);
 }
 
 .toast.show{
@@ -706,30 +842,15 @@ button{
     transform:translateX(-50%) translateY(0);
 }
 
-.green{
-    color:#20dc7a;
-}
+/* RESPONSIVE */
 
-.red{
-    color:#ff4444;
-}
-
-.muted{
-    color:#777;
-}
-
-@media(max-width:380px){
-    .main-cards{
-        gap:8px;
+@media(max-width:360px){
+    .goal-number .value{
+        font-size:13px;
     }
 
-    .main-card{
-        padding:14px;
-        min-height:125px;
-    }
-
-    .goal-stats{
-        gap:5px;
+    .summary-card .value{
+        font-size:16px;
     }
 }
 </style>
@@ -739,878 +860,1022 @@ button{
 
 <div class="app">
 
-<header class="header">
-    <div class="brand">
-        <div class="brand-left">
-            <div class="logo">B</div>
-            <div>
-                <h1>BLI DRIVER</h1>
-                <div class="status">DRIVER MODE</div>
-            </div>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="brand">
+            <div class="brand-title">BLI DRIVER</div>
+            <div class="brand-sub">DRIVER MODE</div>
         </div>
-    </div>
-</header>
+        <div class="header-date" id="headerToday"></div>
+    </header>
 
 
-<!-- HOME -->
-<section id="homePage" class="page active">
+    <!-- HOME -->
+    <main id="page-home" class="page active">
 
-    <div class="week-box">
-
-        <div class="week-title">
-            <strong>🎯 الهدف الأسبوعي</strong>
-            <span id="weekRange" class="week-date">--/-- — --/--</span>
+        <div class="week-range">
+            <div class="week-label">الأسبوع الحالي</div>
+            <div class="week-dates" id="weekRange"></div>
+            <div class="today-label" id="todayText"></div>
         </div>
 
-        <div class="goal-label">المبلغ المحقق</div>
-        <div class="goal-number" id="homeCompleted">0 د.ع</div>
+        <section class="goal-card">
 
-        <div class="progress-wrap">
-            <div id="homeProgress" class="progress"></div>
+            <div class="goal-top">
+                <div class="section-title">الهدف الأسبوعي</div>
+                <div class="goal-percent" id="goalPercent">0%</div>
+            </div>
+
+            <div class="progress">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <div class="goal-numbers">
+
+                <div class="goal-number done">
+                    <div class="label">المنجز</div>
+                    <div class="value" id="completedValue">0</div>
+                </div>
+
+                <div class="goal-number">
+                    <div class="label">الهدف</div>
+                    <div class="value" id="goalValue">0</div>
+                </div>
+
+                <div class="goal-number remaining">
+                    <div class="label">المتبقي</div>
+                    <div class="value" id="remainingValue">0</div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="daily-target">
+            <div class="daily-target-text">
+                <strong>المطلوب يومياً من الآن</strong>
+                <span id="daysRemainingText">—</span>
+            </div>
+            <div class="daily-target-value" id="dailyTargetValue">0</div>
+        </section>
+
+        <section class="summary-grid">
+
+            <div class="summary-card green">
+                <div class="icon">💰</div>
+                <div class="label">دخل Bli + البونص + الإضافي</div>
+                <div class="value" id="summaryIncome">0</div>
+            </div>
+
+            <div class="summary-card orange">
+                <div class="icon">⛽</div>
+                <div class="label">صرف الوقود</div>
+                <div class="value" id="summaryFuel">0</div>
+            </div>
+
+            <div class="summary-card blue">
+                <div class="icon">📈</div>
+                <div class="label">الصافي بعد الوقود</div>
+                <div class="value" id="summaryProfit">0</div>
+            </div>
+
+            <div class="summary-card">
+                <div class="icon">🚌</div>
+                <div class="label">دخل الخط</div>
+                <div class="value" id="summaryLine">0</div>
+            </div>
+
+        </section>
+
+        <section class="actions">
+
+            <button class="action-card" onclick="openIncomeModal()">
+                <div class="action-icon">💰</div>
+                <div class="action-title">إضافة دخل Bli</div>
+                <div class="action-desc">دخل + بونص + إضافي</div>
+            </button>
+
+            <button class="action-card" onclick="openFuelModal()">
+                <div class="action-icon">⛽</div>
+                <div class="action-title">إضافة وقود</div>
+                <div class="action-desc">بنزين أو غاز</div>
+            </button>
+
+            <button class="action-card" onclick="openPage('line')">
+                <div class="action-icon">🚌</div>
+                <div class="action-title">إدارة الخط</div>
+                <div class="action-desc">إضافة ومتابعة دخل الخط</div>
+            </button>
+
+            <button class="action-card" onclick="openPage('week')">
+                <div class="action-icon">📊</div>
+                <div class="action-title">تفاصيل الأسبوع</div>
+                <div class="action-desc">أداء كل يوم</div>
+            </button>
+
+        </section>
+
+        <section class="days-card">
+
+            <div class="days-head">
+                <span>أيام الأسبوع</span>
+                <small>الأحد → السبت</small>
+            </div>
+
+            <div id="daysList"></div>
+
+        </section>
+
+    </main>
+
+
+    <!-- BLI INCOME PAGE -->
+    <main id="page-income" class="page">
+
+        <div class="inner-header">
+            <button class="back-btn" onclick="goBack()">↩ رجوع</button>
+            <div class="inner-title">دخل Bli</div>
         </div>
 
-        <div class="goal-stats">
+        <div class="form-card">
 
-            <div class="stat">
-                <small>الهدف</small>
-                <b id="homeGoal">0</b>
+            <div class="field">
+                <label>التاريخ</label>
+
+                <div class="date-roll">
+                    <select id="incomeDay"></select>
+                    <select id="incomeMonth"></select>
+                    <select id="incomeYear"></select>
+                </div>
             </div>
 
-            <div class="stat">
-                <small>الإنجاز</small>
-                <b class="completed" id="homePercent">0%</b>
+            <div class="field">
+                <label>دخل Bli بعد العمولة</label>
+                <input id="incomeAmount" type="number" inputmode="numeric" placeholder="مثلاً 40000">
             </div>
 
-            <div class="stat">
-                <small>المتبقي</small>
-                <b class="remaining" id="homeRemaining">0</b>
+            <div class="field">
+                <label>البونص</label>
+                <input id="incomeBonus" type="number" inputmode="numeric" placeholder="0">
             </div>
+
+            <div class="field">
+                <label>إضافي / إكراميات</label>
+                <input id="incomeExtra" type="number" inputmode="numeric" placeholder="0">
+            </div>
+
+            <button class="save-btn" onclick="saveIncome()">حفظ الدخل</button>
 
         </div>
 
-        <div class="today-required">
-            المطلوب يومياً من الآن:
-            <b id="dailyRequired">0 د.ع</b>
+        <div class="form-card">
+            <div class="section-title" style="margin-bottom:12px">مجموع هذا الأسبوع</div>
+
+            <div class="mini-stats">
+                <div class="mini-stat">
+                    <label>دخل Bli</label>
+                    <strong id="incomeWeekBli">0</strong>
+                </div>
+
+                <div class="mini-stat">
+                    <label>البونص</label>
+                    <strong id="incomeWeekBonus">0</strong>
+                </div>
+
+                <div class="mini-stat">
+                    <label>الإضافي</label>
+                    <strong id="incomeWeekExtra">0</strong>
+                </div>
+
+                <div class="mini-stat">
+                    <label>المجموع</label>
+                    <strong id="incomeWeekTotal">0</strong>
+                </div>
+            </div>
         </div>
 
-    </div>
+    </main>
 
 
-    <div class="main-cards">
+    <!-- FUEL PAGE -->
+    <main id="page-fuel" class="page">
 
-        <button class="main-card" onclick="openPage('incomePage')">
-            <div class="card-icon">💰</div>
-            <div>
-                <div class="card-title">دخل البلي</div>
-                <div class="card-sub">دخل + بونص + إضافي</div>
+        <div class="inner-header">
+            <button class="back-btn" onclick="goBack()">↩ رجوع</button>
+            <div class="inner-title">صرف الوقود</div>
+        </div>
+
+        <div class="form-card">
+
+            <div class="field">
+                <label>التاريخ</label>
+
+                <div class="date-roll">
+                    <select id="fuelDay"></select>
+                    <select id="fuelMonth"></select>
+                    <select id="fuelYear"></select>
+                </div>
             </div>
+
+            <div class="field">
+                <label>نوع الوقود</label>
+                <select id="fuelType">
+                    <option value="petrol">بنزين</option>
+                    <option value="lpg">غاز LPG</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>عدد اللترات</label>
+                <input id="fuelLiters" type="number" step="0.1" inputmode="decimal" placeholder="مثلاً 20">
+            </div>
+
+            <button class="save-btn" onclick="saveFuel()">حفظ الوقود</button>
+
+        </div>
+
+        <div class="form-card">
+            <div class="section-title" style="margin-bottom:12px">أسعار الوقود الحالية</div>
+
+            <div class="mini-stats">
+                <div class="mini-stat">
+                    <label>بنزين / لتر</label>
+                    <strong id="petrolPriceView">450</strong>
+                </div>
+
+                <div class="mini-stat">
+                    <label>غاز / لتر</label>
+                    <strong id="lpgPriceView">200</strong>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+
+    <!-- LINE PAGE -->
+    <main id="page-line" class="page">
+
+        <div class="inner-header">
+            <button class="back-btn" onclick="goBack()">↩ رجوع</button>
+            <div class="inner-title">إدارة الخط</div>
+        </div>
+
+        <div class="week-total">
+            <div class="week-total-label">إجمالي دخل الخط</div>
+            <div class="week-total-value" id="lineTotal">0</div>
+        </div>
+
+        <div class="form-card">
+
+            <div class="section-title" style="margin-bottom:13px">
+                إضافة خط
+            </div>
+
+            <div class="field">
+                <label>اسم الخط</label>
+                <input id="lineName" type="text" placeholder="مثلاً خط المدرسة">
+            </div>
+
+            <div class="field">
+                <label>المبلغ المستلم</label>
+                <input id="lineAmount" type="number" inputmode="numeric" placeholder="مثلاً 200000">
+            </div>
+
+            <div class="field">
+                <label>التاريخ</label>
+
+                <div class="date-roll">
+                    <select id="lineDay"></select>
+                    <select id="lineMonth"></select>
+                    <select id="lineYear"></select>
+                </div>
+            </div>
+
+            <button class="save-btn" id="lineSaveBtn" onclick="saveLine()">إضافة الخط</button>
+
+        </div>
+
+        <div id="lineList"></div>
+
+    </main>
+
+
+    <!-- WEEK PAGE -->
+    <main id="page-week" class="page">
+
+        <div class="inner-header">
+            <button class="back-btn" onclick="goBack()">↩ رجوع</button>
+            <div class="inner-title">تفاصيل الأسبوع</div>
+        </div>
+
+        <div class="week-total">
+            <div class="week-total-label">إجمالي الإنجاز</div>
+            <div class="week-total-value" id="weekTotalValue">0</div>
+        </div>
+
+        <div id="weekDetails"></div>
+
+    </main>
+
+
+    <!-- SETTINGS -->
+    <main id="page-settings" class="page">
+
+        <div class="inner-header">
+            <button class="back-btn" onclick="goBack()">↩ رجوع</button>
+            <div class="inner-title">الإعدادات</div>
+        </div>
+
+        <div class="form-card">
+
+            <div class="setting-row">
+                <div class="setting-label">الهدف الأسبوعي</div>
+                <input id="settingGoal" type="number" inputmode="numeric">
+            </div>
+
+            <div class="setting-row">
+                <div class="setting-label">سعر البنزين / لتر</div>
+                <input id="settingPetrol" type="number" inputmode="numeric">
+            </div>
+
+            <div class="setting-row">
+                <div class="setting-label">سعر الغاز / لتر</div>
+                <input id="settingLpg" type="number" inputmode="numeric">
+            </div>
+
+            <button class="save-btn" onclick="saveSettings()">حفظ الإعدادات</button>
+
+            <button class="danger-btn" onclick="resetWeek()">
+                تصفير بيانات الأسبوع الحالي
+            </button>
+
+            <button class="danger-btn" onclick="resetAll()">
+                حذف جميع البيانات
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+
+        <button class="nav-btn active" id="nav-home" onclick="openPage('home')">
+            <span class="nav-icon">⌂</span>
+            الرئيسية
         </button>
 
-        <button class="main-card" onclick="openPage('fuelPage')">
-            <div class="card-icon">⛽</div>
-            <div>
-                <div class="card-title">الوقود</div>
-                <div class="card-sub">بنزين / غاز</div>
-            </div>
+        <button class="nav-btn" id="nav-income" onclick="openIncomeModal()">
+            <span class="nav-icon">💰</span>
+            Bli
         </button>
 
-        <button class="main-card" onclick="openPage('linePage')">
-            <div class="card-icon">🚐</div>
-            <div>
-                <div class="card-title">خط</div>
-                <div class="card-sub">إدارة خطوطك</div>
-            </div>
+        <button class="nav-btn" id="nav-line" onclick="openPage('line')">
+            <span class="nav-icon">🚌</span>
+            خط
         </button>
 
-        <button class="main-card" onclick="openPage('weekPage')">
-            <div class="card-icon">📊</div>
-            <div>
-                <div class="card-title">الأسبوع</div>
-                <div class="card-sub">التفاصيل والأداء</div>
-            </div>
+        <button class="nav-btn" id="nav-settings" onclick="openPage('settings')">
+            <span class="nav-icon">⚙</span>
+            الإعدادات
         </button>
 
-    </div>
-
-
-    <div class="summary-grid">
-
-        <div class="summary">
-            <small>دخل البلي</small>
-            <b id="summaryIncome">0</b>
-        </div>
-
-        <div class="summary">
-            <small>البونص والإضافي</small>
-            <b id="summaryExtras">0</b>
-        </div>
-
-        <div class="summary">
-            <small>الوقود</small>
-            <b id="summaryFuel">0</b>
-        </div>
-
-        <div class="summary">
-            <small>الصافي بعد الوقود</small>
-            <b class="green" id="summaryNet">0</b>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- INCOME -->
-<section id="incomePage" class="page">
-
-    <button class="back-btn" onclick="goBack()">
-        <span class="back-icon">‹</span>
-        <span>رجوع</span>
-    </button>
-
-    <div class="section-title">💰 دخل البلي</div>
-
-    <div class="card">
-
-        <div class="input-group">
-            <label>التاريخ</label>
-
-            <div class="date-roll">
-
-                <select id="incomeDay" class="select"></select>
-
-                <select id="incomeMonth" class="select"></select>
-
-                <select id="incomeYear" class="select"></select>
-
-            </div>
-        </div>
-
-        <div class="input-group">
-            <label>دخل البلي بعد العمولة</label>
-            <input id="incomeAmount" class="input" type="number" inputmode="numeric" placeholder="مثلاً 40000">
-        </div>
-
-        <div class="input-group">
-            <label>البونص</label>
-            <input id="incomeBonus" class="input" type="number" inputmode="numeric" placeholder="0">
-        </div>
-
-        <div class="input-group">
-            <label>إضافي / تبس</label>
-            <input id="incomeExtra" class="input" type="number" inputmode="numeric" placeholder="0">
-        </div>
-
-        <button class="primary-btn" onclick="saveIncome()">
-            💾 حفظ دخل اليوم
-        </button>
-
-    </div>
-
-
-    <div class="days" id="incomeDays"></div>
-
-</section>
-
-
-<!-- FUEL -->
-<section id="fuelPage" class="page">
-
-    <button class="back-btn" onclick="goBack()">
-        <span class="back-icon">‹</span>
-        <span>رجوع</span>
-    </button>
-
-    <div class="section-title">⛽ الوقود</div>
-
-    <div class="card">
-
-        <div class="input-group">
-            <label>التاريخ</label>
-
-            <div class="date-roll">
-
-                <select id="fuelDay" class="select"></select>
-
-                <select id="fuelMonth" class="select"></select>
-
-                <select id="fuelYear" class="select"></select>
-
-            </div>
-        </div>
-
-        <div class="input-group">
-            <label>نوع الوقود</label>
-
-            <select id="fuelType" class="select">
-                <option value="petrol">بنزين</option>
-                <option value="lpg">غاز</option>
-            </select>
-        </div>
-
-        <div class="input-group">
-            <label>اللترات</label>
-            <input id="fuelLiters" class="input" type="number" step="0.1" inputmode="decimal" placeholder="مثلاً 10">
-        </div>
-
-        <button class="primary-btn" onclick="saveFuel()">
-            ⛽ حفظ الوقود
-        </button>
-
-    </div>
-
-    <div id="fuelDays"></div>
-
-</section>
-
-
-<!-- LINE -->
-<section id="linePage" class="page">
-
-    <button class="back-btn" onclick="goBack()">
-        <span class="back-icon">‹</span>
-        <span>رجوع</span>
-    </button>
-
-    <div class="section-title">🚐 الخطوط</div>
-
-    <button class="primary-btn" onclick="openLineModal()" style="margin-bottom:14px;">
-        ＋ إضافة خط
-    </button>
-
-    <div id="linesList"></div>
-
-    <div class="week-total" style="margin-top:14px;">
-        <div class="week-total-row">
-            <span>إجمالي دخل الخطوط</span>
-            <b class="green" id="linesTotal">0 د.ع</b>
-        </div>
-    </div>
-
-</section>
-
-
-<!-- WEEK -->
-<section id="weekPage" class="page">
-
-    <button class="back-btn" onclick="goBack()">
-        <span class="back-icon">‹</span>
-        <span>رجوع</span>
-    </button>
-
-    <div class="section-title">📊 تفاصيل الأسبوع</div>
-
-    <div class="week-total">
-
-        <div class="week-total-row">
-            <span>دخل البلي</span>
-            <b id="weekIncome">0</b>
-        </div>
-
-        <div class="week-total-row">
-            <span>البونص والإضافي</span>
-            <b id="weekExtras">0</b>
-        </div>
-
-        <div class="week-total-row">
-            <span>إجمالي دخل البلي</span>
-            <b id="weekGross">0</b>
-        </div>
-
-        <div class="week-total-row">
-            <span>تكلفة الوقود</span>
-            <b class="red" id="weekFuel">0</b>
-        </div>
-
-        <div class="week-total-row">
-            <span>الصافي بعد الوقود</span>
-            <b class="green" id="weekNet">0</b>
-        </div>
-
-    </div>
-
-    <div id="weekDays"></div>
-
-</section>
-
-
-<!-- SETTINGS -->
-<section id="settingsPage" class="page">
-
-    <button class="back-btn" onclick="goBack()">
-        <span class="back-icon">‹</span>
-        <span>رجوع</span>
-    </button>
-
-    <div class="section-title">⚙️ الإعدادات</div>
-
-    <div class="card">
-
-        <div class="setting-item">
-            <label>الهدف الأسبوعي</label>
-            <input id="settingGoal" class="input" type="number" inputmode="numeric">
-        </div>
-
-        <div class="setting-item">
-            <label>سعر البنزين / لتر</label>
-            <input id="settingPetrol" class="input" type="number" inputmode="numeric">
-        </div>
-
-        <div class="setting-item">
-            <label>سعر الغاز / لتر</label>
-            <input id="settingLpg" class="input" type="number" inputmode="numeric">
-        </div>
-
-        <button class="primary-btn" onclick="saveSettings()">
-            💾 حفظ الإعدادات
-        </button>
-
-    </div>
-
-    <div class="card">
-
-        <button class="danger-btn" onclick="resetWeek()">
-            🗑️ تصفير الأسبوع الحالي
-        </button>
-
-        <div style="height:9px"></div>
-
-        <button class="danger-btn" onclick="resetAll()">
-            ⚠️ حذف جميع البيانات
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-
-    <button id="navHome" class="nav-btn active" onclick="openPageDirect('homePage','navHome')">
-        <span class="nav-icon">🏠</span>
-        الرئيسية
-    </button>
-
-    <button id="navIncome" class="nav-btn" onclick="openPageDirect('incomePage','navIncome')">
-        <span class="nav-icon">💰</span>
-        البلي
-    </button>
-
-    <button id="navLine" class="nav-btn" onclick="openPageDirect('linePage','navLine')">
-        <span class="nav-icon">🚐</span>
-        خط
-    </button>
-
-    <button id="navSettings" class="nav-btn" onclick="openPageDirect('settingsPage','navSettings')">
-        <span class="nav-icon">⚙️</span>
-        إعدادات
-    </button>
-
-</nav>
+    </nav>
 
 </div>
 
 
-<!-- LINE MODAL -->
-<div id="lineModal" class="modal">
+<!-- INCOME MODAL -->
+<div class="modal" id="incomeModal">
 
     <div class="modal-box">
 
         <div class="modal-head">
-            <h3 id="lineModalTitle">🚐 إضافة خط</h3>
-            <button class="close" onclick="closeLineModal()">✕</button>
+            <div class="modal-title">إضافة دخل Bli</div>
+            <button class="close-btn" onclick="closeModal('incomeModal')">×</button>
         </div>
 
-        <div class="input-group">
-            <label>اسم الخط</label>
-            <input id="lineName" class="input" type="text" placeholder="مثلاً خط مدرسة النور">
+        <div class="field">
+            <label>التاريخ</label>
+
+            <div class="date-roll">
+                <select id="modalIncomeDay"></select>
+                <select id="modalIncomeMonth"></select>
+                <select id="modalIncomeYear"></select>
+            </div>
         </div>
 
-        <div class="input-group">
-            <label>المبلغ</label>
-            <input id="lineAmount" class="input" type="number" inputmode="numeric" placeholder="مثلاً 200000">
+        <div class="field">
+            <label>دخل Bli بعد العمولة</label>
+            <input id="modalIncomeAmount" type="number" inputmode="numeric" placeholder="مثلاً 40000">
         </div>
 
-        <button class="primary-btn" onclick="saveLine()">
-            💾 حفظ الخط
-        </button>
+        <div class="field">
+            <label>البونص</label>
+            <input id="modalIncomeBonus" type="number" inputmode="numeric" placeholder="0">
+        </div>
+
+        <div class="field">
+            <label>إضافي / إكراميات</label>
+            <input id="modalIncomeExtra" type="number" inputmode="numeric" placeholder="0">
+        </div>
+
+        <button class="save-btn" onclick="saveIncomeFromModal()">حفظ</button>
 
     </div>
-
 </div>
 
 
-<div id="toast" class="toast"></div>
+<!-- FUEL MODAL -->
+<div class="modal" id="fuelModal">
+
+    <div class="modal-box">
+
+        <div class="modal-head">
+            <div class="modal-title">إضافة وقود</div>
+            <button class="close-btn" onclick="closeModal('fuelModal')">×</button>
+        </div>
+
+        <div class="field">
+            <label>التاريخ</label>
+
+            <div class="date-roll">
+                <select id="modalFuelDay"></select>
+                <select id="modalFuelMonth"></select>
+                <select id="modalFuelYear"></select>
+            </div>
+        </div>
+
+        <div class="field">
+            <label>نوع الوقود</label>
+
+            <select id="modalFuelType">
+                <option value="petrol">بنزين</option>
+                <option value="lpg">غاز LPG</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label>عدد اللترات</label>
+            <input id="modalFuelLiters" type="number" step="0.1" inputmode="decimal" placeholder="مثلاً 20">
+        </div>
+
+        <button class="save-btn" onclick="saveFuelFromModal()">حفظ</button>
+
+    </div>
+</div>
+
+
+<div class="toast" id="toast"></div>
 
 
 <script>
+/* =========================================================
+   BLI DRIVER
+   Local Storage Data
+========================================================= */
 
-/* =========================
-   DATA
-========================= */
+const STORAGE_KEY = "bli_driver_final_v1";
 
-const STORAGE = {
-    settings:"bli_settings_v4",
-    income:"bli_income_v4",
-    fuel:"bli_fuel_v4",
-    lines:"bli_lines_v4"
+let data = {
+    settings:{
+        weeklyGoal:500000,
+        petrolPrice:450,
+        lpgPrice:200
+    },
+    income:{},
+    fuel:{},
+    lines:[]
 };
 
-let settings = JSON.parse(localStorage.getItem(STORAGE.settings)) || {
-    weeklyGoal:500000,
-    petrolPrice:450,
-    lpgPrice:200
-};
-
-let incomeData = JSON.parse(localStorage.getItem(STORAGE.income)) || {};
-
-let fuelData = JSON.parse(localStorage.getItem(STORAGE.fuel)) || {};
-
-let linesData = JSON.parse(localStorage.getItem(STORAGE.lines)) || [];
-
-let historyStack = [];
+let currentPage = "home";
+let pageHistory = [];
 
 let editingLineId = null;
 
 
-/* =========================
-   DATE HELPERS
-========================= */
+/* =========================================================
+   LOAD / SAVE
+========================================================= */
+
+function loadData(){
+
+    try{
+        const saved = localStorage.getItem(STORAGE_KEY);
+
+        if(saved){
+            const parsed = JSON.parse(saved);
+
+            data = {
+                settings:{
+                    weeklyGoal:Number(parsed.settings?.weeklyGoal) || 500000,
+                    petrolPrice:Number(parsed.settings?.petrolPrice) || 450,
+                    lpgPrice:Number(parsed.settings?.lpgPrice) || 200
+                },
+                income:parsed.income || {},
+                fuel:parsed.fuel || {},
+                lines:Array.isArray(parsed.lines) ? parsed.lines : []
+            };
+        }
+
+    }catch(e){
+        console.log(e);
+    }
+}
+
+function saveData(){
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+}
+
+
+/* =========================================================
+   DATE FUNCTIONS
+========================================================= */
 
 function pad(n){
     return String(n).padStart(2,"0");
 }
 
 function dateKey(date){
-    return date.getFullYear()+"-"+pad(date.getMonth()+1)+"-"+pad(date.getDate());
+
+    return date.getFullYear() +
+        "-" + pad(date.getMonth()+1) +
+        "-" + pad(date.getDate());
 }
 
 function todayKey(){
     return dateKey(new Date());
 }
 
-function parseKey(key){
-    const p = key.split("-").map(Number);
-    return new Date(p[0],p[1]-1,p[2]);
-}
+function dateFromKey(key){
 
-function formatEnglishDate(key){
-    const d = parseKey(key);
-    return pad(d.getDate())+" / "+pad(d.getMonth()+1)+" / "+d.getFullYear();
-}
+    const p = key.split("-");
 
-function formatShortDate(key){
-    const d = parseKey(key);
-    return d.getDate()+"/"+(d.getMonth()+1);
+    return new Date(
+        Number(p[0]),
+        Number(p[1])-1,
+        Number(p[2])
+    );
 }
 
 function getWeekDates(baseDate = new Date()){
 
-    const d = new Date(
-        baseDate.getFullYear(),
-        baseDate.getMonth(),
-        baseDate.getDate()
-    );
+    const d = new Date(baseDate);
+
+    d.setHours(12,0,0,0);
 
     const day = d.getDay();
 
-    d.setDate(d.getDate() - day);
+    const sunday = new Date(d);
 
-    const result=[];
+    sunday.setDate(d.getDate() - day);
+
+    const arr = [];
 
     for(let i=0;i<7;i++){
 
-        const x=new Date(d);
+        const x = new Date(sunday);
 
-        x.setDate(d.getDate()+i);
+        x.setDate(sunday.getDate()+i);
 
-        result.push(dateKey(x));
-
+        arr.push(x);
     }
 
-    return result;
+    return arr;
 }
 
-function isSameWeek(key){
-    return getWeekDates().includes(key);
+function formatMainDate(date){
+
+    return date.getDate() + "/" + (date.getMonth()+1);
 }
 
-function formatMoney(value){
-    return Math.round(Number(value)||0).toLocaleString("en-US")+" د.ع";
+function formatInputDate(date){
+
+    return pad(date.getDate()) +
+        " / " +
+        pad(date.getMonth()+1) +
+        " / " +
+        date.getFullYear();
+}
+
+function arabicDayName(date){
+
+    const names = [
+        "الأحد",
+        "الإثنين",
+        "الثلاثاء",
+        "الأربعاء",
+        "الخميس",
+        "الجمعة",
+        "السبت"
+    ];
+
+    return names[date.getDay()];
 }
 
 
-/* =========================
-   ARABIC DAYS
-========================= */
-
-const arabicDays = [
-    "الأحد",
-    "الإثنين",
-    "الثلاثاء",
-    "الأربعاء",
-    "الخميس",
-    "الجمعة",
-    "السبت"
-];
-
-
-/* =========================
+/* =========================================================
    DATE ROLL
-========================= */
+========================================================= */
 
-function setupDateRoll(dayId,monthId,yearId){
+function populateDateRoll(prefix){
 
-    const day = document.getElementById(dayId);
-    const month = document.getElementById(monthId);
-    const year = document.getElementById(yearId);
+    const day = document.getElementById(prefix+"Day");
+    const month = document.getElementById(prefix+"Month");
+    const year = document.getElementById(prefix+"Year");
 
-    day.innerHTML="";
-    month.innerHTML="";
-    year.innerHTML="";
+    if(!day || !month || !year) return;
+
+    day.innerHTML = "";
+    month.innerHTML = "";
+    year.innerHTML = "";
 
     for(let i=1;i<=31;i++){
-        day.innerHTML += `<option value="${i}">${pad(i)}</option>`;
+
+        const op = document.createElement("option");
+
+        op.value = i;
+        op.textContent = pad(i);
+
+        day.appendChild(op);
     }
 
     for(let i=1;i<=12;i++){
-        month.innerHTML += `<option value="${i}">${pad(i)}</option>`;
+
+        const op = document.createElement("option");
+
+        op.value = i;
+        op.textContent = pad(i);
+
+        month.appendChild(op);
     }
 
     const currentYear = new Date().getFullYear();
 
-    for(let y=currentYear-3;y<=currentYear+3;y++){
-        year.innerHTML += `<option value="${y}">${y}</option>`;
+    for(let i=currentYear-3;i<=currentYear+3;i++){
+
+        const op = document.createElement("option");
+
+        op.value = i;
+        op.textContent = i;
+
+        year.appendChild(op);
     }
-
-    setRollToday(dayId,monthId,yearId);
 }
 
-function setRollToday(dayId,monthId,yearId){
+function setRollDate(prefix,date){
 
-    const d=new Date();
+    const d = document.getElementById(prefix+"Day");
+    const m = document.getElementById(prefix+"Month");
+    const y = document.getElementById(prefix+"Year");
 
-    document.getElementById(dayId).value=d.getDate();
-    document.getElementById(monthId).value=d.getMonth()+1;
-    document.getElementById(yearId).value=d.getFullYear();
+    if(!d || !m || !y) return;
+
+    d.value = date.getDate();
+    m.value = date.getMonth()+1;
+    y.value = date.getFullYear();
 }
 
-function getRollKey(dayId,monthId,yearId){
+function getRollDate(prefix){
 
-    const d=Number(document.getElementById(dayId).value);
-    const m=Number(document.getElementById(monthId).value);
-    const y=Number(document.getElementById(yearId).value);
+    const d = Number(document.getElementById(prefix+"Day").value);
+    const m = Number(document.getElementById(prefix+"Month").value);
+    const y = Number(document.getElementById(prefix+"Year").value);
 
-    return y+"-"+pad(m)+"-"+pad(d);
+    return new Date(y,m-1,d,12,0,0,0);
 }
 
 
-/* =========================
+/* =========================================================
    NAVIGATION
-========================= */
+========================================================= */
 
-function openPage(pageId){
+function openPage(page){
 
-    const current=document.querySelector(".page.active");
+    if(page === currentPage) return;
 
-    if(current && current.id!==pageId){
-        historyStack.push(current.id);
-    }
+    pageHistory.push(currentPage);
 
-    document.querySelectorAll(".page").forEach(p=>{
-        p.classList.remove("active");
-    });
-
-    document.getElementById(pageId).classList.add("active");
-
-    refreshAll();
+    showPage(page);
 }
 
-function openPageDirect(pageId,navId){
-
-    historyStack=[];
+function showPage(page){
 
     document.querySelectorAll(".page").forEach(p=>{
         p.classList.remove("active");
     });
 
-    document.getElementById(pageId).classList.add("active");
+    const target = document.getElementById("page-"+page);
+
+    if(target){
+        target.classList.add("active");
+    }
+
+    currentPage = page;
 
     document.querySelectorAll(".nav-btn").forEach(b=>{
         b.classList.remove("active");
     });
 
-    if(navId){
-        document.getElementById(navId).classList.add("active");
+    const nav = document.getElementById("nav-"+page);
+
+    if(nav){
+        nav.classList.add("active");
+    }else{
+        document.getElementById("nav-home")?.classList.add("active");
     }
 
-    refreshAll();
+    if(page === "home") renderHome();
+    if(page === "income") renderIncomePage();
+    if(page === "fuel") renderFuelPage();
+    if(page === "line") renderLines();
+    if(page === "week") renderWeek();
+    if(page === "settings") renderSettings();
+
+    window.scrollTo(0,0);
 }
 
 function goBack(){
 
-    if(historyStack.length>0){
+    if(pageHistory.length){
 
-        const previous=historyStack.pop();
+        const previous = pageHistory.pop();
 
-        document.querySelectorAll(".page").forEach(p=>{
-            p.classList.remove("active");
-        });
-
-        document.getElementById(previous).classList.add("active");
-
-        refreshAll();
+        showPage(previous);
 
     }else{
 
-        openPageDirect("homePage","navHome");
-
+        showPage("home");
     }
 }
 
 
-/* =========================
-   SAVE HELPERS
-========================= */
+/* =========================================================
+   MODALS
+========================================================= */
 
-function saveStorage(){
+function openModal(id){
+    document.getElementById(id).classList.add("show");
+}
 
-    localStorage.setItem(
-        STORAGE.settings,
-        JSON.stringify(settings)
-    );
+function closeModal(id){
+    document.getElementById(id).classList.remove("show");
+}
 
-    localStorage.setItem(
-        STORAGE.income,
-        JSON.stringify(incomeData)
-    );
+function openIncomeModal(){
 
-    localStorage.setItem(
-        STORAGE.fuel,
-        JSON.stringify(fuelData)
-    );
+    populateDateRoll("modalIncome");
+    setRollDate("modalIncome",new Date());
 
-    localStorage.setItem(
-        STORAGE.lines,
-        JSON.stringify(linesData)
-    );
+    document.getElementById("modalIncomeAmount").value="";
+    document.getElementById("modalIncomeBonus").value="";
+    document.getElementById("modalIncomeExtra").value="";
+
+    openModal("incomeModal");
+}
+
+function openFuelModal(){
+
+    populateDateRoll("modalFuel");
+    setRollDate("modalFuel",new Date());
+
+    document.getElementById("modalFuelType").value="petrol";
+    document.getElementById("modalFuelLiters").value="";
+
+    openModal("fuelModal");
 }
 
 
-/* =========================
+/* =========================================================
    INCOME
-========================= */
+========================================================= */
+
+function ensureIncome(key){
+
+    if(!data.income[key]){
+
+        data.income[key] = {
+            bli:0,
+            bonus:0,
+            extra:0
+        };
+    }
+
+    return data.income[key];
+}
+
+function saveIncomeData(date,amount,bonus,extra){
+
+    const key = dateKey(date);
+
+    data.income[key] = {
+        bli:Number(amount)||0,
+        bonus:Number(bonus)||0,
+        extra:Number(extra)||0
+    };
+
+    saveData();
+    renderAll();
+
+    showToast("تم حفظ الدخل بنجاح");
+}
 
 function saveIncome(){
 
-    const key=getRollKey(
-        "incomeDay",
-        "incomeMonth",
-        "incomeYear"
-    );
+    const date = getRollDate("income");
 
-    const amount=Number(
+    const amount = Number(
         document.getElementById("incomeAmount").value
-    )||0;
+    ) || 0;
 
-    const bonus=Number(
+    const bonus = Number(
         document.getElementById("incomeBonus").value
-    )||0;
+    ) || 0;
 
-    const extra=Number(
+    const extra = Number(
         document.getElementById("incomeExtra").value
-    )||0;
+    ) || 0;
 
-    if(amount<=0 && bonus<=0 && extra<=0){
+    if(amount < 0 || bonus < 0 || extra < 0){
 
-        showToast("أدخل مبلغاً واحداً على الأقل");
+        showToast("تأكد من المبالغ");
 
         return;
     }
 
-    incomeData[key]={
-        amount,
-        bonus,
-        extra
-    };
+    saveIncomeData(date,amount,bonus,extra);
 
-    saveStorage();
-
-    document.getElementById("incomeAmount").value="";
-    document.getElementById("incomeBonus").value="";
-    document.getElementById("incomeExtra").value="";
-
-    showToast("تم حفظ دخل اليوم ✓");
-
-    refreshAll();
+    showPage("home");
 }
 
-function totalIncome(){
+function saveIncomeFromModal(){
 
-    let total=0;
+    const date = getRollDate("modalIncome");
 
-    Object.keys(incomeData).forEach(key=>{
+    const amount = Number(
+        document.getElementById("modalIncomeAmount").value
+    ) || 0;
 
-        if(isSameWeek(key)){
+    const bonus = Number(
+        document.getElementById("modalIncomeBonus").value
+    ) || 0;
 
-            const x=incomeData[key]||{};
+    const extra = Number(
+        document.getElementById("modalIncomeExtra").value
+    ) || 0;
 
-            total +=
-                Number(x.amount)||0;
+    saveIncomeData(date,amount,bonus,extra);
 
-        }
+    closeModal("incomeModal");
+}
 
+function getIncomeTotal(key){
+
+    const x = data.income[key];
+
+    if(!x) return 0;
+
+    return (
+        Number(x.bli)||0
+    ) + (
+        Number(x.bonus)||0
+    ) + (
+        Number(x.extra)||0
+    );
+}
+
+function getWeekIncome(){
+
+    let total = 0;
+
+    getWeekDates().forEach(d=>{
+        total += getIncomeTotal(dateKey(d));
     });
 
     return total;
 }
 
-function totalBonusExtra(){
 
-    let total=0;
-
-    Object.keys(incomeData).forEach(key=>{
-
-        if(isSameWeek(key)){
-
-            const x=incomeData[key]||{};
-
-            total +=
-                (Number(x.bonus)||0)+
-                (Number(x.extra)||0);
-
-        }
-
-    });
-
-    return total;
-}
-
-function totalBliAchievement(){
-
-    return totalIncome()+totalBonusExtra();
-}
-
-
-/* =========================
+/* =========================================================
    FUEL
-========================= */
+========================================================= */
+
+function ensureFuel(key){
+
+    if(!data.fuel[key]){
+
+        data.fuel[key] = {
+            petrol:0,
+            lpg:0
+        };
+    }
+
+    return data.fuel[key];
+}
+
+function saveFuelData(date,type,liters){
+
+    const key = dateKey(date);
+
+    const f = ensureFuel(key);
+
+    f[type] = (
+        Number(f[type])||0
+    ) + (
+        Number(liters)||0
+    );
+
+    saveData();
+    renderAll();
+
+    showToast("تم حفظ الوقود بنجاح");
+}
 
 function saveFuel(){
 
-    const key=getRollKey(
-        "fuelDay",
-        "fuelMonth",
-        "fuelYear"
-    );
+    const date = getRollDate("fuel");
 
-    const type=document.getElementById("fuelType").value;
+    const type = document.getElementById("fuelType").value;
 
-    const liters=Number(
+    const liters = Number(
         document.getElementById("fuelLiters").value
-    )||0;
+    ) || 0;
 
-    if(liters<=0){
+    if(liters <= 0){
 
         showToast("أدخل عدد اللترات");
 
         return;
     }
 
-    if(!fuelData[key]){
-        fuelData[key]={
-            petrol:0,
-            lpg:0
-        };
+    saveFuelData(date,type,liters);
+
+    showPage("home");
+}
+
+function saveFuelFromModal(){
+
+    const date = getRollDate("modalFuel");
+
+    const type = document.getElementById("modalFuelType").value;
+
+    const liters = Number(
+        document.getElementById("modalFuelLiters").value
+    ) || 0;
+
+    if(liters <= 0){
+
+        showToast("أدخل عدد اللترات");
+
+        return;
     }
 
-    fuelData[key][type] =
-        (Number(fuelData[key][type])||0)+liters;
+    saveFuelData(date,type,liters);
 
-    saveStorage();
-
-    document.getElementById("fuelLiters").value="";
-
-    showToast("تم حفظ الوقود ✓");
-
-    refreshAll();
+    closeModal("fuelModal");
 }
 
-function fuelCostForKey(key){
+function getFuelCost(key){
 
-    const x=fuelData[key]||{};
+    const f = data.fuel[key];
 
-    return
-        (Number(x.petrol)||0)*Number(settings.petrolPrice) +
-        (Number(x.lpg)||0)*Number(settings.lpgPrice);
+    if(!f) return 0;
+
+    return (
+        (Number(f.petrol)||0) *
+        Number(data.settings.petrolPrice)
+    ) + (
+        (Number(f.lpg)||0) *
+        Number(data.settings.lpgPrice)
+    );
 }
 
-function totalFuelCost(){
+function getWeekFuelCost(){
 
-    let total=0;
+    let total = 0;
 
-    Object.keys(fuelData).forEach(key=>{
-
-        if(isSameWeek(key)){
-            total += fuelCostForKey(key);
-        }
-
+    getWeekDates().forEach(d=>{
+        total += getFuelCost(dateKey(d));
     });
 
     return total;
 }
 
 
-/* =========================
-   LINES
-========================= */
-
-function openLineModal(id=null){
-
-    editingLineId=id;
-
-    document.getElementById("lineModal").classList.add("show");
-
-    if(id){
-
-        const line=linesData.find(x=>x.id===id);
-
-        if(line){
-
-            document.getElementById("lineModalTitle").textContent="✏️ تعديل الخط";
-
-            document.getElementById("lineName").value=line.name;
-
-            document.getElementById("lineAmount").value=line.amount;
-
-        }
-
-    }else{
-
-        document.getElementById("lineModalTitle").textContent="🚐 إضافة خط";
-
-        document.getElementById("lineName").value="";
-
-        document.getElementById("lineAmount").value="";
-
-    }
-}
-
-function closeLineModal(){
-
-    document.getElementById("lineModal").classList.remove("show");
-
-    editingLineId=null;
-}
+/* =========================================================
+   LINE
+========================================================= */
 
 function saveLine(){
 
-    const name=document.getElementById("lineName").value.trim();
+    const name = document.getElementById("lineName").value.trim();
 
-    const amount=Number(
+    const amount = Number(
         document.getElementById("lineAmount").value
-    )||0;
+    ) || 0;
+
+    const date = getRollDate("line");
 
     if(!name){
 
@@ -1619,646 +1884,654 @@ function saveLine(){
         return;
     }
 
-    if(amount<=0){
+    if(amount <= 0){
 
-        showToast("اكتب مبلغ الخط");
+        showToast("أدخل المبلغ");
 
         return;
     }
 
     if(editingLineId){
 
-        const line=linesData.find(
-            x=>x.id===editingLineId
-        );
+        const item = data.lines.find(x=>x.id===editingLineId);
 
-        if(line){
+        if(item){
 
-            line.name=name;
-            line.amount=amount;
-
+            item.name = name;
+            item.amount = amount;
+            item.date = dateKey(date);
         }
+
+        editingLineId = null;
+
+        document.getElementById("lineSaveBtn").textContent="إضافة الخط";
+
+        showToast("تم تعديل الخط");
 
     }else{
 
-        linesData.push({
-            id:Date.now(),
-            name,
-            amount
+        data.lines.push({
+            id:Date.now().toString(),
+            name:name,
+            amount:amount,
+            date:dateKey(date)
         });
 
+        showToast("تمت إضافة الخط");
     }
 
-    saveStorage();
+    saveData();
 
-    closeLineModal();
+    document.getElementById("lineName").value="";
+    document.getElementById("lineAmount").value="";
 
-    showToast("تم حفظ الخط ✓");
+    setRollDate("line",new Date());
 
-    refreshAll();
+    renderLines();
+    renderHome();
+}
+
+function editLine(id){
+
+    const item = data.lines.find(x=>x.id===id);
+
+    if(!item) return;
+
+    editingLineId = id;
+
+    document.getElementById("lineName").value=item.name;
+    document.getElementById("lineAmount").value=item.amount;
+
+    setRollDate("line",dateFromKey(item.date));
+
+    document.getElementById("lineSaveBtn").textContent="حفظ التعديل";
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 }
 
 function deleteLine(id){
 
     if(!confirm("هل تريد حذف هذا الخط؟")) return;
 
-    linesData=linesData.filter(
-        x=>x.id!==id
-    );
+    data.lines = data.lines.filter(x=>x.id!==id);
 
-    saveStorage();
+    saveData();
+
+    renderLines();
+    renderHome();
 
     showToast("تم حذف الخط");
-
-    refreshAll();
 }
 
-function linesTotal(){
+function getLineTotal(){
 
-    return linesData.reduce(
+    return data.lines.reduce(
         (sum,x)=>sum+(Number(x.amount)||0),
         0
     );
 }
 
-
-/* =========================
-   HOME RENDER
-========================= */
-
-function renderHome(){
-
-    const goal=Number(settings.weeklyGoal)||0;
-
-    const completed=totalBliAchievement();
-
-    const remaining=Math.max(
-        goal-completed,
-        0
-    );
-
-    const percent=goal>0
-        ?Math.min((completed/goal)*100,100)
-        :0;
-
-    document.getElementById("homeGoal").textContent=
-        formatMoney(goal);
-
-    document.getElementById("homeCompleted").textContent=
-        formatMoney(completed);
-
-    document.getElementById("homeRemaining").textContent=
-        formatMoney(remaining);
-
-    document.getElementById("homePercent").textContent=
-        Math.round(percent)+"%";
-
-    document.getElementById("homeProgress").style.width=
-        percent+"%";
-
-    const week=getWeekDates();
-
-    const today=new Date();
-
-    const todayIndex=today.getDay();
-
-    const remainingDays=
-        7-todayIndex;
-
-    const daily=
-        remainingDays>0
-        ?Math.ceil(remaining/remainingDays)
-        :remaining;
-
-    document.getElementById("dailyRequired").textContent=
-        formatMoney(daily);
-
-    const start=parseKey(week[0]);
-    const end=parseKey(week[6]);
-
-    document.getElementById("weekRange").textContent=
-        start.getDate()+"/"+(start.getMonth()+1)
-        +" — "+
-        end.getDate()+"/"+(end.getMonth()+1);
-
-
-    document.getElementById("summaryIncome").textContent=
-        formatMoney(totalIncome());
-
-    document.getElementById("summaryExtras").textContent=
-        formatMoney(totalBonusExtra());
-
-    document.getElementById("summaryFuel").textContent=
-        formatMoney(totalFuelCost());
-
-    document.getElementById("summaryNet").textContent=
-        formatMoney(
-            totalBliAchievement()-totalFuelCost()
-        );
-}
-
-
-/* =========================
-   INCOME DAYS
-========================= */
-
-function renderIncomeDays(){
-
-    const container=
-        document.getElementById("incomeDays");
-
-    const week=getWeekDates();
-
-    container.innerHTML="";
-
-    week.forEach(key=>{
-
-        const x=incomeData[key]||{
-            amount:0,
-            bonus:0,
-            extra:0
-        };
-
-        const total=
-            (Number(x.amount)||0)+
-            (Number(x.bonus)||0)+
-            (Number(x.extra)||0);
-
-        const d=parseKey(key);
-
-        const card=document.createElement("div");
-
-        card.className="day-card";
-
-        card.onclick=()=>{
-
-            document.getElementById("incomeDay").value=d.getDate();
-
-            document.getElementById("incomeMonth").value=d.getMonth()+1;
-
-            document.getElementById("incomeYear").value=d.getFullYear();
-
-            document.getElementById("incomeAmount").value=x.amount||"";
-
-            document.getElementById("incomeBonus").value=x.bonus||"";
-
-            document.getElementById("incomeExtra").value=x.extra||"";
-
-            window.scrollTo({
-                top:0,
-                behavior:"smooth"
-            });
-
-        };
-
-        card.innerHTML=`
-
-            <div class="day-left">
-
-                <div class="day-name">
-                    ${arabicDays[d.getDay()]}
-                </div>
-
-                <div class="day-date">
-                    ${formatEnglishDate(key)}
-                </div>
-
-            </div>
-
-            <div class="day-money">
-
-                <b>${formatMoney(total)}</b>
-
-                <small>
-                    بلي ${formatMoney(x.amount||0)}
-                </small>
-
-            </div>
-
-        `;
-
-        container.appendChild(card);
-
-    });
-
-}
-
-
-/* =========================
-   FUEL DAYS
-========================= */
-
-function renderFuelDays(){
-
-    const container=
-        document.getElementById("fuelDays");
-
-    const week=getWeekDates();
-
-    container.innerHTML="";
-
-    week.forEach(key=>{
-
-        const x=fuelData[key]||{
-            petrol:0,
-            lpg:0
-        };
-
-        const cost=fuelCostForKey(key);
-
-        if(
-            Number(x.petrol||0)===0 &&
-            Number(x.lpg||0)===0
-        ){
-
-            return;
-        }
-
-        const d=parseKey(key);
-
-        const card=document.createElement("div");
-
-        card.className="day-card";
-
-        card.innerHTML=`
-
-            <div class="day-left">
-
-                <div class="day-name">
-                    ${arabicDays[d.getDay()]}
-                </div>
-
-                <div class="day-date">
-                    ${formatEnglishDate(key)}
-                </div>
-
-            </div>
-
-            <div class="day-money">
-
-                <b class="red">${formatMoney(cost)}</b>
-
-                <small>
-                    بنزين ${Number(x.petrol||0).toFixed(1)} L
-                    • غاز ${Number(x.lpg||0).toFixed(1)} L
-                </small>
-
-            </div>
-
-        `;
-
-        container.appendChild(card);
-
-    });
-
-    if(!container.innerHTML){
-
-        container.innerHTML=`
-            <div class="empty">
-                <div class="empty-icon">⛽</div>
-                لا توجد بيانات وقود هذا الأسبوع
-            </div>
-        `;
-
-    }
-
-}
-
-
-/* =========================
-   LINES RENDER
-========================= */
-
 function renderLines(){
 
-    const container=
-        document.getElementById("linesList");
+    const list = document.getElementById("lineList");
 
-    container.innerHTML="";
+    if(!list) return;
 
-    if(linesData.length===0){
+    document.getElementById("lineTotal").textContent =
+        formatNumber(getLineTotal());
 
-        container.innerHTML=`
-            <div class="empty">
-                <div class="empty-icon">🚐</div>
-                لا توجد خطوط مضافة
+    if(!data.lines.length){
+
+        list.innerHTML = `
+            <div class="form-card">
+                <div class="empty">
+                    لا توجد خطوط مضافة حالياً
+                </div>
             </div>
         `;
 
-    }else{
+        return;
+    }
 
-        linesData.forEach(line=>{
+    const sorted = [...data.lines].sort(
+        (a,b)=>String(b.date).localeCompare(String(a.date))
+    );
 
-            const card=document.createElement("div");
+    list.innerHTML = sorted.map(item=>{
 
-            card.className="line-card";
+        const date = dateFromKey(item.date);
 
-            card.innerHTML=`
+        return `
+            <div class="line-item">
 
-                <div class="line-head">
+                <div class="line-item-top">
 
                     <div class="line-name">
-                        🚐 ${escapeHtml(line.name)}
+                        ${escapeHtml(item.name)}
                     </div>
 
                     <div class="line-amount">
-                        ${formatMoney(line.amount)}
+                        ${formatNumber(item.amount)}
                     </div>
 
+                </div>
+
+                <div class="line-meta">
+                    ${formatInputDate(date)}
                 </div>
 
                 <div class="line-actions">
 
                     <button
-                        class="small-btn"
-                        onclick="openLineModal(${line.id})">
-                        ✏️ تعديل
+                        class="small-btn edit-btn"
+                        onclick="editLine('${item.id}')">
+                        تعديل
                     </button>
 
                     <button
-                        class="small-btn delete"
-                        onclick="deleteLine(${line.id})">
-                        🗑️ حذف
+                        class="small-btn delete-btn"
+                        onclick="deleteLine('${item.id}')">
+                        حذف
                     </button>
 
                 </div>
 
-            `;
+            </div>
+        `;
 
-            container.appendChild(card);
-
-        });
-
-    }
-
-    document.getElementById("linesTotal").textContent=
-        formatMoney(linesTotal());
+    }).join("");
 }
 
 
-/* =========================
-   WEEK RENDER
-========================= */
+/* =========================================================
+   HOME
+========================================================= */
+
+function renderHome(){
+
+    const week = getWeekDates();
+
+    const start = week[0];
+    const end = week[6];
+
+    document.getElementById("weekRange").textContent =
+        formatMainDate(start) +
+        " — " +
+        formatMainDate(end);
+
+    const today = new Date();
+
+    document.getElementById("headerToday").textContent =
+        formatInputDate(today);
+
+    document.getElementById("todayText").textContent =
+        "اليوم: " + arabicDayName(today) +
+        "  •  " +
+        formatMainDate(today);
+
+    const completed = getWeekIncome();
+
+    const goal = Number(data.settings.weeklyGoal)||0;
+
+    const remaining = Math.max(goal-completed,0);
+
+    let percent = goal > 0
+        ? (completed/goal)*100
+        : 0;
+
+    percent = Math.min(percent,100);
+
+    document.getElementById("goalPercent").textContent =
+        Math.round(percent) + "%";
+
+    document.getElementById("progressFill").style.width =
+        percent + "%";
+
+    document.getElementById("completedValue").textContent =
+        formatNumber(completed);
+
+    document.getElementById("goalValue").textContent =
+        formatNumber(goal);
+
+    document.getElementById("remainingValue").textContent =
+        formatNumber(remaining);
+
+    const todayIndex = today.getDay();
+
+    const daysLeft = Math.max(
+        7-todayIndex,
+        1
+    );
+
+    const dailyRequired = remaining/daysLeft;
+
+    document.getElementById("dailyTargetValue").textContent =
+        formatNumber(Math.ceil(dailyRequired));
+
+    document.getElementById("daysRemainingText").textContent =
+        "باقي " + daysLeft + " يوم ضمن هذا الأسبوع";
+
+    const fuelCost = getWeekFuelCost();
+
+    document.getElementById("summaryIncome").textContent =
+        formatNumber(completed);
+
+    document.getElementById("summaryFuel").textContent =
+        formatNumber(fuelCost);
+
+    document.getElementById("summaryProfit").textContent =
+        formatNumber(completed-fuelCost);
+
+    document.getElementById("summaryLine").textContent =
+        formatNumber(getLineTotal());
+
+    renderDays();
+}
+
+function renderDays(){
+
+    const list = document.getElementById("daysList");
+
+    const todayKeyValue = todayKey();
+
+    list.innerHTML = getWeekDates().map(d=>{
+
+        const key = dateKey(d);
+
+        const total = getIncomeTotal(key);
+
+        const fuelCost = getFuelCost(key);
+
+        const profit = total-fuelCost;
+
+        const isToday = key===todayKeyValue;
+
+        return `
+            <div
+                class="day-row ${isToday ? "today":""}"
+                onclick="openDay('${key}')">
+
+                <div class="day-name">
+
+                    <strong>
+                        ${arabicDayName(d)}
+                        ${isToday ? " • اليوم":""}
+                    </strong>
+
+                    <small>
+                        ${formatMainDate(d)}
+                    </small>
+
+                </div>
+
+                <div class="day-income">
+
+                    ${formatNumber(total)}
+
+                    <small>
+                        صافي بعد الوقود: ${formatNumber(profit)}
+                    </small>
+
+                </div>
+
+            </div>
+        `;
+
+    }).join("");
+}
+
+function openDay(key){
+
+    populateDateRoll("income");
+
+    setRollDate("income",dateFromKey(key));
+
+    const x = data.income[key] || {
+        bli:0,
+        bonus:0,
+        extra:0
+    };
+
+    document.getElementById("incomeAmount").value =
+        x.bli || "";
+
+    document.getElementById("incomeBonus").value =
+        x.bonus || "";
+
+    document.getElementById("incomeExtra").value =
+        x.extra || "";
+
+    pageHistory.push("home");
+
+    showPage("income");
+}
+
+
+/* =========================================================
+   INCOME PAGE
+========================================================= */
+
+function renderIncomePage(){
+
+    populateDateRoll("income");
+
+    const existing = data.income[todayKey()] || {
+        bli:0,
+        bonus:0,
+        extra:0
+    };
+
+    setRollDate("income",new Date());
+
+    document.getElementById("incomeAmount").value =
+        existing.bli || "";
+
+    document.getElementById("incomeBonus").value =
+        existing.bonus || "";
+
+    document.getElementById("incomeExtra").value =
+        existing.extra || "";
+
+    let bli=0,
+        bonus=0,
+        extra=0;
+
+    getWeekDates().forEach(d=>{
+
+        const x = data.income[dateKey(d)];
+
+        if(x){
+
+            bli += Number(x.bli)||0;
+            bonus += Number(x.bonus)||0;
+            extra += Number(x.extra)||0;
+        }
+    });
+
+    document.getElementById("incomeWeekBli").textContent =
+        formatNumber(bli);
+
+    document.getElementById("incomeWeekBonus").textContent =
+        formatNumber(bonus);
+
+    document.getElementById("incomeWeekExtra").textContent =
+        formatNumber(extra);
+
+    document.getElementById("incomeWeekTotal").textContent =
+        formatNumber(bli+bonus+extra);
+}
+
+
+/* =========================================================
+   FUEL PAGE
+========================================================= */
+
+function renderFuelPage(){
+
+    populateDateRoll("fuel");
+
+    setRollDate("fuel",new Date());
+
+    document.getElementById("fuelLiters").value="";
+
+    document.getElementById("petrolPriceView").textContent =
+        formatNumber(data.settings.petrolPrice);
+
+    document.getElementById("lpgPriceView").textContent =
+        formatNumber(data.settings.lpgPrice);
+}
+
+
+/* =========================================================
+   WEEK PAGE
+========================================================= */
 
 function renderWeek(){
 
-    const week=getWeekDates();
+    const total = getWeekIncome();
 
-    let income=0;
-    let extras=0;
-    let fuel=0;
+    document.getElementById("weekTotalValue").textContent =
+        formatNumber(total);
 
-    week.forEach(key=>{
+    const container =
+        document.getElementById("weekDetails");
 
-        const x=incomeData[key]||{};
+    const today = todayKey();
 
-        income += Number(x.amount)||0;
+    container.innerHTML = getWeekDates().map(d=>{
 
-        extras +=
-            (Number(x.bonus)||0)+
-            (Number(x.extra)||0);
+        const key = dateKey(d);
 
-        fuel += fuelCostForKey(key);
+        const income = getIncomeTotal(key);
 
-    });
+        const fuel = getFuelCost(key);
 
-    document.getElementById("weekIncome").textContent=
-        formatMoney(income);
+        const profit = income-fuel;
 
-    document.getElementById("weekExtras").textContent=
-        formatMoney(extras);
+        return `
+            <div class="week-table-row ${key===today ? "today":""}">
 
-    document.getElementById("weekGross").textContent=
-        formatMoney(income+extras);
+                <div class="week-table-left">
 
-    document.getElementById("weekFuel").textContent=
-        formatMoney(fuel);
+                    <strong>
+                        ${arabicDayName(d)}
+                        ${key===today ? " • اليوم":""}
+                    </strong>
 
-    document.getElementById("weekNet").textContent=
-        formatMoney(income+extras-fuel);
+                    <small>
+                        ${formatMainDate(d)}
+                    </small>
 
-
-    const container=
-        document.getElementById("weekDays");
-
-    container.innerHTML="";
-
-    week.forEach(key=>{
-
-        const x=incomeData[key]||{};
-
-        const dayIncome=
-            (Number(x.amount)||0)+
-            (Number(x.bonus)||0)+
-            (Number(x.extra)||0);
-
-        const dayFuel=fuelCostForKey(key);
-
-        const net=dayIncome-dayFuel;
-
-        const d=parseKey(key);
-
-        const card=document.createElement("div");
-
-        card.className="day-card";
-
-        card.innerHTML=`
-
-            <div class="day-left">
-
-                <div class="day-name">
-                    ${arabicDays[d.getDay()]}
                 </div>
 
-                <div class="day-date">
-                    ${formatEnglishDate(key)}
+                <div class="week-table-right">
+
+                    <strong>
+                        ${formatNumber(income)}
+                    </strong>
+
+                    <small>
+                        صافي ${formatNumber(profit)}
+                    </small>
+
                 </div>
 
             </div>
-
-            <div class="day-money">
-
-                <b>${formatMoney(dayIncome)}</b>
-
-                <small>
-                    صافي ${formatMoney(net)}
-                </small>
-
-            </div>
-
         `;
 
-        container.appendChild(card);
-
-    });
-
+    }).join("");
 }
 
 
-/* =========================
+/* =========================================================
    SETTINGS
-========================= */
+========================================================= */
 
 function renderSettings(){
 
-    document.getElementById("settingGoal").value=
-        settings.weeklyGoal;
+    document.getElementById("settingGoal").value =
+        data.settings.weeklyGoal;
 
-    document.getElementById("settingPetrol").value=
-        settings.petrolPrice;
+    document.getElementById("settingPetrol").value =
+        data.settings.petrolPrice;
 
-    document.getElementById("settingLpg").value=
-        settings.lpgPrice;
+    document.getElementById("settingLpg").value =
+        data.settings.lpgPrice;
 }
 
 function saveSettings(){
 
-    const goal=Number(
+    const goal = Number(
         document.getElementById("settingGoal").value
-    )||0;
+    ) || 0;
 
-    const petrol=Number(
+    const petrol = Number(
         document.getElementById("settingPetrol").value
-    )||0;
+    ) || 0;
 
-    const lpg=Number(
+    const lpg = Number(
         document.getElementById("settingLpg").value
-    )||0;
+    ) || 0;
 
-    if(goal<=0){
+    if(goal <= 0){
 
-        showToast("الهدف غير صحيح");
+        showToast("أدخل هدفاً صحيحاً");
 
         return;
     }
 
-    settings.weeklyGoal=goal;
-    settings.petrolPrice=petrol;
-    settings.lpgPrice=lpg;
+    data.settings.weeklyGoal = goal;
+    data.settings.petrolPrice = petrol;
+    data.settings.lpgPrice = lpg;
 
-    saveStorage();
+    saveData();
+    renderAll();
 
-    showToast("تم حفظ الإعدادات ✓");
-
-    refreshAll();
+    showToast("تم حفظ الإعدادات");
 }
 
 
-/* =========================
+/* =========================================================
    RESET
-========================= */
+========================================================= */
 
 function resetWeek(){
 
     if(!confirm(
-        "سيتم حذف دخل ووقود الأسبوع الحالي فقط. هل أنت متأكد؟"
+        "سيتم حذف دخل Bli والوقود للأسبوع الحالي فقط. هل أنت متأكد؟"
     )) return;
 
-    const week=getWeekDates();
+    getWeekDates().forEach(d=>{
 
-    week.forEach(key=>{
+        const key = dateKey(d);
 
-        delete incomeData[key];
-        delete fuelData[key];
+        delete data.income[key];
+        delete data.fuel[key];
 
     });
 
-    saveStorage();
+    saveData();
 
-    showToast("تم تصفير الأسبوع");
+    renderAll();
 
-    refreshAll();
+    showToast("تم تصفير الأسبوع الحالي");
 }
 
 function resetAll(){
 
     if(!confirm(
-        "تحذير: سيتم حذف جميع بيانات الموقع نهائياً. هل أنت متأكد؟"
+        "سيتم حذف جميع بيانات الموقع. هل أنت متأكد؟"
     )) return;
 
-    if(!confirm(
-        "تأكيد أخير: حذف جميع البيانات؟"
-    )) return;
+    localStorage.removeItem(STORAGE_KEY);
 
-    incomeData={};
-    fuelData={};
-    linesData=[];
+    data = {
+        settings:{
+            weeklyGoal:500000,
+            petrolPrice:450,
+            lpgPrice:200
+        },
+        income:{},
+        fuel:{},
+        lines:[]
+    };
 
-    saveStorage();
+    editingLineId=null;
+
+    renderAll();
 
     showToast("تم حذف جميع البيانات");
-
-    refreshAll();
 }
 
 
-/* =========================
-   UTILITY
-========================= */
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function formatNumber(value){
+
+    const n = Number(value)||0;
+
+    return Math.round(n).toLocaleString("en-US");
+}
 
 function escapeHtml(text){
 
     return String(text)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 }
 
 function showToast(message){
 
-    const toast=document.getElementById("toast");
+    const toast = document.getElementById("toast");
 
-    toast.textContent=message;
+    toast.textContent = message;
 
     toast.classList.add("show");
 
     clearTimeout(window.toastTimer);
 
-    window.toastTimer=setTimeout(()=>{
-
+    window.toastTimer = setTimeout(()=>{
         toast.classList.remove("show");
-
-    },2200);
-
+    },1800);
 }
 
 
-/* =========================
-   REFRESH
-========================= */
+/* =========================================================
+   RENDER ALL
+========================================================= */
 
-function refreshAll(){
+function renderAll(){
 
     renderHome();
-    renderIncomeDays();
-    renderFuelDays();
-    renderLines();
-    renderWeek();
-    renderSettings();
 
+    if(currentPage==="income") renderIncomePage();
+    if(currentPage==="fuel") renderFuelPage();
+    if(currentPage==="line") renderLines();
+    if(currentPage==="week") renderWeek();
+    if(currentPage==="settings") renderSettings();
 }
 
 
-/* =========================
-   INIT
-========================= */
+/* =========================================================
+   INITIALIZE
+========================================================= */
 
-setupDateRoll(
-    "incomeDay",
-    "incomeMonth",
-    "incomeYear"
-);
+function initialize(){
 
-setupDateRoll(
-    "fuelDay",
-    "fuelMonth",
-    "fuelYear"
-);
+    loadData();
 
-refreshAll();
+    populateDateRoll("income");
+    populateDateRoll("fuel");
+    populateDateRoll("line");
+
+    populateDateRoll("modalIncome");
+    populateDateRoll("modalFuel");
+
+    setRollDate("income",new Date());
+    setRollDate("fuel",new Date());
+    setRollDate("line",new Date());
+
+    setRollDate("modalIncome",new Date());
+    setRollDate("modalFuel",new Date());
+
+    renderAll();
+
+    /* Update the current-day highlight automatically
+       if the site remains open across midnight. */
+    setInterval(()=>{
+        renderHome();
+    },60000);
+}
+
+initialize();
 
 </script>
 
