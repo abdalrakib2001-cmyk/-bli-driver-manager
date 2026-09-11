@@ -25,6 +25,7 @@
     --blue:#7897ad;
     --orange:#d6a46a;
     --red:#c96f6f;
+    --purple:#aa8fd8;
 
     --text:#f1f3f2;
     --muted:#969d9f;
@@ -306,6 +307,43 @@ button{
     color:#9ab2c2;
 }
 
+.summary-card.purple .value{
+    color:var(--purple);
+}
+
+/* QUICK CHIPS */
+
+.quick-chips{
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding-bottom:6px;
+    margin-bottom:8px;
+    scrollbar-width:none;
+}
+
+.quick-chips::-webkit-scrollbar{
+    display:none;
+}
+
+.chip{
+    background:rgba(255,255,255,0.06);
+    border:1px solid #32383a;
+    color:#b7c2bf;
+    padding:5px 11px;
+    border-radius:10px;
+    font-size:10px;
+    font-weight:700;
+    white-space:nowrap;
+    transition:.15s;
+}
+
+.chip:active{
+    background:rgba(103,197,138,0.2);
+    color:var(--green2);
+    border-color:rgba(103,197,138,0.4);
+}
+
 /* MAIN ACTIONS */
 
 .actions{
@@ -425,7 +463,7 @@ button{
     margin-top:3px;
 }
 
-/* INNER PAGE HEADER & LUXURY BACK BUTTON */
+/* LUXURY BACK BUTTON */
 
 .inner-header{
     display:flex;
@@ -536,6 +574,26 @@ input::placeholder{
     transform:scale(.985);
 }
 
+.secondary-btn{
+    width:100%;
+    padding:13px;
+    border-radius:13px;
+    background:rgba(120,151,173,.12);
+    border:1px solid rgba(120,151,173,.28);
+    color:#b3cbdc;
+    font-weight:800;
+    font-size:13px;
+    margin-top:10px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+}
+
+.secondary-btn:active{
+    transform:scale(.985);
+}
+
 .danger-btn{
     width:100%;
     padding:13px;
@@ -590,9 +648,9 @@ input::placeholder{
     font-size:15px;
 }
 
-/* LINE */
+/* LINE & TOPUP ITEMS */
 
-.line-item{
+.item-card{
     background:#141819;
     border:1px solid #292f30;
     border-radius:15px;
@@ -600,25 +658,32 @@ input::placeholder{
     margin-bottom:9px;
 }
 
-.line-item-top{
+.item-card-top{
     display:flex;
     align-items:center;
     justify-content:space-between;
 }
 
-.line-name{
+.item-name{
     font-size:14px;
     font-weight:900;
 }
 
-.line-amount{
+.item-amount{
     direction:ltr;
-    color:var(--green2);
     font-size:15px;
     font-weight:900;
 }
 
-.line-actions{
+.item-amount.green{
+    color:var(--green2);
+}
+
+.item-amount.purple{
+    color:var(--purple);
+}
+
+.item-actions{
     display:flex;
     gap:7px;
     margin-top:12px;
@@ -753,8 +818,8 @@ input::placeholder{
     backdrop-filter:blur(12px);
     border-top:1px solid #292f30;
     display:grid;
-    grid-template-columns:repeat(4,1fr);
-    padding:8px 8px calc(8px + env(safe-area-inset-bottom));
+    grid-template-columns:repeat(5,1fr);
+    padding:8px 4px calc(8px + env(safe-area-inset-bottom));
 }
 
 .nav-btn{
@@ -767,7 +832,7 @@ input::placeholder{
 
 .nav-btn .nav-icon{
     display:block;
-    font-size:19px;
+    font-size:18px;
     margin-bottom:3px;
 }
 
@@ -864,7 +929,7 @@ input::placeholder{
     }
 
     .summary-card .value{
-        font-size:16px;
+        font-size:15px;
     }
 }
 </style>
@@ -946,16 +1011,16 @@ input::placeholder{
                 <div class="value" id="summaryFuel">0</div>
             </div>
 
-            <div class="summary-card blue">
-                <div class="icon">📈</div>
-                <div class="label">الصافي بعد الوقود</div>
-                <div class="value" id="summaryProfit">0</div>
+            <div class="summary-card purple">
+                <div class="icon">💳</div>
+                <div class="label">شحن رصيد Bli</div>
+                <div class="value" id="summaryTopup">0</div>
             </div>
 
-            <div class="summary-card">
-                <div class="icon">🚌</div>
-                <div class="label">دخل الخط</div>
-                <div class="value" id="summaryLine">0</div>
+            <div class="summary-card blue">
+                <div class="icon">📈</div>
+                <div class="label">الصافي بعد الوقود والرصيد</div>
+                <div class="value" id="summaryProfit">0</div>
             </div>
 
         </section>
@@ -974,10 +1039,10 @@ input::placeholder{
                 <div class="action-desc">بنزين أو غاز</div>
             </button>
 
-            <button class="action-card" onclick="openPage('line')">
-                <div class="action-icon">🚌</div>
-                <div class="action-title">إدارة الخط</div>
-                <div class="action-desc">إضافة ومتابعة دخل الخط</div>
+            <button class="action-card" onclick="openTopupModal()">
+                <div class="action-icon">💳</div>
+                <div class="action-title">شحن رصيد Bli</div>
+                <div class="action-desc">تعبئة محفظة التطبيق</div>
             </button>
 
             <button class="action-card" onclick="openPage('week')">
@@ -1027,16 +1092,32 @@ input::placeholder{
 
             <div class="field">
                 <label>دخل Bli بعد العمولة</label>
+                <div class="quick-chips">
+                    <button class="chip" type="button" onclick="setQuickVal('incomeAmount', 25000)">25,000</button>
+                    <button class="chip" type="button" onclick="setQuickVal('incomeAmount', 35000)">35,000</button>
+                    <button class="chip" type="button" onclick="setQuickVal('incomeAmount', 45000)">45,000</button>
+                    <button class="chip" type="button" onclick="setQuickVal('incomeAmount', 60000)">60,000</button>
+                    <button class="chip" type="button" onclick="setQuickVal('incomeAmount', 75000)">75,000</button>
+                </div>
                 <input id="incomeAmount" type="number" inputmode="numeric" placeholder="مثلاً 40000">
             </div>
 
             <div class="field">
                 <label>البونص</label>
+                <div class="quick-chips">
+                    <button class="chip" type="button" onclick="setQuickVal('incomeBonus', 5000)">5,000</button>
+                    <button class="chip" type="button" onclick="setQuickVal('incomeBonus', 10000)">10,000</button>
+                    <button class="chip" type="button" onclick="setQuickVal('incomeBonus', 15000)">15,000</button>
+                </div>
                 <input id="incomeBonus" type="number" inputmode="numeric" placeholder="0">
             </div>
 
             <div class="field">
                 <label>إضافي / إكراميات</label>
+                <div class="quick-chips">
+                    <button class="chip" type="button" onclick="setQuickVal('incomeExtra', 2000)">2,000</button>
+                    <button class="chip" type="button" onclick="setQuickVal('incomeExtra', 5000)">5,000</button>
+                </div>
                 <input id="incomeExtra" type="number" inputmode="numeric" placeholder="0">
             </div>
 
@@ -1106,6 +1187,13 @@ input::placeholder{
 
             <div class="field">
                 <label>عدد اللترات</label>
+                <div class="quick-chips">
+                    <button class="chip" type="button" onclick="setQuickVal('fuelLiters', 10)">10L</button>
+                    <button class="chip" type="button" onclick="setQuickVal('fuelLiters', 15)">15L</button>
+                    <button class="chip" type="button" onclick="setQuickVal('fuelLiters', 20)">20L</button>
+                    <button class="chip" type="button" onclick="setQuickVal('fuelLiters', 25)">25L</button>
+                    <button class="chip" type="button" onclick="setQuickVal('fuelLiters', 30)">30L</button>
+                </div>
                 <input id="fuelLiters" type="number" step="0.1" inputmode="decimal" placeholder="مثلاً 20">
             </div>
 
@@ -1132,7 +1220,7 @@ input::placeholder{
     </main>
 
 
-    <!-- LINE PAGE -->
+    <!-- LINE PAGE (خاص بالخط ومعزول شهرياً) -->
     <main id="page-line" class="page">
 
         <div class="inner-header">
@@ -1140,11 +1228,11 @@ input::placeholder{
                 <span class="back-icon">✕</span>
                 <span>رجوع</span>
             </button>
-            <div class="inner-title">إدارة الخط</div>
+            <div class="inner-title">إدارة الخط (شهري)</div>
         </div>
 
         <div class="week-total">
-            <div class="week-total-label">إجمالي دخل الخط</div>
+            <div class="week-total-label" id="lineMonthTitle">إجمالي دخل الخط لهذا الشهر</div>
             <div class="week-total-value" id="lineTotal">0</div>
         </div>
 
@@ -1161,6 +1249,12 @@ input::placeholder{
 
             <div class="field">
                 <label>المبلغ المستلم</label>
+                <div class="quick-chips">
+                    <button class="chip" type="button" onclick="setQuickVal('lineAmount', 100000)">100,000</button>
+                    <button class="chip" type="button" onclick="setQuickVal('lineAmount', 150000)">150,000</button>
+                    <button class="chip" type="button" onclick="setQuickVal('lineAmount', 200000)">200,000</button>
+                    <button class="chip" type="button" onclick="setQuickVal('lineAmount', 250000)">250,000</button>
+                </div>
                 <input id="lineAmount" type="number" inputmode="numeric" placeholder="مثلاً 200000">
             </div>
 
@@ -1169,6 +1263,59 @@ input::placeholder{
         </div>
 
         <div id="lineList"></div>
+
+    </main>
+
+
+    <!-- TOPUP PAGE (إدارة شحن رصيد Bli) -->
+    <main id="page-topup" class="page">
+
+        <div class="inner-header">
+            <button class="back-btn" onclick="goBack()">
+                <span class="back-icon">✕</span>
+                <span>رجوع</span>
+            </button>
+            <div class="inner-title">شحن رصيد Bli</div>
+        </div>
+
+        <div class="week-total" style="border-color:rgba(170,143,216,.28); background:linear-gradient(145deg,rgba(170,143,216,.1),rgba(170,143,216,.02))">
+            <div class="week-total-label">إجمالي الشحن هذا الأسبوع</div>
+            <div class="week-total-value" id="topupWeekTotal" style="color:var(--purple)">0</div>
+        </div>
+
+        <div class="form-card">
+
+            <div class="section-title" style="margin-bottom:13px">
+                تسجيل شحن رصيد
+            </div>
+
+            <div class="field">
+                <label>التاريخ</label>
+
+                <div class="date-roll">
+                    <select id="topupDay"></select>
+                    <select id="topupMonth"></select>
+                    <select id="topupYear"></select>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>مبلغ الشحن</label>
+                <div class="quick-chips">
+                    <button class="chip" type="button" onclick="setQuickVal('topupAmount', 5000)">5,000</button>
+                    <button class="chip" type="button" onclick="setQuickVal('topupAmount', 10000)">10,000</button>
+                    <button class="chip" type="button" onclick="setQuickVal('topupAmount', 15000)">15,000</button>
+                    <button class="chip" type="button" onclick="setQuickVal('topupAmount', 20000)">20,000</button>
+                    <button class="chip" type="button" onclick="setQuickVal('topupAmount', 25000)">25,000</button>
+                </div>
+                <input id="topupAmount" type="number" inputmode="numeric" placeholder="مثلاً 10000">
+            </div>
+
+            <button class="save-btn" id="topupSaveBtn" onclick="saveTopup()">حفظ الشحن</button>
+
+        </div>
+
+        <div id="topupList"></div>
 
     </main>
 
@@ -1224,6 +1371,18 @@ input::placeholder{
 
             <button class="save-btn" onclick="saveSettings()">حفظ الإعدادات</button>
 
+            <!-- BACKUP & RESTORE -->
+            <div style="margin-top:15px; border-top:1px solid #292f30; padding-top:12px;">
+                <div class="section-title" style="margin-bottom:8px">النسخ الاحتياطي والأمان</div>
+                <button class="secondary-btn" onclick="exportBackup()">
+                    📥 تحميل نسخة احتياطية (JSON)
+                </button>
+                <input type="file" id="restoreFileInput" accept=".json" style="display:none" onchange="handleRestoreFile(event)">
+                <button class="secondary-btn" onclick="document.getElementById('restoreFileInput').click()">
+                    📤 استرجاع نسخة احتياطية
+                </button>
+            </div>
+
             <button class="danger-btn" onclick="resetWeek()">
                 تصفير بيانات الأسبوع الحالي
             </button>
@@ -1250,9 +1409,14 @@ input::placeholder{
             Bli
         </button>
 
+        <button class="nav-btn" id="nav-topup" onclick="openPage('topup')">
+            <span class="nav-icon">💳</span>
+            رصيد
+        </button>
+
         <button class="nav-btn" id="nav-line" onclick="openPage('line')">
             <span class="nav-icon">🚌</span>
-            خط
+            الخط
         </button>
 
         <button class="nav-btn" id="nav-settings" onclick="openPage('settings')">
@@ -1287,11 +1451,21 @@ input::placeholder{
 
         <div class="field">
             <label>دخل Bli بعد العمولة</label>
+            <div class="quick-chips">
+                <button class="chip" type="button" onclick="setQuickVal('modalIncomeAmount', 25000)">25k</button>
+                <button class="chip" type="button" onclick="setQuickVal('modalIncomeAmount', 35000)">35k</button>
+                <button class="chip" type="button" onclick="setQuickVal('modalIncomeAmount', 45000)">45k</button>
+                <button class="chip" type="button" onclick="setQuickVal('modalIncomeAmount', 60000)">60k</button>
+            </div>
             <input id="modalIncomeAmount" type="number" inputmode="numeric" placeholder="مثلاً 40000">
         </div>
 
         <div class="field">
             <label>البونص</label>
+            <div class="quick-chips">
+                <button class="chip" type="button" onclick="setQuickVal('modalIncomeBonus', 5000)">5k</button>
+                <button class="chip" type="button" onclick="setQuickVal('modalIncomeBonus', 10000)">10k</button>
+            </div>
             <input id="modalIncomeBonus" type="number" inputmode="numeric" placeholder="0">
         </div>
 
@@ -1337,10 +1511,54 @@ input::placeholder{
 
         <div class="field">
             <label>عدد اللترات</label>
+            <div class="quick-chips">
+                <button class="chip" type="button" onclick="setQuickVal('modalFuelLiters', 10)">10L</button>
+                <button class="chip" type="button" onclick="setQuickVal('modalFuelLiters', 15)">15L</button>
+                <button class="chip" type="button" onclick="setQuickVal('modalFuelLiters', 20)">20L</button>
+                <button class="chip" type="button" onclick="setQuickVal('modalFuelLiters', 25)">25L</button>
+            </div>
             <input id="modalFuelLiters" type="number" step="0.1" inputmode="decimal" placeholder="مثلاً 20">
         </div>
 
         <button class="save-btn" onclick="saveFuelFromModal()">حفظ</button>
+
+    </div>
+</div>
+
+
+<!-- TOPUP MODAL -->
+<div class="modal" id="topupModal">
+
+    <div class="modal-box">
+
+        <div class="modal-head">
+            <div class="modal-title">شحن رصيد Bli</div>
+            <button class="close-btn" onclick="closeModal('topupModal')">×</button>
+        </div>
+
+        <div class="field">
+            <label>التاريخ</label>
+
+            <div class="date-roll">
+                <select id="modalTopupDay"></select>
+                <select id="modalTopupMonth"></select>
+                <select id="modalTopupYear"></select>
+            </div>
+        </div>
+
+        <div class="field">
+            <label>المبلغ المراد شحنه</label>
+            <div class="quick-chips">
+                <button class="chip" type="button" onclick="setQuickVal('modalTopupAmount', 5000)">5,000</button>
+                <button class="chip" type="button" onclick="setQuickVal('modalTopupAmount', 10000)">10,000</button>
+                <button class="chip" type="button" onclick="setQuickVal('modalTopupAmount', 15000)">15,000</button>
+                <button class="chip" type="button" onclick="setQuickVal('modalTopupAmount', 20000)">20,000</button>
+                <button class="chip" type="button" onclick="setQuickVal('modalTopupAmount', 25000)">25,000</button>
+            </div>
+            <input id="modalTopupAmount" type="number" inputmode="numeric" placeholder="مثلاً 10000">
+        </div>
+
+        <button class="save-btn" onclick="saveTopupFromModal()">حفظ الشحن</button>
 
     </div>
 </div>
@@ -1365,6 +1583,7 @@ let data = {
     },
     income:{},
     fuel:{},
+    topups:{},
     lines:[]
 };
 
@@ -1394,6 +1613,7 @@ function loadData(){
                 },
                 income:parsed.income || {},
                 fuel:parsed.fuel || {},
+                topups:parsed.topups || {},
                 lines:Array.isArray(parsed.lines) ? parsed.lines : []
             };
         }
@@ -1405,6 +1625,55 @@ function loadData(){
 
 function saveData(){
     localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+}
+
+
+/* =========================================================
+   BACKUP & RESTORE
+========================================================= */
+
+function exportBackup(){
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
+    const dlAnchorElem = document.createElement("a");
+    const dateStamp = new Date().toISOString().slice(0,10);
+    dlAnchorElem.setAttribute("href", dataStr);
+    dlAnchorElem.setAttribute("download", `BLI_DRIVER_BACKUP_${dateStamp}.json`);
+    dlAnchorElem.click();
+    showToast("تم تنزيل النسخة الاحتياطية بنجاح");
+}
+
+function handleRestoreFile(event){
+    const file = event.target.files[0];
+    if(!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e){
+        try{
+            const imported = JSON.parse(e.target.result);
+            if(imported && imported.settings){
+                data = {
+                    settings: {
+                        weeklyGoal: Number(imported.settings.weeklyGoal) || 500000,
+                        petrolPrice: Number(imported.settings.petrolPrice) || 450,
+                        lpgPrice: Number(imported.settings.lpgPrice) || 200
+                    },
+                    income: imported.income || {},
+                    fuel: imported.fuel || {},
+                    topups: imported.topups || {},
+                    lines: Array.isArray(imported.lines) ? imported.lines : []
+                };
+                saveData();
+                renderAll();
+                showToast("تمت استعادة البيانات بنجاح");
+            } else {
+                showToast("الملف غير صالح");
+            }
+        }catch(err){
+            showToast("حدث خطأ أثناء قراءة الملف");
+        }
+    };
+    reader.readAsText(file);
+    event.target.value = "";
 }
 
 
@@ -1608,6 +1877,7 @@ function showPage(page){
     if(page === "home") renderHome();
     if(page === "income") renderIncomePage();
     if(page === "fuel") renderFuelPage();
+    if(page === "topup") renderTopupPage();
     if(page === "line") renderLines();
     if(page === "week") renderWeek();
     if(page === "settings") renderSettings();
@@ -1626,6 +1896,18 @@ function goBack(){
     }else{
 
         showPage("home");
+    }
+}
+
+
+/* =========================================================
+   QUICK INPUT HELPERS
+========================================================= */
+
+function setQuickVal(inputId, val){
+    const el = document.getElementById(inputId);
+    if(el){
+        el.value = val;
     }
 }
 
@@ -1663,6 +1945,16 @@ function openFuelModal(){
     document.getElementById("modalFuelLiters").value="";
 
     openModal("fuelModal");
+}
+
+function openTopupModal(){
+
+    populateDateRoll("modalTopup");
+    setRollDate("modalTopup",new Date());
+
+    document.getElementById("modalTopupAmount").value="";
+
+    openModal("topupModal");
 }
 
 
@@ -1883,7 +2175,112 @@ function getWeekFuelCost(){
 
 
 /* =========================================================
-   LINE
+   TOPUP (شحن رصيد Bli)
+========================================================= */
+
+function ensureTopup(key){
+    if(!data.topups) data.topups = {};
+    if(!data.topups[key]) data.topups[key] = 0;
+    return data.topups[key];
+}
+
+function saveTopupData(date, amount){
+    const key = dateKey(date);
+    if(!data.topups) data.topups = {};
+    data.topups[key] = (Number(data.topups[key]) || 0) + (Number(amount) || 0);
+
+    saveData();
+    renderAll();
+    showToast("تم حفظ شحن الرصيد بنجاح");
+}
+
+function saveTopup(){
+    const date = getRollDate("topup");
+    const amount = Number(document.getElementById("topupAmount").value) || 0;
+
+    if(amount <= 0){
+        showToast("أدخل مبلغ الشحن");
+        return;
+    }
+
+    saveTopupData(date, amount);
+    document.getElementById("topupAmount").value = "";
+    showPage("home");
+}
+
+function saveTopupFromModal(){
+    const date = getRollDate("modalTopup");
+    const amount = Number(document.getElementById("modalTopupAmount").value) || 0;
+
+    if(amount <= 0){
+        showToast("أدخل مبلغ الشحن");
+        return;
+    }
+
+    saveTopupData(date, amount);
+    closeModal("topupModal");
+}
+
+function getTopupTotal(key){
+    if(!data.topups) return 0;
+    return Number(data.topups[key]) || 0;
+}
+
+function getWeekTopupTotal(){
+    let total = 0;
+    getWeekDates().forEach(d=>{
+        total += getTopupTotal(dateKey(d));
+    });
+    return total;
+}
+
+function renderTopupPage(){
+    populateDateRoll("topup");
+    setRollDate("topup", new Date());
+    document.getElementById("topupAmount").value = "";
+
+    const weekTotal = getWeekTopupTotal();
+    document.getElementById("topupWeekTotal").textContent = formatNumber(weekTotal);
+
+    const list = document.getElementById("topupList");
+    if(!list) return;
+
+    const currentWeekDates = getWeekDates().map(d => dateKey(d));
+    const entries = Object.entries(data.topups || {})
+        .filter(([k, val]) => currentWeekDates.includes(k) && val > 0)
+        .sort((a,b) => b[0].localeCompare(a[0]));
+
+    if(!entries.length){
+        list.innerHTML = `
+            <div class="form-card">
+                <div class="empty">
+                    لا يوجد شحن رصيد مسجل لهذا الأسبوع
+                </div>
+            </div>
+        `;
+        return;
+    }
+
+    list.innerHTML = entries.map(([k, amt])=>{
+        const d = dateFromKey(k);
+        return `
+            <div class="item-card">
+                <div class="item-card-top">
+                    <div class="item-name">
+                        شحن رصيد (${arabicDayName(d)})
+                    </div>
+                    <div class="item-amount purple">
+                        ${formatNumber(amt)}
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join("");
+}
+
+
+/* =========================================================
+   LINE (شهري فقط ومعزول)
 ========================================================= */
 
 function saveLine(){
@@ -1908,6 +2305,9 @@ function saveLine(){
         return;
     }
 
+    const now = new Date();
+    const currentMonthKey = `${now.getFullYear()}-${pad(now.getMonth()+1)}`;
+
     if(editingLineId){
 
         const item = data.lines.find(x=>x.id===editingLineId);
@@ -1930,7 +2330,7 @@ function saveLine(){
             id:Date.now().toString(),
             name:name,
             amount:amount,
-            date:todayKey()
+            month:currentMonthKey
         });
 
         showToast("تمت إضافة الخط");
@@ -1942,7 +2342,6 @@ function saveLine(){
     document.getElementById("lineAmount").value="";
 
     renderLines();
-    renderHome();
 }
 
 function editLine(id){
@@ -1973,17 +2372,17 @@ function deleteLine(id){
     saveData();
 
     renderLines();
-    renderHome();
 
     showToast("تم حذف الخط");
 }
 
-function getLineTotal(){
+function getMonthlyLineTotal(){
+    const now = new Date();
+    const currentMonthKey = `${now.getFullYear()}-${pad(now.getMonth()+1)}`;
 
-    return data.lines.reduce(
-        (sum,x)=>sum+(Number(x.amount)||0),
-        0
-    );
+    return (data.lines || [])
+        .filter(x => !x.month || x.month === currentMonthKey)
+        .reduce((sum,x)=>sum+(Number(x.amount)||0), 0);
 }
 
 function renderLines(){
@@ -1992,15 +2391,20 @@ function renderLines(){
 
     if(!list) return;
 
+    const now = new Date();
+    const monthNames = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
+    document.getElementById("lineMonthTitle").textContent =
+        `إجمالي دخل الخط لشهر ${monthNames[now.getMonth()]}`;
+
     document.getElementById("lineTotal").textContent =
-        formatNumber(getLineTotal());
+        formatNumber(getMonthlyLineTotal());
 
     if(!data.lines.length){
 
         list.innerHTML = `
             <div class="form-card">
                 <div class="empty">
-                    لا توجد خطوط مضافة حالياً
+                    لا توجد خطوط مضافة لهذا الشهر
                 </div>
             </div>
         `;
@@ -2015,21 +2419,21 @@ function renderLines(){
     list.innerHTML = sorted.map(item=>{
 
         return `
-            <div class="line-item">
+            <div class="item-card">
 
-                <div class="line-item-top">
+                <div class="item-card-top">
 
-                    <div class="line-name">
+                    <div class="item-name">
                         ${escapeHtml(item.name)}
                     </div>
 
-                    <div class="line-amount">
+                    <div class="item-amount green">
                         ${formatNumber(item.amount)}
                     </div>
 
                 </div>
 
-                <div class="line-actions">
+                <div class="item-actions">
 
                     <button
                         class="small-btn edit-btn"
@@ -2073,7 +2477,6 @@ function renderHome(){
     document.getElementById("headerToday").textContent =
         formatInputDate(today);
 
-    /* يبقى فقط اسم اليوم دون إلحاق التاريخ */
     document.getElementById("todayText").textContent =
         "اليوم: " + arabicDayName(today);
 
@@ -2120,6 +2523,7 @@ function renderHome(){
         "باقي " + daysLeft + " يوم ضمن هذا الأسبوع";
 
     const fuelCost = getWeekFuelCost();
+    const topupCost = getWeekTopupTotal();
 
     document.getElementById("summaryIncome").textContent =
         formatNumber(completed);
@@ -2127,11 +2531,12 @@ function renderHome(){
     document.getElementById("summaryFuel").textContent =
         formatNumber(fuelCost);
 
-    document.getElementById("summaryProfit").textContent =
-        formatNumber(completed-fuelCost);
+    document.getElementById("summaryTopup").textContent =
+        formatNumber(topupCost);
 
-    document.getElementById("summaryLine").textContent =
-        formatNumber(getLineTotal());
+    /* الصافي الواقعي = دخل Bli - صرف الوقود - شحن الرصيد */
+    document.getElementById("summaryProfit").textContent =
+        formatNumber(completed - (fuelCost + topupCost));
 
     renderDays();
 }
@@ -2149,8 +2554,9 @@ function renderDays(){
         const total = getIncomeTotal(key);
 
         const fuelCost = getFuelCost(key);
+        const topupCost = getTopupTotal(key);
 
-        const profit = total-fuelCost;
+        const profit = total - (fuelCost + topupCost);
 
         const isToday = key===todayKeyValue;
 
@@ -2177,7 +2583,7 @@ function renderDays(){
                     ${formatNumber(total)}
 
                     <small>
-                        صافي بعد الوقود: ${formatNumber(profit)}
+                        الصافي: ${formatNumber(profit)}
                     </small>
 
                 </div>
@@ -2313,8 +2719,9 @@ function renderWeek(){
         const income = getIncomeTotal(key);
 
         const fuel = getFuelCost(key);
+        const topup = getTopupTotal(key);
 
-        const profit = income-fuel;
+        const profit = income - (fuel + topup);
 
         return `
             <div class="week-table-row ${key===today ? "today":""}">
@@ -2406,7 +2813,7 @@ function saveSettings(){
 function resetWeek(){
 
     if(!confirm(
-        "سيتم حذف دخل Bli والوقود للأسبوع الحالي فقط. هل أنت متأكد؟"
+        "سيتم حذف دخل Bli والوقود والرصيد للأسبوع الحالي فقط. هل أنت متأكد؟"
     )) return;
 
     getWeekDates().forEach(d=>{
@@ -2415,6 +2822,7 @@ function resetWeek(){
 
         delete data.income[key];
         delete data.fuel[key];
+        if(data.topups) delete data.topups[key];
 
     });
 
@@ -2441,6 +2849,7 @@ function resetAll(){
         },
         income:{},
         fuel:{},
+        topups:{},
         lines:[]
     };
 
@@ -2499,6 +2908,7 @@ function renderAll(){
 
     if(currentPage==="income") renderIncomePage();
     if(currentPage==="fuel") renderFuelPage();
+    if(currentPage==="topup") renderTopupPage();
     if(currentPage==="line") renderLines();
     if(currentPage==="week") renderWeek();
     if(currentPage==="settings") renderSettings();
@@ -2515,20 +2925,22 @@ function initialize(){
 
     populateDateRoll("income");
     populateDateRoll("fuel");
+    populateDateRoll("topup");
 
     populateDateRoll("modalIncome");
     populateDateRoll("modalFuel");
+    populateDateRoll("modalTopup");
 
     setRollDate("income",new Date());
     setRollDate("fuel",new Date());
+    setRollDate("topup",new Date());
 
     setRollDate("modalIncome",new Date());
     setRollDate("modalFuel",new Date());
+    setRollDate("modalTopup",new Date());
 
     renderAll();
 
-    /* Update the current-day highlight automatically
-       if the site remains open across midnight. */
     setInterval(()=>{
         renderHome();
     },60000);
