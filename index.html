@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<meta name="theme-color" content="#090909">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <title>BLI DRIVER MANAGER</title>
 
 <style>
@@ -14,10 +14,10 @@
 
 body{
     margin:0;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;
     background:
-        radial-gradient(circle at top,#321010 0%,#110707 35%,#070707 75%);
+        radial-gradient(circle at top left,#401010 0%,#160607 35%,#080808 75%);
     color:#fff;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
     min-height:100vh;
 }
 
@@ -37,242 +37,295 @@ button{
 }
 
 /* HEADER */
+
 .header{
-    padding:25px 18px 15px;
+    padding:22px 18px 12px;
     display:flex;
     justify-content:space-between;
     align-items:center;
 }
 
 .logo{
-    font-size:25px;
+    font-size:26px;
     font-weight:900;
-    letter-spacing:1px;
-}
-
-.logo span{
-    color:#e60000;
+    letter-spacing:2px;
 }
 
 .status{
     font-size:11px;
-    color:#999;
-    margin-top:3px;
+    color:#ff6b6b;
+    border:1px solid #7d2020;
+    padding:6px 10px;
+    border-radius:20px;
+    background:#180707;
 }
 
-.settings-btn{
-    width:44px;
-    height:44px;
-    border-radius:14px;
-    border:1px solid #3a2020;
-    background:#160c0c;
-    color:white;
-    font-size:20px;
+/* BACK */
+
+.back-row{
+    padding:0 18px 12px;
 }
 
-/* MAIN */
-.content{
+.back-btn{
+    border:0;
+    background:#191919;
+    color:#fff;
+    padding:10px 15px;
+    border-radius:12px;
+    font-weight:700;
+    display:none;
+}
+
+.back-btn.show{
+    display:inline-flex;
+}
+
+/* PAGES */
+
+.page{
+    display:none;
     padding:0 15px;
+    animation:fade .22s ease;
 }
 
-.week-card{
-    background:linear-gradient(145deg,#250c0c,#100606);
-    border:1px solid #4b1717;
-    border-radius:24px;
-    padding:20px;
-    box-shadow:0 15px 40px rgba(0,0,0,.4);
+.page.active{
+    display:block;
 }
 
-.week-title{
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(8px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* TITLES */
+
+.page-title{
+    font-size:23px;
+    font-weight:900;
+    margin:10px 3px 16px;
+}
+
+.section-title{
+    font-size:14px;
+    color:#aaa;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin:20px 4px 9px;
+}
+
+/* CARDS */
+
+.card{
+    background:linear-gradient(145deg,#1b1b1b,#0e0e0e);
+    border:1px solid #2c2c2c;
+    border-radius:20px;
+    padding:17px;
+    margin-bottom:13px;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.red-card{
+    background:
+        linear-gradient(145deg,#561414,#230909 65%,#110606);
+    border:1px solid #772020;
+}
+
+.green-card{
+    background:
+        linear-gradient(145deg,#0c3b20,#071c11);
+    border:1px solid #176b39;
+}
+
+.stat-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.stat{
+    background:#121212;
+    border:1px solid #292929;
+    border-radius:16px;
+    padding:14px;
+}
+
+.stat-label{
+    color:#999;
+    font-size:11px;
+    margin-bottom:5px;
+}
+
+.stat-value{
+    font-size:20px;
+    font-weight:900;
+}
+
+.small-value{
+    font-size:16px;
+}
+
+/* WEEK */
+
+.week-head{
     display:flex;
     justify-content:space-between;
     align-items:center;
+    margin-bottom:14px;
 }
 
-.week-title h2{
-    margin:0;
-    font-size:18px;
+.week-title{
+    font-size:14px;
+    font-weight:800;
 }
 
 .week-date{
-    color:#888;
+    color:#aaa;
     font-size:11px;
 }
 
-.progress-wrap{
-    margin-top:22px;
+.goal-number{
+    font-size:31px;
+    font-weight:900;
+    margin-top:5px;
 }
 
-.progress-info{
-    display:flex;
-    justify-content:space-between;
-    font-size:13px;
-    margin-bottom:9px;
+.goal-label{
+    font-size:12px;
+    color:#aaa;
 }
 
 .progress{
     height:12px;
-    background:#1c1212;
+    background:#151515;
     border-radius:20px;
     overflow:hidden;
+    margin:16px 0 10px;
 }
 
 .progress-bar{
     height:100%;
     width:0%;
-    background:linear-gradient(90deg,#8b0000,#ff1717);
+    background:linear-gradient(90deg,#ff3131,#ff8585);
     border-radius:20px;
-    transition:.4s;
+    transition:.3s;
 }
 
-.percent{
-    color:#ff3333;
-    font-weight:bold;
+.progress-info{
+    display:flex;
+    justify-content:space-between;
+    font-size:12px;
+    color:#ccc;
 }
 
-.money-main{
-    text-align:center;
-    margin:20px 0 4px;
+/* BUTTONS */
+
+.main-btn{
+    width:100%;
+    border:0;
+    border-radius:15px;
+    padding:15px;
+    color:#fff;
+    font-size:14px;
+    font-weight:900;
+    margin-top:9px;
+    background:linear-gradient(135deg,#a71919,#5e0d0d);
+    box-shadow:0 7px 20px rgba(150,20,20,.22);
 }
 
-.money-main .number{
-    font-size:35px;
+.main-btn:active{
+    transform:scale(.98);
+}
+
+.secondary-btn{
+    background:#1b1b1b;
+    border:1px solid #333;
+    box-shadow:none;
+}
+
+.green-btn{
+    background:linear-gradient(135deg,#15733a,#0b3d20);
+}
+
+.danger-btn{
+    background:linear-gradient(135deg,#8d1616,#480909);
+}
+
+/* MENU */
+
+.menu-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.menu-card{
+    min-height:145px;
+    border-radius:22px;
+    padding:20px 16px;
+    background:linear-gradient(145deg,#1c1c1c,#0d0d0d);
+    border:1px solid #2c2c2c;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    position:relative;
+    overflow:hidden;
+}
+
+.menu-card::before{
+    content:"";
+    position:absolute;
+    width:100px;
+    height:100px;
+    background:#7e1717;
+    filter:blur(45px);
+    top:-30px;
+    right:-20px;
+    opacity:.35;
+}
+
+.menu-icon{
+    font-size:32px;
+    margin-bottom:auto;
+}
+
+.menu-name{
+    font-size:16px;
     font-weight:900;
 }
 
-.money-main small{
-    color:#999;
-}
-
-.goal-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-top:15px;
-}
-
-.goal-box{
-    background:#0c0c0c;
-    border-radius:16px;
-    padding:13px;
-    border:1px solid #241919;
-}
-
-.goal-box span{
-    display:block;
+.menu-desc{
+    font-size:10px;
     color:#888;
-    font-size:11px;
-    margin-bottom:5px;
-}
-
-.goal-box strong{
-    font-size:16px;
-}
-
-.green{
-    color:#28df75;
-}
-
-.red{
-    color:#ff3939;
-}
-
-/* DAILY TARGET */
-.daily-target{
-    margin-top:13px;
-    background:#120d0d;
-    border:1px solid #2b1919;
-    border-radius:17px;
-    padding:14px;
-    text-align:center;
-}
-
-.daily-target span{
-    color:#999;
-    font-size:11px;
-}
-
-.daily-target strong{
-    display:block;
-    font-size:22px;
     margin-top:4px;
 }
 
-/* SECTION */
-.section-title{
-    margin:25px 3px 10px;
-    font-size:17px;
-    font-weight:800;
-}
-
-/* CARDS */
-.cards{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:11px;
-}
-
-.card{
-    background:#111;
-    border:1px solid #272020;
-    border-radius:18px;
-    padding:17px 14px;
-}
-
-.card .icon{
-    font-size:23px;
-}
-
-.card .label{
-    color:#888;
-    font-size:11px;
-    margin-top:8px;
-}
-
-.card .value{
-    font-size:19px;
-    font-weight:800;
-    margin-top:3px;
-}
-
-/* ADD BUTTON */
-.add-btn{
-    width:100%;
-    margin-top:13px;
-    padding:17px;
-    border:0;
-    border-radius:17px;
-    background:linear-gradient(135deg,#b00000,#5d0000);
-    color:#fff;
-    font-size:16px;
-    font-weight:800;
-    box-shadow:0 8px 25px rgba(150,0,0,.2);
-}
-
 /* DAYS */
-.days{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-}
 
-.day{
-    background:#101010;
-    border:1px solid #222;
-    border-radius:16px;
-    padding:13px;
+.day-row{
     display:flex;
     justify-content:space-between;
     align-items:center;
+    padding:14px;
+    border-radius:15px;
+    background:#121212;
+    border:1px solid #252525;
+    margin-bottom:8px;
 }
 
-.day.today{
-    border-color:#7c1717;
-    background:#160909;
+.day-left{
+    display:flex;
+    flex-direction:column;
 }
 
 .day-name{
-    font-weight:800;
+    font-size:13px;
+    font-weight:900;
 }
 
 .day-date{
@@ -281,65 +334,103 @@ button{
     margin-top:3px;
 }
 
-.day-money{
-    text-align:left;
-    font-weight:800;
+.day-income{
+    text-align:right;
 }
 
-.day-money small{
-    display:block;
-    color:#777;
-    font-size:9px;
+.day-income-number{
+    font-size:14px;
+    font-weight:900;
 }
 
-/* NAV */
-.nav{
-    position:fixed;
-    bottom:0;
-    left:50%;
-    transform:translateX(-50%);
-    width:min(520px,100%);
-    padding:10px 15px 13px;
-    background:rgba(8,8,8,.94);
-    backdrop-filter:blur(15px);
-    border-top:1px solid #241515;
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr;
-    gap:8px;
-    z-index:20;
-}
-
-.nav button{
-    border:0;
-    background:transparent;
-    color:#777;
-    padding:7px;
-    border-radius:12px;
-}
-
-.nav button.active{
-    color:#fff;
-    background:#1a0b0b;
-}
-
-.nav .nav-icon{
-    display:block;
-    font-size:19px;
-}
-
-.nav span{
+.day-fuel{
     font-size:10px;
+    color:#777;
+    margin-top:3px;
+}
+
+/* FORMS */
+
+.field{
+    margin-bottom:13px;
+}
+
+.field label{
+    display:block;
+    font-size:11px;
+    color:#999;
+    margin:0 0 6px 3px;
+}
+
+input,select{
+    width:100%;
+    border:1px solid #303030;
+    background:#101010;
+    color:#fff;
+    border-radius:13px;
+    padding:14px;
+    font-size:15px;
+    outline:none;
+}
+
+input:focus,select:focus{
+    border-color:#8e2323;
+}
+
+/* ROLL DATE */
+
+.roll-date{
+    display:grid;
+    grid-template-columns:1fr 1fr 1.4fr;
+    gap:7px;
+}
+
+.roll-box{
+    height:53px;
+    background:#101010;
+    border:1px solid #303030;
+    border-radius:13px;
+    overflow:hidden;
+    position:relative;
+}
+
+.roll-box::before{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    top:17px;
+    height:18px;
+    border-top:1px solid #651717;
+    border-bottom:1px solid #651717;
+    pointer-events:none;
+    z-index:2;
+}
+
+.roll-select{
+    width:100%;
+    height:100%;
+    background:#101010;
+    color:#fff;
+    border:0;
+    text-align:center;
+    font-size:18px;
+    font-weight:900;
+    appearance:none;
+    -webkit-appearance:none;
+    padding:0;
 }
 
 /* MODAL */
+
 .modal{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.72);
-    backdrop-filter:blur(7px);
+    background:rgba(0,0,0,.78);
     display:none;
     align-items:flex-end;
-    z-index:50;
+    justify-content:center;
+    z-index:100;
 }
 
 .modal.show{
@@ -349,158 +440,182 @@ button{
 .modal-box{
     width:100%;
     max-width:520px;
-    margin:auto auto 0;
-    background:#111;
-    border:1px solid #331919;
-    border-radius:25px 25px 0 0;
-    padding:22px 18px 30px;
-    max-height:90vh;
+    max-height:92vh;
     overflow:auto;
+    background:#111;
+    border-radius:25px 25px 0 0;
+    border:1px solid #333;
+    padding:20px 17px 30px;
+    animation:up .25s ease;
 }
 
-.modal-title{
+@keyframes up{
+    from{
+        transform:translateY(100%);
+    }
+    to{
+        transform:translateY(0);
+    }
+}
+
+.modal-head{
     display:flex;
     justify-content:space-between;
     align-items:center;
     margin-bottom:18px;
 }
 
-.modal-title h2{
-    margin:0;
+.modal-title{
     font-size:19px;
+    font-weight:900;
 }
 
-.close{
+.close-btn{
     border:0;
-    background:#241111;
+    background:#222;
     color:#fff;
-    width:38px;
-    height:38px;
-    border-radius:12px;
+    width:36px;
+    height:36px;
+    border-radius:50%;
     font-size:18px;
 }
 
-.field{
-    margin-bottom:13px;
+/* WALLET */
+
+.balance{
+    font-size:35px;
+    font-weight:900;
+    margin:6px 0;
 }
 
-.field label{
-    display:block;
-    color:#aaa;
-    font-size:11px;
-    margin-bottom:6px;
+.balance-label{
+    color:#999;
+    font-size:12px;
 }
 
-.field input,
-.field select{
-    width:100%;
-    padding:14px;
-    border-radius:13px;
-    border:1px solid #302020;
-    background:#090909;
-    color:#fff;
-    outline:none;
-    font-size:15px;
+.wallet-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
 }
 
-.field input:focus,
-.field select:focus{
-    border-color:#9b1b1b;
-}
-
-.save-btn{
-    width:100%;
-    border:0;
+.transaction{
+    display:flex;
+    justify-content:space-between;
+    padding:13px;
     border-radius:14px;
-    padding:15px;
-    background:#a00000;
-    color:#fff;
+    background:#121212;
+    border:1px solid #272727;
+    margin-bottom:8px;
+}
+
+.transaction-left{
+    display:flex;
+    flex-direction:column;
+}
+
+.transaction-title{
+    font-size:13px;
     font-weight:800;
-    font-size:15px;
-    margin-top:5px;
 }
 
-.danger-btn{
-    width:100%;
-    border:1px solid #632020;
-    border-radius:14px;
-    padding:14px;
-    background:#170909;
-    color:#ff5555;
-    font-weight:700;
-    margin-top:10px;
+.transaction-date{
+    font-size:10px;
+    color:#777;
+    margin-top:3px;
+}
+
+.transaction-amount{
+    font-weight:900;
+}
+
+.plus{
+    color:#45d47b;
+}
+
+.minus{
+    color:#ff5757;
 }
 
 /* EMPTY */
+
 .empty{
     text-align:center;
     color:#666;
-    padding:30px 10px;
-    font-size:13px;
+    padding:25px 10px;
+    font-size:12px;
 }
 
-/* LINE */
-.line-page{
-    display:none;
+/* BOTTOM NAV */
+
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(520px,100%);
+    background:rgba(12,12,12,.96);
+    backdrop-filter:blur(12px);
+    border-top:1px solid #292929;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    padding:8px 6px calc(8px + env(safe-area-inset-bottom));
+    z-index:50;
 }
 
-.line-card{
-    background:linear-gradient(145deg,#111,#090909);
-    border:1px solid #292929;
-    border-radius:22px;
-    padding:25px;
-    text-align:center;
+.nav-btn{
+    border:0;
+    background:transparent;
+    color:#666;
+    padding:7px 2px;
+    font-size:10px;
+    font-weight:800;
 }
 
-.line-card .big{
-    font-size:45px;
-    margin-bottom:10px;
+.nav-icon{
+    display:block;
+    font-size:20px;
+    margin-bottom:3px;
 }
 
-.line-card h2{
-    margin:5px;
-}
-
-.line-card p{
-    color:#777;
-    font-size:13px;
-    line-height:1.7;
-}
-
-.coming{
-    display:inline-block;
-    padding:7px 14px;
-    border-radius:20px;
-    background:#241111;
-    color:#ff4141;
-    font-size:11px;
-}
-
-/* SETTINGS PAGE */
-.settings-page{
-    display:none;
+.nav-btn.active{
+    color:#ff4a4a;
 }
 
 /* TOAST */
+
 .toast{
     position:fixed;
-    bottom:90px;
     left:50%;
+    bottom:85px;
     transform:translateX(-50%) translateY(20px);
-    background:#fff;
-    color:#000;
+    background:#222;
+    border:1px solid #444;
     padding:12px 18px;
     border-radius:13px;
     font-size:12px;
     opacity:0;
     pointer-events:none;
-    transition:.3s;
-    z-index:100;
+    transition:.25s;
+    z-index:200;
+    white-space:nowrap;
 }
 
 .toast.show{
     opacity:1;
     transform:translateX(-50%) translateY(0);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:360px){
+    .menu-grid{
+        grid-template-columns:1fr;
+    }
+
+    .stat-grid{
+        grid-template-columns:1fr 1fr;
+    }
 }
 </style>
 </head>
@@ -510,262 +625,485 @@ button{
 <div class="app">
 
 <header class="header">
-    <div>
-        <div class="logo">BLI <span>DRIVER</span></div>
-        <div class="status">DRIVER MODE • WEEKLY MANAGER</div>
-    </div>
-
-    <button class="settings-btn" onclick="openSettings()">⚙️</button>
+    <div class="logo">BLI DRIVER</div>
+    <div class="status">DRIVER MODE</div>
 </header>
 
-<main class="content">
+<div class="back-row">
+    <button class="back-btn" id="backBtn" onclick="goBack()">← BACK</button>
+</div>
 
-<!-- HOME -->
-<section id="homePage">
 
-    <div class="week-card">
+<!-- ================= HOME ================= -->
 
-        <div class="week-title">
-            <h2>🎯 هدف الأسبوع</h2>
-            <div class="week-date" id="weekDates"></div>
+<section class="page active" id="homePage">
+
+    <div class="page-title">Dashboard</div>
+
+    <div class="card red-card">
+
+        <div class="week-head">
+            <div class="week-title">CURRENT WEEK</div>
+            <div class="week-date" id="weekRange"></div>
         </div>
 
-        <div class="money-main">
-            <div class="number" id="completed">0</div>
-            <small>دينار من الهدف</small>
+        <div class="goal-label">WEEKLY GOAL</div>
+        <div class="goal-number" id="goalDisplay">0 IQD</div>
+
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
         </div>
 
-        <div class="progress-wrap">
-
-            <div class="progress-info">
-                <span>نسبة الإنجاز</span>
-                <span class="percent" id="percent">0%</span>
-            </div>
-
-            <div class="progress">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-
-        </div>
-
-        <div class="goal-grid">
-
-            <div class="goal-box">
-                <span>الهدف الأسبوعي</span>
-                <strong id="weeklyGoal">0 د.ع</strong>
-            </div>
-
-            <div class="goal-box">
-                <span>المتبقي</span>
-                <strong class="red" id="remaining">0 د.ع</strong>
-            </div>
-
-        </div>
-
-        <div class="daily-target">
-            <span>المطلوب يومياً من الآن</span>
-            <strong id="dailyNeed">0 د.ع</strong>
+        <div class="progress-info">
+            <span id="progressPercent">0%</span>
+            <span id="remainingDisplay">Remaining: 0 IQD</span>
         </div>
 
     </div>
 
 
-    <div class="section-title">📊 ملخص الأسبوع</div>
+    <div class="stat-grid">
 
-    <div class="cards">
-
-        <div class="card">
-            <div class="icon">💰</div>
-            <div class="label">إجمالي الدخل</div>
-            <div class="value" id="grossTotal">0</div>
+        <div class="stat">
+            <div class="stat-label">COMPLETED</div>
+            <div class="stat-value" id="completedDisplay">0</div>
         </div>
 
-        <div class="card">
-            <div class="icon">🏦</div>
-            <div class="label">بعد عمولة Bli</div>
-            <div class="value" id="netTotal">0</div>
+        <div class="stat">
+            <div class="stat-label">DAILY TARGET</div>
+            <div class="stat-value small-value" id="dailyNeedDisplay">0</div>
         </div>
 
-        <div class="card">
-            <div class="icon">⛽</div>
-            <div class="label">تكلفة الوقود</div>
-            <div class="value" id="fuelTotal">0</div>
+        <div class="stat">
+            <div class="stat-label">FUEL COST</div>
+            <div class="stat-value small-value" id="fuelDisplay">0</div>
         </div>
 
-        <div class="card">
-            <div class="icon">📈</div>
-            <div class="label">صافي الربح</div>
-            <div class="value green" id="profitTotal">0</div>
+        <div class="stat">
+            <div class="stat-label">REAL PROFIT</div>
+            <div class="stat-value small-value" id="profitDisplay">0</div>
         </div>
 
     </div>
 
 
-    <button class="add-btn" onclick="openEntry()">
-        ＋ إضافة دخل ووقود اليوم
-    </button>
+    <div class="section-title">Quick Actions</div>
 
+    <div class="menu-grid">
 
-    <div class="section-title">📅 أيام الأسبوع</div>
+        <div class="menu-card" onclick="openPage('incomePage')">
+            <div class="menu-icon">💰</div>
+            <div class="menu-name">BLI INCOME</div>
+            <div class="menu-desc">Daily earnings</div>
+        </div>
 
-    <div class="days" id="daysList"></div>
+        <div class="menu-card" onclick="openPage('fuelPage')">
+            <div class="menu-icon">⛽</div>
+            <div class="menu-name">FUEL</div>
+            <div class="menu-desc">Petrol / LPG</div>
+        </div>
 
-</section>
+        <div class="menu-card" onclick="openPage('walletPage')">
+            <div class="menu-icon">💳</div>
+            <div class="menu-name">BALANCE</div>
+            <div class="menu-desc">Recharge & spending</div>
+        </div>
 
-
-<!-- LINE -->
-<section id="linePage" class="line-page">
-
-    <div class="section-title">🚕 مشروع خط</div>
-
-    <div class="line-card">
-
-        <div class="big">🚖</div>
-
-        <h2>إدارة مشروع الخط</h2>
-
-        <p>
-            هذا القسم مخصص لإدارة مشروع الخط بشكل مستقل
-            عن Bli، وسنضيف له لاحقاً الدخل،
-            عدد الركاب، المصاريف، الوقود،
-            والأرباح اليومية والأسبوعية.
-        </p>
-
-        <div class="coming">قريباً • LINE MANAGER</div>
+        <div class="menu-card" onclick="openPage('weekPage')">
+            <div class="menu-icon">📊</div>
+            <div class="menu-name">WEEK</div>
+            <div class="menu-desc">Performance</div>
+        </div>
 
     </div>
 
 </section>
 
 
-<!-- SETTINGS -->
-<section id="settingsPage" class="settings-page">
+<!-- ================= INCOME ================= -->
 
-    <div class="section-title">⚙️ الإعدادات</div>
+<section class="page" id="incomePage">
 
-    <div class="card" style="margin-bottom:12px">
-
-        <div class="field">
-            <label>الهدف الأسبوعي (د.ع)</label>
-            <input type="number" id="setGoal" inputmode="numeric">
-        </div>
-
-        <div class="field">
-            <label>عمولة Bli (%)</label>
-            <input type="number" id="setCommission" inputmode="decimal">
-        </div>
-
-        <div class="field">
-            <label>سعر البنزين (د.ع / لتر)</label>
-            <input type="number" id="setPetrol" inputmode="numeric">
-        </div>
-
-        <div class="field">
-            <label>سعر LPG (د.ع / لتر)</label>
-            <input type="number" id="setLpg" inputmode="numeric">
-        </div>
-
-        <button class="save-btn" onclick="saveSettings()">
-            حفظ الإعدادات
-        </button>
-
-    </div>
+    <div class="page-title">BLI Income</div>
 
     <div class="card">
 
-        <div style="font-weight:800;margin-bottom:8px">
-            📌 نظام الأسبوع
+        <div class="field">
+            <label>DATE</label>
+
+            <div class="roll-date">
+                <div class="roll-box">
+                    <select id="incomeDay" class="roll-select"></select>
+                </div>
+
+                <div class="roll-box">
+                    <select id="incomeMonth" class="roll-select"></select>
+                </div>
+
+                <div class="roll-box">
+                    <select id="incomeYear" class="roll-select"></select>
+                </div>
+            </div>
+
         </div>
 
-        <div style="color:#777;font-size:12px;line-height:1.8">
-            الأسبوع يبدأ يوم الأحد وينتهي يوم السبت.
-            يتم احتساب الأيام والدخل والوقود تلقائياً
-            حسب تاريخ اليوم.
+        <div class="field">
+            <label>BLI INCOME AFTER COMMISSION</label>
+            <input type="number" id="incomeAmount" placeholder="Example: 40000">
+        </div>
+
+        <div class="field">
+            <label>BONUS</label>
+            <input type="number" id="incomeBonus" placeholder="0">
+        </div>
+
+        <div class="field">
+            <label>TIPS / EXTRA</label>
+            <input type="number" id="incomeExtra" placeholder="0">
+        </div>
+
+        <button class="main-btn" onclick="saveIncome()">
+            SAVE INCOME
+        </button>
+
+    </div>
+
+    <div class="section-title">Recent Income</div>
+
+    <div id="incomeList"></div>
+
+</section>
+
+
+<!-- ================= FUEL ================= -->
+
+<section class="page" id="fuelPage">
+
+    <div class="page-title">Fuel Manager</div>
+
+    <div class="card">
+
+        <div class="field">
+            <label>DATE</label>
+
+            <div class="roll-date">
+                <div class="roll-box">
+                    <select id="fuelDay" class="roll-select"></select>
+                </div>
+
+                <div class="roll-box">
+                    <select id="fuelMonth" class="roll-select"></select>
+                </div>
+
+                <div class="roll-box">
+                    <select id="fuelYear" class="roll-select"></select>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="field">
+            <label>FUEL TYPE</label>
+
+            <select id="fuelType">
+                <option value="petrol">PETROL</option>
+                <option value="lpg">LPG</option>
+            </select>
+
+        </div>
+
+        <div class="field">
+            <label>LITERS</label>
+            <input type="number" step="0.1" id="fuelLiters" placeholder="Example: 10">
+        </div>
+
+        <button class="main-btn" onclick="saveFuel()">
+            SAVE FUEL
+        </button>
+
+    </div>
+
+    <div class="stat-grid">
+
+        <div class="stat">
+            <div class="stat-label">PETROL COST</div>
+            <div class="stat-value small-value" id="petrolCost">0</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-label">LPG COST</div>
+            <div class="stat-value small-value" id="lpgCost">0</div>
         </div>
 
     </div>
 
-    <button class="danger-btn" onclick="resetWeek()">
-        إعادة تعيين بيانات الأسبوع
-    </button>
+    <div class="section-title">Fuel History</div>
+
+    <div id="fuelList"></div>
 
 </section>
 
-</main>
+
+<!-- ================= WALLET ================= -->
+
+<section class="page" id="walletPage">
+
+    <div class="page-title">Balance Manager</div>
+
+    <div class="card green-card">
+
+        <div class="balance-label">CURRENT BALANCE</div>
+
+        <div class="balance" id="balanceDisplay">
+            0 IQD
+        </div>
+
+        <div class="balance-label">
+            Recharge money and spending tracker
+        </div>
+
+    </div>
 
 
-<nav class="nav">
+    <div class="wallet-actions">
 
-    <button id="homeNav" class="active" onclick="showPage('home')">
-        <span class="nav-icon">🏠</span>
-        <span>الرئيسية</span>
-    </button>
+        <button class="main-btn green-btn" onclick="openWalletModal('recharge')">
+            + RECHARGE
+        </button>
 
-    <button id="lineNav" onclick="showPage('line')">
-        <span class="nav-icon">🚕</span>
-        <span>خط</span>
-    </button>
+        <button class="main-btn danger-btn" onclick="openWalletModal('spend')">
+            − SPENDING
+        </button>
 
-    <button id="settingsNav" onclick="showPage('settings')">
-        <span class="nav-icon">⚙️</span>
-        <span>الإعدادات</span>
-    </button>
+    </div>
 
-</nav>
+
+    <div class="stat-grid" style="margin-top:13px;">
+
+        <div class="stat">
+            <div class="stat-label">TOTAL RECHARGED</div>
+            <div class="stat-value small-value" id="totalRecharge">0</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-label">TOTAL SPENT</div>
+            <div class="stat-value small-value" id="totalSpend">0</div>
+        </div>
+
+    </div>
+
+
+    <div class="section-title">Transactions</div>
+
+    <div id="walletList"></div>
+
+</section>
+
+
+<!-- ================= WEEK ================= -->
+
+<section class="page" id="weekPage">
+
+    <div class="page-title">Weekly Performance</div>
+
+    <div class="card">
+
+        <div class="week-head">
+            <div class="week-title">SUNDAY → SATURDAY</div>
+            <div class="week-date" id="weekRange2"></div>
+        </div>
+
+        <div class="stat-grid">
+
+            <div class="stat">
+                <div class="stat-label">INCOME</div>
+                <div class="stat-value small-value" id="weekIncome">0</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">FUEL</div>
+                <div class="stat-value small-value" id="weekFuel">0</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">PROFIT</div>
+                <div class="stat-value small-value" id="weekProfit">0</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">DAYS WORKED</div>
+                <div class="stat-value small-value" id="daysWorked">0</div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section-title">Sunday → Saturday</div>
+
+    <div id="daysList"></div>
+
+</section>
+
+
+<!-- ================= SETTINGS ================= -->
+
+<section class="page" id="settingsPage">
+
+    <div class="page-title">Settings</div>
+
+    <div class="card">
+
+        <div class="field">
+            <label>WEEKLY GOAL</label>
+            <input type="number" id="settingGoal">
+        </div>
+
+        <div class="field">
+            <label>PETROL PRICE / LITER</label>
+            <input type="number" id="settingPetrol">
+        </div>
+
+        <div class="field">
+            <label>LPG PRICE / LITER</label>
+            <input type="number" id="settingLpg">
+        </div>
+
+        <button class="main-btn" onclick="saveSettings()">
+            SAVE SETTINGS
+        </button>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="section-title" style="margin-top:0;">
+            Data
+        </div>
+
+        <button class="main-btn danger-btn" onclick="resetWeek()">
+            RESET CURRENT WEEK
+        </button>
+
+        <button class="main-btn secondary-btn" onclick="resetAll()">
+            DELETE ALL DATA
+        </button>
+
+    </div>
+
+</section>
 
 </div>
 
 
-<!-- ENTRY MODAL -->
-<div class="modal" id="entryModal">
+<!-- ================= INCOME MODAL ================= -->
+
+<div class="modal" id="incomeModal">
 
     <div class="modal-box">
 
-        <div class="modal-title">
-            <h2>➕ تسجيل اليوم</h2>
-            <button class="close" onclick="closeEntry()">×</button>
+        <div class="modal-head">
+
+            <div class="modal-title" id="incomeModalTitle">
+                Edit Day
+            </div>
+
+            <button class="close-btn" onclick="closeModal('incomeModal')">
+                ×
+            </button>
+
+        </div>
+
+        <div id="editDayContent"></div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= WALLET MODAL ================= -->
+
+<div class="modal" id="walletModal">
+
+    <div class="modal-box">
+
+        <div class="modal-head">
+
+            <div class="modal-title" id="walletModalTitle">
+                Recharge
+            </div>
+
+            <button class="close-btn" onclick="closeModal('walletModal')">
+                ×
+            </button>
+
         </div>
 
         <div class="field">
-            <label>التاريخ</label>
-            <input type="date" id="entryDate">
+            <label>DATE</label>
+
+            <div class="roll-date">
+                <div class="roll-box">
+                    <select id="walletDay" class="roll-select"></select>
+                </div>
+
+                <div class="roll-box">
+                    <select id="walletMonth" class="roll-select"></select>
+                </div>
+
+                <div class="roll-box">
+                    <select id="walletYear" class="roll-select"></select>
+                </div>
+            </div>
+
         </div>
 
         <div class="field">
-            <label>إجمالي دخل Bli قبل العمولة</label>
-            <input type="number" id="entryIncome" inputmode="numeric" placeholder="مثلاً 50000">
+            <label>AMOUNT</label>
+            <input type="number" id="walletAmount" placeholder="Example: 10000">
         </div>
 
         <div class="field">
-            <label>البونص / الحوافز</label>
-            <input type="number" id="entryBonus" inputmode="numeric" placeholder="0">
+            <label>NOTE</label>
+            <input type="text" id="walletNote" placeholder="Optional">
         </div>
 
-        <div class="field">
-            <label>دخل إضافي / Tips</label>
-            <input type="number" id="entryExtra" inputmode="numeric" placeholder="0">
-        </div>
-
-        <div class="field">
-            <label>نوع الوقود</label>
-            <select id="entryFuelType">
-                <option value="petrol">بنزين</option>
-                <option value="lpg">LPG / غاز</option>
-            </select>
-        </div>
-
-        <div class="field">
-            <label>كمية الوقود (لتر)</label>
-            <input type="number" id="entryLiters" inputmode="decimal" step="0.1" placeholder="مثلاً 10">
-        </div>
-
-        <button class="save-btn" onclick="saveEntry()">
-            حفظ بيانات اليوم
+        <button class="main-btn" id="walletSaveBtn" onclick="saveWalletTransaction()">
+            SAVE
         </button>
 
     </div>
 
 </div>
+
+
+<!-- ================= BOTTOM NAV ================= -->
+
+<nav class="bottom-nav">
+
+    <button class="nav-btn active" onclick="openPage('homePage',this)">
+        <span class="nav-icon">⌂</span>
+        HOME
+    </button>
+
+    <button class="nav-btn" onclick="openPage('incomePage',this)">
+        <span class="nav-icon">💰</span>
+        INCOME
+    </button>
+
+    <button class="nav-btn" onclick="openPage('walletPage',this)">
+        <span class="nav-icon">💳</span>
+        BALANCE
+    </button>
+
+    <button class="nav-btn" onclick="openPage('settingsPage',this)">
+        <span class="nav-icon">⚙</span>
+        SETTINGS
+    </button>
+
+</nav>
 
 
 <div class="toast" id="toast"></div>
@@ -773,55 +1111,104 @@ button{
 
 <script>
 
-/* =========================
+/* =========================================================
    DATA
-========================= */
+========================================================= */
 
-const DEFAULT_SETTINGS = {
-    goal: 500000,
-    commission: 20,
-    petrol: 450,
-    lpg: 200
+const STORAGE_KEY = "bli_driver_manager_v2";
+
+let data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
+
+    settings:{
+        goal:500000,
+        petrol:450,
+        lpg:200
+    },
+
+    income:[],
+
+    fuel:[],
+
+    wallet:[]
+
 };
 
-let settings = JSON.parse(
-    localStorage.getItem("bliSettings")
-) || DEFAULT_SETTINGS;
 
-let entries = JSON.parse(
-    localStorage.getItem("bliEntries")
-) || {};
-
-
-/* =========================
-   HELPERS
-========================= */
-
-function money(number){
-    return Math.round(number || 0).toLocaleString("en-US") + " د.ع";
-}
+/* =========================================================
+   SAVE
+========================================================= */
 
 function saveData(){
-    localStorage.setItem(
-        "bliSettings",
-        JSON.stringify(settings)
-    );
 
     localStorage.setItem(
-        "bliEntries",
-        JSON.stringify(entries)
+        STORAGE_KEY,
+        JSON.stringify(data)
     );
-}
 
-function getTodayKey(){
-    return new Date().toISOString().slice(0,10);
 }
 
 
-/* =========================
-   WEEK
-   Sunday -> Saturday
-========================= */
+/* =========================================================
+   FORMAT
+========================================================= */
+
+function money(value){
+
+    return Math.round(Number(value)||0)
+        .toLocaleString("en-US") + " IQD";
+
+}
+
+
+function dateKey(date){
+
+    const y = date.getFullYear();
+
+    const m = String(date.getMonth()+1).padStart(2,"0");
+
+    const d = String(date.getDate()).padStart(2,"0");
+
+    return `${y}-${m}-${d}`;
+
+}
+
+
+function parseDate(key){
+
+    const p = key.split("-");
+
+    return new Date(
+        Number(p[0]),
+        Number(p[1])-1,
+        Number(p[2])
+    );
+
+}
+
+
+function formatDate(key){
+
+    const d = parseDate(key);
+
+    return String(d.getDate()).padStart(2,"0")
+        + "/"
+        + String(d.getMonth()+1).padStart(2,"0")
+        + "/"
+        + d.getFullYear();
+
+}
+
+
+function todayKey(){
+
+    return dateKey(new Date());
+
+}
+
+
+/* =========================================================
+   WEEK SUNDAY → SATURDAY
+========================================================= */
 
 function getWeekDates(){
 
@@ -831,571 +1218,1236 @@ function getWeekDates(){
 
     const sunday = new Date(now);
 
-    sunday.setHours(0,0,0,0);
+    sunday.setDate(now.getDate() - day);
 
-    sunday.setDate(
-        now.getDate() - day
-    );
-
-    const dates = [];
+    let arr=[];
 
     for(let i=0;i<7;i++){
 
         const d = new Date(sunday);
 
-        d.setDate(
-            sunday.getDate() + i
-        );
+        d.setDate(sunday.getDate()+i);
 
-        dates.push(d);
+        arr.push(dateKey(d));
+
     }
 
-    return dates;
-}
+    return arr;
 
-function dateKey(date){
-    const y = date.getFullYear();
-    const m = String(date.getMonth()+1).padStart(2,"0");
-    const d = String(date.getDate()).padStart(2,"0");
-
-    return `${y}-${m}-${d}`;
-}
-
-function formatDate(date){
-
-    return date.toLocaleDateString(
-        "ar-IQ",
-        {
-            day:"numeric",
-            month:"numeric"
-        }
-    );
-}
-
-function getDayName(date){
-
-    return date.toLocaleDateString(
-        "ar-IQ",
-        {
-            weekday:"long"
-        }
-    );
 }
 
 
-/* =========================
-   CALCULATIONS
-========================= */
+function getWeekRangeText(){
 
-function getWeeklyEntries(){
+    const week = getWeekDates();
 
-    const dates = getWeekDates();
+    return formatDate(week[0])
+        + " → "
+        + formatDate(week[6]);
 
-    return dates.map(d =>
-        entries[dateKey(d)] || {
-            income:0,
-            bonus:0,
-            extra:0,
-            liters:0,
-            fuelType:"petrol"
-        }
-    );
-}
-
-function calculate(){
-
-    const week = getWeeklyEntries();
-
-    let gross = 0;
-    let net = 0;
-    let fuel = 0;
-
-    week.forEach(e => {
-
-        const income =
-            Number(e.income) || 0;
-
-        const bonus =
-            Number(e.bonus) || 0;
-
-        const extra =
-            Number(e.extra) || 0;
-
-        const total =
-            income + bonus + extra;
-
-        const commission =
-            income * (settings.commission / 100);
-
-        const afterCommission =
-            income - commission + bonus + extra;
-
-        const price =
-            e.fuelType === "lpg"
-            ? settings.lpg
-            : settings.petrol;
-
-        const fuelCost =
-            (Number(e.liters) || 0) * price;
-
-        gross += total;
-        net += afterCommission;
-        fuel += fuelCost;
-
-    });
-
-    const profit = net - fuel;
-
-    return {
-        gross,
-        net,
-        fuel,
-        profit
-    };
 }
 
 
-/* =========================
-   RENDER HOME
-========================= */
+/* =========================================================
+   WEEK CALCULATIONS
+========================================================= */
 
-function render(){
+function getWeekIncome(){
 
-    const calc = calculate();
+    const week = getWeekDates();
 
-    const goal =
-        Number(settings.goal) || 0;
+    return data.income
+        .filter(x=>week.includes(x.date))
+        .reduce((sum,x)=>
+            sum + Number(x.amount||0)
+            + Number(x.bonus||0)
+            + Number(x.extra||0)
+        ,0);
 
-    const completed =
-        calc.net;
+}
 
-    const remaining =
-        Math.max(goal - completed,0);
 
-    const percent =
-        goal > 0
-        ? Math.min((completed / goal) * 100,100)
+function getWeekFuel(){
+
+    const week = getWeekDates();
+
+    return data.fuel
+        .filter(x=>week.includes(x.date))
+        .reduce((sum,x)=>
+            sum + Number(x.cost||0)
+        ,0);
+
+}
+
+
+function getWeekProfit(){
+
+    return getWeekIncome() - getWeekFuel();
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function updateDashboard(){
+
+    const goal = Number(data.settings.goal)||0;
+
+    const completed = getWeekIncome();
+
+    const remaining = Math.max(goal-completed,0);
+
+    const percent = goal>0
+        ? Math.min((completed/goal)*100,100)
         : 0;
 
-    document.getElementById("completed")
-        .textContent = money(completed);
-
-    document.getElementById("weeklyGoal")
+    document.getElementById("goalDisplay")
         .textContent = money(goal);
 
-    document.getElementById("remaining")
-        .textContent = money(remaining);
+    document.getElementById("completedDisplay")
+        .textContent = money(completed);
 
-    document.getElementById("percent")
+    document.getElementById("remainingDisplay")
+        .textContent = "Remaining: " + money(remaining);
+
+    document.getElementById("progressPercent")
         .textContent = percent.toFixed(0) + "%";
 
     document.getElementById("progressBar")
         .style.width = percent + "%";
 
-    document.getElementById("grossTotal")
-        .textContent = money(calc.gross);
+    const week = getWeekDates();
 
-    document.getElementById("netTotal")
-        .textContent = money(calc.net);
+    const today = todayKey();
 
-    document.getElementById("fuelTotal")
-        .textContent = money(calc.fuel);
+    let index = week.indexOf(today);
 
-    document.getElementById("profitTotal")
-        .textContent = money(calc.profit);
+    if(index<0) index=0;
 
+    const daysRemaining = 7-index;
 
-    /* DAILY NEED */
+    const dailyNeed = daysRemaining>0
+        ? Math.ceil(remaining/daysRemaining)
+        : remaining;
 
-    const dates = getWeekDates();
-
-    const today =
-        new Date();
-
-    const todayIndex =
-        today.getDay();
-
-    const remainingDays =
-        7 - todayIndex;
-
-    const dailyNeed =
-        remaining > 0
-        ? remaining / remainingDays
-        : 0;
-
-    document.getElementById("dailyNeed")
+    document.getElementById("dailyNeedDisplay")
         .textContent = money(dailyNeed);
 
 
-    /* WEEK DATE */
+    const fuel = getWeekFuel();
 
-    document.getElementById("weekDates")
-        .textContent =
-        formatDate(dates[0])
-        + " → "
-        + formatDate(dates[6]);
+    document.getElementById("fuelDisplay")
+        .textContent = money(fuel);
 
+    document.getElementById("profitDisplay")
+        .textContent = money(completed-fuel);
 
-    renderDays();
+    document.getElementById("weekRange")
+        .textContent = getWeekRangeText();
+
+    document.getElementById("weekRange2")
+        .textContent = getWeekRangeText();
 
 }
 
 
-/* =========================
-   DAYS
-========================= */
+/* =========================================================
+   PAGE NAVIGATION
+========================================================= */
 
-function renderDays(){
+let pageHistory = [];
 
-    const container =
-        document.getElementById("daysList");
+let currentPage = "homePage";
 
-    container.innerHTML = "";
 
-    const dates =
-        getWeekDates();
+function openPage(id,navButton){
 
-    const todayKey =
-        getTodayKey();
+    if(id===currentPage) return;
 
-    dates.forEach(date => {
+    pageHistory.push(currentPage);
 
-        const key =
-            dateKey(date);
+    document.querySelectorAll(".page")
+        .forEach(p=>p.classList.remove("active"));
 
-        const e =
-            entries[key] || {
-                income:0,
-                bonus:0,
-                extra:0,
-                liters:0,
-                fuelType:"petrol"
-            };
+    const page=document.getElementById(id);
 
-        const income =
-            Number(e.income) || 0;
+    if(page) page.classList.add("active");
 
-        const bonus =
-            Number(e.bonus) || 0;
+    currentPage=id;
 
-        const extra =
-            Number(e.extra) || 0;
+    updateBackButton();
 
-        const total =
-            income + bonus + extra;
+    document.querySelectorAll(".nav-btn")
+        .forEach(b=>b.classList.remove("active"));
 
-        const commission =
-            income *
-            (settings.commission / 100);
+    if(navButton){
 
-        const afterCommission =
-            income -
-            commission +
-            bonus +
-            extra;
+        navButton.classList.add("active");
 
-        const fuelPrice =
-            e.fuelType === "lpg"
-            ? settings.lpg
-            : settings.petrol;
+    }
 
-        const fuelCost =
-            (Number(e.liters) || 0)
-            * fuelPrice;
+    renderAll();
 
-        const profit =
-            afterCommission - fuelCost;
+}
 
-        const div =
-            document.createElement("div");
 
-        div.className =
-            "day" +
-            (key === todayKey ? " today" : "");
+function goBack(){
 
-        div.innerHTML = `
+    if(pageHistory.length===0){
 
-            <div>
+        openPageDirect("homePage");
+
+        return;
+
+    }
+
+    const previous =
+        pageHistory.pop();
+
+    openPageDirect(previous);
+
+}
+
+
+function openPageDirect(id){
+
+    document.querySelectorAll(".page")
+        .forEach(p=>p.classList.remove("active"));
+
+    const page=document.getElementById(id);
+
+    if(page) page.classList.add("active");
+
+    currentPage=id;
+
+    updateBackButton();
+
+}
+
+
+function updateBackButton(){
+
+    const btn=document.getElementById("backBtn");
+
+    if(currentPage==="homePage"){
+
+        btn.classList.remove("show");
+
+    }else{
+
+        btn.classList.add("show");
+
+    }
+
+}
+
+
+/* =========================================================
+   ROLL DATE
+========================================================= */
+
+function setupRollDate(prefix){
+
+    const day=document.getElementById(prefix+"Day");
+
+    const month=document.getElementById(prefix+"Month");
+
+    const year=document.getElementById(prefix+"Year");
+
+    day.innerHTML="";
+
+    month.innerHTML="";
+
+    year.innerHTML="";
+
+
+    for(let i=1;i<=31;i++){
+
+        const option=document.createElement("option");
+
+        option.value=String(i).padStart(2,"0");
+
+        option.textContent=String(i).padStart(2,"0");
+
+        day.appendChild(option);
+
+    }
+
+
+    for(let i=1;i<=12;i++){
+
+        const option=document.createElement("option");
+
+        option.value=String(i).padStart(2,"0");
+
+        option.textContent=String(i).padStart(2,"0");
+
+        month.appendChild(option);
+
+    }
+
+
+    const currentYear =
+        new Date().getFullYear();
+
+    for(let i=currentYear-2;i<=currentYear+2;i++){
+
+        const option=document.createElement("option");
+
+        option.value=i;
+
+        option.textContent=i;
+
+        year.appendChild(option);
+
+    }
+
+
+    setRollToday(prefix);
+
+}
+
+
+function setRollDate(prefix,key){
+
+    const p=key.split("-");
+
+    document.getElementById(prefix+"Year").value=p[0];
+
+    document.getElementById(prefix+"Month").value=p[1];
+
+    document.getElementById(prefix+"Day").value=p[2];
+
+}
+
+
+function setRollToday(prefix){
+
+    setRollDate(prefix,todayKey());
+
+}
+
+
+function readRollDate(prefix){
+
+    const day=document.getElementById(prefix+"Day").value;
+
+    const month=document.getElementById(prefix+"Month").value;
+
+    const year=document.getElementById(prefix+"Year").value;
+
+    return `${year}-${month}-${day}`;
+
+}
+
+
+/* =========================================================
+   INCOME
+========================================================= */
+
+function saveIncome(){
+
+    const date=readRollDate("income");
+
+    const amount=
+        Number(document.getElementById("incomeAmount").value)||0;
+
+    const bonus=
+        Number(document.getElementById("incomeBonus").value)||0;
+
+    const extra=
+        Number(document.getElementById("incomeExtra").value)||0;
+
+
+    if(amount<=0){
+
+        showToast("Enter income first");
+
+        return;
+
+    }
+
+
+    const existing =
+        data.income.find(x=>x.date===date);
+
+
+    if(existing){
+
+        existing.amount=amount;
+
+        existing.bonus=bonus;
+
+        existing.extra=extra;
+
+    }else{
+
+        data.income.push({
+
+            id:Date.now(),
+
+            date,
+
+            amount,
+
+            bonus,
+
+            extra
+
+        });
+
+    }
+
+
+    saveData();
+
+    document.getElementById("incomeAmount").value="";
+
+    document.getElementById("incomeBonus").value="";
+
+    document.getElementById("incomeExtra").value="";
+
+    showToast("Income saved");
+
+    renderAll();
+
+}
+
+
+function renderIncomeList(){
+
+    const box=document.getElementById("incomeList");
+
+    const items=[...data.income]
+        .sort((a,b)=>b.date.localeCompare(a.date));
+
+    if(items.length===0){
+
+        box.innerHTML='<div class="empty">No income records yet.</div>';
+
+        return;
+
+    }
+
+
+    box.innerHTML=items.slice(0,15).map(x=>{
+
+        const total=
+            Number(x.amount||0)
+            +Number(x.bonus||0)
+            +Number(x.extra||0);
+
+        return `
+
+        <div class="transaction">
+
+            <div class="transaction-left">
+
+                <div class="transaction-title">
+                    ${formatDate(x.date)}
+                </div>
+
+                <div class="transaction-date">
+                    Income ${money(x.amount)}
+                    ${x.bonus ? " • Bonus "+money(x.bonus) : ""}
+                    ${x.extra ? " • Extra "+money(x.extra) : ""}
+                </div>
+
+            </div>
+
+            <div class="transaction-amount plus">
+                +${money(total)}
+            </div>
+
+        </div>
+
+        `;
+
+    }).join("");
+
+}
+
+
+/* =========================================================
+   FUEL
+========================================================= */
+
+function saveFuel(){
+
+    const date=readRollDate("fuel");
+
+    const type=
+        document.getElementById("fuelType").value;
+
+    const liters=
+        Number(document.getElementById("fuelLiters").value)||0;
+
+
+    if(liters<=0){
+
+        showToast("Enter liters first");
+
+        return;
+
+    }
+
+
+    const price =
+        type==="petrol"
+        ? Number(data.settings.petrol)
+        : Number(data.settings.lpg);
+
+
+    data.fuel.push({
+
+        id:Date.now(),
+
+        date,
+
+        type,
+
+        liters,
+
+        cost:liters*price
+
+    });
+
+
+    saveData();
+
+    document.getElementById("fuelLiters").value="";
+
+    showToast("Fuel saved");
+
+    renderAll();
+
+}
+
+
+function renderFuel(){
+
+    const box=document.getElementById("fuelList");
+
+    const items=[...data.fuel]
+        .sort((a,b)=>b.date.localeCompare(a.date));
+
+
+    if(items.length===0){
+
+        box.innerHTML='<div class="empty">No fuel records yet.</div>';
+
+    }else{
+
+        box.innerHTML=items.slice(0,20).map(x=>`
+
+            <div class="transaction">
+
+                <div class="transaction-left">
+
+                    <div class="transaction-title">
+                        ${x.type.toUpperCase()}
+                    </div>
+
+                    <div class="transaction-date">
+                        ${formatDate(x.date)}
+                        • ${x.liters} L
+                    </div>
+
+                </div>
+
+                <div class="transaction-amount minus">
+                    -${money(x.cost)}
+                </div>
+
+            </div>
+
+        `).join("");
+
+    }
+
+
+    const week=getWeekDates();
+
+    const petrol=data.fuel
+        .filter(x=>week.includes(x.date)&&x.type==="petrol")
+        .reduce((s,x)=>s+x.cost,0);
+
+    const lpg=data.fuel
+        .filter(x=>week.includes(x.date)&&x.type==="lpg")
+        .reduce((s,x)=>s+x.cost,0);
+
+    document.getElementById("petrolCost")
+        .textContent=money(petrol);
+
+    document.getElementById("lpgCost")
+        .textContent=money(lpg);
+
+}
+
+
+/* =========================================================
+   WALLET
+========================================================= */
+
+let walletMode="recharge";
+
+
+function openWalletModal(mode){
+
+    walletMode=mode;
+
+    document.getElementById("walletModal")
+        .classList.add("show");
+
+    document.getElementById("walletModalTitle")
+        .textContent =
+        mode==="recharge"
+        ? "Recharge Balance"
+        : "Record Spending";
+
+    document.getElementById("walletSaveBtn")
+        .textContent =
+        mode==="recharge"
+        ? "SAVE RECHARGE"
+        : "SAVE SPENDING";
+
+    setRollToday("wallet");
+
+    document.getElementById("walletAmount").value="";
+
+    document.getElementById("walletNote").value="";
+
+}
+
+
+function saveWalletTransaction(){
+
+    const date=readRollDate("wallet");
+
+    const amount=
+        Number(document.getElementById("walletAmount").value)||0;
+
+    const note=
+        document.getElementById("walletNote").value.trim();
+
+
+    if(amount<=0){
+
+        showToast("Enter amount first");
+
+        return;
+
+    }
+
+
+    data.wallet.push({
+
+        id:Date.now(),
+
+        date,
+
+        type:walletMode,
+
+        amount,
+
+        note
+
+    });
+
+
+    saveData();
+
+    closeModal("walletModal");
+
+    showToast(
+        walletMode==="recharge"
+        ? "Recharge saved"
+        : "Spending saved"
+    );
+
+    renderAll();
+
+}
+
+
+function getBalance(){
+
+    return data.wallet.reduce((sum,x)=>{
+
+        if(x.type==="recharge"){
+
+            return sum+Number(x.amount||0);
+
+        }
+
+        return sum-Number(x.amount||0);
+
+    },0);
+
+}
+
+
+function renderWallet(){
+
+    const balance=getBalance();
+
+    document.getElementById("balanceDisplay")
+        .textContent=money(balance);
+
+
+    const recharge=data.wallet
+        .filter(x=>x.type==="recharge")
+        .reduce((s,x)=>s+Number(x.amount||0),0);
+
+    const spend=data.wallet
+        .filter(x=>x.type==="spend")
+        .reduce((s,x)=>s+Number(x.amount||0),0);
+
+
+    document.getElementById("totalRecharge")
+        .textContent=money(recharge);
+
+    document.getElementById("totalSpend")
+        .textContent=money(spend);
+
+
+    const box=document.getElementById("walletList");
+
+    const items=[...data.wallet]
+        .sort((a,b)=>b.date.localeCompare(a.date));
+
+
+    if(items.length===0){
+
+        box.innerHTML=
+            '<div class="empty">No balance transactions yet.</div>';
+
+        return;
+
+    }
+
+
+    box.innerHTML=items.slice(0,30).map(x=>`
+
+        <div class="transaction">
+
+            <div class="transaction-left">
+
+                <div class="transaction-title">
+
+                    ${x.type==="recharge"
+                    ? "RECHARGE"
+                    : "SPENDING"}
+
+                </div>
+
+                <div class="transaction-date">
+
+                    ${formatDate(x.date)}
+                    ${x.note ? " • "+escapeHtml(x.note) : ""}
+
+                </div>
+
+            </div>
+
+            <div class="transaction-amount ${x.type==="recharge"?"plus":"minus"}">
+
+                ${x.type==="recharge" ? "+" : "-"}${money(x.amount)}
+
+            </div>
+
+        </div>
+
+    `).join("");
+
+}
+
+
+/* =========================================================
+   WEEK VIEW
+========================================================= */
+
+function renderWeek(){
+
+    const income=getWeekIncome();
+
+    const fuel=getWeekFuel();
+
+    document.getElementById("weekIncome")
+        .textContent=money(income);
+
+    document.getElementById("weekFuel")
+        .textContent=money(fuel);
+
+    document.getElementById("weekProfit")
+        .textContent=money(income-fuel);
+
+
+    const week=getWeekDates();
+
+    const worked=week.filter(date=>{
+
+        return data.income.some(x=>x.date===date);
+
+    }).length;
+
+
+    document.getElementById("daysWorked")
+        .textContent=worked;
+
+
+    const names=[
+        "SUNDAY",
+        "MONDAY",
+        "TUESDAY",
+        "WEDNESDAY",
+        "THURSDAY",
+        "FRIDAY",
+        "SATURDAY"
+    ];
+
+
+    const box=document.getElementById("daysList");
+
+
+    box.innerHTML=week.map((date,i)=>{
+
+        const incomeItems=
+            data.income.filter(x=>x.date===date);
+
+        const fuelItems=
+            data.fuel.filter(x=>x.date===date);
+
+
+        const income=
+            incomeItems.reduce((s,x)=>
+                s+Number(x.amount||0)
+                +Number(x.bonus||0)
+                +Number(x.extra||0)
+            ,0);
+
+
+        const fuel=
+            fuelItems.reduce((s,x)=>
+                s+Number(x.cost||0)
+            ,0);
+
+
+        return `
+
+        <div class="day-row"
+             onclick="editDay('${date}')">
+
+            <div class="day-left">
+
                 <div class="day-name">
-                    ${getDayName(date)}
+                    ${names[i]}
                 </div>
 
                 <div class="day-date">
                     ${formatDate(date)}
-                    ${key === todayKey ? " • اليوم" : ""}
                 </div>
-            </div>
-
-            <div class="day-money">
-
-                ${money(profit)}
-
-                <small>
-                    دخل ${money(total)}
-                    • وقود ${money(fuelCost)}
-                </small>
 
             </div>
+
+            <div class="day-income">
+
+                <div class="day-income-number">
+                    ${money(income)}
+                </div>
+
+                <div class="day-fuel">
+                    Fuel: ${money(fuel)}
+                </div>
+
+            </div>
+
+        </div>
+
         `;
 
-        div.onclick = () => {
-
-            document.getElementById("entryDate")
-                .value = key;
-
-            document.getElementById("entryIncome")
-                .value = e.income || "";
-
-            document.getElementById("entryBonus")
-                .value = e.bonus || "";
-
-            document.getElementById("entryExtra")
-                .value = e.extra || "";
-
-            document.getElementById("entryFuelType")
-                .value = e.fuelType || "petrol";
-
-            document.getElementById("entryLiters")
-                .value = e.liters || "";
-
-            document.getElementById("entryModal")
-                .classList.add("show");
-        };
-
-        container.appendChild(div);
-
-    });
+    }).join("");
 
 }
 
 
-/* =========================
-   ENTRY
-========================= */
+/* =========================================================
+   EDIT DAY
+========================================================= */
 
-function openEntry(){
+function editDay(date){
 
-    document.getElementById("entryDate")
-        .value = getTodayKey();
+    const income=
+        data.income.find(x=>x.date===date);
 
-    document.getElementById("entryIncome")
-        .value = "";
+    const fuel=
+        data.fuel.filter(x=>x.date===date);
 
-    document.getElementById("entryBonus")
-        .value = "";
 
-    document.getElementById("entryExtra")
-        .value = "";
+    let fuelText="";
 
-    document.getElementById("entryFuelType")
-        .value = "petrol";
+    if(fuel.length){
 
-    document.getElementById("entryLiters")
-        .value = "";
+        fuelText=fuel.map(x=>
+            `${x.type.toUpperCase()} ${x.liters}L = ${money(x.cost)}`
+        ).join("<br>");
 
-    document.getElementById("entryModal")
-        .classList.add("show");
-}
+    }else{
 
-function closeEntry(){
+        fuelText="No fuel record";
 
-    document.getElementById("entryModal")
-        .classList.remove("show");
-}
-
-function saveEntry(){
-
-    const date =
-        document.getElementById("entryDate").value;
-
-    if(!date){
-        showToast("اختار التاريخ");
-        return;
     }
 
-    entries[date] = {
 
-        income:
-            Number(
-                document.getElementById("entryIncome").value
-            ) || 0,
+    document.getElementById("editDayContent")
+        .innerHTML=`
 
-        bonus:
-            Number(
-                document.getElementById("entryBonus").value
-            ) || 0,
+        <div class="card">
 
-        extra:
-            Number(
-                document.getElementById("entryExtra").value
-            ) || 0,
+            <div class="section-title" style="margin-top:0;">
+                ${formatDate(date)}
+            </div>
 
-        fuelType:
-            document.getElementById("entryFuelType").value,
+            <div class="field">
+                <label>INCOME AFTER COMMISSION</label>
 
-        liters:
-            Number(
-                document.getElementById("entryLiters").value
-            ) || 0
-    };
+                <input
+                    type="number"
+                    id="editAmount"
+                    value="${income ? income.amount : ""}"
+                >
+
+            </div>
+
+            <div class="field">
+                <label>BONUS</label>
+
+                <input
+                    type="number"
+                    id="editBonus"
+                    value="${income ? income.bonus : ""}"
+                >
+
+            </div>
+
+            <div class="field">
+                <label>TIPS / EXTRA</label>
+
+                <input
+                    type="number"
+                    id="editExtra"
+                    value="${income ? income.extra : ""}"
+                >
+
+            </div>
+
+            <button class="main-btn"
+                    onclick="updateDay('${date}')">
+
+                UPDATE DAY
+
+            </button>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="section-title" style="margin-top:0;">
+                FUEL
+            </div>
+
+            <div style="font-size:12px;color:#aaa;line-height:1.8;">
+                ${fuelText}
+            </div>
+
+        </div>
+
+        `;
+
+
+    document.getElementById("incomeModal")
+        .classList.add("show");
+
+}
+
+
+function updateDay(date){
+
+    const amount=
+        Number(document.getElementById("editAmount").value)||0;
+
+    const bonus=
+        Number(document.getElementById("editBonus").value)||0;
+
+    const extra=
+        Number(document.getElementById("editExtra").value)||0;
+
+
+    const existing=
+        data.income.find(x=>x.date===date);
+
+
+    if(amount<=0){
+
+        if(existing){
+
+            data.income=
+                data.income.filter(x=>x.date!==date);
+
+        }
+
+    }else{
+
+        if(existing){
+
+            existing.amount=amount;
+
+            existing.bonus=bonus;
+
+            existing.extra=extra;
+
+        }else{
+
+            data.income.push({
+
+                id:Date.now(),
+
+                date,
+
+                amount,
+
+                bonus,
+
+                extra
+
+            });
+
+        }
+
+    }
+
 
     saveData();
 
-    closeEntry();
+    closeModal("incomeModal");
 
-    render();
+    showToast("Day updated");
 
-    showToast("تم حفظ بيانات اليوم ✅");
+    renderAll();
+
 }
 
 
-/* =========================
+/* =========================================================
    SETTINGS
-========================= */
+========================================================= */
 
-function openSettings(){
+function loadSettings(){
 
-    document.getElementById("setGoal")
-        .value = settings.goal;
+    document.getElementById("settingGoal")
+        .value=data.settings.goal;
 
-    document.getElementById("setCommission")
-        .value = settings.commission;
+    document.getElementById("settingPetrol")
+        .value=data.settings.petrol;
 
-    document.getElementById("setPetrol")
-        .value = settings.petrol;
+    document.getElementById("settingLpg")
+        .value=data.settings.lpg;
 
-    document.getElementById("setLpg")
-        .value = settings.lpg;
-
-    showPage("settings");
 }
+
 
 function saveSettings(){
 
-    settings.goal =
-        Number(
-            document.getElementById("setGoal").value
-        ) || 0;
+    const goal=
+        Number(document.getElementById("settingGoal").value)||0;
 
-    settings.commission =
-        Number(
-            document.getElementById("setCommission").value
-        ) || 0;
+    const petrol=
+        Number(document.getElementById("settingPetrol").value)||0;
 
-    settings.petrol =
-        Number(
-            document.getElementById("setPetrol").value
-        ) || 0;
+    const lpg=
+        Number(document.getElementById("settingLpg").value)||0;
 
-    settings.lpg =
-        Number(
-            document.getElementById("setLpg").value
-        ) || 0;
+
+    data.settings.goal=goal;
+
+    data.settings.petrol=petrol;
+
+    data.settings.lpg=lpg;
+
 
     saveData();
 
-    render();
+    showToast("Settings saved");
 
-    showToast("تم حفظ الإعدادات ⚙️");
+    renderAll();
 
-    showPage("home");
 }
+
+
+/* =========================================================
+   RESET
+========================================================= */
 
 function resetWeek(){
 
-    const ok =
-        confirm(
-            "متأكد تريد حذف بيانات الأسبوع الحالي؟"
-        );
+    if(!confirm("Reset all current week income and fuel records?")){
 
-    if(!ok) return;
+        return;
 
-    getWeekDates().forEach(date => {
+    }
 
-        delete entries[
-            dateKey(date)
-        ];
 
-    });
+    const week=getWeekDates();
+
+    data.income=
+        data.income.filter(x=>!week.includes(x.date));
+
+    data.fuel=
+        data.fuel.filter(x=>!week.includes(x.date));
+
 
     saveData();
 
-    render();
+    showToast("Current week reset");
 
-    showToast("تم تصفير الأسبوع");
+    renderAll();
+
 }
 
 
-/* =========================
-   NAVIGATION
-========================= */
+function resetAll(){
 
-function showPage(page){
+    if(!confirm("DELETE ALL DATA? This cannot be undone.")){
 
-    document.getElementById("homePage")
-        .style.display =
-        page === "home" ? "block" : "none";
+        return;
 
-    document.getElementById("linePage")
-        .style.display =
-        page === "line" ? "block" : "none";
-
-    document.getElementById("settingsPage")
-        .style.display =
-        page === "settings" ? "block" : "none";
+    }
 
 
-    document.getElementById("homeNav")
-        .classList.toggle(
-            "active",
-            page === "home"
-        );
+    localStorage.removeItem(STORAGE_KEY);
 
-    document.getElementById("lineNav")
-        .classList.toggle(
-            "active",
-            page === "line"
-        );
+    location.reload();
 
-    document.getElementById("settingsNav")
-        .classList.toggle(
-            "active",
-            page === "settings"
-        );
+}
 
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+function closeModal(id){
+
+    document.getElementById(id)
+        .classList.remove("show");
+
+}
+
+
+document.querySelectorAll(".modal")
+.forEach(modal=>{
+
+    modal.addEventListener("click",function(e){
+
+        if(e.target===modal){
+
+            modal.classList.remove("show");
+
+        }
+
     });
-}
+
+});
 
 
-/* =========================
+/* =========================================================
    TOAST
-========================= */
+========================================================= */
+
+let toastTimer;
 
 function showToast(message){
 
-    const toast =
-        document.getElementById("toast");
+    const toast=document.getElementById("toast");
 
-    toast.textContent = message;
+    toast.textContent=message;
 
     toast.classList.add("show");
 
-    setTimeout(() => {
+    clearTimeout(toastTimer);
+
+    toastTimer=setTimeout(()=>{
 
         toast.classList.remove("show");
 
     },2200);
+
 }
 
 
-/* =========================
-   INIT
-========================= */
+/* =========================================================
+   SECURITY
+========================================================= */
 
-render();
+function escapeHtml(text){
+
+    return String(text)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================================================
+   RENDER ALL
+========================================================= */
+
+function renderAll(){
+
+    updateDashboard();
+
+    renderIncomeList();
+
+    renderFuel();
+
+    renderWallet();
+
+    renderWeek();
+
+    loadSettings();
+
+}
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+setupRollDate("income");
+
+setupRollDate("fuel");
+
+setupRollDate("wallet");
+
+renderAll();
+
+updateBackButton();
+
+
+/* =========================================================
+   SERVICE WORKER FRIENDLY
+========================================================= */
+
+window.addEventListener("pageshow",function(){
+
+    renderAll();
+
+});
 
 </script>
 
