@@ -139,9 +139,9 @@ button{
 
 .today-label{
     margin-top:5px;
-    font-size:10px;
+    font-size:11px;
     color:var(--green);
-    font-weight:700;
+    font-weight:800;
 }
 
 /* GOAL CARD */
@@ -425,28 +425,48 @@ button{
     margin-top:3px;
 }
 
-/* INNER PAGE HEADER */
+/* INNER PAGE HEADER & LUXURY BACK BUTTON */
 
 .inner-header{
     display:flex;
     align-items:center;
-    gap:10px;
-    margin:4px 0 15px;
+    gap:12px;
+    margin:8px 0 18px;
 }
 
 .back-btn{
-    background:linear-gradient(145deg,#23282a,#171a1c);
-    color:#dfe5e2;
-    border:1px solid #343b3c;
-    border-radius:13px;
-    padding:9px 14px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    background:linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    color:#e5ebe8;
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:14px;
+    padding:8px 14px;
     font-size:12px;
     font-weight:800;
-    box-shadow:0 5px 13px rgba(0,0,0,.18);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    box-shadow:0 4px 15px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+    transition:all .2s ease;
+}
+
+.back-btn .back-icon{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    background:rgba(103,197,138,0.15);
+    color:var(--green2);
+    font-size:13px;
 }
 
 .back-btn:active{
-    transform:scale(.97);
+    transform:scale(0.95);
+    border-color:rgba(103,197,138,0.35);
 }
 
 .inner-title{
@@ -576,7 +596,7 @@ input::placeholder{
     background:#141819;
     border:1px solid #292f30;
     border-radius:15px;
-    padding:13px;
+    padding:14px;
     margin-bottom:9px;
 }
 
@@ -587,27 +607,21 @@ input::placeholder{
 }
 
 .line-name{
-    font-size:13px;
+    font-size:14px;
     font-weight:900;
 }
 
 .line-amount{
     direction:ltr;
     color:var(--green2);
-    font-size:14px;
+    font-size:15px;
     font-weight:900;
-}
-
-.line-meta{
-    color:var(--muted);
-    font-size:9px;
-    margin-top:5px;
 }
 
 .line-actions{
     display:flex;
     gap:7px;
-    margin-top:10px;
+    margin-top:12px;
 }
 
 .small-btn{
@@ -992,7 +1006,10 @@ input::placeholder{
     <main id="page-income" class="page">
 
         <div class="inner-header">
-            <button class="back-btn" onclick="goBack()">↩ رجوع</button>
+            <button class="back-btn" onclick="goBack()">
+                <span class="back-icon">✕</span>
+                <span>رجوع</span>
+            </button>
             <div class="inner-title">دخل Bli</div>
         </div>
 
@@ -1060,7 +1077,10 @@ input::placeholder{
     <main id="page-fuel" class="page">
 
         <div class="inner-header">
-            <button class="back-btn" onclick="goBack()">↩ رجوع</button>
+            <button class="back-btn" onclick="goBack()">
+                <span class="back-icon">✕</span>
+                <span>رجوع</span>
+            </button>
             <div class="inner-title">صرف الوقود</div>
         </div>
 
@@ -1116,7 +1136,10 @@ input::placeholder{
     <main id="page-line" class="page">
 
         <div class="inner-header">
-            <button class="back-btn" onclick="goBack()">↩ رجوع</button>
+            <button class="back-btn" onclick="goBack()">
+                <span class="back-icon">✕</span>
+                <span>رجوع</span>
+            </button>
             <div class="inner-title">إدارة الخط</div>
         </div>
 
@@ -1141,16 +1164,6 @@ input::placeholder{
                 <input id="lineAmount" type="number" inputmode="numeric" placeholder="مثلاً 200000">
             </div>
 
-            <div class="field">
-                <label>التاريخ</label>
-
-                <div class="date-roll">
-                    <select id="lineDay"></select>
-                    <select id="lineMonth"></select>
-                    <select id="lineYear"></select>
-                </div>
-            </div>
-
             <button class="save-btn" id="lineSaveBtn" onclick="saveLine()">إضافة الخط</button>
 
         </div>
@@ -1164,7 +1177,10 @@ input::placeholder{
     <main id="page-week" class="page">
 
         <div class="inner-header">
-            <button class="back-btn" onclick="goBack()">↩ رجوع</button>
+            <button class="back-btn" onclick="goBack()">
+                <span class="back-icon">✕</span>
+                <span>رجوع</span>
+            </button>
             <div class="inner-title">تفاصيل الأسبوع</div>
         </div>
 
@@ -1182,7 +1198,10 @@ input::placeholder{
     <main id="page-settings" class="page">
 
         <div class="inner-header">
-            <button class="back-btn" onclick="goBack()">↩ رجوع</button>
+            <button class="back-btn" onclick="goBack()">
+                <span class="back-icon">✕</span>
+                <span>رجوع</span>
+            </button>
             <div class="inner-title">الإعدادات</div>
         </div>
 
@@ -1875,8 +1894,6 @@ function saveLine(){
         document.getElementById("lineAmount").value
     ) || 0;
 
-    const date = getRollDate("line");
-
     if(!name){
 
         showToast("اكتب اسم الخط");
@@ -1899,7 +1916,6 @@ function saveLine(){
 
             item.name = name;
             item.amount = amount;
-            item.date = dateKey(date);
         }
 
         editingLineId = null;
@@ -1914,7 +1930,7 @@ function saveLine(){
             id:Date.now().toString(),
             name:name,
             amount:amount,
-            date:dateKey(date)
+            date:todayKey()
         });
 
         showToast("تمت إضافة الخط");
@@ -1924,8 +1940,6 @@ function saveLine(){
 
     document.getElementById("lineName").value="";
     document.getElementById("lineAmount").value="";
-
-    setRollDate("line",new Date());
 
     renderLines();
     renderHome();
@@ -1941,8 +1955,6 @@ function editLine(id){
 
     document.getElementById("lineName").value=item.name;
     document.getElementById("lineAmount").value=item.amount;
-
-    setRollDate("line",dateFromKey(item.date));
 
     document.getElementById("lineSaveBtn").textContent="حفظ التعديل";
 
@@ -1997,12 +2009,10 @@ function renderLines(){
     }
 
     const sorted = [...data.lines].sort(
-        (a,b)=>String(b.date).localeCompare(String(a.date))
+        (a,b)=>Number(b.id) - Number(a.id)
     );
 
     list.innerHTML = sorted.map(item=>{
-
-        const date = dateFromKey(item.date);
 
         return `
             <div class="line-item">
@@ -2017,10 +2027,6 @@ function renderLines(){
                         ${formatNumber(item.amount)}
                     </div>
 
-                </div>
-
-                <div class="line-meta">
-                    ${formatInputDate(date)}
                 </div>
 
                 <div class="line-actions">
@@ -2067,10 +2073,9 @@ function renderHome(){
     document.getElementById("headerToday").textContent =
         formatInputDate(today);
 
+    /* يبقى فقط اسم اليوم دون إلحاق التاريخ */
     document.getElementById("todayText").textContent =
-        "اليوم: " + arabicDayName(today) +
-        "  •  " +
-        formatMainDate(today);
+        "اليوم: " + arabicDayName(today);
 
     const completed = getWeekIncome();
 
@@ -2510,14 +2515,12 @@ function initialize(){
 
     populateDateRoll("income");
     populateDateRoll("fuel");
-    populateDateRoll("line");
 
     populateDateRoll("modalIncome");
     populateDateRoll("modalFuel");
 
     setRollDate("income",new Date());
     setRollDate("fuel",new Date());
-    setRollDate("line",new Date());
 
     setRollDate("modalIncome",new Date());
     setRollDate("modalFuel",new Date());
