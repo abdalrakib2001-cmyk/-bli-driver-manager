@@ -2,9 +2,9 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<meta name="theme-color" content="#090909">
-<title>BLI DRIVER MANAGER</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>BLI DRIVER</title>
 
 <style>
 *{
@@ -12,12 +12,27 @@
     -webkit-tap-highlight-color:transparent;
 }
 
+:root{
+    --red:#b30000;
+    --red2:#e00000;
+    --dark:#070707;
+    --dark2:#111111;
+    --card:#151515;
+    --card2:#1b1b1b;
+    --text:#ffffff;
+    --muted:#999;
+    --green:#18c76f;
+    --yellow:#ffc107;
+    --danger:#ff3030;
+}
+
 body{
     margin:0;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;
     background:
-        radial-gradient(circle at top,#321010 0%,#110707 35%,#070707 75%);
-    color:#fff;
+        radial-gradient(circle at top right, rgba(179,0,0,.20), transparent 35%),
+        linear-gradient(180deg,#050505,#0b0b0b 45%,#050505);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
     min-height:100vh;
 }
 
@@ -26,719 +41,587 @@ button,input,select{
 }
 
 button{
+    border:0;
     cursor:pointer;
 }
 
 .app{
-    max-width:520px;
+    width:100%;
+    max-width:600px;
     margin:auto;
     min-height:100vh;
     padding-bottom:90px;
 }
 
-/* HEADER */
 .header{
-    padding:25px 18px 15px;
+    padding:20px 18px 12px;
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:rgba(5,5,5,.92);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(255,0,0,.12);
+}
+
+.brand{
     display:flex;
-    justify-content:space-between;
     align-items:center;
+    justify-content:space-between;
+}
+
+.brand-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
 
 .logo{
-    font-size:25px;
+    width:48px;
+    height:48px;
+    border-radius:15px;
+    background:linear-gradient(145deg,#d90000,#650000);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
     font-weight:900;
+    box-shadow:0 8px 25px rgba(180,0,0,.35);
+}
+
+.brand h1{
+    margin:0;
+    font-size:23px;
     letter-spacing:1px;
 }
 
-.logo span{
-    color:#e60000;
-}
-
 .status{
+    color:#ff4444;
     font-size:11px;
-    color:#999;
+    font-weight:800;
+    letter-spacing:2px;
     margin-top:3px;
-}
-
-.settings-btn{
-    width:44px;
-    height:44px;
-    border-radius:14px;
-    border:1px solid #3a2020;
-    background:#160c0c;
-    color:white;
-    font-size:20px;
-}
-
-/* MAIN */
-.content{
-    padding:0 15px;
 }
 
 .page{
     display:none;
+    padding:16px;
 }
 
 .page.active{
     display:block;
+    animation:fadeIn .22s ease;
 }
 
-/* WEEK CARD */
-.week-card{
-    background:linear-gradient(145deg,#250c0c,#100606);
-    border:1px solid #4b1717;
-    border-radius:24px;
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(7px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+/* HOME */
+
+.week-box{
+    background:
+        linear-gradient(145deg,rgba(180,0,0,.30),rgba(15,15,15,.96));
+    border:1px solid rgba(255,0,0,.25);
+    border-radius:25px;
     padding:20px;
     box-shadow:0 15px 40px rgba(0,0,0,.4);
+    margin-bottom:15px;
 }
 
 .week-title{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    gap:10px;
+    margin-bottom:14px;
 }
 
-.week-title h2{
-    margin:0;
-    font-size:18px;
+.week-title strong{
+    font-size:16px;
 }
 
 .week-date{
-    color:#aaa;
-    font-size:11px;
-    direction:ltr;
-    white-space:nowrap;
+    font-size:14px;
+    color:#ff6767;
+    font-weight:800;
+}
+
+.goal-number{
+    font-size:37px;
+    font-weight:900;
+    margin:4px 0;
+}
+
+.goal-label{
+    color:var(--muted);
+    font-size:12px;
 }
 
 .progress-wrap{
-    margin-top:22px;
-}
-
-.progress-info{
-    display:flex;
-    justify-content:space-between;
-    font-size:13px;
-    margin-bottom:9px;
+    height:12px;
+    background:#292929;
+    border-radius:20px;
+    overflow:hidden;
+    margin:18px 0 10px;
 }
 
 .progress{
-    height:12px;
-    background:#1c1212;
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#7c0000,#ff2020);
     border-radius:20px;
+    transition:.3s;
+}
+
+.goal-stats{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:8px;
+}
+
+.stat{
+    background:rgba(0,0,0,.30);
+    border-radius:14px;
+    padding:11px 7px;
+    text-align:center;
+}
+
+.stat small{
+    color:#888;
+    font-size:10px;
+    display:block;
+    margin-bottom:4px;
+}
+
+.stat b{
+    font-size:14px;
+}
+
+.remaining{
+    color:#ff4444;
+}
+
+.completed{
+    color:#22dc7c;
+}
+
+.today-required{
+    margin-top:13px;
+    background:#111;
+    border:1px solid #252525;
+    padding:12px;
+    border-radius:15px;
+    text-align:center;
+    font-size:13px;
+}
+
+.today-required b{
+    color:#ff3b3b;
+}
+
+/* MAIN CARDS */
+
+.main-cards{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:15px;
+}
+
+.main-card{
+    min-height:135px;
+    border-radius:23px;
+    padding:18px;
+    background:linear-gradient(145deg,#191919,#0d0d0d);
+    border:1px solid #272727;
+    box-shadow:0 10px 25px rgba(0,0,0,.3);
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    text-align:right;
+    color:white;
+    position:relative;
     overflow:hidden;
 }
 
-.progress-bar{
-    height:100%;
-    width:0%;
-    background:linear-gradient(90deg,#8b0000,#ff1717);
-    border-radius:20px;
-    transition:.4s;
+.main-card:before{
+    content:"";
+    position:absolute;
+    width:80px;
+    height:80px;
+    background:rgba(190,0,0,.12);
+    border-radius:50%;
+    left:-20px;
+    bottom:-25px;
 }
 
-.percent{
-    color:#ff3333;
-    font-weight:bold;
+.main-card:active{
+    transform:scale(.97);
 }
 
-.money-main{
-    text-align:center;
-    margin:20px 0 4px;
+.card-icon{
+    font-size:30px;
 }
 
-.money-main .number{
-    font-size:35px;
+.card-title{
+    font-size:17px;
     font-weight:900;
 }
 
-.money-main small{
-    color:#999;
+.card-sub{
+    font-size:10px;
+    color:#777;
+    margin-top:4px;
 }
 
-.goal-grid{
+.summary-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:10px;
     margin-top:15px;
 }
 
-.goal-box{
-    background:#0c0c0c;
-    border-radius:16px;
-    padding:13px;
-    border:1px solid #241919;
-}
-
-.goal-box span{
-    display:block;
-    color:#888;
-    font-size:11px;
-    margin-bottom:5px;
-}
-
-.goal-box strong{
-    font-size:16px;
-}
-
-.green{
-    color:#28df75 !important;
-}
-
-.red{
-    color:#ff3939 !important;
-}
-
-/* DAILY TARGET */
-.daily-target{
-    margin-top:13px;
-    background:#120d0d;
-    border:1px solid #2b1919;
+.summary{
+    background:#111;
+    border:1px solid #222;
     border-radius:17px;
     padding:14px;
-    text-align:center;
 }
 
-.daily-target span{
-    color:#999;
-    font-size:11px;
+.summary small{
+    color:#777;
+    font-size:10px;
 }
 
-.daily-target strong{
+.summary b{
     display:block;
-    font-size:22px;
-    margin-top:4px;
+    font-size:18px;
+    margin-top:6px;
+}
+
+/* BACK BUTTON */
+
+.back-btn{
+    width:100%;
+    margin-bottom:15px;
+    padding:13px 17px;
+    border-radius:17px;
+    color:#fff;
+    background:
+        linear-gradient(135deg,#231010,#0d0d0d);
+    border:1px solid rgba(255,0,0,.30);
+    box-shadow:
+        0 7px 18px rgba(0,0,0,.35),
+        inset 0 1px rgba(255,255,255,.04);
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:10px;
+    font-size:14px;
+    font-weight:800;
+}
+
+.back-icon{
+    width:32px;
+    height:32px;
+    border-radius:11px;
+    background:linear-gradient(145deg,#c60000,#690000);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:21px;
+    box-shadow:0 5px 12px rgba(180,0,0,.35);
+}
+
+.back-btn:active{
+    transform:scale(.98);
 }
 
 /* SECTION */
-.section-title{
-    margin:25px 3px 10px;
-    font-size:17px;
-    font-weight:800;
-}
 
-/* CARDS */
-.cards{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:11px;
+.section-title{
+    font-size:20px;
+    font-weight:900;
+    margin:5px 0 15px;
 }
 
 .card{
-    background:#111;
-    border:1px solid #272020;
-    border-radius:18px;
-    padding:17px 14px;
-}
-
-.card .icon{
-    font-size:23px;
-}
-
-.card .label{
-    color:#888;
-    font-size:11px;
-    margin-top:8px;
-}
-
-.card .value{
-    font-size:19px;
-    font-weight:800;
-    margin-top:3px;
-}
-
-/* BIG HOME OPTIONS */
-.home-options{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:11px;
-    margin-top:12px;
-}
-
-.option-card{
-    border:1px solid #302020;
-    background:linear-gradient(145deg,#151010,#0b0b0b);
-    border-radius:19px;
-    padding:18px 14px;
-    text-align:right;
-    min-height:105px;
-    transition:.2s;
-}
-
-.option-card:active{
-    transform:scale(.97);
-}
-
-.option-icon{
-    font-size:28px;
-}
-
-.option-title{
-    margin-top:9px;
-    font-size:15px;
-    font-weight:900;
-}
-
-.option-sub{
-    color:#777;
-    font-size:10px;
-    margin-top:4px;
-}
-
-/* ADD BUTTON */
-.add-btn{
-    width:100%;
-    margin-top:13px;
-    padding:17px;
-    border:0;
-    border-radius:17px;
-    background:linear-gradient(135deg,#b00000,#5d0000);
-    color:#fff;
-    font-size:16px;
-    font-weight:800;
-    box-shadow:0 8px 25px rgba(150,0,0,.2);
-}
-
-/* DAYS */
-.days{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-}
-
-.day{
-    background:#101010;
-    border:1px solid #222;
-    border-radius:16px;
-    padding:13px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.day.today{
-    border-color:#7c1717;
-    background:#160909;
-}
-
-.day-name{
-    font-weight:800;
-}
-
-.day-date{
-    color:#777;
-    font-size:10px;
-    margin-top:3px;
-    direction:ltr;
-    text-align:right;
-}
-
-.day-money{
-    text-align:left;
-    font-weight:800;
-}
-
-.day-money small{
-    display:block;
-    color:#777;
-    font-size:9px;
-}
-
-/* PAGE HEADER */
-.page-header{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom:15px;
-}
-
-.back-btn{
-    width:42px;
-    height:42px;
-    border-radius:13px;
-    border:1px solid #382020;
-    background:#150b0b;
-    color:#fff;
-    font-size:19px;
-}
-
-.page-title{
-    font-size:20px;
-    font-weight:900;
-}
-
-/* DATE ROLL */
-.date-roll{
-    display:grid;
-    grid-template-columns:1fr 1fr 1.25fr;
-    gap:8px;
-    direction:ltr;
-    margin-bottom:14px;
-}
-
-.date-roll select{
-    width:100%;
-    padding:14px 8px;
-    border-radius:13px;
-    border:1px solid #302020;
-    background:#090909;
-    color:#fff;
-    outline:none;
-    font-size:15px;
-    text-align:center;
-}
-
-.date-roll select:focus{
-    border-color:#9b1b1b;
-}
-
-.date-hint{
-    text-align:center;
-    color:#777;
-    font-size:10px;
-    margin-top:-7px;
-    margin-bottom:14px;
-}
-
-/* FORM */
-.form-card{
-    background:#111;
-    border:1px solid #272020;
-    border-radius:20px;
+    background:linear-gradient(145deg,#181818,#101010);
+    border:1px solid #292929;
+    border-radius:21px;
     padding:16px;
     margin-bottom:12px;
 }
 
-.field{
+.input-group{
     margin-bottom:13px;
 }
 
-.field label{
+.input-group label{
     display:block;
     color:#aaa;
-    font-size:11px;
-    margin-bottom:6px;
+    font-size:12px;
+    margin-bottom:7px;
 }
 
-.field input,
-.field select{
+.input,
+.select{
     width:100%;
-    padding:14px;
-    border-radius:13px;
-    border:1px solid #302020;
+    height:50px;
+    border-radius:14px;
+    border:1px solid #333;
     background:#090909;
     color:#fff;
+    padding:0 14px;
+    font-size:16px;
     outline:none;
-    font-size:15px;
 }
 
-.field input:focus,
-.field select:focus{
-    border-color:#9b1b1b;
+.input:focus,
+.select:focus{
+    border-color:#b00000;
 }
 
-.save-btn{
+.primary-btn{
     width:100%;
-    border:0;
-    border-radius:14px;
-    padding:15px;
-    background:#a00000;
+    min-height:52px;
+    border-radius:16px;
     color:#fff;
-    font-weight:800;
+    background:linear-gradient(135deg,#c80000,#720000);
     font-size:15px;
-    margin-top:5px;
+    font-weight:900;
+    box-shadow:0 9px 22px rgba(170,0,0,.25);
+}
+
+.primary-btn:active{
+    transform:scale(.98);
 }
 
 .secondary-btn{
     width:100%;
-    border:1px solid #452020;
-    border-radius:14px;
-    padding:14px;
-    background:#170909;
-    color:#fff;
-    font-weight:700;
-    margin-top:9px;
-}
-
-/* SUMMARY SMALL */
-.summary-box{
-    background:linear-gradient(145deg,#1a0909,#0d0d0d);
-    border:1px solid #3a1717;
-    border-radius:19px;
-    padding:17px;
-    margin-bottom:12px;
-}
-
-.summary-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:8px 0;
-    border-bottom:1px solid #211515;
-}
-
-.summary-row:last-child{
-    border-bottom:0;
-}
-
-.summary-row span{
-    color:#888;
-    font-size:11px;
-}
-
-.summary-row strong{
-    font-size:15px;
-}
-
-/* BALANCE */
-.balance-main{
-    background:linear-gradient(145deg,#260b0b,#0e0606);
-    border:1px solid #4b1717;
-    border-radius:23px;
-    padding:23px;
-    text-align:center;
-    margin-bottom:12px;
-}
-
-.balance-main small{
-    color:#888;
-    font-size:11px;
-}
-
-.balance-number{
-    font-size:34px;
-    font-weight:900;
-    margin-top:7px;
-}
-
-.balance-buttons{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-top:15px;
-}
-
-.balance-btn{
-    padding:15px 10px;
+    min-height:48px;
     border-radius:15px;
-    border:1px solid #382020;
-    font-weight:900;
     color:#fff;
-    font-size:14px;
-}
-
-.recharge-btn{
-    background:linear-gradient(145deg,#12351e,#0c1710);
-    border-color:#245a35;
-}
-
-.spending-btn{
-    background:linear-gradient(145deg,#3a1010,#180707);
-    border-color:#6b2020;
-}
-
-.balance-stats{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-bottom:12px;
-}
-
-.balance-stat{
-    background:#111;
-    border:1px solid #272020;
-    border-radius:17px;
-    padding:15px;
-}
-
-.balance-stat span{
-    display:block;
-    color:#777;
-    font-size:10px;
-    margin-bottom:5px;
-}
-
-.balance-stat strong{
-    font-size:17px;
-}
-
-/* TRANSACTIONS */
-.transactions{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-}
-
-.transaction{
-    background:#101010;
-    border:1px solid #222;
-    border-radius:15px;
-    padding:13px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.transaction-right{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.transaction-icon{
-    width:38px;
-    height:38px;
-    border-radius:12px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
     background:#191919;
-    font-size:18px;
-}
-
-.transaction-title{
-    font-size:13px;
+    border:1px solid #333;
     font-weight:800;
-}
-
-.transaction-date{
-    font-size:9px;
-    color:#666;
-    direction:ltr;
-    margin-top:3px;
-}
-
-.transaction-amount{
-    font-weight:900;
-    direction:ltr;
-}
-
-.transaction-amount.plus{
-    color:#28df75;
-}
-
-.transaction-amount.minus{
-    color:#ff3939;
-}
-
-/* LINE */
-.line-card{
-    background:linear-gradient(145deg,#111,#090909);
-    border:1px solid #292929;
-    border-radius:22px;
-    padding:25px;
-    text-align:center;
-}
-
-.line-card .big{
-    font-size:45px;
-    margin-bottom:10px;
-}
-
-.line-card h2{
-    margin:5px;
-}
-
-.line-card p{
-    color:#777;
-    font-size:13px;
-    line-height:1.7;
-}
-
-.coming{
-    display:inline-block;
-    padding:7px 14px;
-    border-radius:20px;
-    background:#241111;
-    color:#ff4141;
-    font-size:11px;
-}
-
-/* WEEK PAGE */
-.week-day-card{
-    background:#101010;
-    border:1px solid #242020;
-    border-radius:17px;
-    padding:14px;
-    margin-bottom:8px;
-}
-
-.week-day-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.week-day-info strong{
-    display:block;
-    font-size:14px;
-}
-
-.week-day-info small{
-    display:block;
-    color:#777;
-    font-size:9px;
-    margin-top:3px;
-}
-
-.week-day-profit{
-    font-size:15px;
-    font-weight:900;
-}
-
-.week-day-stats{
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr;
-    gap:5px;
-    margin-top:10px;
-}
-
-.week-mini{
-    background:#0a0a0a;
-    border-radius:10px;
-    padding:8px 4px;
-    text-align:center;
-}
-
-.week-mini span{
-    display:block;
-    color:#666;
-    font-size:8px;
-}
-
-.week-mini strong{
-    font-size:10px;
-}
-
-/* SETTINGS */
-.settings-card{
-    background:#111;
-    border:1px solid #272020;
-    border-radius:20px;
-    padding:16px;
-    margin-bottom:12px;
 }
 
 .danger-btn{
     width:100%;
-    border:1px solid #632020;
-    border-radius:14px;
+    min-height:48px;
+    border-radius:15px;
+    color:#fff;
+    background:#310909;
+    border:1px solid #760000;
+    font-weight:800;
+}
+
+/* DATE ROLL */
+
+.date-roll{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:8px;
+}
+
+.date-roll .select{
+    text-align:center;
+    padding:0 5px;
+    font-weight:800;
+}
+
+/* DAYS */
+
+.days{
+    margin-top:15px;
+}
+
+.day-card{
+    background:#111;
+    border:1px solid #252525;
+    border-radius:18px;
     padding:14px;
-    background:#170909;
-    color:#ff5555;
+    margin-bottom:9px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.day-left{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+
+.day-name{
+    font-weight:900;
+}
+
+.day-date{
+    color:#777;
+    font-size:11px;
+}
+
+.day-money{
+    text-align:left;
+}
+
+.day-money b{
+    display:block;
+    font-size:16px;
+}
+
+.day-money small{
+    color:#777;
+    font-size:10px;
+}
+
+/* LINE */
+
+.line-card{
+    background:
+        linear-gradient(145deg,#181818,#0d0d0d);
+    border:1px solid #292929;
+    border-radius:21px;
+    padding:16px;
+    margin-bottom:11px;
+}
+
+.line-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.line-name{
+    font-size:17px;
+    font-weight:900;
+}
+
+.line-amount{
+    font-size:20px;
+    font-weight:900;
+    color:#25dc7c;
+    white-space:nowrap;
+}
+
+.line-actions{
+    display:flex;
+    gap:8px;
+    margin-top:12px;
+}
+
+.small-btn{
+    flex:1;
+    padding:10px;
+    border-radius:12px;
+    background:#1b1b1b;
+    color:#ddd;
+    border:1px solid #303030;
     font-weight:700;
-    margin-top:10px;
+}
+
+.small-btn.delete{
+    color:#ff5555;
+    border-color:#4b1717;
+}
+
+/* WEEK */
+
+.week-total{
+    background:linear-gradient(145deg,#260606,#101010);
+    border:1px solid #620000;
+    border-radius:21px;
+    padding:18px;
+    margin-bottom:12px;
+}
+
+.week-total-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:7px 0;
+}
+
+.week-total-row span{
+    color:#aaa;
+}
+
+.week-total-row b{
+    font-size:17px;
+}
+
+/* SETTINGS */
+
+.setting-item{
+    background:#111;
+    border:1px solid #292929;
+    border-radius:16px;
+    padding:13px;
+    margin-bottom:10px;
+}
+
+.setting-item label{
+    color:#aaa;
+    display:block;
+    font-size:11px;
+    margin-bottom:7px;
+}
+
+/* NAV */
+
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index:50;
+    max-width:600px;
+    margin:auto;
+    padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+    background:rgba(7,7,7,.95);
+    backdrop-filter:blur(15px);
+    border-top:1px solid #252525;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:7px;
+}
+
+.nav-btn{
+    background:transparent;
+    color:#777;
+    border-radius:14px;
+    padding:7px 3px;
+    font-size:10px;
+    font-weight:800;
+}
+
+.nav-btn .nav-icon{
+    display:block;
+    font-size:20px;
+    margin-bottom:3px;
+}
+
+.nav-btn.active{
+    color:#fff;
+    background:#1b0a0a;
+    box-shadow:inset 0 0 0 1px rgba(190,0,0,.25);
 }
 
 /* MODAL */
+
 .modal{
     position:fixed;
     inset:0;
     background:rgba(0,0,0,.72);
     backdrop-filter:blur(7px);
+    z-index:100;
     display:none;
     align-items:flex-end;
-    z-index:50;
+    justify-content:center;
+    padding:12px;
 }
 
 .modal.show{
@@ -747,106 +630,107 @@ button{
 
 .modal-box{
     width:100%;
-    max-width:520px;
-    margin:auto auto 0;
-    background:#111;
-    border:1px solid #331919;
-    border-radius:25px 25px 0 0;
-    padding:22px 18px 30px;
+    max-width:580px;
     max-height:90vh;
     overflow:auto;
+    background:linear-gradient(180deg,#191919,#0b0b0b);
+    border:1px solid #3a1717;
+    border-radius:27px;
+    padding:20px;
+    box-shadow:0 -10px 50px rgba(0,0,0,.7);
+    animation:modalUp .22s ease;
 }
 
-.modal-title{
+@keyframes modalUp{
+    from{transform:translateY(100%)}
+    to{transform:translateY(0)}
+}
+
+.modal-head{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:18px;
+    margin-bottom:17px;
 }
 
-.modal-title h2{
+.modal-head h3{
     margin:0;
     font-size:19px;
 }
 
 .close{
-    border:0;
-    background:#241111;
-    color:#fff;
-    width:38px;
-    height:38px;
+    width:36px;
+    height:36px;
     border-radius:12px;
+    background:#292929;
+    color:#fff;
     font-size:18px;
 }
 
 /* EMPTY */
+
 .empty{
     text-align:center;
-    color:#666;
     padding:30px 10px;
-    font-size:13px;
+    color:#666;
 }
 
-/* NAV */
-.nav{
-    position:fixed;
-    bottom:0;
-    left:50%;
-    transform:translateX(-50%);
-    width:min(520px,100%);
-    padding:10px 15px 13px;
-    background:rgba(8,8,8,.94);
-    backdrop-filter:blur(15px);
-    border-top:1px solid #241515;
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr;
-    gap:8px;
-    z-index:20;
-}
-
-.nav button{
-    border:0;
-    background:transparent;
-    color:#777;
-    padding:7px;
-    border-radius:12px;
-}
-
-.nav button.active{
-    color:#fff;
-    background:#1a0b0b;
-}
-
-.nav .nav-icon{
-    display:block;
-    font-size:19px;
-}
-
-.nav span{
-    font-size:10px;
+.empty-icon{
+    font-size:40px;
+    margin-bottom:8px;
 }
 
 /* TOAST */
+
 .toast{
     position:fixed;
-    bottom:90px;
     left:50%;
+    bottom:95px;
     transform:translateX(-50%) translateY(20px);
-    background:#fff;
-    color:#000;
+    background:#191919;
+    border:1px solid #500000;
+    color:#fff;
     padding:12px 18px;
-    border-radius:13px;
-    font-size:12px;
+    border-radius:14px;
+    z-index:200;
     opacity:0;
     pointer-events:none;
-    transition:.3s;
-    z-index:100;
+    transition:.25s;
+    font-size:12px;
+    font-weight:800;
     white-space:nowrap;
 }
 
 .toast.show{
     opacity:1;
     transform:translateX(-50%) translateY(0);
+}
+
+.green{
+    color:#20dc7a;
+}
+
+.red{
+    color:#ff4444;
+}
+
+.muted{
+    color:#777;
+}
+
+@media(max-width:380px){
+    .main-cards{
+        gap:8px;
+    }
+
+    .main-card{
+        padding:14px;
+        min-height:125px;
+    }
+
+    .goal-stats{
+        gap:5px;
+    }
 }
 </style>
 </head>
@@ -856,212 +740,119 @@ button{
 <div class="app">
 
 <header class="header">
-    <div>
-        <div class="logo">BLI <span>DRIVER</span></div>
-        <div class="status">DRIVER MODE • WEEKLY MANAGER</div>
+    <div class="brand">
+        <div class="brand-left">
+            <div class="logo">B</div>
+            <div>
+                <h1>BLI DRIVER</h1>
+                <div class="status">DRIVER MODE</div>
+            </div>
+        </div>
     </div>
-
-    <button class="settings-btn" onclick="openSettings()">⚙️</button>
 </header>
 
 
-<main class="content">
-
-<!-- ================= HOME ================= -->
-
+<!-- HOME -->
 <section id="homePage" class="page active">
 
-    <div class="week-card">
+    <div class="week-box">
 
         <div class="week-title">
-            <h2>🎯 هدف الأسبوع</h2>
-            <div class="week-date" id="weekDates"></div>
+            <strong>🎯 الهدف الأسبوعي</strong>
+            <span id="weekRange" class="week-date">--/-- — --/--</span>
         </div>
 
-        <div class="money-main">
-            <div class="number" id="completed">0</div>
-            <small>دينار من الهدف</small>
-        </div>
+        <div class="goal-label">المبلغ المحقق</div>
+        <div class="goal-number" id="homeCompleted">0 د.ع</div>
 
         <div class="progress-wrap">
+            <div id="homeProgress" class="progress"></div>
+        </div>
 
-            <div class="progress-info">
-                <span>نسبة الإنجاز</span>
-                <span class="percent" id="percent">0%</span>
+        <div class="goal-stats">
+
+            <div class="stat">
+                <small>الهدف</small>
+                <b id="homeGoal">0</b>
             </div>
 
-            <div class="progress">
-                <div class="progress-bar" id="progressBar"></div>
+            <div class="stat">
+                <small>الإنجاز</small>
+                <b class="completed" id="homePercent">0%</b>
+            </div>
+
+            <div class="stat">
+                <small>المتبقي</small>
+                <b class="remaining" id="homeRemaining">0</b>
             </div>
 
         </div>
 
-        <div class="goal-grid">
-
-            <div class="goal-box">
-                <span>الهدف الأسبوعي</span>
-                <strong id="weeklyGoal">0 د.ع</strong>
-            </div>
-
-            <div class="goal-box">
-                <span>المتبقي</span>
-                <strong class="red" id="remaining">0 د.ع</strong>
-            </div>
-
-        </div>
-
-        <div class="daily-target">
-            <span>المطلوب يومياً من الآن</span>
-            <strong id="dailyNeed">0 د.ع</strong>
+        <div class="today-required">
+            المطلوب يومياً من الآن:
+            <b id="dailyRequired">0 د.ع</b>
         </div>
 
     </div>
 
 
-    <div class="section-title">📊 ملخص الأسبوع</div>
+    <div class="main-cards">
 
-    <div class="cards">
+        <button class="main-card" onclick="openPage('incomePage')">
+            <div class="card-icon">💰</div>
+            <div>
+                <div class="card-title">دخل البلي</div>
+                <div class="card-sub">دخل + بونص + إضافي</div>
+            </div>
+        </button>
 
-        <div class="card">
-            <div class="icon">💰</div>
-            <div class="label">دخل Bli بعد العمولة</div>
-            <div class="value" id="netTotal">0</div>
-        </div>
+        <button class="main-card" onclick="openPage('fuelPage')">
+            <div class="card-icon">⛽</div>
+            <div>
+                <div class="card-title">الوقود</div>
+                <div class="card-sub">بنزين / غاز</div>
+            </div>
+        </button>
 
-        <div class="card">
-            <div class="icon">🎁</div>
-            <div class="label">البونص والإضافي</div>
-            <div class="value" id="bonusTotal">0</div>
-        </div>
+        <button class="main-card" onclick="openPage('linePage')">
+            <div class="card-icon">🚐</div>
+            <div>
+                <div class="card-title">خط</div>
+                <div class="card-sub">إدارة خطوطك</div>
+            </div>
+        </button>
 
-        <div class="card">
-            <div class="icon">⛽</div>
-            <div class="label">تكلفة الوقود</div>
-            <div class="value" id="fuelTotal">0</div>
-        </div>
-
-        <div class="card">
-            <div class="icon">📈</div>
-            <div class="label">صافي الربح</div>
-            <div class="value green" id="profitTotal">0</div>
-        </div>
-
-    </div>
-
-
-    <div class="section-title">🚀 إدارة المشروع</div>
-
-    <div class="home-options">
-
-        <div class="option-card" onclick="openIncomePage()">
-            <div class="option-icon">💰</div>
-            <div class="option-title">الدخل</div>
-            <div class="option-sub">تسجيل دخل Bli والبونص</div>
-        </div>
-
-        <div class="option-card" onclick="openFuelPage()">
-            <div class="option-icon">⛽</div>
-            <div class="option-title">الوقود</div>
-            <div class="option-sub">بنزين أو LPG</div>
-        </div>
-
-        <div class="option-card" onclick="openBalancePage()">
-            <div class="option-icon">💳</div>
-            <div class="option-title">الشحن والصرف</div>
-            <div class="option-sub">الرصيد والحركات</div>
-        </div>
-
-        <div class="option-card" onclick="openWeekPage()">
-            <div class="option-icon">📅</div>
-            <div class="option-title">الأسبوع</div>
-            <div class="option-sub">تفاصيل كل يوم</div>
-        </div>
-
-    </div>
-
-
-    <button class="add-btn" onclick="openIncomePage()">
-        ＋ إضافة دخل اليوم
-    </button>
-
-
-    <div class="section-title">📅 أيام الأسبوع</div>
-
-    <div class="days" id="daysList"></div>
-
-</section>
-
-
-<!-- ================= INCOME PAGE ================= -->
-
-<section id="incomePage" class="page">
-
-    <div class="page-header">
-        <button class="back-btn" onclick="showPage('home')">↩</button>
-        <div class="page-title">💰 دخل Bli</div>
-    </div>
-
-    <div class="form-card">
-
-        <div class="section-title" style="margin-top:0">
-            📅 اختر التاريخ
-        </div>
-
-        <div class="date-roll">
-            <select id="incomeDay"></select>
-            <select id="incomeMonth"></select>
-            <select id="incomeYear"></select>
-        </div>
-
-        <div class="date-hint">
-            DD / MM / YYYY
-        </div>
-
-        <div class="field">
-            <label>دخل Bli بعد العمولة</label>
-            <input type="number"
-                   id="incomeAmount"
-                   inputmode="numeric"
-                   placeholder="مثلاً 40000">
-        </div>
-
-        <div class="field">
-            <label>البونص / الحوافز</label>
-            <input type="number"
-                   id="incomeBonus"
-                   inputmode="numeric"
-                   placeholder="0">
-        </div>
-
-        <div class="field">
-            <label>دخل إضافي / Tips</label>
-            <input type="number"
-                   id="incomeExtra"
-                   inputmode="numeric"
-                   placeholder="0">
-        </div>
-
-        <button class="save-btn" onclick="saveIncome()">
-            حفظ الدخل
+        <button class="main-card" onclick="openPage('weekPage')">
+            <div class="card-icon">📊</div>
+            <div>
+                <div class="card-title">الأسبوع</div>
+                <div class="card-sub">التفاصيل والأداء</div>
+            </div>
         </button>
 
     </div>
 
-    <div class="summary-box">
 
-        <div class="summary-row">
-            <span>دخل Bli بعد العمولة</span>
-            <strong id="incomeSummary">0 د.ع</strong>
+    <div class="summary-grid">
+
+        <div class="summary">
+            <small>دخل البلي</small>
+            <b id="summaryIncome">0</b>
         </div>
 
-        <div class="summary-row">
-            <span>البونص والإضافي</span>
-            <strong id="incomeBonusSummary">0 د.ع</strong>
+        <div class="summary">
+            <small>البونص والإضافي</small>
+            <b id="summaryExtras">0</b>
         </div>
 
-        <div class="summary-row">
-            <span>إجمالي الإنجاز</span>
-            <strong class="green" id="incomeTotalSummary">0 د.ع</strong>
+        <div class="summary">
+            <small>الوقود</small>
+            <b id="summaryFuel">0</b>
+        </div>
+
+        <div class="summary">
+            <small>الصافي بعد الوقود</small>
+            <b class="green" id="summaryNet">0</b>
         </div>
 
     </div>
@@ -1069,317 +860,251 @@ button{
 </section>
 
 
-<!-- ================= FUEL PAGE ================= -->
+<!-- INCOME -->
+<section id="incomePage" class="page">
 
-<section id="fuelPage" class="page">
+    <button class="back-btn" onclick="goBack()">
+        <span class="back-icon">‹</span>
+        <span>رجوع</span>
+    </button>
 
-    <div class="page-header">
-        <button class="back-btn" onclick="showPage('home')">↩</button>
-        <div class="page-title">⛽ الوقود</div>
+    <div class="section-title">💰 دخل البلي</div>
+
+    <div class="card">
+
+        <div class="input-group">
+            <label>التاريخ</label>
+
+            <div class="date-roll">
+
+                <select id="incomeDay" class="select"></select>
+
+                <select id="incomeMonth" class="select"></select>
+
+                <select id="incomeYear" class="select"></select>
+
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label>دخل البلي بعد العمولة</label>
+            <input id="incomeAmount" class="input" type="number" inputmode="numeric" placeholder="مثلاً 40000">
+        </div>
+
+        <div class="input-group">
+            <label>البونص</label>
+            <input id="incomeBonus" class="input" type="number" inputmode="numeric" placeholder="0">
+        </div>
+
+        <div class="input-group">
+            <label>إضافي / تبس</label>
+            <input id="incomeExtra" class="input" type="number" inputmode="numeric" placeholder="0">
+        </div>
+
+        <button class="primary-btn" onclick="saveIncome()">
+            💾 حفظ دخل اليوم
+        </button>
+
     </div>
 
-    <div class="form-card">
 
-        <div class="section-title" style="margin-top:0">
-            📅 اختر التاريخ
+    <div class="days" id="incomeDays"></div>
+
+</section>
+
+
+<!-- FUEL -->
+<section id="fuelPage" class="page">
+
+    <button class="back-btn" onclick="goBack()">
+        <span class="back-icon">‹</span>
+        <span>رجوع</span>
+    </button>
+
+    <div class="section-title">⛽ الوقود</div>
+
+    <div class="card">
+
+        <div class="input-group">
+            <label>التاريخ</label>
+
+            <div class="date-roll">
+
+                <select id="fuelDay" class="select"></select>
+
+                <select id="fuelMonth" class="select"></select>
+
+                <select id="fuelYear" class="select"></select>
+
+            </div>
         </div>
 
-        <div class="date-roll">
-            <select id="fuelDay"></select>
-            <select id="fuelMonth"></select>
-            <select id="fuelYear"></select>
-        </div>
-
-        <div class="date-hint">
-            DD / MM / YYYY
-        </div>
-
-        <div class="field">
+        <div class="input-group">
             <label>نوع الوقود</label>
 
-            <select id="fuelType" onchange="updateFuelPrice()">
+            <select id="fuelType" class="select">
                 <option value="petrol">بنزين</option>
-                <option value="lpg">LPG / غاز</option>
+                <option value="lpg">غاز</option>
             </select>
         </div>
 
-        <div class="field">
-            <label>كمية الوقود (لتر)</label>
-
-            <input type="number"
-                   id="fuelLiters"
-                   inputmode="decimal"
-                   step="0.1"
-                   placeholder="مثلاً 10">
+        <div class="input-group">
+            <label>اللترات</label>
+            <input id="fuelLiters" class="input" type="number" step="0.1" inputmode="decimal" placeholder="مثلاً 10">
         </div>
 
-        <div class="summary-row" style="margin-bottom:10px">
-            <span>سعر اللتر</span>
-            <strong id="fuelPricePreview">450 د.ع</strong>
-        </div>
-
-        <div class="summary-row">
-            <span>التكلفة</span>
-            <strong id="fuelCostPreview">0 د.ع</strong>
-        </div>
-
-        <button class="save-btn" onclick="saveFuel()">
-            حفظ الوقود
+        <button class="primary-btn" onclick="saveFuel()">
+            ⛽ حفظ الوقود
         </button>
 
     </div>
 
-    <div class="summary-box">
-
-        <div class="summary-row">
-            <span>بنزين هذا الأسبوع</span>
-            <strong id="weeklyPetrol">0 د.ع</strong>
-        </div>
-
-        <div class="summary-row">
-            <span>LPG هذا الأسبوع</span>
-            <strong id="weeklyLpg">0 د.ع</strong>
-        </div>
-
-        <div class="summary-row">
-            <span>إجمالي الوقود</span>
-            <strong class="red" id="weeklyFuelTotal">0 د.ع</strong>
-        </div>
-
-    </div>
+    <div id="fuelDays"></div>
 
 </section>
 
 
-<!-- ================= BALANCE PAGE ================= -->
-
-<section id="balancePage" class="page">
-
-    <div class="page-header">
-        <button class="back-btn" onclick="showPage('home')">↩</button>
-        <div class="page-title">💳 الشحن والصرف</div>
-    </div>
-
-    <div class="balance-main">
-
-        <small>الرصيد الحالي</small>
-
-        <div class="balance-number" id="currentBalance">
-            0 د.ع
-        </div>
-
-        <div class="balance-buttons">
-
-            <button class="balance-btn recharge-btn"
-                    onclick="openBalanceModal('recharge')">
-                ＋ شحن
-            </button>
-
-            <button class="balance-btn spending-btn"
-                    onclick="openBalanceModal('spending')">
-                − صرف
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <div class="balance-stats">
-
-        <div class="balance-stat">
-            <span>إجمالي الشحن</span>
-            <strong class="green" id="totalRecharge">
-                0 د.ع
-            </strong>
-        </div>
-
-        <div class="balance-stat">
-            <span>إجمالي الصرف</span>
-            <strong class="red" id="totalSpending">
-                0 د.ع
-            </strong>
-        </div>
-
-    </div>
-
-
-    <div class="section-title">📋 سجل العمليات</div>
-
-    <div class="transactions" id="transactionsList"></div>
-
-</section>
-
-
-<!-- ================= WEEK PAGE ================= -->
-
-<section id="weekPage" class="page">
-
-    <div class="page-header">
-        <button class="back-btn" onclick="showPage('home')">↩</button>
-        <div class="page-title">📅 تفاصيل الأسبوع</div>
-    </div>
-
-    <div class="summary-box">
-
-        <div class="summary-row">
-            <span>إجمالي الإنجاز</span>
-            <strong id="weekTotalIncome">0 د.ع</strong>
-        </div>
-
-        <div class="summary-row">
-            <span>إجمالي الوقود</span>
-            <strong id="weekTotalFuel">0 د.ع</strong>
-        </div>
-
-        <div class="summary-row">
-            <span>صافي الربح</span>
-            <strong class="green" id="weekTotalProfit">0 د.ع</strong>
-        </div>
-
-    </div>
-
-    <div id="weekDetails"></div>
-
-</section>
-
-
-<!-- ================= LINE PAGE ================= -->
-
+<!-- LINE -->
 <section id="linePage" class="page">
 
-    <div class="page-header">
-        <button class="back-btn" onclick="showPage('home')">↩</button>
-        <div class="page-title">🚕 مشروع خط</div>
-    </div>
+    <button class="back-btn" onclick="goBack()">
+        <span class="back-icon">‹</span>
+        <span>رجوع</span>
+    </button>
 
-    <div class="line-card">
+    <div class="section-title">🚐 الخطوط</div>
 
-        <div class="big">🚖</div>
+    <button class="primary-btn" onclick="openLineModal()" style="margin-bottom:14px;">
+        ＋ إضافة خط
+    </button>
 
-        <h2>إدارة مشروع الخط</h2>
+    <div id="linesList"></div>
 
-        <p>
-            هذا القسم مخصص لإدارة مشروع الخط بشكل مستقل
-            عن Bli، وسنضيف له لاحقاً الدخل،
-            عدد الركاب، المصاريف، الوقود،
-            والأرباح اليومية والأسبوعية.
-        </p>
-
-        <div class="coming">
-            قريباً • LINE MANAGER
+    <div class="week-total" style="margin-top:14px;">
+        <div class="week-total-row">
+            <span>إجمالي دخل الخطوط</span>
+            <b class="green" id="linesTotal">0 د.ع</b>
         </div>
-
     </div>
 
 </section>
 
 
-<!-- ================= SETTINGS PAGE ================= -->
+<!-- WEEK -->
+<section id="weekPage" class="page">
 
-<section id="settingsPage" class="page">
+    <button class="back-btn" onclick="goBack()">
+        <span class="back-icon">‹</span>
+        <span>رجوع</span>
+    </button>
 
-    <div class="page-header">
-        <button class="back-btn" onclick="showPage('home')">↩</button>
-        <div class="page-title">⚙️ الإعدادات</div>
+    <div class="section-title">📊 تفاصيل الأسبوع</div>
+
+    <div class="week-total">
+
+        <div class="week-total-row">
+            <span>دخل البلي</span>
+            <b id="weekIncome">0</b>
+        </div>
+
+        <div class="week-total-row">
+            <span>البونص والإضافي</span>
+            <b id="weekExtras">0</b>
+        </div>
+
+        <div class="week-total-row">
+            <span>إجمالي دخل البلي</span>
+            <b id="weekGross">0</b>
+        </div>
+
+        <div class="week-total-row">
+            <span>تكلفة الوقود</span>
+            <b class="red" id="weekFuel">0</b>
+        </div>
+
+        <div class="week-total-row">
+            <span>الصافي بعد الوقود</span>
+            <b class="green" id="weekNet">0</b>
+        </div>
+
     </div>
 
-    <div class="settings-card">
+    <div id="weekDays"></div>
 
-        <div class="field">
-            <label>الهدف الأسبوعي (د.ع)</label>
+</section>
 
-            <input type="number"
-                   id="setGoal"
-                   inputmode="numeric">
+
+<!-- SETTINGS -->
+<section id="settingsPage" class="page">
+
+    <button class="back-btn" onclick="goBack()">
+        <span class="back-icon">‹</span>
+        <span>رجوع</span>
+    </button>
+
+    <div class="section-title">⚙️ الإعدادات</div>
+
+    <div class="card">
+
+        <div class="setting-item">
+            <label>الهدف الأسبوعي</label>
+            <input id="settingGoal" class="input" type="number" inputmode="numeric">
         </div>
 
-
-        <div class="field">
-            <label>سعر البنزين (د.ع / لتر)</label>
-
-            <input type="number"
-                   id="setPetrol"
-                   inputmode="numeric">
+        <div class="setting-item">
+            <label>سعر البنزين / لتر</label>
+            <input id="settingPetrol" class="input" type="number" inputmode="numeric">
         </div>
 
-
-        <div class="field">
-            <label>سعر LPG (د.ع / لتر)</label>
-
-            <input type="number"
-                   id="setLpg"
-                   inputmode="numeric">
+        <div class="setting-item">
+            <label>سعر الغاز / لتر</label>
+            <input id="settingLpg" class="input" type="number" inputmode="numeric">
         </div>
 
-
-        <button class="save-btn" onclick="saveSettings()">
-            حفظ الإعدادات
+        <button class="primary-btn" onclick="saveSettings()">
+            💾 حفظ الإعدادات
         </button>
 
     </div>
 
+    <div class="card">
 
-    <div class="settings-card">
+        <button class="danger-btn" onclick="resetWeek()">
+            🗑️ تصفير الأسبوع الحالي
+        </button>
 
-        <div style="font-weight:800;margin-bottom:8px">
-            📌 نظام الأسبوع
-        </div>
+        <div style="height:9px"></div>
 
-        <div style="color:#777;font-size:12px;line-height:1.8">
-            الأسبوع يبدأ يوم الأحد وينتهي يوم السبت.
-            يتم احتساب الهدف والإنجاز والدخل والوقود
-            تلقائياً حسب تاريخ اليوم.
-        </div>
+        <button class="danger-btn" onclick="resetAll()">
+            ⚠️ حذف جميع البيانات
+        </button>
 
     </div>
 
-
-    <button class="danger-btn" onclick="resetWeek()">
-        إعادة تعيين بيانات الأسبوع
-    </button>
-
-
-    <button class="danger-btn"
-            onclick="resetAll()"
-            style="margin-top:8px">
-        حذف جميع بيانات الموقع
-    </button>
-
 </section>
 
-</main>
 
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
 
-<!-- ================= NAV ================= -->
-
-<nav class="nav">
-
-    <button id="homeNav"
-            class="active"
-            onclick="showPage('home')">
-
+    <button id="navHome" class="nav-btn active" onclick="openPageDirect('homePage','navHome')">
         <span class="nav-icon">🏠</span>
-        <span>الرئيسية</span>
-
+        الرئيسية
     </button>
 
-
-    <button id="lineNav"
-            onclick="showPage('line')">
-
-        <span class="nav-icon">🚕</span>
-        <span>خط</span>
-
+    <button id="navIncome" class="nav-btn" onclick="openPageDirect('incomePage','navIncome')">
+        <span class="nav-icon">💰</span>
+        البلي
     </button>
 
+    <button id="navLine" class="nav-btn" onclick="openPageDirect('linePage','navLine')">
+        <span class="nav-icon">🚐</span>
+        خط
+    </button>
 
-    <button id="settingsNav"
-            onclick="openSettings()">
-
+    <button id="navSettings" class="nav-btn" onclick="openPageDirect('settingsPage','navSettings')">
         <span class="nav-icon">⚙️</span>
-        <span>الإعدادات</span>
-
+        إعدادات
     </button>
 
 </nav>
@@ -1387,52 +1112,28 @@ button{
 </div>
 
 
-<!-- ================= BALANCE MODAL ================= -->
-
-<div class="modal" id="balanceModal">
+<!-- LINE MODAL -->
+<div id="lineModal" class="modal">
 
     <div class="modal-box">
 
-        <div class="modal-title">
-
-            <h2 id="balanceModalTitle">
-                ＋ شحن
-            </h2>
-
-            <button class="close"
-                    onclick="closeBalanceModal()">
-                ×
-            </button>
-
+        <div class="modal-head">
+            <h3 id="lineModalTitle">🚐 إضافة خط</h3>
+            <button class="close" onclick="closeLineModal()">✕</button>
         </div>
 
-
-        <div class="field">
-
-            <label>المبلغ (د.ع)</label>
-
-            <input type="number"
-                   id="balanceAmount"
-                   inputmode="numeric"
-                   placeholder="مثلاً 10000">
-
+        <div class="input-group">
+            <label>اسم الخط</label>
+            <input id="lineName" class="input" type="text" placeholder="مثلاً خط مدرسة النور">
         </div>
 
-
-        <div class="field">
-
-            <label>ملاحظة</label>
-
-            <input type="text"
-                   id="balanceNote"
-                   placeholder="مثلاً شحن رصيد Bli">
-
+        <div class="input-group">
+            <label>المبلغ</label>
+            <input id="lineAmount" class="input" type="number" inputmode="numeric" placeholder="مثلاً 200000">
         </div>
 
-
-        <button class="save-btn"
-                onclick="saveBalanceTransaction()">
-            حفظ العملية
+        <button class="primary-btn" onclick="saveLine()">
+            💾 حفظ الخط
         </button>
 
     </div>
@@ -1440,1625 +1141,1124 @@ button{
 </div>
 
 
-<div class="toast" id="toast"></div>
+<div id="toast" class="toast"></div>
 
 
 <script>
 
-/* =====================================================
+/* =========================
    DATA
-===================================================== */
+========================= */
 
-const DEFAULT_SETTINGS = {
-    goal:500000,
-    petrol:450,
-    lpg:200
+const STORAGE = {
+    settings:"bli_settings_v4",
+    income:"bli_income_v4",
+    fuel:"bli_fuel_v4",
+    lines:"bli_lines_v4"
 };
 
-let settings =
-    JSON.parse(localStorage.getItem("bliSettings"))
-    || {...DEFAULT_SETTINGS};
+let settings = JSON.parse(localStorage.getItem(STORAGE.settings)) || {
+    weeklyGoal:500000,
+    petrolPrice:450,
+    lpgPrice:200
+};
 
-let incomeData =
-    JSON.parse(localStorage.getItem("bliIncomeData"))
-    || {};
+let incomeData = JSON.parse(localStorage.getItem(STORAGE.income)) || {};
 
-let fuelData =
-    JSON.parse(localStorage.getItem("bliFuelData"))
-    || {};
+let fuelData = JSON.parse(localStorage.getItem(STORAGE.fuel)) || {};
 
-let transactions =
-    JSON.parse(localStorage.getItem("bliTransactions"))
-    || [];
+let linesData = JSON.parse(localStorage.getItem(STORAGE.lines)) || [];
 
-let balanceModalType = "recharge";
+let historyStack = [];
+
+let editingLineId = null;
 
 
-/* =====================================================
-   SAVE
-===================================================== */
+/* =========================
+   DATE HELPERS
+========================= */
 
-function saveAll(){
+function pad(n){
+    return String(n).padStart(2,"0");
+}
+
+function dateKey(date){
+    return date.getFullYear()+"-"+pad(date.getMonth()+1)+"-"+pad(date.getDate());
+}
+
+function todayKey(){
+    return dateKey(new Date());
+}
+
+function parseKey(key){
+    const p = key.split("-").map(Number);
+    return new Date(p[0],p[1]-1,p[2]);
+}
+
+function formatEnglishDate(key){
+    const d = parseKey(key);
+    return pad(d.getDate())+" / "+pad(d.getMonth()+1)+" / "+d.getFullYear();
+}
+
+function formatShortDate(key){
+    const d = parseKey(key);
+    return d.getDate()+"/"+(d.getMonth()+1);
+}
+
+function getWeekDates(baseDate = new Date()){
+
+    const d = new Date(
+        baseDate.getFullYear(),
+        baseDate.getMonth(),
+        baseDate.getDate()
+    );
+
+    const day = d.getDay();
+
+    d.setDate(d.getDate() - day);
+
+    const result=[];
+
+    for(let i=0;i<7;i++){
+
+        const x=new Date(d);
+
+        x.setDate(d.getDate()+i);
+
+        result.push(dateKey(x));
+
+    }
+
+    return result;
+}
+
+function isSameWeek(key){
+    return getWeekDates().includes(key);
+}
+
+function formatMoney(value){
+    return Math.round(Number(value)||0).toLocaleString("en-US")+" د.ع";
+}
+
+
+/* =========================
+   ARABIC DAYS
+========================= */
+
+const arabicDays = [
+    "الأحد",
+    "الإثنين",
+    "الثلاثاء",
+    "الأربعاء",
+    "الخميس",
+    "الجمعة",
+    "السبت"
+];
+
+
+/* =========================
+   DATE ROLL
+========================= */
+
+function setupDateRoll(dayId,monthId,yearId){
+
+    const day = document.getElementById(dayId);
+    const month = document.getElementById(monthId);
+    const year = document.getElementById(yearId);
+
+    day.innerHTML="";
+    month.innerHTML="";
+    year.innerHTML="";
+
+    for(let i=1;i<=31;i++){
+        day.innerHTML += `<option value="${i}">${pad(i)}</option>`;
+    }
+
+    for(let i=1;i<=12;i++){
+        month.innerHTML += `<option value="${i}">${pad(i)}</option>`;
+    }
+
+    const currentYear = new Date().getFullYear();
+
+    for(let y=currentYear-3;y<=currentYear+3;y++){
+        year.innerHTML += `<option value="${y}">${y}</option>`;
+    }
+
+    setRollToday(dayId,monthId,yearId);
+}
+
+function setRollToday(dayId,monthId,yearId){
+
+    const d=new Date();
+
+    document.getElementById(dayId).value=d.getDate();
+    document.getElementById(monthId).value=d.getMonth()+1;
+    document.getElementById(yearId).value=d.getFullYear();
+}
+
+function getRollKey(dayId,monthId,yearId){
+
+    const d=Number(document.getElementById(dayId).value);
+    const m=Number(document.getElementById(monthId).value);
+    const y=Number(document.getElementById(yearId).value);
+
+    return y+"-"+pad(m)+"-"+pad(d);
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function openPage(pageId){
+
+    const current=document.querySelector(".page.active");
+
+    if(current && current.id!==pageId){
+        historyStack.push(current.id);
+    }
+
+    document.querySelectorAll(".page").forEach(p=>{
+        p.classList.remove("active");
+    });
+
+    document.getElementById(pageId).classList.add("active");
+
+    refreshAll();
+}
+
+function openPageDirect(pageId,navId){
+
+    historyStack=[];
+
+    document.querySelectorAll(".page").forEach(p=>{
+        p.classList.remove("active");
+    });
+
+    document.getElementById(pageId).classList.add("active");
+
+    document.querySelectorAll(".nav-btn").forEach(b=>{
+        b.classList.remove("active");
+    });
+
+    if(navId){
+        document.getElementById(navId).classList.add("active");
+    }
+
+    refreshAll();
+}
+
+function goBack(){
+
+    if(historyStack.length>0){
+
+        const previous=historyStack.pop();
+
+        document.querySelectorAll(".page").forEach(p=>{
+            p.classList.remove("active");
+        });
+
+        document.getElementById(previous).classList.add("active");
+
+        refreshAll();
+
+    }else{
+
+        openPageDirect("homePage","navHome");
+
+    }
+}
+
+
+/* =========================
+   SAVE HELPERS
+========================= */
+
+function saveStorage(){
 
     localStorage.setItem(
-        "bliSettings",
+        STORAGE.settings,
         JSON.stringify(settings)
     );
 
     localStorage.setItem(
-        "bliIncomeData",
+        STORAGE.income,
         JSON.stringify(incomeData)
     );
 
     localStorage.setItem(
-        "bliFuelData",
+        STORAGE.fuel,
         JSON.stringify(fuelData)
     );
 
     localStorage.setItem(
-        "bliTransactions",
-        JSON.stringify(transactions)
+        STORAGE.lines,
+        JSON.stringify(linesData)
     );
 }
 
 
-/* =====================================================
-   HELPERS
-===================================================== */
-
-function money(number){
-
-    return Math.round(Number(number) || 0)
-        .toLocaleString("en-US")
-        + " د.ع";
-}
-
-
-function pad(number){
-
-    return String(number).padStart(2,"0");
-
-}
-
-
-function localDateKey(date){
-
-    const y = date.getFullYear();
-
-    const m = pad(date.getMonth()+1);
-
-    const d = pad(date.getDate());
-
-    return `${y}-${m}-${d}`;
-
-}
-
-
-function todayKey(){
-
-    return localDateKey(new Date());
-
-}
-
-
-function keyToDate(key){
-
-    const parts = key.split("-");
-
-    return new Date(
-        Number(parts[0]),
-        Number(parts[1])-1,
-        Number(parts[2])
-    );
-
-}
-
-
-function formatDateEnglish(date){
-
-    return pad(date.getDate())
-        + " / "
-        + pad(date.getMonth()+1)
-        + " / "
-        + date.getFullYear();
-
-}
-
-
-function formatKeyEnglish(key){
-
-    return formatDateEnglish(keyToDate(key));
-
-}
-
-
-function dayName(date){
-
-    return date.toLocaleDateString(
-        "ar-IQ",
-        {
-            weekday:"long"
-        }
-    );
-
-}
-
-
-/* =====================================================
-   WEEK
-===================================================== */
-
-function getWeekDates(){
-
-    const now = new Date();
-
-    const day = now.getDay();
-
-    const sunday = new Date(now);
-
-    sunday.setHours(0,0,0,0);
-
-    sunday.setDate(
-        now.getDate() - day
-    );
-
-    const dates = [];
-
-    for(let i=0;i<7;i++){
-
-        const d = new Date(sunday);
-
-        d.setDate(
-            sunday.getDate()+i
-        );
-
-        dates.push(d);
-
-    }
-
-    return dates;
-
-}
-
-
-function getWeekKeys(){
-
-    return getWeekDates()
-        .map(date => localDateKey(date));
-
-}
-
-
-/* =====================================================
-   DATE ROLL
-===================================================== */
-
-function fillDateRoll(prefix, selectedKey){
-
-    const date =
-        selectedKey
-        ? keyToDate(selectedKey)
-        : new Date();
-
-    const daySelect =
-        document.getElementById(prefix+"Day");
-
-    const monthSelect =
-        document.getElementById(prefix+"Month");
-
-    const yearSelect =
-        document.getElementById(prefix+"Year");
-
-
-    if(!daySelect) return;
-
-
-    daySelect.innerHTML = "";
-
-    for(let d=1;d<=31;d++){
-
-        const option =
-            document.createElement("option");
-
-        option.value = pad(d);
-
-        option.textContent = pad(d);
-
-        daySelect.appendChild(option);
-
-    }
-
-
-    monthSelect.innerHTML = "";
-
-    for(let m=1;m<=12;m++){
-
-        const option =
-            document.createElement("option");
-
-        option.value = pad(m);
-
-        option.textContent = pad(m);
-
-        monthSelect.appendChild(option);
-
-    }
-
-
-    yearSelect.innerHTML = "";
-
-    const currentYear =
-        new Date().getFullYear();
-
-    for(let y=currentYear-3;y<=currentYear+3;y++){
-
-        const option =
-            document.createElement("option");
-
-        option.value = y;
-
-        option.textContent = y;
-
-        yearSelect.appendChild(option);
-
-    }
-
-
-    daySelect.value =
-        pad(date.getDate());
-
-    monthSelect.value =
-        pad(date.getMonth()+1);
-
-    yearSelect.value =
-        date.getFullYear();
-
-}
-
-
-function getRollDate(prefix){
-
-    const d =
-        document.getElementById(prefix+"Day").value;
-
-    const m =
-        document.getElementById(prefix+"Month").value;
-
-    const y =
-        document.getElementById(prefix+"Year").value;
-
-
-    return `${y}-${m}-${d}`;
-
-}
-
-
-function setRollToToday(prefix){
-
-    fillDateRoll(
-        prefix,
-        todayKey()
-    );
-
-}
-
-
-/* =====================================================
+/* =========================
    INCOME
-===================================================== */
-
-function getIncome(key){
-
-    return incomeData[key] || {
-
-        income:0,
-        bonus:0,
-        extra:0
-
-    };
-
-}
-
-
-function totalIncomeForEntry(entry){
-
-    return (
-        Number(entry.income)||0
-    )
-    +
-    (
-        Number(entry.bonus)||0
-    )
-    +
-    (
-        Number(entry.extra)||0
-    );
-
-}
-
+========================= */
 
 function saveIncome(){
 
-    const key =
-        getRollDate("income");
-
-    const income =
-        Number(
-            document.getElementById("incomeAmount").value
-        ) || 0;
-
-    const bonus =
-        Number(
-            document.getElementById("incomeBonus").value
-        ) || 0;
-
-    const extra =
-        Number(
-            document.getElementById("incomeExtra").value
-        ) || 0;
-
-
-    incomeData[key] = {
-
-        income,
-        bonus,
-        extra
-
-    };
-
-
-    saveAll();
-
-    render();
-
-    updateIncomeSummary();
-
-    showToast("تم حفظ الدخل ✅");
-
-}
-
-
-function openIncomePage(){
-
-    showPage("income");
-
-    setRollToToday("income");
-
-    loadIncomeForDate();
-
-}
-
-
-function loadIncomeForDate(){
-
-    const key =
-        getRollDate("income");
-
-    const e =
-        getIncome(key);
-
-
-    document.getElementById("incomeAmount")
-        .value =
-        e.income || "";
-
-
-    document.getElementById("incomeBonus")
-        .value =
-        e.bonus || "";
-
-
-    document.getElementById("incomeExtra")
-        .value =
-        e.extra || "";
-
-
-    updateIncomeSummary();
-
-}
-
-
-function updateIncomeSummary(){
-
-    const key =
-        getRollDate("income");
-
-    const e =
-        getIncome(key);
-
-    const total =
-        totalIncomeForEntry(e);
-
-
-    document.getElementById("incomeSummary")
-        .textContent =
-        money(e.income);
-
-
-    document.getElementById("incomeBonusSummary")
-        .textContent =
-        money(
-            (Number(e.bonus)||0)
-            +
-            (Number(e.extra)||0)
-        );
-
-
-    document.getElementById("incomeTotalSummary")
-        .textContent =
-        money(total);
-
-}
-
-
-/* =====================================================
-   FUEL
-===================================================== */
-
-function getFuel(key){
-
-    return fuelData[key] || {
-
-        petrol:0,
-        lpg:0
-
-    };
-
-}
-
-
-function fuelCostForKey(key){
-
-    const e =
-        getFuel(key);
-
-    return (
-        (Number(e.petrol)||0)
-        *
-        Number(settings.petrol)
-    )
-    +
-    (
-        (Number(e.lpg)||0)
-        *
-        Number(settings.lpg)
+    const key=getRollKey(
+        "incomeDay",
+        "incomeMonth",
+        "incomeYear"
     );
 
+    const amount=Number(
+        document.getElementById("incomeAmount").value
+    )||0;
+
+    const bonus=Number(
+        document.getElementById("incomeBonus").value
+    )||0;
+
+    const extra=Number(
+        document.getElementById("incomeExtra").value
+    )||0;
+
+    if(amount<=0 && bonus<=0 && extra<=0){
+
+        showToast("أدخل مبلغاً واحداً على الأقل");
+
+        return;
+    }
+
+    incomeData[key]={
+        amount,
+        bonus,
+        extra
+    };
+
+    saveStorage();
+
+    document.getElementById("incomeAmount").value="";
+    document.getElementById("incomeBonus").value="";
+    document.getElementById("incomeExtra").value="";
+
+    showToast("تم حفظ دخل اليوم ✓");
+
+    refreshAll();
+}
+
+function totalIncome(){
+
+    let total=0;
+
+    Object.keys(incomeData).forEach(key=>{
+
+        if(isSameWeek(key)){
+
+            const x=incomeData[key]||{};
+
+            total +=
+                Number(x.amount)||0;
+
+        }
+
+    });
+
+    return total;
+}
+
+function totalBonusExtra(){
+
+    let total=0;
+
+    Object.keys(incomeData).forEach(key=>{
+
+        if(isSameWeek(key)){
+
+            const x=incomeData[key]||{};
+
+            total +=
+                (Number(x.bonus)||0)+
+                (Number(x.extra)||0);
+
+        }
+
+    });
+
+    return total;
+}
+
+function totalBliAchievement(){
+
+    return totalIncome()+totalBonusExtra();
 }
 
 
-function openFuelPage(){
-
-    showPage("fuel");
-
-    setRollToToday("fuel");
-
-    document.getElementById("fuelType")
-        .value = "petrol";
-
-    document.getElementById("fuelLiters")
-        .value = "";
-
-    updateFuelPrice();
-
-    renderFuelSummary();
-
-}
-
-
-function updateFuelPrice(){
-
-    const type =
-        document.getElementById("fuelType").value;
-
-    const liters =
-        Number(
-            document.getElementById("fuelLiters").value
-        ) || 0;
-
-    const price =
-        type === "lpg"
-        ? Number(settings.lpg)
-        : Number(settings.petrol);
-
-    document.getElementById("fuelPricePreview")
-        .textContent =
-        money(price);
-
-    document.getElementById("fuelCostPreview")
-        .textContent =
-        money(liters * price);
-
-}
-
+/* =========================
+   FUEL
+========================= */
 
 function saveFuel(){
 
-    const key =
-        getRollDate("fuel");
+    const key=getRollKey(
+        "fuelDay",
+        "fuelMonth",
+        "fuelYear"
+    );
 
-    const type =
-        document.getElementById("fuelType").value;
+    const type=document.getElementById("fuelType").value;
 
-    const liters =
-        Number(
-            document.getElementById("fuelLiters").value
-        ) || 0;
+    const liters=Number(
+        document.getElementById("fuelLiters").value
+    )||0;
 
+    if(liters<=0){
 
-    if(liters <= 0){
-
-        showToast("اكتب كمية الوقود أولاً");
+        showToast("أدخل عدد اللترات");
 
         return;
-
     }
 
-
     if(!fuelData[key]){
-
-        fuelData[key] = {
+        fuelData[key]={
             petrol:0,
             lpg:0
         };
+    }
+
+    fuelData[key][type] =
+        (Number(fuelData[key][type])||0)+liters;
+
+    saveStorage();
+
+    document.getElementById("fuelLiters").value="";
+
+    showToast("تم حفظ الوقود ✓");
+
+    refreshAll();
+}
+
+function fuelCostForKey(key){
+
+    const x=fuelData[key]||{};
+
+    return
+        (Number(x.petrol)||0)*Number(settings.petrolPrice) +
+        (Number(x.lpg)||0)*Number(settings.lpgPrice);
+}
+
+function totalFuelCost(){
+
+    let total=0;
+
+    Object.keys(fuelData).forEach(key=>{
+
+        if(isSameWeek(key)){
+            total += fuelCostForKey(key);
+        }
+
+    });
+
+    return total;
+}
+
+
+/* =========================
+   LINES
+========================= */
+
+function openLineModal(id=null){
+
+    editingLineId=id;
+
+    document.getElementById("lineModal").classList.add("show");
+
+    if(id){
+
+        const line=linesData.find(x=>x.id===id);
+
+        if(line){
+
+            document.getElementById("lineModalTitle").textContent="✏️ تعديل الخط";
+
+            document.getElementById("lineName").value=line.name;
+
+            document.getElementById("lineAmount").value=line.amount;
+
+        }
+
+    }else{
+
+        document.getElementById("lineModalTitle").textContent="🚐 إضافة خط";
+
+        document.getElementById("lineName").value="";
+
+        document.getElementById("lineAmount").value="";
+
+    }
+}
+
+function closeLineModal(){
+
+    document.getElementById("lineModal").classList.remove("show");
+
+    editingLineId=null;
+}
+
+function saveLine(){
+
+    const name=document.getElementById("lineName").value.trim();
+
+    const amount=Number(
+        document.getElementById("lineAmount").value
+    )||0;
+
+    if(!name){
+
+        showToast("اكتب اسم الخط");
+
+        return;
+    }
+
+    if(amount<=0){
+
+        showToast("اكتب مبلغ الخط");
+
+        return;
+    }
+
+    if(editingLineId){
+
+        const line=linesData.find(
+            x=>x.id===editingLineId
+        );
+
+        if(line){
+
+            line.name=name;
+            line.amount=amount;
+
+        }
+
+    }else{
+
+        linesData.push({
+            id:Date.now(),
+            name,
+            amount
+        });
 
     }
 
+    saveStorage();
 
-    fuelData[key][type] =
-        Number(fuelData[key][type] || 0)
-        +
-        liters;
+    closeLineModal();
 
+    showToast("تم حفظ الخط ✓");
 
-    saveAll();
+    refreshAll();
+}
 
-    render();
+function deleteLine(id){
 
-    renderFuelSummary();
+    if(!confirm("هل تريد حذف هذا الخط؟")) return;
 
-    document.getElementById("fuelLiters")
-        .value = "";
+    linesData=linesData.filter(
+        x=>x.id!==id
+    );
 
-    updateFuelPrice();
+    saveStorage();
 
-    showToast("تم حفظ الوقود ⛽");
+    showToast("تم حذف الخط");
 
+    refreshAll();
+}
+
+function linesTotal(){
+
+    return linesData.reduce(
+        (sum,x)=>sum+(Number(x.amount)||0),
+        0
+    );
 }
 
 
-function renderFuelSummary(){
-
-    let petrolCost = 0;
-    let lpgCost = 0;
-
-    getWeekKeys().forEach(key => {
-
-        const e =
-            getFuel(key);
-
-        petrolCost +=
-            (Number(e.petrol)||0)
-            *
-            Number(settings.petrol);
-
-        lpgCost +=
-            (Number(e.lpg)||0)
-            *
-            Number(settings.lpg);
-
-    });
-
-
-    document.getElementById("weeklyPetrol")
-        .textContent =
-        money(petrolCost);
-
-
-    document.getElementById("weeklyLpg")
-        .textContent =
-        money(lpgCost);
-
-
-    document.getElementById("weeklyFuelTotal")
-        .textContent =
-        money(petrolCost+lpgCost);
-
-}
-
-
-/* =====================================================
-   CALCULATE WEEK
-===================================================== */
-
-function calculateWeek(){
-
-    let income = 0;
-    let bonusExtra = 0;
-    let fuel = 0;
-
-    let petrolCost = 0;
-    let lpgCost = 0;
-
-
-    getWeekKeys().forEach(key => {
-
-        const i =
-            getIncome(key);
-
-        const f =
-            getFuel(key);
-
-
-        income +=
-            Number(i.income)||0;
-
-
-        bonusExtra +=
-            (Number(i.bonus)||0)
-            +
-            (Number(i.extra)||0);
-
-
-        petrolCost +=
-            (Number(f.petrol)||0)
-            *
-            Number(settings.petrol);
-
-
-        lpgCost +=
-            (Number(f.lpg)||0)
-            *
-            Number(settings.lpg);
-
-    });
-
-
-    fuel =
-        petrolCost+lpgCost;
-
-
-    const total =
-        income+bonusExtra;
-
-
-    const profit =
-        total-fuel;
-
-
-    return {
-
-        income,
-        bonusExtra,
-        fuel,
-        total,
-        profit,
-        petrolCost,
-        lpgCost
-
-    };
-
-}
-
-
-/* =====================================================
+/* =========================
    HOME RENDER
-===================================================== */
+========================= */
 
-function render(){
+function renderHome(){
 
-    const calc =
-        calculateWeek();
+    const goal=Number(settings.weeklyGoal)||0;
 
+    const completed=totalBliAchievement();
 
-    const goal =
-        Number(settings.goal)||0;
+    const remaining=Math.max(
+        goal-completed,
+        0
+    );
 
+    const percent=goal>0
+        ?Math.min((completed/goal)*100,100)
+        :0;
 
-    const completed =
-        calc.total;
+    document.getElementById("homeGoal").textContent=
+        formatMoney(goal);
 
+    document.getElementById("homeCompleted").textContent=
+        formatMoney(completed);
 
-    const remaining =
-        Math.max(
-            goal-completed,
-            0
-        );
+    document.getElementById("homeRemaining").textContent=
+        formatMoney(remaining);
 
+    document.getElementById("homePercent").textContent=
+        Math.round(percent)+"%";
 
-    const percent =
-        goal > 0
-        ? Math.min(
-            (completed/goal)*100,
-            100
-        )
-        : 0;
-
-
-    document.getElementById("completed")
-        .textContent =
-        money(completed);
-
-
-    document.getElementById("weeklyGoal")
-        .textContent =
-        money(goal);
-
-
-    document.getElementById("remaining")
-        .textContent =
-        money(remaining);
-
-
-    document.getElementById("percent")
-        .textContent =
-        percent.toFixed(0)+"%";
-
-
-    document.getElementById("progressBar")
-        .style.width =
+    document.getElementById("homeProgress").style.width=
         percent+"%";
 
+    const week=getWeekDates();
 
-    document.getElementById("netTotal")
-        .textContent =
-        money(calc.income);
+    const today=new Date();
 
+    const todayIndex=today.getDay();
 
-    document.getElementById("bonusTotal")
-        .textContent =
-        money(calc.bonusExtra);
-
-
-    document.getElementById("fuelTotal")
-        .textContent =
-        money(calc.fuel);
-
-
-    document.getElementById("profitTotal")
-        .textContent =
-        money(calc.profit);
-
-
-    /* DAILY NEED */
-
-    const today =
-        new Date();
-
-    const todayIndex =
-        today.getDay();
-
-
-    const remainingDays =
+    const remainingDays=
         7-todayIndex;
 
+    const daily=
+        remainingDays>0
+        ?Math.ceil(remaining/remainingDays)
+        :remaining;
 
-    const dailyNeed =
-        remaining > 0
-        ? remaining/remainingDays
-        : 0;
+    document.getElementById("dailyRequired").textContent=
+        formatMoney(daily);
 
+    const start=parseKey(week[0]);
+    const end=parseKey(week[6]);
 
-    document.getElementById("dailyNeed")
-        .textContent =
-        money(dailyNeed);
-
-
-    /* WEEK DATE */
-
-    const dates =
-        getWeekDates();
-
-
-    document.getElementById("weekDates")
-        .textContent =
-        formatDateEnglish(dates[0])
-        +
-        " → "
-        +
-        formatDateEnglish(dates[6]);
+    document.getElementById("weekRange").textContent=
+        start.getDate()+"/"+(start.getMonth()+1)
+        +" — "+
+        end.getDate()+"/"+(end.getMonth()+1);
 
 
-    renderDays();
+    document.getElementById("summaryIncome").textContent=
+        formatMoney(totalIncome());
 
-    renderBalance();
+    document.getElementById("summaryExtras").textContent=
+        formatMoney(totalBonusExtra());
 
-    renderFuelSummary();
+    document.getElementById("summaryFuel").textContent=
+        formatMoney(totalFuelCost());
 
-    renderWeekPage();
-
+    document.getElementById("summaryNet").textContent=
+        formatMoney(
+            totalBliAchievement()-totalFuelCost()
+        );
 }
 
 
-/* =====================================================
-   DAYS
-===================================================== */
+/* =========================
+   INCOME DAYS
+========================= */
 
-function renderDays(){
+function renderIncomeDays(){
 
-    const container =
-        document.getElementById("daysList");
+    const container=
+        document.getElementById("incomeDays");
 
-    container.innerHTML = "";
+    const week=getWeekDates();
 
+    container.innerHTML="";
 
-    const dates =
-        getWeekDates();
+    week.forEach(key=>{
 
+        const x=incomeData[key]||{
+            amount:0,
+            bonus:0,
+            extra:0
+        };
 
-    const today =
-        todayKey();
+        const total=
+            (Number(x.amount)||0)+
+            (Number(x.bonus)||0)+
+            (Number(x.extra)||0);
 
+        const d=parseKey(key);
 
-    dates.forEach(date => {
+        const card=document.createElement("div");
 
-        const key =
-            localDateKey(date);
+        card.className="day-card";
 
+        card.onclick=()=>{
 
-        const income =
-            getIncome(key);
+            document.getElementById("incomeDay").value=d.getDate();
 
+            document.getElementById("incomeMonth").value=d.getMonth()+1;
 
-        const fuel =
-            getFuel(key);
+            document.getElementById("incomeYear").value=d.getFullYear();
 
+            document.getElementById("incomeAmount").value=x.amount||"";
 
-        const total =
-            totalIncomeForEntry(income);
+            document.getElementById("incomeBonus").value=x.bonus||"";
 
+            document.getElementById("incomeExtra").value=x.extra||"";
 
-        const fuelCost =
-            fuelCostForKey(key);
+            window.scrollTo({
+                top:0,
+                behavior:"smooth"
+            });
 
+        };
 
-        const profit =
-            total-fuelCost;
+        card.innerHTML=`
 
-
-        const div =
-            document.createElement("div");
-
-
-        div.className =
-            "day"
-            +
-            (
-                key === today
-                ? " today"
-                : ""
-            );
-
-
-        div.innerHTML = `
-
-            <div>
+            <div class="day-left">
 
                 <div class="day-name">
-                    ${dayName(date)}
+                    ${arabicDays[d.getDay()]}
                 </div>
 
                 <div class="day-date">
-                    ${formatDateEnglish(date)}
-                    ${
-                        key===today
-                        ? " • اليوم"
-                        : ""
-                    }
+                    ${formatEnglishDate(key)}
                 </div>
 
             </div>
 
             <div class="day-money">
 
-                ${money(profit)}
+                <b>${formatMoney(total)}</b>
 
                 <small>
-                    دخل ${money(total)}
-                    • وقود ${money(fuelCost)}
+                    بلي ${formatMoney(x.amount||0)}
                 </small>
 
             </div>
 
         `;
 
+        container.appendChild(card);
 
-        div.onclick = () => {
+    });
 
-            openIncomePage();
+}
 
-            fillDateRoll(
-                "income",
-                key
-            );
 
-            loadIncomeForDate();
+/* =========================
+   FUEL DAYS
+========================= */
 
+function renderFuelDays(){
+
+    const container=
+        document.getElementById("fuelDays");
+
+    const week=getWeekDates();
+
+    container.innerHTML="";
+
+    week.forEach(key=>{
+
+        const x=fuelData[key]||{
+            petrol:0,
+            lpg:0
         };
 
+        const cost=fuelCostForKey(key);
 
-        container.appendChild(div);
+        if(
+            Number(x.petrol||0)===0 &&
+            Number(x.lpg||0)===0
+        ){
 
-    });
-
-}
-
-
-/* =====================================================
-   BALANCE
-===================================================== */
-
-function getBalance(){
-
-    let balance = 0;
-
-    transactions.forEach(t => {
-
-        if(t.type === "recharge"){
-
-            balance +=
-                Number(t.amount)||0;
-
-        }else{
-
-            balance -=
-                Number(t.amount)||0;
-
+            return;
         }
 
-    });
+        const d=parseKey(key);
 
-    return balance;
+        const card=document.createElement("div");
 
-}
+        card.className="day-card";
 
+        card.innerHTML=`
 
-function getTotalRecharge(){
+            <div class="day-left">
 
-    return transactions
-        .filter(t => t.type==="recharge")
-        .reduce(
-            (sum,t) =>
-                sum+(Number(t.amount)||0),
-            0
-        );
-
-}
-
-
-function getTotalSpending(){
-
-    return transactions
-        .filter(t => t.type==="spending")
-        .reduce(
-            (sum,t) =>
-                sum+(Number(t.amount)||0),
-            0
-        );
-
-}
-
-
-function openBalancePage(){
-
-    showPage("balance");
-
-    renderBalance();
-
-}
-
-
-function openBalanceModal(type){
-
-    balanceModalType =
-        type;
-
-
-    document.getElementById("balanceAmount")
-        .value = "";
-
-    document.getElementById("balanceNote")
-        .value = "";
-
-
-    document.getElementById("balanceModalTitle")
-        .textContent =
-        type==="recharge"
-        ? "＋ شحن"
-        : "− صرف";
-
-
-    document.getElementById("balanceModal")
-        .classList.add("show");
-
-}
-
-
-function closeBalanceModal(){
-
-    document.getElementById("balanceModal")
-        .classList.remove("show");
-
-}
-
-
-function saveBalanceTransaction(){
-
-    const amount =
-        Number(
-            document.getElementById("balanceAmount").value
-        ) || 0;
-
-
-    if(amount <= 0){
-
-        showToast("اكتب المبلغ أولاً");
-
-        return;
-
-    }
-
-
-    const note =
-        document.getElementById("balanceNote").value
-        .trim();
-
-
-    transactions.unshift({
-
-        id:Date.now(),
-
-        type:balanceModalType,
-
-        amount,
-
-        note:
-            note
-            ||
-            (
-                balanceModalType==="recharge"
-                ? "شحن"
-                : "صرف"
-            ),
-
-        date:todayKey()
-
-    });
-
-
-    saveAll();
-
-    closeBalanceModal();
-
-    render();
-
-    showToast(
-        balanceModalType==="recharge"
-        ? "تم الشحن ✅"
-        : "تم تسجيل الصرف ✅"
-    );
-
-}
-
-
-function renderBalance(){
-
-    const balance =
-        getBalance();
-
-
-    document.getElementById("currentBalance")
-        .textContent =
-        money(balance);
-
-
-    document.getElementById("totalRecharge")
-        .textContent =
-        money(getTotalRecharge());
-
-
-    document.getElementById("totalSpending")
-        .textContent =
-        money(getTotalSpending());
-
-
-    const container =
-        document.getElementById("transactionsList");
-
-
-    container.innerHTML = "";
-
-
-    if(transactions.length===0){
-
-        container.innerHTML =
-            `<div class="empty">
-                لا توجد عمليات حتى الآن
-             </div>`;
-
-        return;
-
-    }
-
-
-    transactions.forEach(t => {
-
-        const div =
-            document.createElement("div");
-
-
-        div.className =
-            "transaction";
-
-
-        const plus =
-            t.type==="recharge";
-
-
-        div.innerHTML = `
-
-            <div class="transaction-right">
-
-                <div class="transaction-icon">
-                    ${plus ? "＋" : "−"}
+                <div class="day-name">
+                    ${arabicDays[d.getDay()]}
                 </div>
 
-                <div>
-
-                    <div class="transaction-title">
-                        ${escapeHtml(t.note)}
-                    </div>
-
-                    <div class="transaction-date">
-                        ${formatKeyEnglish(t.date)}
-                    </div>
-
+                <div class="day-date">
+                    ${formatEnglishDate(key)}
                 </div>
 
             </div>
 
+            <div class="day-money">
 
-            <div class="transaction-amount ${plus ? "plus" : "minus"}">
+                <b class="red">${formatMoney(cost)}</b>
 
-                ${plus ? "+" : "-"}
-                ${money(t.amount)}
+                <small>
+                    بنزين ${Number(x.petrol||0).toFixed(1)} L
+                    • غاز ${Number(x.lpg||0).toFixed(1)} L
+                </small>
 
             </div>
 
         `;
 
-
-        container.appendChild(div);
+        container.appendChild(card);
 
     });
 
-}
+    if(!container.innerHTML){
 
+        container.innerHTML=`
+            <div class="empty">
+                <div class="empty-icon">⛽</div>
+                لا توجد بيانات وقود هذا الأسبوع
+            </div>
+        `;
 
-/* =====================================================
-   WEEK PAGE
-===================================================== */
-
-function openWeekPage(){
-
-    showPage("week");
-
-    renderWeekPage();
+    }
 
 }
 
 
-function renderWeekPage(){
+/* =========================
+   LINES RENDER
+========================= */
 
-    const calc =
-        calculateWeek();
+function renderLines(){
 
+    const container=
+        document.getElementById("linesList");
 
-    document.getElementById("weekTotalIncome")
-        .textContent =
-        money(calc.total);
+    container.innerHTML="";
 
+    if(linesData.length===0){
 
-    document.getElementById("weekTotalFuel")
-        .textContent =
-        money(calc.fuel);
+        container.innerHTML=`
+            <div class="empty">
+                <div class="empty-icon">🚐</div>
+                لا توجد خطوط مضافة
+            </div>
+        `;
 
+    }else{
 
-    document.getElementById("weekTotalProfit")
-        .textContent =
-        money(calc.profit);
+        linesData.forEach(line=>{
 
+            const card=document.createElement("div");
 
-    const container =
-        document.getElementById("weekDetails");
+            card.className="line-card";
 
+            card.innerHTML=`
 
-    container.innerHTML = "";
+                <div class="line-head">
 
+                    <div class="line-name">
+                        🚐 ${escapeHtml(line.name)}
+                    </div>
 
-    getWeekDates().forEach(date => {
-
-        const key =
-            localDateKey(date);
-
-
-        const i =
-            getIncome(key);
-
-
-        const f =
-            getFuel(key);
-
-
-        const total =
-            totalIncomeForEntry(i);
-
-
-        const fuel =
-            fuelCostForKey(key);
-
-
-        const profit =
-            total-fuel;
-
-
-        const div =
-            document.createElement("div");
-
-
-        div.className =
-            "week-day-card";
-
-
-        div.innerHTML = `
-
-            <div class="week-day-top">
-
-                <div class="week-day-info">
-
-                    <strong>
-                        ${dayName(date)}
-                    </strong>
-
-                    <small>
-                        ${formatDateEnglish(date)}
-                    </small>
+                    <div class="line-amount">
+                        ${formatMoney(line.amount)}
+                    </div>
 
                 </div>
 
-                <div class="week-day-profit">
-                    ${money(profit)}
+                <div class="line-actions">
+
+                    <button
+                        class="small-btn"
+                        onclick="openLineModal(${line.id})">
+                        ✏️ تعديل
+                    </button>
+
+                    <button
+                        class="small-btn delete"
+                        onclick="deleteLine(${line.id})">
+                        🗑️ حذف
+                    </button>
+
+                </div>
+
+            `;
+
+            container.appendChild(card);
+
+        });
+
+    }
+
+    document.getElementById("linesTotal").textContent=
+        formatMoney(linesTotal());
+}
+
+
+/* =========================
+   WEEK RENDER
+========================= */
+
+function renderWeek(){
+
+    const week=getWeekDates();
+
+    let income=0;
+    let extras=0;
+    let fuel=0;
+
+    week.forEach(key=>{
+
+        const x=incomeData[key]||{};
+
+        income += Number(x.amount)||0;
+
+        extras +=
+            (Number(x.bonus)||0)+
+            (Number(x.extra)||0);
+
+        fuel += fuelCostForKey(key);
+
+    });
+
+    document.getElementById("weekIncome").textContent=
+        formatMoney(income);
+
+    document.getElementById("weekExtras").textContent=
+        formatMoney(extras);
+
+    document.getElementById("weekGross").textContent=
+        formatMoney(income+extras);
+
+    document.getElementById("weekFuel").textContent=
+        formatMoney(fuel);
+
+    document.getElementById("weekNet").textContent=
+        formatMoney(income+extras-fuel);
+
+
+    const container=
+        document.getElementById("weekDays");
+
+    container.innerHTML="";
+
+    week.forEach(key=>{
+
+        const x=incomeData[key]||{};
+
+        const dayIncome=
+            (Number(x.amount)||0)+
+            (Number(x.bonus)||0)+
+            (Number(x.extra)||0);
+
+        const dayFuel=fuelCostForKey(key);
+
+        const net=dayIncome-dayFuel;
+
+        const d=parseKey(key);
+
+        const card=document.createElement("div");
+
+        card.className="day-card";
+
+        card.innerHTML=`
+
+            <div class="day-left">
+
+                <div class="day-name">
+                    ${arabicDays[d.getDay()]}
+                </div>
+
+                <div class="day-date">
+                    ${formatEnglishDate(key)}
                 </div>
 
             </div>
 
+            <div class="day-money">
 
-            <div class="week-day-stats">
+                <b>${formatMoney(dayIncome)}</b>
 
-                <div class="week-mini">
-
-                    <span>دخل Bli</span>
-
-                    <strong>
-                        ${money(i.income)}
-                    </strong>
-
-                </div>
-
-
-                <div class="week-mini">
-
-                    <span>بونص + إضافي</span>
-
-                    <strong>
-                        ${money(
-                            (Number(i.bonus)||0)
-                            +
-                            (Number(i.extra)||0)
-                        )}
-                    </strong>
-
-                </div>
-
-
-                <div class="week-mini">
-
-                    <span>وقود</span>
-
-                    <strong>
-                        ${money(fuel)}
-                    </strong>
-
-                </div>
+                <small>
+                    صافي ${formatMoney(net)}
+                </small>
 
             </div>
 
         `;
 
-
-        container.appendChild(div);
+        container.appendChild(card);
 
     });
 
 }
 
 
-/* =====================================================
+/* =========================
    SETTINGS
-===================================================== */
+========================= */
 
-function openSettings(){
+function renderSettings(){
 
-    document.getElementById("setGoal")
-        .value =
-        settings.goal;
+    document.getElementById("settingGoal").value=
+        settings.weeklyGoal;
 
+    document.getElementById("settingPetrol").value=
+        settings.petrolPrice;
 
-    document.getElementById("setPetrol")
-        .value =
-        settings.petrol;
-
-
-    document.getElementById("setLpg")
-        .value =
-        settings.lpg;
-
-
-    showPage("settings");
-
+    document.getElementById("settingLpg").value=
+        settings.lpgPrice;
 }
-
 
 function saveSettings(){
 
-    settings.goal =
-        Number(
-            document.getElementById("setGoal").value
-        ) || 0;
+    const goal=Number(
+        document.getElementById("settingGoal").value
+    )||0;
 
+    const petrol=Number(
+        document.getElementById("settingPetrol").value
+    )||0;
 
-    settings.petrol =
-        Number(
-            document.getElementById("setPetrol").value
-        ) || 0;
+    const lpg=Number(
+        document.getElementById("settingLpg").value
+    )||0;
 
+    if(goal<=0){
 
-    settings.lpg =
-        Number(
-            document.getElementById("setLpg").value
-        ) || 0;
+        showToast("الهدف غير صحيح");
 
+        return;
+    }
 
-    saveAll();
+    settings.weeklyGoal=goal;
+    settings.petrolPrice=petrol;
+    settings.lpgPrice=lpg;
 
-    render();
+    saveStorage();
 
-    updateFuelPrice();
+    showToast("تم حفظ الإعدادات ✓");
 
-    showToast("تم حفظ الإعدادات ⚙️");
-
-    showPage("home");
-
+    refreshAll();
 }
 
 
-/* =====================================================
-   RESET WEEK
-===================================================== */
+/* =========================
+   RESET
+========================= */
 
 function resetWeek(){
 
-    const ok =
-        confirm(
-            "متأكد تريد حذف دخل ووقود الأسبوع الحالي؟\n\nالرصيد والشحن والصرف لن يتم حذفها."
-        );
+    if(!confirm(
+        "سيتم حذف دخل ووقود الأسبوع الحالي فقط. هل أنت متأكد؟"
+    )) return;
 
+    const week=getWeekDates();
 
-    if(!ok) return;
-
-
-    getWeekKeys().forEach(key => {
+    week.forEach(key=>{
 
         delete incomeData[key];
-
         delete fuelData[key];
 
     });
 
+    saveStorage();
 
-    saveAll();
+    showToast("تم تصفير الأسبوع");
 
-    render();
-
-    showToast("تم تصفير بيانات الأسبوع");
-
+    refreshAll();
 }
-
-
-/* =====================================================
-   RESET ALL
-===================================================== */
 
 function resetAll(){
 
-    const ok =
-        confirm(
-            "⚠️ سيتم حذف جميع بيانات الموقع، بما فيها الدخل والوقود والشحن والصرف.\n\nهل أنت متأكد؟"
-        );
+    if(!confirm(
+        "تحذير: سيتم حذف جميع بيانات الموقع نهائياً. هل أنت متأكد؟"
+    )) return;
 
+    if(!confirm(
+        "تأكيد أخير: حذف جميع البيانات؟"
+    )) return;
 
-    if(!ok) return;
+    incomeData={};
+    fuelData={};
+    linesData=[];
 
-
-    localStorage.removeItem("bliSettings");
-    localStorage.removeItem("bliIncomeData");
-    localStorage.removeItem("bliFuelData");
-    localStorage.removeItem("bliTransactions");
-
-
-    settings =
-        {...DEFAULT_SETTINGS};
-
-    incomeData = {};
-
-    fuelData = {};
-
-    transactions = [];
-
-
-    render();
+    saveStorage();
 
     showToast("تم حذف جميع البيانات");
 
-    showPage("home");
-
+    refreshAll();
 }
 
 
-/* =====================================================
-   NAVIGATION
-===================================================== */
-
-function showPage(page){
-
-    const pages = [
-        "home",
-        "income",
-        "fuel",
-        "balance",
-        "week",
-        "line",
-        "settings"
-    ];
-
-
-    pages.forEach(p => {
-
-        const el =
-            document.getElementById(p+"Page");
-
-        if(el){
-
-            el.classList.toggle(
-                "active",
-                p===page
-            );
-
-        }
-
-    });
-
-
-    document.getElementById("homeNav")
-        .classList.toggle(
-            "active",
-            page==="home"
-        );
-
-
-    document.getElementById("lineNav")
-        .classList.toggle(
-            "active",
-            page==="line"
-        );
-
-
-    document.getElementById("settingsNav")
-        .classList.toggle(
-            "active",
-            page==="settings"
-        );
-
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
-}
-
-
-/* =====================================================
-   ESCAPE
-===================================================== */
+/* =========================
+   UTILITY
+========================= */
 
 function escapeHtml(text){
 
-    return String(text || "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+    return String(text)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+function showToast(message){
+
+    const toast=document.getElementById("toast");
+
+    toast.textContent=message;
+
+    toast.classList.add("show");
+
+    clearTimeout(window.toastTimer);
+
+    window.toastTimer=setTimeout(()=>{
+
+        toast.classList.remove("show");
+
+    },2200);
 
 }
 
 
-/* =====================================================
-   INPUT LISTENERS
-===================================================== */
+/* =========================
+   REFRESH
+========================= */
 
-document.addEventListener(
-    "input",
-    function(e){
+function refreshAll(){
 
-        if(
-            e.target.id === "fuelLiters"
-        ){
+    renderHome();
+    renderIncomeDays();
+    renderFuelDays();
+    renderLines();
+    renderWeek();
+    renderSettings();
 
-            updateFuelPrice();
-
-        }
-
-    }
-);
+}
 
 
-document.addEventListener(
-    "change",
-    function(e){
-
-        if(
-            e.target.id === "incomeDay" ||
-            e.target.id === "incomeMonth" ||
-            e.target.id === "incomeYear"
-        ){
-
-            loadIncomeForDate();
-
-        }
-
-
-        if(
-            e.target.id === "fuelDay" ||
-            e.target.id === "fuelMonth" ||
-            e.target.id === "fuelYear"
-        ){
-
-            /* لا نغير الكمية تلقائياً */
-            updateFuelPrice();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
+/* =========================
    INIT
-===================================================== */
+========================= */
 
-fillDateRoll(
-    "income",
-    todayKey()
+setupDateRoll(
+    "incomeDay",
+    "incomeMonth",
+    "incomeYear"
 );
 
-fillDateRoll(
-    "fuel",
-    todayKey()
+setupDateRoll(
+    "fuelDay",
+    "fuelMonth",
+    "fuelYear"
 );
 
-render();
+refreshAll();
 
 </script>
 
